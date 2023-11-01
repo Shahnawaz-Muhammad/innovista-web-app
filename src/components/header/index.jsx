@@ -13,7 +13,7 @@ const Header = () => {
 
   const navItems = [
     { label: "Home", path: "/" },
-    { label: "Features", path: "/features" },
+    { label: "Services", path: "/Services" },
     { label: "About", path: "/about" },
     { label: "Pricing", path: "/pricing" },
     { label: "Contact Us", path: "/contact" },
@@ -43,7 +43,7 @@ const Header = () => {
     <>
       <div
         className={`fixed top-0 w-full z-20 flex justify-center ${
-          scroll ? "bg-black" : "bg-opacity-0"
+          scroll ? "bg-black max-w-full" : "max-w-full bg-opacity-0"
         } py-4 text-bgLight mx-auto px-4 md:px-8 xl:px-4`}
       >
         <div className="max-w-screen-xl w-full">
@@ -75,9 +75,9 @@ const Header = () => {
             </div>
 
             <div className="md:flex items-center hidden">
-              <button className="bg-gradient-to-r from-[#00e1dd] to-[#e1f339]  text-white uppercase text-lg font-semibold py-2 px-4 ">
+            <Link to="/book-a-tour" className="bg-yellow hover:bg-yellowDark  text-white uppercase text-lg font-semibold py-2 px-4 ">
                 Book a Tour
-              </button>
+              </Link>
             </div>
 
             <button
@@ -102,13 +102,13 @@ const Header = () => {
           <div className="w-full h-full flex items-center justify-center">
             <div className="flex flex-col gap-10 uppercase text-xl items-center justify-center text-white">
               <p>Home</p>
-              <p>Features</p>
+              <p>Services</p>
               <p>About</p>
               <p>Pricing</p>
               <p>Contact Us</p>
-              <button className="bg-gradient-to-r from-[#00e1dd] to-[#e1f339]  text-white uppercase text-lg font-semibold py-2 px-4 ">
+              <Link to="/book-a-tour" className="bg-yellow hover:bg-yellowDark  text-white uppercase text-lg font-semibold py-2 px-4 ">
                 Book a Tour
-              </button>
+              </Link>
             </div>
           </div>
         </div>

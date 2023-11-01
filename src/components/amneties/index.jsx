@@ -1,5 +1,14 @@
 import React from "react";
-import { AiFillBank, AiFillSecurityScan,AiFillSketchCircle,AiFillTrophy,AiOutlineAreaChart,AiOutlineDribbbleSquare,AiOutlineCrown,AiOutlineDeploymentUnit } from "react-icons/ai";
+
+import modernDesign from "../../assets/icons/work-table.png";
+import fastInternet from "../../assets/icons/router.png";
+import groupEvents from "../../assets/icons/inspiration.png";
+import officeSupplies from "../../assets/icons/printer.png";
+import freeParking from "../../assets/icons/parking.png";
+import coffeeShop from "../../assets/icons/coffee-shop.png";
+import conferenceRoom from "../../assets/icons/conference.png";
+import relaxRoom from "../../assets/icons/gaming.png";
+
 export default function Amenities() {
   return (
     <div className="w-full flex justify-center bg-[#f2f3f7] pb-10">
@@ -8,58 +17,61 @@ export default function Amenities() {
           <h1>02 WHY CHOOSE US</h1>
           <button>FOLLOW US</button>
         </div> */}
-        <div className="flex flex-col items-center text-center pt-10 lg:pt-28 ">
-          <h1 className="text-[#4e3cc8]">LEARN AND GROW</h1>
-          <h1 className="pt-6 text-4xl font-bold lg:text-7xl">Our Amenities</h1>
-          <div className="flex justify-center pt-8">
-            <div className="w-2 h-2  rounded-full bg-[#4e3cc8]"></div>
-            <div className="w-2 h-2 ml-2 rounded-full bg-[#4e3cc8]"></div>
-            <div className="w-2 h-2  ml-2 rounded-full bg-[#4e3cc8]"></div>
+        <div className="flex flex-col items-center text-center pt-10 lg:pt-20 gap-8">
+          <h2 className="text-yellow font-bold uppercase text-lg">
+            LEARN AND GROW
+          </h2>
+          <h1 className="text-4xl font-bold lg:text-6xl text-darkGray">
+            Our Amenities
+          </h1>
+          <div className="flex gap-3 items-center">
+            <div className="w-2 h-2 bg-yellow rounded-full"></div>
+            <div className="w-2 h-2 bg-yellow rounded-full"></div>
+            <div className="w-2 h-2 bg-yellow rounded-full"></div>
           </div>
-          <p className="pt-8 text-textGray max-w-lg">
+          <p className=" text-textGray max-w-lg">
             A 2007 survey showed that many employees worry about feeling
             isolated and losing human interaction if they were to telecommute.
           </p>
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
-          <div className="bg-[#ffffff] flex flex-col items-center justify-center p-12">
-            <AiFillBank size={96} />
-            <h1 className="pt-4">MODERN DESIGN</h1>
+          <div className="bg-[#ffffff] flex flex-col items-center justify-center py-12">
+            <img src={modernDesign} alt="modern design" className="w-20" />
+            <h1 className="pt-4 font-semibold">MODERN DESIGN</h1>
           </div>
-          <div className="bg-[#ffffff] flex flex-col items-center justify-center p-12">
-            <AiFillSecurityScan size={96} />
-            <h1 className="pt-4">FREE FAST INTERNET</h1>
+          <div className="bg-[#ffffff] flex flex-col items-center justify-center py-12">
+            <img src={fastInternet} alt="modern design" className="w-20" />
+            <h1 className="pt-4 font-semibold">FREE FAST INTERNET</h1>
           </div>
-          <div className="bg-[#ffffff] flex flex-col items-center justify-center p-12">
-            <AiFillSketchCircle size={96} />
-            <h1 className="pt-4">GROUP EVENTS</h1>
+          <div className="bg-[#ffffff] flex flex-col items-center justify-center py-12">
+            <img src={groupEvents} alt="modern design" className="w-20" />
+            <h1 className="pt-4 font-semibold">GROUP EVENTS</h1>
           </div>
-          <div className="bg-[#ffffff] flex flex-col items-center justify-center p-12">
-            <AiFillTrophy size={96} />
-            <h1 className="pt-4">OFFICE SUPPLIES</h1>
+          <div className="bg-[#ffffff] flex flex-col items-center justify-center py-12">
+            <img src={officeSupplies} alt="modern design" className="w-20" />
+            <h1 className="pt-4 font-semibold">OFFICE SUPPLIES</h1>
           </div>
-          <div className="bg-[#ffffff] flex flex-col items-center justify-center p-12">
-            <AiOutlineAreaChart size={96} />
-            <h1 className="pt-4">FREE PARKING</h1>
+          <div className="bg-[#ffffff] flex flex-col items-center justify-center py-12">
+            <img src={freeParking} alt="modern design" className="w-20" />
+            <h1 className="pt-4 font-semibold">FREE PARKING</h1>
           </div>
-          <div className="bg-[#ffffff] flex flex-col items-center justify-center p-12">
-            <AiOutlineDribbbleSquare size={96} />
-            <h1 className="pt-4">COFFEE SHOP</h1>
+          <div className="bg-[#ffffff] flex flex-col items-center justify-center py-12">
+            <img src={coffeeShop} alt="modern design" className="w-20" />
+            <h1 className="pt-4 font-semibold">COFFEE SHOP</h1>
           </div>
-          <div className="bg-[#ffffff] flex flex-col items-center justify-center p-12">
-            <AiOutlineCrown size={96} />
-            <h1 className="pt-4">CONFERENCE ROOMS</h1>
+          <div className="bg-[#ffffff] flex flex-col items-center justify-center py-12">
+            <img src={conferenceRoom} alt="modern design" className="w-20" />
+            <h1 className="pt-4 font-semibold">CONFERENCE ROOMS</h1>
           </div>
-          <div className="bg-[#ffffff] flex flex-col items-center justify-center p-12">
-            <AiOutlineDeploymentUnit size={96} />
-            <h1 className="pt-4">RELAX ROOM</h1>
+          <div className="bg-[#ffffff] flex flex-col items-center justify-center py-12">
+            <img src={relaxRoom} alt="modern design" className="w-20" />
+            <h1 className="pt-4 font-semibold">RELAX ROOM</h1>
           </div>
-        
         </div>
         <div className="flex justify-center">
-        <button className="px-10 py-4 bg-[#4e3cc8] mt-10 text-white lg:mt-14 lg:text-white">
-          More About Us
-        </button>
+          <button className="px-10 py-4 bg-yellow mt-10 text-white lg:mt-14 lg:text-white">
+            More About Us
+          </button>
         </div>
       </div>
     </div>

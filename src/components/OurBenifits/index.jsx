@@ -18,8 +18,8 @@ export default function OurBenefits() {
           </div>
 
           <div className="w-full md:w-1/2 ">
-            <h1 className="text-[#40e2df] ">OUR BENEFITS</h1>
-            <h1 className="text-2xl lg:text-5xl font-bold pt-6">
+          <h2 className="text-yellow font-bold uppercase text-lg">OUR BENEFITS</h2>
+            <h1 className="text-2xl lg:text-5xl font-bold pt-6 text-darkGray">
               Benefits to Setting Up
               <br /> Your Startup in Our
               <br /> Coworking Space
@@ -32,26 +32,26 @@ export default function OurBenefits() {
             </p>
             <div className=" h-[1px] bg-lightGray mt-8 mx-2"></div>
             <h1 className="pt-8 text-textGray">
-              <span className="font-bold mr-2 text-black text-2xl">1</span>{" "}
+              <span className="font-bold mr-2 text-darkGray text-2xl">1</span>{" "}
               Actual office space that promotes productivity
             </h1>
             <div className=" h-[1px] bg-lightGray mt-6 mx-2 lg:mt-10"></div>
             <h1 className="pt-10 text-textGray">
-              <span className="font-bold mr-2 text-black text-2xl">2</span>{" "}
+              <span className="font-bold mr-2 text-darkGray text-2xl">2</span>{" "}
               Meaningful connections with your team
             </h1>
             <div className=" h-[1px] bg-lightGray mt-6 mx-2 lg:mt-10"></div>
             <h1 className="pt-10 text-textGray">
-              <span className="font-bold mr-2 text-black text-2xl">3</span>{" "}
+              <span className="font-bold mr-2 text-darkGray text-2xl">3</span>{" "}
               Increased productivity to get some work done
             </h1>
             <div className=" h-[1px] bg-lightGray mt-6 mx-2 lg:mt-10"></div>
             <h1 className="pt-10 text-textGray">
-              <span className="font-bold mr-2 text-black text-2xl">4</span>{" "}
+              <span className="font-bold mr-2 text-darkGray text-2xl">4</span>{" "}
               Comfy accommodations and comfortable couches
             </h1>
             <div className=" h-[1px] bg-lightGray mt-6 mx-2 lg:mt-10"></div>
-            <button className="px-10 py-4 bg-[#3fe1dd] mt-8  lg:mt-12">
+            <button className="px-10 py-4 bg-yellow mt-8  lg:mt-12 text-white">
               LearnMore
             </button>
           </div>
