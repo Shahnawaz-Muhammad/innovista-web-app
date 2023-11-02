@@ -10,10 +10,10 @@ const WeOffer = () => {
   const [bgOpacity3, setBgOpacity3] = useState(false);
   return (
     <div className="w-full h-full max-w-full overflow-x-hidden">
-      <div class="flex flex-col lg:flex-row h-full max-w-full bg-black">
+      <div className="flex flex-col lg:flex-row h-full max-w-full bg-black">
         <div className="w-full lg:w-1/3 flex  flex-col">
           <div
-            class="h-80 lg:h-1/2 w-full"
+            className="h-80 lg:h-1/2 w-full"
             onMouseEnter={() => setBgOpacity1(true)}
             onMouseLeave={() => setBgOpacity1(false)}
           >
@@ -44,8 +44,11 @@ const WeOffer = () => {
               </div>
             </div>
           </div>
-          <div class="h-80 lg:h-1/2 w-full " onMouseEnter={() => setBgOpacity2(true)}
-          onMouseLeave={() => setBgOpacity2(false)}>
+          <div
+            className="h-80 lg:h-1/2 w-full "
+            onMouseEnter={() => setBgOpacity2(true)}
+            onMouseLeave={() => setBgOpacity2(false)}
+          >
             <div className="w-full h-full relative">
               <img
                 src={offerBg2}
@@ -74,8 +77,11 @@ const WeOffer = () => {
             </div>
           </div>
         </div>
-        <div class="h-full md:h-screen lg:h-full w-full" onMouseEnter={() => setBgOpacity3(true)}
-          onMouseLeave={() => setBgOpacity3(false)}>
+        <div
+          className="h-full md:h-screen lg:h-full w-full"
+          onMouseEnter={() => setBgOpacity3(true)}
+          onMouseLeave={() => setBgOpacity3(false)}
+        >
           <div className="w-full h-full relative">
             <img src={offerBg3} alt="" className="h-full w-full object-cover" />
             <div
@@ -85,14 +91,16 @@ const WeOffer = () => {
             ></div>
 
             <div className="absolute top-0 left-20 w-full h-full flex items-center">
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-8">
                 <h1 className="text-3xl md:text-5xl font-bold text-white">
                   A Hospitality Inspired <br />
                   Co-Working Space.
                 </h1>
                 <div>
-                    
-                  <Link to="/book-a-tour" className="text-xl  bg-yellow px-6 py-3 md:px-8 md:py-4 text-white">
+                  <Link
+                    to="/book-a-tour"
+                    className="text-xl  bg-yellow px-6 py-3 md:px-8 md:py-4 text-white"
+                  >
                     Book A Tour
                   </Link>
                 </div>

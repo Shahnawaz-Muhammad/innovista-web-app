@@ -3,15 +3,27 @@ import { IoHomeOutline } from "react-icons/io5";
 import { TfiEmail } from "react-icons/tfi";
 import { BiMobile } from "react-icons/bi";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Footer = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ mode: "all" });
+
+  const onSubmit = (data) => {
+    console.log(data); // Handle form submission here
+  };
+
   return (
     <div
       className={`w-full z-20 flex justify-center py-20 bg-[#3d3d3d] text-bgLight mx-auto px-4 md:px-8 xl:px-4`}
     >
       <div className="max-w-screen-xl w-full">
         <div className="w-full grid grid-cols-4 gap-8 lg:gap-0">
-          <div className="col-span-2 lg:col-span-1 flex flex-col gap-6">
+          <div className="col-span-full sm:col-span-2 lg:col-span-1 flex flex-col gap-6">
             <h1 className="text-2xl lg:text-4xl font-semibold text-secondary max-w-full flex items-center italic text-yellow uppercase">
               DLabs
             </h1>
@@ -33,32 +45,49 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-2 lg:col-span-1 flex flex-col gap-8 text-lightGray">
+          <div className="col-span-full sm:col-span-2 lg:col-span-1 flex flex-col gap-8 text-lightGray">
             <h2 className="text-xl font-semibold text-white">Links</h2>
             <div className="flex flex-col gap-4 font-light">
-              <p>About Us</p>
-              <p>Services</p>
-              <p>Privacy</p>
-              <p>Terms & Conditions</p>
+              <Link to="/about" className="text-white hover:text-yellow">
+                About Us
+              </Link>
+              <Link to="/services" className="text-white hover:text-yellow">
+                Services
+              </Link>
+              <Link
+                to="/privacy-policy"
+                className="text-white hover:text-yellow"
+              >
+                Privacy
+              </Link>
+              <Link
+                to="/terms-and-conditions"
+                className="text-white hover:text-yellow"
+              >
+                Terms & Conditions
+              </Link>
             </div>
           </div>
           <div className="lg:hidden flex w-full col-span-full h-[.1px] bg-lightGray"></div>
-          <div className="col-span-2 lg:col-span-1 flex flex-col gap-8 text-lightGray">
+          <div className="col-span-full sm:col-span-2 lg:col-span-1 flex flex-col gap-8 text-lightGray">
             <h2 className="text-xl font-semibold text-white">Navigate</h2>
             <div className="flex flex-col gap-4 font-light">
-              <p>Pricing</p>
-              <p>Features</p>
-              <p>Contact Us</p>
+              <Link to="/pricing" className="text-white hover:text-yellow">
+                Pricing
+              </Link>
+              <Link to="/contact" className="text-white hover:text-yellow">
+                Contact Us
+              </Link>
             </div>
           </div>
-          <div className="col-span-2 lg:col-span-1 flex flex-col gap-8 text-lightGray">
+          <div className="col-span-full sm:col-span-2 lg:col-span-1 flex flex-col gap-8 text-lightGray">
             <h2 className="text-xl font-semibold text-white">Subscribe</h2>
             <div className="flex flex-col gap-4 font-light">
               <p>
                 Subscribe to our e-mail list and stay up-to-date with all our
                 news.
               </p>
-              <div>
+              {/* <div>
                 <div className="w-full relative h-full">
                   <input
                     type="email"
@@ -73,7 +102,47 @@ const Footer = () => {
                     I have read and agree to the terms & conditions
                   </span>
                 </div>
-              </div>
+              </div> */}
+
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="w-full relative  min-h-[4.2rem]">
+                  <input
+                    type="email"
+                    className="w-full py-4 pl-4 pr-14 text-black focus:outline-none"
+                    placeholder="Your Email"
+                    {...register("email", {
+                      required: "Please enter a valid email",
+                      pattern: {
+                        value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                        message: "Invalid Email",
+                      },
+                    })}
+                  />
+                  <button type="submit">
+                    <HiOutlineArrowLongRight className="absolute right-3 top-3 text-gray-600 text-4xl hover:right-2 transition-all ease-in-out duration-300 cursor-pointer" />
+                  </button>
+                </div>
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
+
+                <div>
+                  <input
+                    type="checkbox"
+                    name="agreement"
+                    id=""
+                    {...register("agreement", {
+                      required: "You must agree to the terms & conditions",
+                    })}
+                  />
+                  <span className="ml-3">
+                    I have read and agree to the terms & conditions
+                  </span>
+                  {errors.agreement && (
+                    <p className="text-red-500">{errors.agreement.message}</p>
+                  )}
+                </div>
+              </form>
             </div>
           </div>
         </div>
