@@ -90,8 +90,8 @@ const WeOffer = () => {
               } transition-all duration-300 bg-blend-darken`}
             ></div>
 
-            <div className="absolute top-0 left-20 w-full h-full flex items-center">
-              <div className="flex flex-col gap-8">
+            <div className="absolute top-0 md:left-20 w-full h-full flex justify-center md:justify-start items-center">
+              <div className="flex flex-col items-center md:items-start gap-8">
                 <h1 className="text-3xl md:text-5xl font-bold text-white">
                   A Hospitality Inspired <br />
                   Co-Working Space.
@@ -99,7 +99,7 @@ const WeOffer = () => {
                 <div>
                   <Link
                     to="/book-a-tour"
-                    className="text-xl  bg-yellow px-6 py-3 md:px-8 md:py-4 text-white"
+                    className="text-lg md:text-xl  bg-yellow px-4 py-2 md:px-8 md:py-4 text-white"
                   >
                     Book A Tour
                   </Link>
