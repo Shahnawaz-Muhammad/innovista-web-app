@@ -13,7 +13,7 @@ const Header = () => {
 
   const navItems = [
     { label: "Home", path: "/" },
-    { label: "Services", path: "/Services" },
+    // { label: "Services", path: "/Services" },
     { label: "About", path: "/about" },
     { label: "Pricing", path: "/pricing" },
     { label: "Contact Us", path: "/contact" },
@@ -102,7 +102,7 @@ const Header = () => {
           <div className="w-full h-full flex items-center justify-center">
             <div className="flex flex-col gap-10 uppercase text-xl items-center justify-center text-white">
               <p>Home</p>
-              <p>Services</p>
+              {/* <p>Services</p> */}
               <p>About</p>
               <p>Pricing</p>
               <p>Contact Us</p>

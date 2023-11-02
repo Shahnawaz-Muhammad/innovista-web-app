@@ -84,13 +84,13 @@ const Testimonials = () => {
             );
           })}
         </Swiper>
-        <div className="max-w-full flex justify-between absolute top-1/2 -translate-y-1/2 left-4 md:left-10 lg:left-20 custom-prev-button bg-secondary opacity-40 hover:opacity-100 transition-all duration-300 rounded-full z-50">
-          <button className="custom-button-style text-gray-200 transition-all duration-500 bg-orange-500 hover:bg-orange-500 rounded-full">
+        <div className="max-w-full flex justify-between absolute top-1/2 -translate-y-1/2 left-4 md:left-10 lg:left-20 custom-prev-button bg-secondary opacity-40 hover:opacity-100 transition-all duration-300 rounded-full z-10">
+          <button className="custom-button-style text-gray-200 transition-all duration-500 hover:bg-yellow bg-yellowDark rounded-full">
             <BiSolidChevronLeft className="text-4xl" />
           </button>
         </div>
-        <div className="max-w-full flex justify-between absolute top-1/2 -translate-y-1/2 right-4 md:right-10 lg:right-20 custom-next-button bg-secondary opacity-40 hover:opacity-100 transition-all duration-300 rounded-full z-50">
-          <button className="custom-button-style text-gray-200 transition-all duration-500 bg-orange-500 hover:bg-orange-500 rounded-full">
+        <div className="max-w-full flex justify-between absolute top-1/2 -translate-y-1/2 right-4 md:right-10 lg:right-20 custom-next-button bg-secondary opacity-40 hover:opacity-100 transition-all duration-300 rounded-full z-10">
+          <button className="custom-button-style text-gray-200 transition-all duration-500 hover:bg-yellow bg-yellowDark rounded-full">
             <BiSolidChevronRight className="text-4xl" />
           </button>
         </div>
