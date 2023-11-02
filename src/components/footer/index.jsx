@@ -41,7 +41,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3 text-lightGray">
                 <BiMobile />
-                <p>support@dlabs.com</p>
+                <p>+923 548 644 6548</p>
               </div>
             </div>
           </div>
