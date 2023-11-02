@@ -5,7 +5,6 @@ const ContactForm = () => {
   const {
     register,
     formState: { errors },
-    reset,
     handleSubmit,
   } = useForm({ mode: "all" });
 
