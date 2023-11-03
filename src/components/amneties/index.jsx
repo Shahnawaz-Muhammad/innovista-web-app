@@ -30,8 +30,7 @@ export default function Amenities() {
             <div className="w-2 h-2 bg-yellow rounded-full"></div>
           </div>
           <p className=" text-textGray max-w-lg">
-            A 2007 survey showed that many employees worry about feeling
-            isolated and losing human interaction if they were to telecommute.
+          Remote work definitely offers flexibility, but it can also bring about side effects, including feelings of isolation and a reduced level of in-person social interaction.
           </p>
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-10">

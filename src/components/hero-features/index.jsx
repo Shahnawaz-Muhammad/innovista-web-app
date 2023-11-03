@@ -32,11 +32,8 @@ const HeroFeatures = () => {
             className="w-full h-full absolute top-0 bg-yellow flex flex-col justify-center items-center text-white px-6 py-4"
           >
             {/* <h2 className="text-xl font-semibold ">hello</h2> */}
-            <p className="text-md leading-5 text-justify">
-              Are you a creative freelancer looking for the perfect workspace to
-              fuel your productivity and innovation? Look no further! Join our
-              community of like-minded individuals, network, and watch your
-              freelance career take off.
+            <p className="text-sm font-medium leading-5 text-justify">
+            Are you in search of the perfect workspace to supercharge your productivity and ignite your innovative spark? Your quest has come to an end. Join our community of like-minded individuals, network, and propel your freelance career to new heights.
             </p>
           </motion.div>
         </div>
@@ -60,11 +57,8 @@ const HeroFeatures = () => {
             className="w-full h-full absolute top-0 bg-yellow flex flex-col justify-center items-center text-white px-6 py-4"
           >
             {/* <h2 className="text-xl font-semibold ">hello</h2> */}
-             <p className="text-md leading-5 text-justify">
-              Calling all ambitious startups! Our platform is your gateway to a
-              thriving entrepreneurial ecosystem. From budget-friendly shared
-              desks to fully-equipped startup suites, we have the perfect
-              workspace for your growing team.
+             <p className="text-sm font-medium leading-5 text-justify">
+             Innovative startups, unite! Our platform paves the way to a thriving entrepreneurial ecosystem. Whether you're in need of budget-friendly shared desks or fully-equipped startup suites, we have the workspace that aligns with your team's growth.
             </p>
           </motion.div>
         </div>
@@ -88,11 +82,8 @@ const HeroFeatures = () => {
             className="w-full h-full absolute top-0 bg-yellow flex flex-col justify-center items-center text-white px-6 py-4"
           >
             {/* <h2 className="text-xl font-semibold ">hello</h2> */}
-             <p className="text-md leading-5 text-justify">
-              Are you an investor on the lookout for promising opportunities?
-              Our platform is the ideal place to connect with the next big
-              thing. We provide exclusive access to a diverse array of startups
-              and businesses seeking investment.
+             <p className="text-sm font-medium leading-5 text-justify">
+             Investors, are you ready to seize the most promising opportunities? Our platform is your gateway to connecting with the upcoming industry leaders. Enjoy exclusive access to a wide range of startups and businesses actively searching for investment prospects.
             </p>
           </motion.div>
         </div>
@@ -117,11 +108,8 @@ const HeroFeatures = () => {
             className="w-full h-full absolute top-0 bg-yellow flex flex-col justify-center items-center text-white px-6 py-4"
           >
             {/* <h2 className="text-xl font-semibold ">hello</h2> */}
-             <p className="text-md leading-5 text-justify">
-              Do you own or manage an established business looking for flexible
-              and convenient office solutions? We have you covered. Our platform
-              offers a wide selection of professional workspaces that can
-              accommodate your business's unique needs.
+             <p className="text-sm font-medium leading-5 text-justify">
+             For business proprietors and managers, the quest for flexible and convenient office solutions ends here. Our platform provides an extensive array of professional workspaces thoughtfully designed to meet the unique demands of your business.
             </p>
           </motion.div>
         </div>
@@ -146,11 +134,8 @@ const HeroFeatures = () => {
             className="w-full h-full absolute top-0 bg-yellow flex flex-col justify-center items-center text-white px-6 py-4"
           >
             {/* <h2 className="text-xl font-semibold ">hello</h2> */}
-             <p className="text-md leading-5 text-justify">
-              Are you an agency in search of a dynamic environment to meet your
-              clients' needs? Look no further! Our platform offers versatile
-              workspaces that cater to the creative and collaborative demands of
-              your agency.
+             <p className="text-sm font-medium leading-5 text-justify">
+             Are you an agency seeking a vibrant environment to meet your clients' ever-changing demands? Look no further! Our platform presents versatile workspaces meticulously crafted to address the creative and collaborative needs of your agency.
             </p>
           </motion.div>
         </div>

@@ -18,17 +18,14 @@ export default function OurBenefits() {
           </div>
 
           <div className="w-full md:w-1/2 ">
-          <h2 className="text-yellow font-bold uppercase text-lg">OUR BENEFITS</h2>
+          <h2 className="text-yellow font-bold uppercase text-lg">BENEFITS</h2>
             <h1 className="text-2xl lg:text-5xl font-bold pt-6 text-darkGray">
-              Benefits to Setting Up
+              Perks of
               <br /> Your Startup in Our
-              <br /> Coworking Space
+              <br /> Co-working Space
             </h1>
             <p className="text-justify pt-6 lg:pt-10 px-2 text-textGray">
-              We are proud of what we have come up to at our center! Only here
-              you get to enjoy with talented people who work in different areas,
-              designers, photographers, engineers etc. Learn more about joining
-              us today
+            We're thrilled with the vibrant community we've cultivated at our center! Here, you can engage with a wide array of talented professionals from diverse fields such as design, photography, engineering, and beyond. Find out how you can become a part of our community today
             </p>
             <div className=" h-[1px] bg-lightGray mt-8 mx-2"></div>
             <h1 className="pt-8 text-textGray">

@@ -22,9 +22,7 @@ export default function LearnMore() {
             <div className="w-2 h-2 bg-yellow rounded-full"></div>
           </div>
           <p className="max-w-lg text-textGray">
-            By saying that our coworking space is sustainable and comfy we
-            confirm that you will get 100% satisfaction from working here and
-            making the best out of this experience.
+          As we emphasize sustainability and comfort within our coworking space, we wholeheartedly guarantee your complete satisfaction and the opportunity to maximize your overall experience while working here.
           </p>
           <button className="px-10 py-4 bg-yellow mt-8  lg:mt-12 text-white">
               Learn More

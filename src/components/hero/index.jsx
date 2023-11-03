@@ -15,20 +15,20 @@ const Hero = () => {
     {
       id: 1,
       imgUrl: carouselImg1,
-      title: "Make Your Workspace Your Own Muse ",
-      text: "At our coworking space center, we make emphasis on comfy conditions for creative minds that form groups of talented people ",
+      title: "Crafting Your Workspace: Ignite Your Imagination",
+      text: "We create a cozy and inspiring atmosphere in our coworking center, ideal for bringing together groups of creative and talented individuals.",
     },
     {
       id: 2,
       imgUrl: carouselImg2,
-      title:"Explore Innovative Courses on Campus ",
-      text: "At our coworking space center, we make emphasis on comfy conditions for creative minds that form groups of talented people ",
+      title:"Discover Cutting-Edge Campus Courses",
+      text: "We provide the perfect environment for talented individuals to join forces and delve into cutting-edge learning experiences.",
     },
     {
       id: 3,
       imgUrl: carouselImg3,
-      title:"The Collaboration of a Talented Community",
-      text: "At our coworking space center, we make emphasis on comfy conditions for creative minds that form groups of talented people ",
+      title:"Elevating Talent Through Community-Wide Collaboration",
+      text: "We foster community-wide collaboration to uplift and empower the talent within, creating a dynamic and supportive environment for all.",
     },
   ];
 
@@ -68,10 +68,10 @@ const Hero = () => {
                     <div className="absolute top-0 z-50 flex items-center justify-center w-full h-full ">
                       <div className="w-full max-w-screen-xl">
                       <div className="w-full  flex flex-col  gap-2 lg:gap-3 mx-auto px-4 md:px-8 xl:px-4 ">
-                        <div className="text-4xl md:text-5xl lg:text-6xl font-bold capitalize text-white flex flex-col gap-4  text-center md:text-start px-5 md:px-0 max-w-lg lg:max-w-2xl">
+                        <div className="text-4xl md:text-xl lg:text-6xl font-bold capitalize text-white flex flex-col gap-4  text-center md:text-start px-5 md:px-0 max-w-lg lg:max-w-4xl">
                           <h2>{item.title}</h2>
                           
-                        <p className="text-lg text-lightGray font-light ">
+                        <p className="text-lg text-lightGray font-normal ">
                           {item.text}
                         </p>
                         </div>

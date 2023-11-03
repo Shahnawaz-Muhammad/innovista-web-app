@@ -8,19 +8,19 @@ const FrequentlyAskedQuestions = () => {
       id: 1,
       title: "What are your hours?  ",
       description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut",
+        "We are open from 9am in the Morning till 2 am over the Night.",
     },
     {
       id: 2,
       title: "Are there any commitments?",
       description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut",
+        "We try our best to fulfill your commitments.",
     },
     {
       id: 3,
       title: "Do you allow pets?",
       description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut",
+        "Currently, Pets are not allowed.",
     },
   ];
 
@@ -29,19 +29,19 @@ const FrequentlyAskedQuestions = () => {
       id: 4,
       title: "Is internet included?",
       description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut",
+        "Yes, Internet is included.",
     },
     {
       id: 5,
       title: "What about your other locations?",
       description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut",
+        "Currently, we are placed at one spot only.",
     },
     {
       id: 6,
       title: "How do I get started?",
       description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut",
+        "Contact us, we will resolve your queries.",
     },
   ];
 

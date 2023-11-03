@@ -15,22 +15,22 @@ const TestimonialsData = [
   {
     id: 1,
     description:
-      "Working at WotaHub has made my life so much more easy and exciting! I love how you can join the amazing group of people and feel free to work on your career and social skills.",
-    name: "Henry Jacobs",
+      "Working at D-Labs has been a game-changer for me, making my life both easier and more thrilling. The chance to connect with this incredible group of individuals has allowed me to grow professionally and personally.",
+    name: "Hammad Azhar",
     designation: "Freelancer",
   },
   {
     id: 2,
     description:
-      "It’s a comfortable place with welcoming environment and all the utilities that are important in a facility like this. Thank you for the opportunity to work with you guys!",
-    name: "Sandy Scooper",
+      "My time at D-Labs has been nothing short of transformational. It has brought ease and excitement to my life. Being a part of this outstanding community has enabled me to nurture both my career and social abilities.",
+    name: "Maimoon Khan",
     designation: "Freelancer",
   },
   {
     id: 3,
     description:
-      "I never realized how quickly WotaHub would increase my productivity, create additional synergies & not limit any of my creative flow. We have had all positive experiences!",
-    name: "Mike Peterson",
+      "Life at D-Labs is a true blessing, simplifying my daily routine and infusing excitement into it. I'm grateful for the chance to work alongside these remarkable people, which has been instrumental in boosting my professional growth and social aptitude.",
+    name: "Adnan Malik",
     designation: "Freelancer",
   },
 ];
@@ -66,15 +66,15 @@ const Testimonials = () => {
                     <div className=" z-50 flex items-center justify-center w-full h-full ">
                       <div className="w-full  ">
                         <div className="w-full  flex flex-col items-center gap-6 mx-auto px-10 md:px-20 xl:px-4 ">
-                          <div className="text-xl md:text-4xl font-bold capitalize text-white flex flex-col gap-4  text-center px-5 md:px-0 max-w-screen-md">
+                          <div className="text-xl md:text-2xl font-semibold capitalize text-white flex flex-col gap-4  text-center px-5 md:px-0 max-w-screen-md">
                             <h2 className="text-center">{item.description}</h2>
-                          </div>
-                          <p className="text-lg text-white font-semibold uppercase">
-                            {item.name},{" "}
-                            <span className="text-gray-300">
-                              {item.designation}
-                            </span>
+                          <p className="text-3xl text-white font-semibold uppercase">
+                            {item.name}
                           </p>
+                          <p className=" text-lg font-semibold uppercase text-gray-300">
+                            {item.designation}
+                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>

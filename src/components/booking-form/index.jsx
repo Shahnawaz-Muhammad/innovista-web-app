@@ -282,7 +282,7 @@ export default function BookingForm() {
                 type="submit"
                 className="px-10 py-4 bg-yellow mt-10 text-white lg:mt-10 lg:text-white"
               >
-                More About Us
+                Submit
               </button>
             </div>
           </form>
