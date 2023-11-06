@@ -75,7 +75,10 @@ export default function Packages() {
             </div>
             <div className="pt-3 px-10 font-bold leading-tight text-center  ">
               <h1 className="text-6xl  text-purple-700">Rs 20,000</h1>
-              <p className="text-xl pb-3 border-b-2 text-darkGray"> per Month</p>
+              <p className="text-xl pb-3 border-b-2 text-darkGray">
+                {" "}
+                per Month
+              </p>
             </div>
             <div className="pt-2 px-10 ">
               <h1 className="text-xl pl-5 pb-2 border-b-2">
@@ -99,13 +102,18 @@ export default function Packages() {
             <div className="pt-2 px-10 ">
               <h1 className="text-xl pl-5 pb-2 border-b-2">
                 <span className="font-bold text-3xl text-darkGray">4</span>
-                <span className="pl-4 text-xl">Coffee <a className="font-bold text-2xl">&</a> Tea </span>
+                <span className="pl-4 text-xl">
+                  Coffee <span className="font-bold text-2xl">&</span> Tea{" "}
+                </span>
               </h1>
             </div>
             <div className="pt-2 px-10 ">
               <h1 className="text-xl pl-5 pb-2 border-b-2">
                 <span className="font-bold text-3xl text-darkGray">5</span>
-                <span className="pl-4 text-xl">9am - 5pm <a className="font-bold text-2xl">&</a> 6pm - 2am </span>
+                <span className="pl-4 text-xl">
+                  9am - 5pm <span className="font-bold text-2xl">&</span> 6pm -
+                  2am{" "}
+                </span>
               </h1>
             </div>
             <div className="py-8 text-md font-semibold leading-tight text-center uppercase">
@@ -121,7 +129,10 @@ export default function Packages() {
             </div>
             <div className="pt-3 px-10 font-bold leading-tight text-center  ">
               <h1 className="text-6xl  text-purple-700">Rs 30,000</h1>
-              <p className="text-xl pb-3 border-b-2 text-darkGray"> per Month</p>
+              <p className="text-xl pb-3 border-b-2 text-darkGray">
+                {" "}
+                per Month
+              </p>
             </div>
             <div className="pt-2 px-10 ">
               <h1 className="text-xl pl-5 pb-2 border-b-2">
@@ -145,7 +156,9 @@ export default function Packages() {
             <div className="pt-2 px-10 ">
               <h1 className="text-xl pl-5 pb-2 border-b-2">
                 <span className="font-bold text-3xl text-darkGray">4</span>
-                <span className="pl-4 text-xl">Coffee <a className="font-bold text-2xl">&</a> Tea </span>
+                <span className="pl-4 text-xl">
+                  Coffee <span className="font-bold text-2xl">&</span> Tea{" "}
+                </span>
               </h1>
             </div>
             <div className="pt-2 px-10 ">
@@ -157,7 +170,10 @@ export default function Packages() {
             <div className="pt-2 px-10 ">
               <h1 className="text-xl pl-5 pb-2 border-b-2">
                 <span className="font-bold text-3xl text-darkGray">6</span>
-                <span className="pl-4 text-xl">Conference Room <a className="font-bold text-2xl">&</a> <p className="pl-9">CR Services</p> </span>
+                <span className="pl-4 text-xl">
+                  Conference Room <span className="font-bold text-2xl">&</span>{" "}
+                  <p className="pl-9">CR Services</p>{" "}
+                </span>
               </h1>
             </div>
             <div className="py-8 text-md font-semibold leading-tight text-center uppercase">
@@ -166,7 +182,6 @@ export default function Packages() {
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
