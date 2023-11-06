@@ -66,7 +66,7 @@ const Testimonials = () => {
                     <div className=" z-50 flex items-center justify-center w-full h-full ">
                       <div className="w-full  ">
                         <div className="w-full  flex flex-col items-center gap-6 mx-auto px-10 md:px-20 xl:px-4 ">
-                          <div className="text-xl md:text-2xl font-semibold capitalize text-white flex flex-col gap-4  text-center px-5 md:px-0 max-w-screen-md">
+                          <div className="text-xl md:text-2xl font-normal  text-white flex flex-col gap-4  text-center px-5 md:px-0 max-w-screen-md">
                             <h2 className="text-center">{item.description}</h2>
                           <p className="text-3xl text-white font-semibold uppercase">
                             {item.name}

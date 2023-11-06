@@ -13,7 +13,7 @@ const HeroFeatures = () => {
   const [showFeature5, setShowFeature5] = useState(false);
   return (
     <div className="grid grid-cols-6 lg:grid-cols-5  bg-yellowDark">
-      <div className=" col-span-3 lg:col-span-1 w-full flex flex-col justify-center gap-3 items-center text-center border-r border-b lg:border-b-0 lg:border-r border-gray-400 text-white  cursor-pointer">
+      <div className=" col-span-full md:col-span-3 lg:col-span-1 w-full flex flex-col justify-center gap-3 items-center text-center border-r border-b lg:border-b-0 lg:border-r border-gray-400 text-white  cursor-pointer">
         <div
           className="relative w-full h-full flex flex-col gap-4 items-center py-10"
           onMouseEnter={() => setShowFeature1(true)}
@@ -38,7 +38,7 @@ const HeroFeatures = () => {
           </motion.div>
         </div>
       </div>
-      <div className="relative col-span-3 lg:col-span-1 w-full flex flex-col justify-center gap-3 items-center text-center border-r border-b lg:border-b-0 lg:border-r border-gray-400 text-white  cursor-pointer">
+      <div className="relative col-span-full md:col-span-3 lg:col-span-1 w-full flex flex-col justify-center gap-3 items-center text-center border-r border-b lg:border-b-0 lg:border-r border-gray-400 text-white  cursor-pointer">
         <div
           className="relative w-full h-full flex flex-col gap-4 items-center py-10"
           onMouseEnter={() => setShowFeature2(true)}
@@ -63,7 +63,7 @@ const HeroFeatures = () => {
           </motion.div>
         </div>
       </div>
-      <div className=" col-span-3 lg:col-span-1 w-full flex flex-col justify-center gap-3 items-center text-center border-r border-b lg:border-b-0 lg:border-r border-gray-400 text-white  cursor-pointer">
+      <div className=" col-span-full md:col-span-3 lg:col-span-1 w-full flex flex-col justify-center gap-3 items-center text-center border-r border-b lg:border-b-0 lg:border-r border-gray-400 text-white  cursor-pointer">
         <div
           className="relative w-full h-full flex flex-col gap-4 items-center py-10"
           onMouseEnter={() => setShowFeature3(true)}
@@ -89,7 +89,7 @@ const HeroFeatures = () => {
         </div>
       </div>
 
-      <div className=" col-span-3 lg:col-span-1 w-full flex flex-col justify-center gap-3 items-center text-center border-r border-b lg:border-b-0 lg:border-r border-gray-400 text-white  cursor-pointer">
+      <div className=" col-span-full md:col-span-3 lg:col-span-1 w-full flex flex-col justify-center gap-3 items-center text-center border-r border-b lg:border-b-0 lg:border-r border-gray-400 text-white  cursor-pointer">
         <div
           className="relative w-full h-full flex flex-col gap-4 items-center py-10"
           onMouseEnter={() => setShowFeature4(true)}
