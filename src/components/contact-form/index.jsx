@@ -157,7 +157,7 @@ const ContactForm = () => {
                       loading ? "bg-opacity-50 cursor-none" : "bg-opacity-100"
                     } text-white bg-yellow  hover:bg-yellowDark hover:text-white focus:ring-4 focus:outline-none font-medium  text-sm w-full sm:w-auto px-10 py-6 text-center`}
                   >
-                    {loading ? "Please wait..." : "Send Your Message"}
+                    {loading ? "Please wait..." : "Submit"}
                   </button>
                 </div>
               </div>
