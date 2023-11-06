@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PageTitle from "../../components/page-title";
 import { Link } from "react-router-dom";
 
 const Privacy = ({ title }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <PageTitle title={title} />
