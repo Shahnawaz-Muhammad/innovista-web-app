@@ -21,7 +21,7 @@ export default function LearnMore() {
             isolated and losing human interaction if they were to telecommute.
           </p>
         </div>
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
           <div className="bg-[#ffffff] flex flex-col items-center justify-center p-12">
             <AiFillBank size={96} />
             <h1 className="pt-4">MODERN DESIGN</h1>

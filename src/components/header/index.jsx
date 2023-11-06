@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import {  RxCross1 } from "react-icons/rx";
+import { RxCross1 } from "react-icons/rx";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const Header = () => {
@@ -12,13 +12,13 @@ const Header = () => {
   const [activeNavItem, setActiveNavItem] = useState(location.pathname);
 
   const navItems = [
-    { label: "Home", path: "/" },
-    // { label: "Services", path: "/Services" },
-    { label: "About", path: "/about" },
-    { label: "Pricing", path: "/pricing" },
-    { label: "Contact Us", path: "/contact" },
+    { id: 1, label: "Home", path: "/" },
+    { id: 2, label: "Services", path: "/services" },
+    { id: 3, label: "About", path: "/about" },
+    { id: 4, label: "Pricing", path: "/pricing" },
+    { id: 5, label: "Contact Us", path: "/contact" },
   ];
-
+  const navigate = useNavigate();
   const toggleNavMobile = () => {
     setNavMobile(!navMobile);
   };
@@ -39,6 +39,11 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const gotoPage = (item) => {
+    navigate(`${item.path}`);
+    setNavMobile(false);
+  };
   return (
     <>
       <div
@@ -57,7 +62,7 @@ const Header = () => {
               {navItems.map((item) => (
                 <Link
                   to={item.path}
-                  key={item.path}
+                  key={item.id}
                   className={`relative group cursor-pointer ${
                     location.pathname === item.path ? "active" : ""
                   }`}
@@ -75,7 +80,10 @@ const Header = () => {
             </div>
 
             <div className="md:flex items-center hidden">
-            <Link to="/book-a-tour" className="bg-yellow hover:bg-yellowDark  text-white uppercase text-lg font-semibold py-2 px-4 ">
+              <Link
+                to="/book-a-tour"
+                className="bg-yellow hover:bg-yellowDark  text-white uppercase text-lg font-semibold py-2 px-4 "
+              >
                 Book a Tour
               </Link>
             </div>
@@ -101,12 +109,17 @@ const Header = () => {
           </div>
           <div className="w-full h-full flex items-center justify-center">
             <div className="flex flex-col gap-10 uppercase text-xl items-center justify-center text-white">
-              <p>Home</p>
-              {/* <p>Services</p> */}
-              <p>About</p>
-              <p>Pricing</p>
-              <p>Contact Us</p>
-              <Link to="/book-a-tour" className="bg-yellow hover:bg-yellowDark  text-white uppercase text-lg font-semibold py-2 px-4 ">
+              {navItems.map((item) => {
+                return (
+                  <button key={item.id} onClick={() => gotoPage(item)}>
+                    {item.label}
+                  </button>
+                );
+              })}
+              <Link
+                to="/book-a-tour"
+                className="bg-yellow hover:bg-yellowDark  text-white uppercase text-lg font-semibold py-2 px-4 "
+              >
                 Book a Tour
               </Link>
             </div>
