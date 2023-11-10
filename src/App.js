@@ -11,6 +11,7 @@ import Booking from './pages/booking';
 import Services from './pages/services';
 import Privacy from './pages/privacy';
 import TermsConditions from './pages/terms-conditions';
+import MultiStepForm from './pages/multi-step-form';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/book-a-tour" element={<Booking title="Book a Tour"/>} />
         <Route path="/privacy-policy" element={<Privacy title="Privacy Policy"/>} />
         <Route path="/terms-and-conditions" element={<TermsConditions title="Terms & Conditions"/>} />
+        <Route path="/multi-step-form" element={<MultiStepForm title="Terms & Conditions"/>} />
       </Routes>
      <Footer />
     </div>
