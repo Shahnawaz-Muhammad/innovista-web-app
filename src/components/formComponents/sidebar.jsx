@@ -1,9 +1,6 @@
 import clsx from 'clsx';
 
-interface SidebarProps {
-	currentStep: number;
-	handleNextStep: (step: number) => void;
-}
+
 const steps = [
 	{
 		step: 1,
@@ -22,7 +19,7 @@ const steps = [
 		title: 'Summary',
 	},
 ];
-export const Sidebar = ({ currentStep, handleNextStep }: SidebarProps) => {
+export const Sidebar = ({ currentStep, handleNextStep }) => {
 	return (
 		<aside className="bg-sidebar-image-mobile min-h-[172px] bg-cover bg-no-repeat lg:rounded-lg lg:bg-sidebar-image-desktop">
 			<nav>
