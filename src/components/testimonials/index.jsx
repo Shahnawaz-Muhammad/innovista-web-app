@@ -38,7 +38,7 @@ const TestimonialsData = [
 const Testimonials = () => {
   return (
     <div className="bg-bgGray max-w-full  bg-transparent  px-0 py-10 flex justify-center ">
-      <div className="relative w-full h-full flex justify-center bg-yellowDark max-w-screen-xl ">
+      <div className="relative w-full h-full flex justify-center bg-orange max-w-screen-xl ">
         <Swiper
           slidesPerView={1}
           slidesPerGroup={1}
@@ -85,17 +85,17 @@ const Testimonials = () => {
           })}
         </Swiper>
         <div className="max-w-full flex justify-between absolute top-1/2 -translate-y-1/2 left-4 md:left-10 lg:left-20 custom-prev-button bg-secondary opacity-40 hover:opacity-100 transition-all duration-300 rounded-full z-10">
-          <button className="custom-button-style text-gray-200 transition-all duration-500 hover:bg-yellow bg-yellowDark rounded-full">
+          <button className="custom-button-style text-gray-200 transition-all duration-500 hover:bg-orangeDarkbg-orange rounded-full">
             <BiSolidChevronLeft className="text-4xl" />
           </button>
         </div>
         <div className="max-w-full flex justify-between absolute top-1/2 -translate-y-1/2 right-4 md:right-10 lg:right-20 custom-next-button bg-secondary opacity-40 hover:opacity-100 transition-all duration-300 rounded-full z-10">
-          <button className="custom-button-style text-gray-200 transition-all duration-500 hover:bg-yellow bg-yellowDark rounded-full">
+          <button className="custom-button-style text-gray-200 transition-all duration-500 hover:bg-orangeDarkbg-orange rounded-full">
             <BiSolidChevronRight className="text-4xl" />
           </button>
         </div>
         <div className="w-full h-full absolute top-0 left-0 p-40 md:p-28">
-            <BiSolidQuoteRight className="w-full h-full text-yellow"/>
+            <BiSolidQuoteRight className="w-full h-full text-orange"/>
         </div>
       </div>
     </div>

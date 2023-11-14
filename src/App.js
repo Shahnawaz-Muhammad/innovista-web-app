@@ -1,34 +1,124 @@
-import { Route, Routes } from 'react-router-dom';
-import './App.css';
+import { Navigate, Route, Routes } from "react-router-dom";
+import "./App.css";
 
-import Home from './pages/home';
-import Contact from './pages/contact';
-import Pricing from './pages/pricing';
-import About from './pages/about';
-import Header from './components/header';
-import Footer from './components/footer';
-import Booking from './pages/booking';
-import Services from './pages/services';
-import Privacy from './pages/privacy';
-import TermsConditions from './pages/terms-conditions';
-import MultiStepForm from './pages/multi-step-form';
+import Home from "./pages/home";
+import Contact from "./pages/contact";
+import Pricing from "./pages/pricing";
+import About from "./pages/about";
+// import Header from "./components/header";
+// import Footer from "./components/footer";
+import Booking from "./pages/booking";
+import Services from "./pages/services";
+import Privacy from "./pages/privacy";
+import TermsConditions from "./pages/terms-conditions";
+import NotFound from "./pages/not-found";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import Layout from "./components/layout";
+import UserDashboard from "./pages/user/UserDashboard";
+import Register from "./pages/register";
+import Login from "./pages/login";
 
 function App() {
+  const { isAuthenticated, userType } = useContext(AuthContext);
+
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About title="About Us"/>} />
-        <Route path="/pricing" element={<Pricing title="Pricing"/>} />
-        <Route path="/services" element={<Services title="Services"/>} />
-        <Route path="/contact" element={<Contact title="Contact Us"/>} />
-        <Route path="/book-a-tour" element={<Booking title="Book a Tour"/>} />
-        <Route path="/privacy-policy" element={<Privacy title="Privacy Policy"/>} />
-        <Route path="/terms-and-conditions" element={<TermsConditions title="Terms & Conditions"/>} />
-        <Route path="/multi-step-form" element={<MultiStepForm title="Terms & Conditions"/>} />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Layout>
+              <About title="About Us" />
+            </Layout>
+          }
+        />
+        <Route
+          path="/pricing"
+          element={
+            <Layout>
+              <Pricing title="Pricing" />
+            </Layout>
+          }
+        />
+        <Route
+          path="/services"
+          element={
+            <Layout>
+              <Services title="Services" />
+            </Layout>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <Layout>
+              <Contact title="Contact Us" />
+            </Layout>
+          }
+        />
+        <Route
+          path="/book-a-tour"
+          element={
+            <Layout>
+              <Booking title="Book a Tour" />
+            </Layout>
+          }
+        />
+        <Route
+          path="/privacy-policy"
+          element={
+            <Layout>
+              <Privacy title="Privacy Policy" />
+            </Layout>
+          }
+        />
+        <Route
+          path="/terms-and-conditions"
+          element={
+            <Layout>
+              <TermsConditions title="Terms & Conditions" />
+            </Layout>
+          }
+        />
+        <Route path="*" element={<NotFound title="Page Not Found" />} />
+        <Route
+          path="/register"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <Layout>
+                <Register />
+              </Layout>
+            )
+          }
+        />
+        <Route
+          path="/login"
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
+        />
+        <Route
+          path="/dashboard"
+          element={
+            isAuthenticated ? (
+              <UserDashboard userType={userType} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
       </Routes>
-     <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

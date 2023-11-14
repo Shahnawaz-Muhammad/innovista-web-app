@@ -7,7 +7,7 @@ import { Addons } from "../../components/formComponents/Addons";
 import { ServiceSummary } from "../../components/formComponents/serviceSummary";
 import { ThankYou } from "../../components/formComponents/thankYou";
 
-const MultiStepForm = () => {
+const Register = () => {
   const [step, setStep] = useState(1);
   const [showRequired, setShowRequiredFields] = useState(false);
 
@@ -138,4 +138,4 @@ const MultiStepForm = () => {
   );
 };
 
-export default MultiStepForm;
+export default Register;

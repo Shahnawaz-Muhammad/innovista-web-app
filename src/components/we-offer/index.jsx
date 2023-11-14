@@ -31,7 +31,7 @@ const WeOffer = () => {
 
               <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
                 <div className="flex flex-col items-center ">
-                  <h1 className="text-2xl font-bold text-yellow">
+                  <h1 className="text-2xl font-bold text-orange">
                     Private Office
                   </h1>
                   <Link
@@ -63,7 +63,7 @@ const WeOffer = () => {
 
               <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
                 <div className="flex flex-col items-center ">
-                  <h1 className="text-2xl font-bold text-yellow">
+                  <h1 className="text-2xl font-bold text-orange">
                     Conference Room
                   </h1>
                   <Link
@@ -99,7 +99,7 @@ const WeOffer = () => {
                 <div>
                   <Link
                     to="/book-a-tour"
-                    className="text-lg md:text-xl  bg-yellow px-4 py-2 md:px-8 md:py-4 text-white"
+                    className="text-lg md:text-xl bg-orange px-4 py-2 md:px-8 md:py-4 text-white"
                   >
                     Book A Tour
                   </Link>

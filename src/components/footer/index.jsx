@@ -5,6 +5,7 @@ import { BiMobile } from "react-icons/bi";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import logo from "../../assets/D-labs-logo-white.png";
 
 const Footer = () => {
   const {
@@ -24,9 +25,9 @@ const Footer = () => {
       <div className="max-w-screen-xl w-full">
         <div className="w-full grid grid-cols-4 gap-8 lg:gap-0">
           <div className="col-span-full sm:col-span-2 lg:col-span-1 flex flex-col gap-6">
-            <h1 className="text-2xl lg:text-4xl font-semibold text-secondary max-w-full flex items-center italic text-yellow uppercase">
-              DLabs
-            </h1>
+            <div className="w-24">
+              <img src={logo} alt="" className="w-full object-cover" />
+            </div>{" "}
             <div className="flex flex-col gap-4 font-light">
               <div className="flex items-start gap-3 text-lightGray">
                 <IoHomeOutline className="mt-1" />
@@ -48,21 +49,21 @@ const Footer = () => {
           <div className="col-span-full sm:col-span-2 lg:col-span-1 flex flex-col gap-8 text-lightGray">
             <h2 className="text-xl font-semibold text-white">Links</h2>
             <div className="flex flex-col gap-4 font-light">
-              <Link to="/about" className="text-white hover:text-yellow">
+              <Link to="/about" className="text-white hover:text-orange">
                 About Us
               </Link>
-              <Link to="/services" className="text-white hover:text-yellow">
+              <Link to="/services" className="text-white hover:text-orange">
                 Services
               </Link>
               <Link
                 to="/privacy-policy"
-                className="text-white hover:text-yellow"
+                className="text-white hover:text-orange"
               >
                 Privacy
               </Link>
               <Link
                 to="/terms-and-conditions"
-                className="text-white hover:text-yellow"
+                className="text-white hover:text-orange"
               >
                 Terms & Conditions
               </Link>
@@ -72,10 +73,10 @@ const Footer = () => {
           <div className="col-span-full sm:col-span-2 lg:col-span-1 flex flex-col gap-8 text-lightGray">
             <h2 className="text-xl font-semibold text-white">Navigate</h2>
             <div className="flex flex-col gap-4 font-light">
-              <Link to="/pricing" className="text-white hover:text-yellow">
+              <Link to="/pricing" className="text-white hover:text-orange">
                 Pricing
               </Link>
-              <Link to="/contact" className="text-white hover:text-yellow">
+              <Link to="/contact" className="text-white hover:text-orange">
                 Contact Us
               </Link>
             </div>

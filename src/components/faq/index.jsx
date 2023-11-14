@@ -52,17 +52,17 @@ const FrequentlyAskedQuestions = () => {
     >
       <div className="max-w-screen-xl w-full">
         <div className="w-full flex flex-col items-center gap-8 justify-center ">
-          <h1 className="text-5xl font-bold text-gray-900">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 text-center">
             Frequently Asked Questions
           </h1>
 
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
           </div>
           <div className="w-full flex flex-col md:flex-row md:gap-20">
-            <div className="w-full flex flex-col py-3">
+            <div className="w-full flex flex-col md:py-3">
               {faqList.map((item, index) => {
                 return (
                   <div
@@ -84,7 +84,7 @@ const FrequentlyAskedQuestions = () => {
                       <h2
                         className={`text-lg font-semibold ${
                           expandedFAQIndex === item.id
-                            ? "text-yellow"
+                            ? "text-orange"
                             : "text-gray-900"
                         }`}
                       >
@@ -93,7 +93,7 @@ const FrequentlyAskedQuestions = () => {
                       <div
                         className={`${
                           expandedFAQIndex === item.id
-                            ? "bg-yellow"
+                            ? "bg-orange"
                             : "bg-gray-300"
                         } p-1 transform transition-transform duration-300 ease-in-out`}
                       >
@@ -121,12 +121,12 @@ const FrequentlyAskedQuestions = () => {
               })}
             </div>
 
-            <div className="w-full flex flex-col py-3">
+            <div className="w-full flex flex-col md:py-3">
               {faqList2.map((item, index) => {
                 return (
                   <div
                   key={index}
-                  className={`${index === 0 ? "border-t-2" : "border-t-0"} ${
+                  className={`${index === 0 ? "md:border-t-2" : "border-t-0"} ${
                     expandedFAQIndex === item.id
                       ? "gap-5 transition-all duration-300"
                       : "gap-0 transition-all duration-300"
@@ -143,7 +143,7 @@ const FrequentlyAskedQuestions = () => {
                     <h2
                       className={`text-lg font-semibold ${
                         expandedFAQIndex === item.id
-                          ? "text-yellow"
+                          ? "text-orange"
                           : "text-gray-900"
                       }`}
                     >
@@ -152,7 +152,7 @@ const FrequentlyAskedQuestions = () => {
                     <div
                       className={`${
                         expandedFAQIndex === item.id
-                          ? "bg-yellow"
+                          ? "bg-orangeDark"
                           : "bg-gray-300"
                       } p-1 transform transition-transform duration-300 ease-in-out`}
                     >

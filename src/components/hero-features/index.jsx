@@ -12,7 +12,7 @@ const HeroFeatures = () => {
   const [showFeature4, setShowFeature4] = useState(false);
   const [showFeature5, setShowFeature5] = useState(false);
   return (
-    <div className="grid grid-cols-6 lg:grid-cols-5  bg-yellowDark">
+    <div className="grid grid-cols-6 lg:grid-cols-5  bg-orange">
       <div className=" col-span-full md:col-span-3 lg:col-span-1 w-full flex flex-col justify-center gap-3 items-center text-center border-r border-b lg:border-b-0 lg:border-r border-gray-400 text-white  cursor-pointer">
         <div
           className="relative w-full h-full flex flex-col gap-4 items-center py-10"
@@ -29,7 +29,7 @@ const HeroFeatures = () => {
                 : { y: -100, opacity: 0, zIndex: -1 }
             }
             transition={{ duration: 0.3 }}
-            className="w-full h-full absolute top-0 bg-yellow flex flex-col justify-center items-center text-white px-6 py-4"
+            className="w-full h-full absolute top-0 bg-orangeDark flex flex-col justify-center items-center text-white px-6 py-4"
           >
             {/* <h2 className="text-xl font-semibold ">hello</h2> */}
             <p className="text-sm font-medium leading-5 text-justify">
@@ -54,7 +54,7 @@ const HeroFeatures = () => {
                 : { y: -100, opacity: 0, zIndex: -1 }
             }
             transition={{ duration: 0.3 }}
-            className="w-full h-full absolute top-0 bg-yellow flex flex-col justify-center items-center text-white px-6 py-4"
+            className="w-full h-full absolute top-0 bg-orangeDark flex flex-col justify-center items-center text-white px-6 py-4"
           >
             {/* <h2 className="text-xl font-semibold ">hello</h2> */}
              <p className="text-sm font-medium leading-5 text-justify">
@@ -79,7 +79,7 @@ const HeroFeatures = () => {
                 : { y: -100, opacity: 0, zIndex: -1 }
             }
             transition={{ duration: 0.3 }}
-            className="w-full h-full absolute top-0 bg-yellow flex flex-col justify-center items-center text-white px-6 py-4"
+            className="w-full h-full absolute top-0 bg-orangeDark flex flex-col justify-center items-center text-white px-6 py-4"
           >
             {/* <h2 className="text-xl font-semibold ">hello</h2> */}
              <p className="text-sm font-medium leading-5 text-justify">
@@ -105,7 +105,7 @@ const HeroFeatures = () => {
                 : { y: -100, opacity: 0, zIndex: -1 }
             }
             transition={{ duration: 0.3 }}
-            className="w-full h-full absolute top-0 bg-yellow flex flex-col justify-center items-center text-white px-6 py-4"
+            className="w-full h-full absolute top-0 bg-orangeDark flex flex-col justify-center items-center text-white px-6 py-4"
           >
             {/* <h2 className="text-xl font-semibold ">hello</h2> */}
              <p className="text-sm font-medium leading-5 text-justify">
@@ -131,7 +131,7 @@ const HeroFeatures = () => {
                 : { y: -100, opacity: 0, zIndex: -1 }
             }
             transition={{ duration: 0.3 }}
-            className="w-full h-full absolute top-0 bg-yellow flex flex-col justify-center items-center text-white px-6 py-4"
+            className="w-full h-full absolute top-0 bg-orangeDark flex flex-col justify-center items-center text-white px-6 py-4"
           >
             {/* <h2 className="text-xl font-semibold ">hello</h2> */}
              <p className="text-sm font-medium leading-5 text-justify">

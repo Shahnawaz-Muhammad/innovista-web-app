@@ -13,7 +13,7 @@ const Privacy = ({ title }) => {
         className={`w-full z-20 flex justify-center py-20 text-bgLight mx-auto px-4 md:px-8 xl:px-4`}
       >
         <div className="max-w-screen-xl w-full">
-          <h1 className="text-2xl font-semibold mb-4 text-yellow">
+          <h1 className="text-2xl font-semibold mb-4 text-orange">
             Privacy Policy
           </h1>
           <p className="text-gray-600 mb-4">
@@ -26,7 +26,7 @@ const Privacy = ({ title }) => {
             our services. By accessing or using our website or services, you
             consent to the practices described in this Privacy Policy.
           </p>
-          <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+          <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
             1. Information We Collect
           </h2>
           <p className="text-gray-600 mb-4">
@@ -68,7 +68,7 @@ const Privacy = ({ title }) => {
             </li>
           </ul>
 
-          <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+          <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
             2. How We Use Your Information
           </h2>
           <p className="text-gray-600 mb-4">
@@ -115,7 +115,7 @@ const Privacy = ({ title }) => {
             <li>To comply with legal obligations and regulations.</li>
           </ul>
 
-          <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+          <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
             Sharing Your Information
           </h2>
           <p className="text-gray-600 mb-4">
@@ -141,7 +141,7 @@ const Privacy = ({ title }) => {
             information may be transferred to the acquiring entity.
           </p>
 
-          <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+          <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
             Security
           </h2>
           <p className="text-gray-600 mb-4">
@@ -151,7 +151,7 @@ const Privacy = ({ title }) => {
             storage is entirely secure, and we cannot guarantee absolute
             security.
           </p>
-          <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+          <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
             Your Choices
           </h2>
           <p className="text-gray-600 mb-4">
@@ -172,7 +172,7 @@ const Privacy = ({ title }) => {
             through your browser settings.
           </p>
 
-          <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+          <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
             Changes to this Privacy Policy
           </h2>
           <p className="text-gray-600 mb-4">
@@ -182,20 +182,20 @@ const Privacy = ({ title }) => {
             posting the updated Privacy Policy on our website or through other
             means.
           </p>
-          <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+          <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
             Contact Us
           </h2>
 
           <p className="text-gray-600 mb-4">
             If you have any questions or concerns about this Privacy Policy or
             our data practices, please{" "}
-            <Link to="/contact" className="underline text-yellow italic">
+            <Link to="/contact" className="underline text-orange italic">
               contact us
             </Link>
             .
           </p>
 
-          <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+          <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
             Changes to this Privacy Policy
           </h2>
 

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { RxCross1 } from "react-icons/rx";
 import { GiHamburgerMenu } from "react-icons/gi";
+import logo from "../../assets/D-labs-logo-white.png"
 
 const Header = () => {
   const [scroll, setScroll] = useState(false);
@@ -53,10 +54,11 @@ const Header = () => {
       >
         <div className="max-w-screen-xl w-full">
           <div className="max-w-full flex justify-between">
-            <h1 className="text-2xl lg:text-5xl font-semibold text-secondary max-w-full flex items-center italic text-yellow uppercase">
+            <img src={logo} alt="" className="h-16"/>
+            {/* <h1 className="text-2xl lg:text-5xl font-semibold text-secondary max-w-full flex items-center italic text-orange uppercase"> */}
               {/* <img src={logo} alt="" className="w-20 md:w-24 md:block hidden"/> */}
-              DLabs
-            </h1>
+              {/* DLabs */}
+            {/* </h1> */}
 
             <div className="max-w-full text-primary hidden md:flex gap-5 font-roboto items-center text-white uppercase">
               {navItems.map((item) => (
@@ -73,7 +75,7 @@ const Header = () => {
                   <span
                     className={`absolute w-full h-1 bg-primary -bottom-2 left-0 transform scale-x-0 ${
                       activeNavItem === item.path ? "scale-x-100" : ""
-                    } group-hover:scale-x-100 transition-transform duration-300 ease-in-out bg-gradient-to-r from-[#00e1dd] to-[#e1f339]`}
+                    } group-hover:scale-x-100 transition-transform duration-300 ease-in-outbg-orange`}
                   ></span>
                 </Link>
               ))}
@@ -82,7 +84,7 @@ const Header = () => {
             <div className="md:flex items-center hidden">
               <Link
                 to="/book-a-tour"
-                className="bg-yellow hover:bg-yellowDark  text-white uppercase text-lg font-semibold py-2 px-4 "
+                className="bg-orange hover:bg-orangeDark text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Book a Tour
               </Link>
@@ -118,7 +120,7 @@ const Header = () => {
               })}
               <Link
                 to="/book-a-tour"
-                className="bg-yellow hover:bg-yellowDark  text-white uppercase text-lg font-semibold py-2 px-4 "
+                className="bg-orange hover:bg-orangeDark  text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Book a Tour
               </Link>

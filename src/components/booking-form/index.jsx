@@ -15,16 +15,16 @@ export default function BookingForm() {
       <div className="max-w-screen-lg w-full pt-10 px-8 xl:px-0">
         
         <div className="w-full flex flex-col items-center text-center pt-10 lg:pt-20 gap-8">
-          <h2 className="text-yellow font-bold uppercase text-lg">
+          <h2 className="text-orange font-bold uppercase text-lg">
             BOOK AN EXCURSION
           </h2>
           <h1 className="text-4xl font-bold lg:text-6xl text-darkGray">
             Reserve Your Visit
           </h1>
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
           </div>
           <p className=" text-textGray max-w-lg">
             Would you like to see our space before joining? Come and visit our
@@ -280,7 +280,7 @@ export default function BookingForm() {
             <div className="text-center">
               <button
                 type="submit"
-                className="px-10 py-4 bg-yellow mt-10 text-white lg:mt-10 lg:text-white"
+                className="px-10 py-4bg-orange mt-10 text-white lg:mt-10 lg:text-white"
               >
                 Submit
               </button>

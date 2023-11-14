@@ -18,16 +18,16 @@ export default function Amenities() {
           <button>FOLLOW US</button>
         </div> */}
         <div className="flex flex-col items-center text-center pt-10 lg:pt-20 gap-8">
-          <h2 className="text-yellow font-bold uppercase text-lg">
+          <h2 className="text-orange font-bold uppercase text-lg">
             LEARN AND GROW
           </h2>
           <h1 className="text-4xl font-bold lg:text-6xl text-darkGray">
             Our Amenities
           </h1>
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
           </div>
           <p className=" text-textGray max-w-lg">
           Remote work definitely offers flexibility, but it can also bring about side effects, including feelings of isolation and a reduced level of in-person social interaction.
@@ -68,7 +68,7 @@ export default function Amenities() {
           </div>
         </div>
         <div className="flex justify-center">
-          <button className="px-10 py-4 bg-yellow mt-10 text-white lg:mt-14 lg:text-white">
+          <button className="px-10 py-4bg-orange mt-10 text-white lg:mt-14 lg:text-white">
             More About Us
           </button>
         </div>

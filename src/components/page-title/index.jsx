@@ -19,7 +19,7 @@ const PageTitle = ({title}) => {
                   <div className="text-4xl md:text-5xl  font-bold capitalize text-white flex flex-col gap-4  text-center md:text-start px-5 md:px-0 max-w-lg lg:max-w-2xl">
                     <h2>{title}</h2>
                   </div>
-                  <p className="text-yellow uppercase">Home / <span className="text-white">{title} </span></p>
+                  <p className="text-orange uppercase">Home / <span className="text-white">{title} </span></p>
                 </div>
               </div>
             </div>

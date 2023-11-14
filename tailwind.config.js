@@ -7,8 +7,8 @@ export default {
         transparent: "transparent",
         white: "#fff",
         black: "#000",
-        yellowDark: "#D68910",
-        yellow: "#F39C12",
+        orange: "#F15823",
+        orangeDark: "#C0461C",
         lightGray: "#d4d2d2",
         textGray: "#85929E",
         bgGray: "#f2f3f7",
@@ -32,6 +32,8 @@ export default {
         offerBg1: "url('/src/assets/images/offerBg1.jpg')",
         offerBg3: "url('/src/assets/images/offerBg3.jpg')",
         offerBg2: "url('/src/assets/images/offerBg2.jpg')",
+
+        coverImage:"url('/src/assets/images/cover-image.jpg')",
 
         "sidebar-image-mobile":
           "url('../public/assets/images/bg-sidebar-mobile.svg')",

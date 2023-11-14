@@ -4,14 +4,17 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { AuthProvider } from "./context/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AnimatePresence mode="wait">
-        <App />
-      </AnimatePresence>
+      <AuthProvider>
+        <AnimatePresence mode="wait">
+          <App />
+        </AnimatePresence>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

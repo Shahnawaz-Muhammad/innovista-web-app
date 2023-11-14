@@ -14,7 +14,7 @@ const TermsConditions = ({ title }) => {
           className={`w-full z-20 flex justify-center py-20 text-bgLight mx-auto px-4 md:px-8 xl:px-4`}
         >
           <div className="max-w-screen-xl w-full">
-            <h1 className="text-2xl font-semibold mb-4 text-yellow">
+            <h1 className="text-2xl font-semibold mb-4 text-orange">
               Terms & Conditions
             </h1>
             <p className="text-gray-600 mb-4">
@@ -27,7 +27,7 @@ const TermsConditions = ({ title }) => {
               by these Terms. If you do not agree with these Terms, please
               refrain from using our website or services.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               1. Acceptance of Terms
             </h2>
             <p className="text-gray-600 mb-4">
@@ -35,7 +35,7 @@ const TermsConditions = ({ title }) => {
               read and agree to comply with these Terms. You also agree to abide
               by any additional terms and policies provided by D-Labs.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               2. Use of Services
             </h2>
             <p className="text-gray-600 mb-4">
@@ -44,7 +44,7 @@ const TermsConditions = ({ title }) => {
               services is subject to these Terms and any additional terms and
               policies established by us.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               3. Privacy
             </h2>
             <p className="text-gray-600 mb-4">
@@ -53,7 +53,7 @@ const TermsConditions = ({ title }) => {
               collection and use of your personal information as outlined in our
               Privacy Policy.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               4. Membership and Access
             </h2>
             <p className="text-gray-600 mb-4">
@@ -68,7 +68,7 @@ const TermsConditions = ({ title }) => {
               the right to restrict or terminate access to co-working spaces for
               violation of our policies.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               5. Payment and Billing
             </h2>
             <p className="text-gray-600 mb-4">
@@ -80,7 +80,7 @@ const TermsConditions = ({ title }) => {
               5.2. We may change our pricing and payment terms at our
               discretion. Any changes will be communicated to you in advance.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               6. Code of Conduct
             </h2>
             <p className="text-gray-600 mb-4">
@@ -92,7 +92,7 @@ const TermsConditions = ({ title }) => {
               6.2. Members and users must comply with all house rules and
               guidelines provided by D-Labs while using co-working spaces.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               7. Termination
             </h2>
             <p className="text-gray-600 mb-4">
@@ -100,14 +100,14 @@ const TermsConditions = ({ title }) => {
               access to our services for violations of these Terms or any
               disruptive behavior.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               8. Limitation of Liability
             </h2>
             <p className="text-gray-600 mb-4">
               D-Labs is not liable for any direct or indirect damages or losses
               resulting from the use of our services.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               9. Governing Law
             </h2>
             <p className="text-gray-600 mb-4">
@@ -115,7 +115,7 @@ const TermsConditions = ({ title }) => {
               any disputes will be resolved in the appropriate courts of that
               jurisdiction.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               10. Changes to Terms
             </h2>
             <p className="text-gray-600 mb-4">
@@ -123,13 +123,13 @@ const TermsConditions = ({ title }) => {
               you. It is your responsibility to regularly review our Terms and
               ensure compliance.
             </p>
-            <h2 className="text-xl font-semibold mt-4 mb-2 text-yellow">
+            <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               11. Contact Information
             </h2>
             <p className="text-gray-600 mb-4">
               If you have any questions or concerns about these Terms &
               Conditions, please{" "}
-              <Link to="/contact" className="underline text-yellow italic">
+              <Link to="/contact" className="underline text-orange italic">
                 contact us
               </Link>
               .

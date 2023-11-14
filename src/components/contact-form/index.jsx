@@ -24,15 +24,15 @@ const ContactForm = () => {
     >
       <div className="max-w-screen-lg w-full flex justify-center">
         <div className="max-w-screen-md w-full flex flex-col items-center gap-8 justify-center ">
-          <h2 className="text-yellow font-bold uppercase text-lg">
+          <h2 className="text-orange font-bold uppercase text-lg">
             Be In Touch
           </h2>
-          <h1 className="text-5xl font-bold text-gray-900">Ask A Question</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">Ask A Question</h1>
 
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
           </div>
 
           <p className="text-textGray text-center">
@@ -155,7 +155,7 @@ const ContactForm = () => {
                     type="submit"
                     className={`${
                       loading ? "bg-opacity-50 cursor-none" : "bg-opacity-100"
-                    } text-white bg-yellow  hover:bg-yellowDark hover:text-white focus:ring-4 focus:outline-none font-medium  text-sm w-full sm:w-auto px-10 py-6 text-center`}
+                    } text-white bg-orange  hover:bg-orangeDark hover:text-white focus:ring-4 focus:outline-none font-medium  text-sm w-full sm:w-auto px-10 py-6 text-center`}
                   >
                     {loading ? "Please wait..." : "Submit"}
                   </button>

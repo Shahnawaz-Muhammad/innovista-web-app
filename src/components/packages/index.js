@@ -5,16 +5,16 @@ export default function Packages() {
     <div className="w-full flex justify-center bg-bgGray">
       <div className="max-w-screen-xl">
         <div className="flex flex-col items-center text-center pt-10 lg:pt-20 gap-8">
-          {/* <h2 className="text-yellow font-bold uppercase text-lg">
+          {/* <h2 className="text-orange font-bold uppercase text-lg">
             LEARN AND GROW
           </h2> */}
           <h1 className="text-4xl font-bold lg:text-6xl text-darkGray">
             Pricing Table
           </h1>
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
-            <div className="w-2 h-2 bg-yellow rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2bg-orange rounded-full"></div>
           </div>
           {/* <p className=" text-textGray max-w-lg">
             A 2007 survey showed that many employees worry about feeling
@@ -23,7 +23,7 @@ export default function Packages() {
         </div>
 
         <div className="my-10 px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-8 justify-center items-start ">
-          <div className=" rounded-lg bg-white shadow-sm shadow-yellowDark">
+          <div className=" rounded-lg bg-white shadow-sm shadow-orange">
             <div className="py-8 text-2xl font-bold leading-tight text-center uppercase text-white bg-slate-700">
               Standard
             </div>
@@ -63,13 +63,13 @@ export default function Packages() {
               </h1>
             </div>
             <div className="py-8 text-md font-semibold leading-tight text-center uppercase">
-              <button className="py-4 px-8 text-white bg-yellow hover:bg-yellowDark">
+              <button className="py-4 px-8 text-white bg-orange hover:bg-orangeDark">
                 Reserve Now
               </button>
             </div>
           </div>
 
-          <div className=" rounded-lg shadow-sm shadow-yellowDark bg-white">
+          <div className=" rounded-lg shadow-sm shadow-orange bg-white">
             <div className="py-8 text-2xl font-bold leading-tight text-center uppercase text-white bg-slate-700">
               plus
             </div>
@@ -117,13 +117,13 @@ export default function Packages() {
               </h1>
             </div>
             <div className="py-8 text-md font-semibold leading-tight text-center uppercase">
-              <button className="py-4 px-8 text-white bg-yellow hover:bg-yellowDark">
+              <button className="py-4 px-8 text-white bg-orange hover:bg-orangeDark">
                 Reserve Now
               </button>
             </div>
           </div>
 
-          <div className=" rounded-lg shadow-sm shadow-yellowDark bg-white">
+          <div className=" rounded-lg shadow-sm shadow-orange bg-white">
             <div className="py-8 text-2xl font-bold leading-tight text-center uppercase text-white bg-slate-700">
               premium
             </div>
@@ -177,7 +177,7 @@ export default function Packages() {
               </h1>
             </div>
             <div className="py-8 text-md font-semibold leading-tight text-center uppercase">
-              <button className="py-4 px-8 text-white bg-yellow hover:bg-yellowDark">
+              <button className="py-4 px-8 text-white bg-orange hover:bg-orangeDark">
                 Reserve Now
               </button>
             </div>
