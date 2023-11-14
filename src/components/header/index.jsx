@@ -32,6 +32,11 @@ const Header = () => {
     }
   };
 
+  const handleBookTour = () => {
+    navigate("/book-a-tour")
+    setNavMobile(false)
+  }
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
@@ -75,19 +80,19 @@ const Header = () => {
                   <span
                     className={`absolute w-full h-1 bg-primary -bottom-2 left-0 transform scale-x-0 ${
                       activeNavItem === item.path ? "scale-x-100" : ""
-                    } group-hover:scale-x-100 transition-transform duration-300 ease-in-outbg-orange`}
+                    } group-hover:scale-x-100 transition-transform duration-300 ease-in-out bg-orange`}
                   ></span>
                 </Link>
               ))}
             </div>
 
             <div className="md:flex items-center hidden">
-              <Link
+              <button
                 to="/book-a-tour"
                 className="bg-orange hover:bg-orangeDark text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Book a Tour
-              </Link>
+              </button>
             </div>
 
             <button
@@ -118,12 +123,12 @@ const Header = () => {
                   </button>
                 );
               })}
-              <Link
-                to="/book-a-tour"
+              <button
+                onClick={handleBookTour}
                 className="bg-orange hover:bg-orangeDark  text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Book a Tour
-              </Link>
+              </button>
             </div>
           </div>
         </div>
