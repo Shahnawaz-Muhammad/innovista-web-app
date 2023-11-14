@@ -6,7 +6,7 @@ import { BsEnvelopeAt } from "react-icons/bs";
 const ContactDetail = () => {
   return (
     <div
-      className={`w-full z-20 flex justify-center text-bgLight mx-auto  bg-[#5543ca]`}
+      className={`w-full z-20 flex justify-center text-bgLight mx-auto  bg-orange`}
     >
       <div className="max-w-screen-xl w-full ">
         <div className="w-full grid grid-cols-1 md:grid-cols-3 justify-center">

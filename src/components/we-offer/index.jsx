@@ -99,7 +99,7 @@ const WeOffer = () => {
                 <div>
                   <Link
                     to="/book-a-tour"
-                    className="text-lg md:text-xl bg-orange px-4 py-2 md:px-8 md:py-4 text-white"
+                    className="text-lg md:text-xl bg-orange hover:bg-orangeDark px-4 py-2 md:px-8 md:py-4 text-white"
                   >
                     Book A Tour
                   </Link>

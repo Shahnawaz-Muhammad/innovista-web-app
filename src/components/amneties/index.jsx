@@ -68,7 +68,7 @@ export default function Amenities() {
           </div>
         </div>
         <div className="flex justify-center">
-          <button className="px-10 py-4bg-orange mt-10 text-white lg:mt-14 lg:text-white">
+          <button className="px-10 py-4 bg-orange hover:bg-orangeDark mt-10 text-white lg:mt-14 lg:text-white">
             More About Us
           </button>
         </div>

@@ -48,7 +48,7 @@ export default function OurBenefits() {
               Comfy accommodations and comfortable couches
             </h1>
             <div className=" h-[1px] bg-lightGray mt-6 mx-2 lg:mt-10"></div>
-            <button className="px-10 py-4bg-orange mt-8  lg:mt-12 text-white">
+            <button className="px-10 py-4 bg-orange hover:bg-orangeDark mt-8  lg:mt-12 text-white">
               Learn More
             </button>
           </div>
