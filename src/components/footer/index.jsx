@@ -88,22 +88,7 @@ const Footer = () => {
                 Subscribe to our e-mail list and stay up-to-date with all our
                 news.
               </p>
-              {/* <div>
-                <div className="w-full relative h-full">
-                  <input
-                    type="email"
-                    className="w-full py-4 pl-4 pr-14 text-black focus:outline-none"
-                    placeholder="Your Email"
-                  />
-                  <HiOutlineArrowLongRight className="absolute right-3 top-3 text-gray-600 text-4xl hover:right-2 transition-all ease-in-out duration-300 cursor-pointer" />
-                </div>
-                <div>
-                  <input type="checkbox" name="" id="" />
-                  <span className="ml-3">
-                    I have read and agree to the terms & conditions
-                  </span>
-                </div>
-              </div> */}
+              
 
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="w-full relative  min-h-[4.2rem]">

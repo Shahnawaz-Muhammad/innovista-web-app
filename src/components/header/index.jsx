@@ -34,7 +34,7 @@ const Header = () => {
 
   const handleBookTour = () => {
     navigate("/book-a-tour")
-    setNavMobile(false)
+    setActiveNavItem('')
   }
 
   useEffect(() => {
@@ -50,6 +50,10 @@ const Header = () => {
     navigate(`${item.path}`);
     setNavMobile(false);
   };
+
+  useEffect(() => {
+    setActiveNavItem(location.pathname);
+  }, [location.pathname]);
   return (
     <>
       <div
@@ -60,11 +64,6 @@ const Header = () => {
         <div className="max-w-screen-xl w-full">
           <div className="max-w-full flex justify-between">
             <img src={logo} alt="" className="h-16"/>
-            {/* <h1 className="text-2xl lg:text-5xl font-semibold text-secondary max-w-full flex items-center italic text-orange uppercase"> */}
-              {/* <img src={logo} alt="" className="w-20 md:w-24 md:block hidden"/> */}
-              {/* DLabs */}
-            {/* </h1> */}
-
             <div className="max-w-full text-primary hidden md:flex gap-5 font-roboto items-center text-white uppercase">
               {navItems.map((item) => (
                 <Link
@@ -87,12 +86,12 @@ const Header = () => {
             </div>
 
             <div className="md:flex items-center hidden">
-              <Link
-                to="/book-a-tour"
+              <button
+                onClick={handleBookTour}
                 className="bg-orange hover:bg-orangeDark text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Book a Tour
-              </Link>
+              </button>
             </div>
 
             <button

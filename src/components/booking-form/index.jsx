@@ -280,7 +280,7 @@ export default function BookingForm() {
             <div className="text-center">
               <button
                 type="submit"
-                className="px-10 py-4bg-orange mt-10 text-white lg:mt-10 lg:text-white"
+                className="px-10 py-4 bg-orange mt-10 text-white lg:mt-10 lg:text-white"
               >
                 Submit
               </button>

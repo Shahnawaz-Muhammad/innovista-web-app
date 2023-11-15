@@ -24,7 +24,7 @@ export default function LearnMore() {
           <p className="max-w-lg text-textGray">
           As we emphasize sustainability and comfort within our coworking space, we wholeheartedly guarantee your complete satisfaction and the opportunity to maximize your overall experience while working here.
           </p>
-          <button className="px-10 py-4bg-orange mt-8  lg:mt-12 text-white">
+          <button className="px-10 py-4 bg-orange mt-8  lg:mt-12 text-white">
               Learn More
             </button>
         </div>
