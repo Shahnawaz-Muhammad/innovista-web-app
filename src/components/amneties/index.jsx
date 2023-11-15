@@ -25,9 +25,9 @@ export default function Amenities() {
             Our Amenities
           </h1>
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
           </div>
           <p className=" text-textGray max-w-lg">
           Remote work definitely offers flexibility, but it can also bring about side effects, including feelings of isolation and a reduced level of in-person social interaction.

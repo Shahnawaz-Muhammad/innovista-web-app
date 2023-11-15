@@ -57,9 +57,9 @@ const FrequentlyAskedQuestions = () => {
           </h1>
 
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
           </div>
           <div className="w-full flex flex-col md:flex-row md:gap-20">
             <div className="w-full flex flex-col md:py-3">

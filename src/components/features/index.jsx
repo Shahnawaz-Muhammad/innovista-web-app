@@ -20,9 +20,9 @@ const Features = () => {
             What We Offer
           </h1>
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
           </div>
           <p className=" text-textGray max-w-screen-lg text-center">
             Modest yet highly practical and comfortable working zones, chill

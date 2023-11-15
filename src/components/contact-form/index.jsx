@@ -30,9 +30,9 @@ const ContactForm = () => {
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900">Ask A Question</h1>
 
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
           </div>
 
           <p className="text-textGray text-center">
@@ -98,7 +98,7 @@ const ContactForm = () => {
                     htmlFor="email"
                     className="absolute text-sm text-gray-700  duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-gray-700  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                   >
-                    Email*
+                    Email
                   </label>
                   {errors.email && (
                     <p role="alert" className="text-left text-red-500 mt-1">
@@ -114,7 +114,7 @@ const ContactForm = () => {
                   name="message"
                   className="border bg-gray-300  block w-full py-2 px-4 placeholder-gray-700  text-gray-700 focus:outline-none"
                   rows="4"
-                  placeholder="I'm interested in*"
+                  placeholder="I'm interested in"
                   {...register("message", {
                     required: "Message is required",
                   })}

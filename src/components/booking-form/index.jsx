@@ -22,9 +22,9 @@ export default function BookingForm() {
             Reserve Your Visit
           </h1>
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
           </div>
           <p className=" text-textGray max-w-lg">
             Would you like to see our space before joining? Come and visit our

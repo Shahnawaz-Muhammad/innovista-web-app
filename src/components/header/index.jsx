@@ -87,12 +87,12 @@ const Header = () => {
             </div>
 
             <div className="md:flex items-center hidden">
-              <button
+              <Link
                 to="/book-a-tour"
                 className="bg-orange hover:bg-orangeDark text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Book a Tour
-              </button>
+              </Link>
             </div>
 
             <button

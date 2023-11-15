@@ -17,9 +17,9 @@ export default function LearnMore() {
             in Your Town
           </h1>
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
-            <div className="w-2 h-2bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
+            <div className="w-2 h-2 bg-orange rounded-full"></div>
           </div>
           <p className="max-w-lg text-textGray">
           As we emphasize sustainability and comfort within our coworking space, we wholeheartedly guarantee your complete satisfaction and the opportunity to maximize your overall experience while working here.
