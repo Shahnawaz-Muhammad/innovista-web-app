@@ -69,9 +69,7 @@ const Header = () => {
                 <Link
                   to={item.path}
                   key={item.id}
-                  className={`relative group cursor-pointer ${
-                    location.pathname === item.path ? "active" : ""
-                  }`}
+                  className={`relative group cursor-pointer `}
                   onMouseEnter={() => setActiveNavItem(item.path)}
                   onMouseLeave={() => setActiveNavItem(location.pathname)}
                 >
