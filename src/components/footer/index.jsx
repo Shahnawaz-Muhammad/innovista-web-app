@@ -26,7 +26,7 @@ const Footer = () => {
         <div className="w-full grid grid-cols-4 gap-8 lg:gap-0">
           <div className="col-span-full sm:col-span-2 lg:col-span-1 flex flex-col gap-6">
             <div className="w-24">
-              <img src={logo} alt="" className="w-full object-cover" />
+            <Link to='/'><img src={logo} alt="" className="w-full object-cover" /></Link>
             </div>{" "}
             <div className="flex flex-col gap-4 font-light">
               <div className="flex items-start gap-3 text-lightGray">

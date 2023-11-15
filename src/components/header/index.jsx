@@ -63,7 +63,7 @@ const Header = () => {
       >
         <div className="max-w-screen-xl w-full">
           <div className="max-w-full flex justify-between">
-            <img src={logo} alt="" className="h-16"/>
+            <Link to='/'><img src={logo} alt="" className="h-16"/></Link>
             <div className="max-w-full text-primary hidden md:flex gap-5 font-roboto items-center text-white uppercase">
               {navItems.map((item) => (
                 <Link
