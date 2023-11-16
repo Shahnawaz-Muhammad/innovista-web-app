@@ -1,5 +1,4 @@
 // Dashboard.js
-
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import UserHeader from "../../components/dashboard/user-header";
@@ -79,11 +78,11 @@ const UserDashboard = ({ userType }) => {
               <div className="w-40 flex flex-col items-center">
                 <h2 className="text-xl font-semibold">Charles Carter </h2>
               </div>
-              <h2 className="text-textGray">
+              <h2 className="text-textGray px-3">
                 Project Manager and Team Lead at ClayStone
               </h2>
               <div className="flex gap-10 items-center text-textGray">
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 px-2">
                   <IoLocationOutline />
                   Baku
                 </div>
