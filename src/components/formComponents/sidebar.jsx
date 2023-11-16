@@ -41,7 +41,7 @@ export const Sidebar = ({ currentStep, handleNextStep }) => {
 								{step.step}
 							</button>
 							<span className="hidden lg:inline text-white uppercase">
-								<p className="font-normal">Step {step.step}</p>
+								{/* <p className="font-normal">Step {step.step}</p> */}
 								<span className="font-bold">{step.title}</span>
 							</span>
 						</li>

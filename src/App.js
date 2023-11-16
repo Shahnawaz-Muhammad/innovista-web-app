@@ -114,7 +114,7 @@ function App() {
           element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
         />
         <Route
-          path="/dashboard/"
+          path="/dashboard"
           element={
             isAuthenticated ? (
               <UserDashboard userType={userType} />
@@ -123,7 +123,7 @@ function App() {
             )
           }
         >
-          <Route path="bio" element={<Bio />}/>
+          <Route path="" element={<Bio />}/>
           <Route path="education" element={<Education />}/>
           <Route path="experience" element={<Experience />}/>
           <Route path="cv" element={<Cv />}/>

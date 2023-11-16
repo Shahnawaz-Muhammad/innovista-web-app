@@ -19,7 +19,7 @@ const UserDashboard = ({ userType }) => {
     {
       id: 1,
       title: "Bio",
-      url: "bio",
+      url: "",
     },
     {
       id: 2,

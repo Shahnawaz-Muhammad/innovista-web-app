@@ -3,7 +3,9 @@ import { Button } from "../../components/formComponents/button";
 import { Sidebar } from "../../components/formComponents/sidebar";
 import { PersonalInfo } from "../../components/formComponents/personalInfo";
 import { SelectPlan } from "../../components/formComponents/selectPlan";
-import { Addons } from "../../components/formComponents/Addons";
+import { Freelance } from "../../components/formComponents/Freelance";
+import { Group } from "../../components/formComponents/Group";
+import { Company } from "../../components/formComponents/Company";
 import { ServiceSummary } from "../../components/formComponents/serviceSummary";
 import { ThankYou } from "../../components/formComponents/thankYou";
 
@@ -13,12 +15,22 @@ const Register = () => {
 
   const [userServiceConfiguration, setUserServiceConfiguration] = useState({
     userInfo: {
-      name: "",
+      firstName: "",
+      lastName: "",
       email: "",
-      phone: "",
+      password: "",
+      confirmPassword: "",
     },
     selectedPlan: null,
-    monthly: true,
+    detailedInfo: {
+      dob: "",
+      gender: "",
+      qualification: "",
+      designation: "",
+      address: "",
+      city: "",
+      country: "",
+    },
     addons: [],
   });
 
@@ -33,6 +45,10 @@ const Register = () => {
     });
   };
 
+  const updateDetailedInfo = (detailedInfo) => {
+    setUserServiceConfiguration({ ...userServiceConfiguration, detailedInfo });
+  };
+
   const updateMonthly = () => {
     setUserServiceConfiguration((prevVal) => ({
       ...userServiceConfiguration,
@@ -40,33 +56,34 @@ const Register = () => {
     }));
   };
 
-  const updateAddons = (addon) => {
-    const addons = userServiceConfiguration.addons;
-    const index = addons.findIndex(
-      (currentAddon) => currentAddon.name === addon.name
-    );
-    if (index === -1) {
-      setUserServiceConfiguration({
-        ...userServiceConfiguration,
-        addons: [...addons, addon],
-      });
-    } else {
-      addons.splice(index, 1);
-      setUserServiceConfiguration({
-        ...userServiceConfiguration,
-        addons: [...addons],
-      });
-    }
-  };
+  
 
   const nextStep = (onGoingStep) => {
     if (step === 5) return;
     if (step === 1 || (onGoingStep && onGoingStep !== 1 && step === 1)) {
       if (
-        !userServiceConfiguration.userInfo.name ||
-        !userServiceConfiguration.userInfo.email ||
+        !userServiceConfiguration.userInfo.firstName ||
+        !userServiceConfiguration.userInfo.lastName ||
         !userServiceConfiguration.userInfo.email.includes("@") ||
-        !userServiceConfiguration.userInfo.phone
+        !userServiceConfiguration.userInfo.password
+      ) {
+        setShowRequiredFields(true);
+        return;
+      }
+    } else if (step === 2 || (onGoingStep && onGoingStep !== 2 && step === 2)) {
+      if (userServiceConfiguration.selectedPlan === null) {
+        setShowRequiredFields(true);
+        return;
+      }
+    } else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3)) {
+      if (
+        !userServiceConfiguration.detailedInfo.dob ||
+        !userServiceConfiguration.detailedInfo.gender ||
+        !userServiceConfiguration.detailedInfo.qualification ||
+        !userServiceConfiguration.detailedInfo.designation ||
+        !userServiceConfiguration.detailedInfo.address ||
+        !userServiceConfiguration.detailedInfo.city ||
+        !userServiceConfiguration.detailedInfo.country
       ) {
         setShowRequiredFields(true);
         return;
@@ -81,6 +98,25 @@ const Register = () => {
   const goBack = () => {
     if (step === 1) return;
     setStep((step) => step - 1);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    if (step === 2) {
+      if (userServiceConfiguration.selectedPlan) {
+        updateSelectedPlan(userServiceConfiguration.selectedPlan);
+        setShowRequiredFields(false);
+      } else {
+        // Show the required error message
+        setShowRequiredFields(true);
+      }
+    }
+    if (step === 4) {
+      console.log("FORM SUBMITTED", userServiceConfiguration);
+      // Perform any additional actions you want after submitting the form
+    } else {
+      nextStep();
+    }
   };
   return (
     <main className="h-screen flex flex-col text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-20 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow">
@@ -100,15 +136,31 @@ const Register = () => {
               monthly={userServiceConfiguration.monthly}
               updateSelectedPlan={updateSelectedPlan}
               updateIsMonthly={updateMonthly}
+              showRequired={showRequired}
             />
           )}
-          {step === 3 && (
-            <Addons
-              selectedAddons={userServiceConfiguration.addons}
-              monthly={userServiceConfiguration.monthly}
-              updateAddons={updateAddons}
-            />
-          )}
+          {step === 3 &&
+            (userServiceConfiguration.selectedPlan.name === "Freelancer" ? (
+              <Freelance
+                detailedInfo={userServiceConfiguration.detailedInfo}
+                updateDetailedInfo={updateDetailedInfo}
+                showRequired={showRequired}
+              />
+            ) : userServiceConfiguration.selectedPlan.name === "Group" ? (
+              <Group
+                userInfo={userServiceConfiguration.userInfo}
+                updateUserInfo={updateUserInfo}
+                showRequired={showRequired}
+              />
+            ) : userServiceConfiguration.selectedPlan.name === "Company" ? (
+              <Company
+                userInfo={userServiceConfiguration.userInfo}
+                updateUserInfo={updateUserInfo}
+                showRequired={showRequired}
+              />
+            ) : (
+              <div>error</div>
+            ))}
           {step === 4 && (
             <ServiceSummary
               userServiceConfiguration={userServiceConfiguration}
@@ -125,8 +177,9 @@ const Register = () => {
             </li>
             <li>
               <Button
-                onClick={() => nextStep()}
-                type={step !== 4 ? "secondary" : "primary"}
+                // onClick  ={() => nextStep()}
+                type={step !== 4 ? "primary" : "submit"}
+                onClick={handleFormSubmit}
               >
                 {step !== 4 ? "Next Step" : "Confirm"}
               </Button>
