@@ -112,10 +112,14 @@ const UserDashboard = ({ userType }) => {
                   );
                 })}
               </div>
-              <div className="w-full py-5">
+              <div className="w-full py-10">
                 <Outlet />
               </div>
             </div>
+          </div>
+          {/* footer */}
+          <div className="w-full py-5  bg-lightGray flex justify-center">
+          <div>&copy; 2023 D-Labs. All rights reserved.</div>
           </div>
         </div>
       ) : (
