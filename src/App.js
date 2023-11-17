@@ -24,6 +24,7 @@ import Education from "./pages/user/user-tabs/Education";
 import Cv from "./pages/user/user-tabs/Cv";
 import AdvanceBooking from "./pages/user/user-tabs/AdvanceBooking";
 import BookingHistory from "./pages/user/user-tabs/BookingHistory";
+import CVUpload from "./pages/user/user-tabs/CVUpload";
 
 function App() {
   const { isAuthenticated, userType } = useContext(AuthContext);
@@ -127,6 +128,7 @@ function App() {
           <Route path="education" element={<Education />}/>
           <Route path="experience" element={<Experience />}/>
           <Route path="cv" element={<Cv />}/>
+          <Route path="cvupload" element={<CVUpload />}/>
           <Route path="advance-booking" element={<AdvanceBooking />}/>
           <Route path="booking-history" element={<BookingHistory />}/>
         </Route>
