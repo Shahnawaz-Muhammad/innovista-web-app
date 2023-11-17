@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function CVUpload({ setPreviewData }) {
+export default function CVUpload() {
   const [filePreview, setFilePreview] = useState(null);
 
   const handleFileSelect = (e) => {
@@ -76,10 +76,9 @@ export default function CVUpload({ setPreviewData }) {
                 {/* File upload description */}
                 {filePreview ? null : (
                   <p className="pointer-none text-gray-700">
-                    <span className="text-sm">Drag and drop</span> files here{" "}
-                    <br /> or{" "}
-                    <a
-                      href="#"
+                    <span className="text-sm">Drag and drop</span> files here
+                    <br /> or
+                    <button
                       className="text-blue-600 hover:underline"
                       onClick={() => {
                         const fileInput = document.getElementById("fileInput");
@@ -87,7 +86,7 @@ export default function CVUpload({ setPreviewData }) {
                       }}
                     >
                       select a file
-                    </a>{" "}
+                    </button>
                     from your computer
                   </p>
                 )}

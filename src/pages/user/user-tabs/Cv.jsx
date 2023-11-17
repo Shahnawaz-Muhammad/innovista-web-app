@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Cv = () => {
-  const [filePreview, setFilePreview] = useState(null);
+  const [, setFilePreview] = useState(null);
 
   const handleFilePreview = (previewData) => {
     setFilePreview(previewData);
