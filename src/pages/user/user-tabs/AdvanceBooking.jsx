@@ -18,7 +18,7 @@ export default function AdvanceBooking() {
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5">
                 <label
-                  for="fName"
+                  htmlFor="fName"
                   className="mb-3 block text-base font-bold "
                 >
                   Name
@@ -35,7 +35,7 @@ export default function AdvanceBooking() {
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5">
                 <label
-                  for="lName"
+                  htmlFor="lName"
                   className="mb-3 block text-base font-bold "
                 >
                   Contact No
@@ -52,7 +52,7 @@ export default function AdvanceBooking() {
           </div>
           <div className="px-3 mb-5">
             <label
-              for="guest"
+              htmlFor="guest"
               className="mb-3 block text-base font-bold "
             >
               How many guest are you bringing?
@@ -71,7 +71,7 @@ export default function AdvanceBooking() {
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5 ">
                 <label
-                  for="date"
+                  htmlFor="date"
                   className="mb-3 block text-base font-bold "
                 >
                   Date From
@@ -87,7 +87,7 @@ export default function AdvanceBooking() {
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5">
               <label
-                  for="date"
+                  htmlFor="date"
                   className="mb-3 block text-base font-bold "
                 >
                   Date To
@@ -106,7 +106,7 @@ export default function AdvanceBooking() {
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5">
               <label
-                  for="time"
+                  htmlFor="time"
                   className="mb-3 block text-base font-bold "
                 >
                   Time From
@@ -122,7 +122,7 @@ export default function AdvanceBooking() {
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5">
                 <label
-                  for="time"
+                  htmlFor="time"
                   className="mb-3 block text-base font-bold "
                 >
                   Time To
