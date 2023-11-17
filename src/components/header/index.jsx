@@ -35,7 +35,7 @@ const Header = () => {
   };
 
   const handleBookTour = () => {
-    navigate("/book-a-tour");
+    navigate("/login");
     setActiveNavItem("");
   };
 
@@ -94,7 +94,7 @@ const Header = () => {
                 onClick={handleBookTour}
                 className="bg-orange hover:bg-orangeDark text-white uppercase text-lg font-semibold py-2 px-4 "
               >
-                Book a Tour
+                Login
               </button>
             </div>
 
@@ -130,7 +130,7 @@ const Header = () => {
                 onClick={handleBookTour}
                 className="bg-orange hover:bg-orangeDark  text-white uppercase text-lg font-semibold py-2 px-4 "
               >
-                Book a Tour
+                Login
               </button>
             </div>
           </div>
