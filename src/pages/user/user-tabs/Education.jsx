@@ -20,8 +20,7 @@ const Education = () => {
 
         {/* Second Row */}
         <div className=''>
-          <h1></h1>
-          <p></p>
+          
         </div>
         <div className='pt-2 lg:col-span-2'>
           <h1>Bs Software Engineering</h1>
