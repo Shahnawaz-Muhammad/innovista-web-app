@@ -19,7 +19,7 @@ export const Input = ({
 					{label}
 				</label>
 				{required && showRequired && (
-					<p className="text-primary-starberry-red leading-3">
+					<p className="text-primary-starberry-red leading-3 text-sm">
 						This field is required
 					</p>
 				)}

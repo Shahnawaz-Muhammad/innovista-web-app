@@ -5,8 +5,6 @@ import Home from "./pages/home";
 import Contact from "./pages/contact";
 import Pricing from "./pages/pricing";
 import About from "./pages/about";
-// import Header from "./components/header";
-// import Footer from "./components/footer";
 import Booking from "./pages/booking";
 import Services from "./pages/services";
 import Privacy from "./pages/privacy";
@@ -111,7 +109,7 @@ function App() {
         />
         <Route
           path="/login"
-          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Layout><Login /></Layout>}
         />
         <Route
           path="/dashboard"

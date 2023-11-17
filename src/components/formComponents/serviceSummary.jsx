@@ -1,29 +1,21 @@
-import { calculatePrice } from '../../utils/calculatePrice';
-import { Button } from './button';
-
-
 export const ServiceSummary = ({
 	userServiceConfiguration,
 }) => {
-	const { monthly, addons, selectedPlan } = userServiceConfiguration;
+	const { userInfo, selectedPlan } = userServiceConfiguration;
 
 	// for some reason needed to do this work arround bc typescript was crying and bug is not fixed apparently
-	const totalPrice = (addons).reduce((acc, addon) => {
-		return acc + calculatePrice(addon.monthlyPrice, monthly);
-	}, calculatePrice(selectedPlan?.monthlyPrice ?? 0, monthly));
 
 	return (
 		<section className="flex flex-col gap-4 w-full">
 			<h2>Finishing up</h2>
-			<p>Double-check everyghing looks OK before confirming.</p>
+			{/* <p>Double-check everyghing looks OK before confirming.</p> */}
 			<ul className="flex flex-col gap-2 px-4 py-5 bg-neutral-magnolia rounded-lg">
 				<li className="border-b border-neutral-light-gray pb-2">
 					<div className="flex flex-col">
 						<h3>
-							{selectedPlan?.name} (
-							{monthly ? 'Monthly' : 'Yearly'})
+							{selectedPlan?.name} 
 						</h3>
-						<span className="inline-flex justify-between">
+						{/* <span className="inline-flex justify-between">
 							<Button
 								type="ghost"
 								size="sm"
@@ -31,40 +23,19 @@ export const ServiceSummary = ({
 							>
 								Change
 							</Button>
-							<span className="text-primary-marine-blue font-bold">
-								$
-								{calculatePrice(
-									selectedPlan?.monthlyPrice ?? 0,
-									monthly
-								).toLocaleString()}
-								/ {monthly ? 'mo' : 'yr'}
-							</span>
-						</span>
+						</span> */}
 					</div>
 				</li>
-				{addons.map((addon) => (
 					<li
 						className="inline-flex justify-between"
-						key={addon.name}
 					>
-						<p>{addon.name}</p>
+						<p>You are registering as <span className=' font-semibold'>{userInfo.email}</span>, please confirm to the form.</p>
 						<span className="text-primary-marine-blue">
-							+$
-							{calculatePrice(
-								addon.monthlyPrice,
-								monthly
-							).toLocaleString()}
-							/{monthly ? 'mo' : 'yr'}
+							
 						</span>
 					</li>
-				))}
 			</ul>
-			<span className="flex justify-between px-4">
-				<p>Total (per {monthly ? 'month' : 'year'}) </p>
-				<span className="font-bold text-lg text-primary-purplish-blue">
-					+${totalPrice.toLocaleString()}/{monthly ? 'mo' : 'yr'}
-				</span>
-			</span>
+			
 		</section>
 	);
 };

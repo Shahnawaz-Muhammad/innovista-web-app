@@ -13,7 +13,7 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
 
   return (
     <section className="flex flex-col gap-4 w-full">
-      <h2 className="text-center">Personal Info</h2>
+      <h2>Personal Info</h2>
 
       <div className=" flex flex-col md:flex-row justify-center gap-4">
         <div className="md:w-1/2">
@@ -36,6 +36,30 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
             }
             value={userInfo.lastName}
             onChange={(e) => handlePersonalInfo(e, "lastName")}
+          />
+        </div>
+      </div>
+
+      <div className=" flex flex-col md:flex-row justify-center gap-4">
+        <div className="md:w-1/2">
+          <Input
+            type="text"
+            data-inputmask="'mask': '99999-9999999-9'"
+            placeholder="XXXXX-XXXXXXX-X"
+            label="CNIC No"
+            showRequired={showRequired && !userInfo.cnic}
+            value={userInfo.cnic}
+            onChange={(e) => handlePersonalInfo(e, "cnic")}
+          />
+        </div>
+        <div className="md:w-1/2">
+          <Input
+            type="numeric"
+            placeholder="XXXX-XXXXXXX"
+            label="Mobile No"
+            showRequired={showRequired && !userInfo.mobile}
+            value={userInfo.mobile}
+            onChange={(e) => handlePersonalInfo(e, "mobile")}
           />
         </div>
       </div>

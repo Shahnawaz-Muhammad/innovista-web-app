@@ -8,25 +8,35 @@ import { Group } from "../../components/formComponents/Group";
 import { Company } from "../../components/formComponents/Company";
 import { ServiceSummary } from "../../components/formComponents/serviceSummary";
 import { ThankYou } from "../../components/formComponents/thankYou";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [step, setStep] = useState(1);
   const [showRequired, setShowRequiredFields] = useState(false);
+  const navigate = useNavigate()
 
   const [userServiceConfiguration, setUserServiceConfiguration] = useState({
     userInfo: {
       firstName: "",
       lastName: "",
+      cnic: "",
+      mobile: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
     selectedPlan: null,
-    detailedInfo: {
+    freelanceInfo: {
       dob: "",
       gender: "",
       qualification: "",
       designation: "",
+      address: "",
+      city: "",
+      country: "",
+    },
+    groupInfo: {
+      noOfPeople: "",
       address: "",
       city: "",
       country: "",
@@ -45,8 +55,12 @@ const Register = () => {
     });
   };
 
-  const updateDetailedInfo = (detailedInfo) => {
-    setUserServiceConfiguration({ ...userServiceConfiguration, detailedInfo });
+  const updateFreelanceInfo = (freelanceInfo) => {
+    setUserServiceConfiguration({ ...userServiceConfiguration, freelanceInfo });
+  };
+
+  const updateGroupInfo = (groupInfo) => {
+    setUserServiceConfiguration({ ...userServiceConfiguration, groupInfo });
   };
 
   const updateMonthly = () => {
@@ -55,8 +69,6 @@ const Register = () => {
       monthly: !prevVal.monthly,
     }));
   };
-
-  
 
   const nextStep = (onGoingStep) => {
     if (step === 5) return;
@@ -75,18 +87,35 @@ const Register = () => {
         setShowRequiredFields(true);
         return;
       }
+      else{
+        setShowRequiredFields(false)
+      }
     } else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3)) {
-      if (
-        !userServiceConfiguration.detailedInfo.dob ||
-        !userServiceConfiguration.detailedInfo.gender ||
-        !userServiceConfiguration.detailedInfo.qualification ||
-        !userServiceConfiguration.detailedInfo.designation ||
-        !userServiceConfiguration.detailedInfo.address ||
-        !userServiceConfiguration.detailedInfo.city ||
-        !userServiceConfiguration.detailedInfo.country
-      ) {
-        setShowRequiredFields(true);
-        return;
+      if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
+        if (
+          !userServiceConfiguration.freelanceInfo.dob ||
+          !userServiceConfiguration.freelanceInfo.gender ||
+          !userServiceConfiguration.freelanceInfo.qualification ||
+          !userServiceConfiguration.freelanceInfo.designation ||
+          !userServiceConfiguration.freelanceInfo.address ||
+          !userServiceConfiguration.freelanceInfo.city ||
+          !userServiceConfiguration.freelanceInfo.country
+        ) {
+          setShowRequiredFields(true);
+          return;
+        }
+      }
+      else if (userServiceConfiguration.selectedPlan.name === "Group") {
+        if (
+          !userServiceConfiguration.groupInfo.noOfPeople ||
+          !userServiceConfiguration.freelanceInfo.address ||
+          !userServiceConfiguration.freelanceInfo.city ||
+          !userServiceConfiguration.freelanceInfo.country ||
+          !userServiceConfiguration.freelanceInfo.address
+        ) {
+          setShowRequiredFields(true);
+          return;
+        }
       }
     }
     setStep((step) => {
@@ -114,15 +143,16 @@ const Register = () => {
     if (step === 4) {
       console.log("FORM SUBMITTED", userServiceConfiguration);
       // Perform any additional actions you want after submitting the form
+      navigate("/login")
     } else {
       nextStep();
     }
   };
   return (
-    <main className="h-screen flex flex-col text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-20 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow">
+    <main className="h-screen flex flex-col text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-40 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow ">
       <Sidebar currentStep={step} handleNextStep={nextStep} />
       <div className="px-4 relative bg-neutral-magnolia  lg:bg-transparent lg:flex lg:flex-col lg:w-full ">
-        <form className="bg-neutral-alabaster px-6 py-9 rounded-[0.625rem] -translate-y-[4.5rem] flex w-full grow [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-primary-marine-blue [&_h3]:font-medium [&_h3]:text-primary-marine-blue lg:bg-transparent lg:translate-y-0 ">
+        <form className="bg-neutral-alabaster px-6 py-9 rounded-[0.625rem]  -translate-y-[4.5rem] flex w-full grow [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-primary-marine-blue [&_h3]:font-medium [&_h3]:text-primary-marine-blue lg:bg-transparent lg:translate-y-0 ">
           {step === 1 && (
             <PersonalInfo
               userInfo={userServiceConfiguration.userInfo}
@@ -142,14 +172,14 @@ const Register = () => {
           {step === 3 &&
             (userServiceConfiguration.selectedPlan.name === "Freelancer" ? (
               <Freelance
-                detailedInfo={userServiceConfiguration.detailedInfo}
-                updateDetailedInfo={updateDetailedInfo}
+                freelanceInfo={userServiceConfiguration.freelanceInfo}
+                updateFreelanceInfo={updateFreelanceInfo}
                 showRequired={showRequired}
               />
             ) : userServiceConfiguration.selectedPlan.name === "Group" ? (
               <Group
-                userInfo={userServiceConfiguration.userInfo}
-                updateUserInfo={updateUserInfo}
+                groupInfo={userServiceConfiguration.groupInfo}
+                updateGroupInfo={updateGroupInfo}
                 showRequired={showRequired}
               />
             ) : userServiceConfiguration.selectedPlan.name === "Company" ? (

@@ -1,61 +1,61 @@
+import clsx from "clsx";
 import { Input } from "./input";
 
-export const Group = ({ userInfo, updateUserInfo, showRequired }) => {
-  const handlePersonalInfo = (event, key) => {
-    const updatedUserInfo = { ...userInfo };
-    updatedUserInfo[key] = event.currentTarget.value;
-    updateUserInfo(updatedUserInfo);
+export const Group = ({
+  groupInfo,
+  updateGroupInfo,
+  showRequired = false,
+  required = true,
+}) => {
+  const handleGroupInfo = (event, key) => {
+    const updatedGroupInfo = { ...groupInfo };
+    updatedGroupInfo[key] = event.currentTarget.value;
+    updateGroupInfo(updatedGroupInfo);
   };
   return (
     <section className="flex flex-col gap-4 w-full">
-      <h2 className="text-center">Personal Info</h2>
+      <h2>Group Info</h2>
 
       <div className=" flex flex-col md:flex-row justify-center gap-4">
-        <div className="md:w-1/2">
-          <Input
-            type="text"
-            data-inputmask="'mask': '99999-9999999-9'"
-            placeholder="XXXXX-XXXXXXX-X"
-            label="CNIC No"
-            required=""
-            showRequired={showRequired && !userInfo.cnic}
-            value={userInfo.cnic}
-            onChange={(e) => handlePersonalInfo(e, "cnic")}
-          />
-        </div>
-        <div className="md:w-1/2">
-          <Input
-            type="numeric"
-            placeholder="XXXX-XXXXXXX"
-            label="Mobile No"
-            required=""
-            showRequired={showRequired && !userInfo.mobile}
-            value={userInfo.mobile}
-            onChange={(e) => handlePersonalInfo(e, "mobile")}
-          />
-        </div>
-      </div>
+        <div className="w-full relative mb-16">
+          <div className="absolute top-0 left-0 w-full">
+            <div className="w-full inline-flex justify-between">
+              <label
+                htmlFor="noOfPeople"
+                className="block text-sm font-medium text-gray-900 "
+              >
+                Number of People
+              </label>
+              {required && showRequired && (
+                <p className="text-primary-starberry-red leading-3 text-sm font-medium">
+                  This field is required
+                </p>
+              )}
+            </div>
 
-      <div className=" flex flex-col md:flex-row justify-center gap-4">
-        <div className="md:w-1/2">
-          <Input
-            type="date"
-            label="DOB"
-            required=""
-            showRequired={showRequired && !userInfo.dob}
-            value={userInfo.dob}
-            onChange={(e) => handlePersonalInfo(e, "dob")}
-          />
-        </div>
-        <div className="md:w-1/2">
-          <Input
-            label="Designation"
-            placeholder="Freelancer"
-            required=""
-            showRequired={showRequired && !userInfo.designation}
-            value={userInfo.designation}
-            onChange={(e) => handlePersonalInfo(e, "designation")}
-          />
+            <select
+              id="noOfPeople"
+              value={groupInfo.noOfPeople}
+              className={clsx(
+                "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:outline-none focus:ring-1 focus:ring-primary-purplish-blue block w-full p-2.5 ",
+                showRequired &&
+                  required &&
+                  !groupInfo.noOfPeople &&
+                  "ring-1 ring-primary-starberry-red"
+              )}
+              onChange={(e) => handleGroupInfo(e, "noOfPeople")}
+            >
+              <option value="" disabled selected>
+                Select an option
+              </option>
+              <option value="1-5">1 - 5</option>
+              <option value="6-10">6 - 10</option>
+              <option value="11-15">11 - 15</option>
+              <option value="16-20">16 - 20</option>
+              <option value="21-30">21 - 30</option>
+              <option value="moreThan30">More than 30</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -63,10 +63,9 @@ export const Group = ({ userInfo, updateUserInfo, showRequired }) => {
         label="Address"
         type="text"
         placeholder="Address"
-        required=""
-        showRequired={showRequired && !userInfo.address}
-        value={userInfo.address}
-        onChange={(e) => handlePersonalInfo(e, "address")}
+        showRequired={showRequired && !groupInfo.address}
+        value={groupInfo.address}
+        onChange={(e) => handleGroupInfo(e, "address")}
       />
 
       <div className=" flex flex-col md:flex-row justify-center gap-4">
@@ -75,20 +74,18 @@ export const Group = ({ userInfo, updateUserInfo, showRequired }) => {
             type="text"
             label="City"
             placeholder="Rawalpindi"
-            required=""
-            showRequired={showRequired && !userInfo.city}
-            value={userInfo.city}
-            onChange={(e) => handlePersonalInfo(e, "city")}
+            showRequired={showRequired && !groupInfo.city}
+            value={groupInfo.city}
+            onChange={(e) => handleGroupInfo(e, "city")}
           />
         </div>
         <div className="md:w-1/2">
           <Input
             label="Country"
             placeholder="Pakistan"
-            required=""
-            showRequired={showRequired && !userInfo.country}
-            value={userInfo.country}
-            onChange={(e) => handlePersonalInfo(e, "country")}
+            showRequired={showRequired && !groupInfo.country}
+            value={groupInfo.country}
+            onChange={(e) => handleGroupInfo(e, "country")}
           />
         </div>
       </div>

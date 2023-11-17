@@ -4,13 +4,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { RxCross1 } from "react-icons/rx";
 import { GiHamburgerMenu } from "react-icons/gi";
-import logo from "../../assets/D-labs-logo-white.png"
-
+import logo from "../../assets/D-labs-logo-white.png";
 const Header = () => {
   const [scroll, setScroll] = useState(false);
   const [navMobile, setNavMobile] = useState(false);
   const location = useLocation(); // Get the current location from React Router
   const [activeNavItem, setActiveNavItem] = useState(location.pathname);
+
+  const authPages =
+    location.pathname === "/login" || location.pathname === "/register";
 
   const navItems = [
     { id: 1, label: "Home", path: "/" },
@@ -33,9 +35,9 @@ const Header = () => {
   };
 
   const handleBookTour = () => {
-    navigate("/book-a-tour")
-    setActiveNavItem('')
-  }
+    navigate("/book-a-tour");
+    setActiveNavItem("");
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -58,12 +60,16 @@ const Header = () => {
     <>
       <div
         className={`fixed top-0 w-full z-20 flex justify-center ${
-          scroll ? "bg-black max-w-full" : "max-w-full bg-opacity-0"
-        } py-4 text-bgLight mx-auto px-4 md:px-8 xl:px-4`}
+          authPages || scroll
+            ? "bg-black max-w-full"
+            : "max-w-full bg-opacity-0"
+        }  py-4 text-bgLight mx-auto px-4 md:px-8 xl:px-4`}
       >
         <div className="max-w-screen-xl w-full">
           <div className="max-w-full flex justify-between">
-            <Link to='/'><img src={logo} alt="" className="h-16"/></Link>
+            <Link to="/">
+              <img src={logo} alt="" className="h-16" />
+            </Link>
             <div className="max-w-full text-primary hidden md:flex gap-5 font-roboto items-center text-white uppercase">
               {navItems.map((item) => (
                 <Link
