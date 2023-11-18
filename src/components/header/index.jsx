@@ -34,9 +34,10 @@ const Header = () => {
     }
   };
 
-  const handleBookTour = () => {
+  const handleLogin = () => {
     navigate("/login");
     setActiveNavItem("");
+    setNavMobile(false)
   };
 
   useEffect(() => {
@@ -91,7 +92,7 @@ const Header = () => {
 
             <div className="md:flex items-center hidden">
               <button
-                onClick={handleBookTour}
+                onClick={handleLogin}
                 className="bg-orange hover:bg-orangeDark text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Login
@@ -127,7 +128,7 @@ const Header = () => {
                 );
               })}
               <button
-                onClick={handleBookTour}
+                onClick={handleLogin}
                 className="bg-orange hover:bg-orangeDark  text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Login
