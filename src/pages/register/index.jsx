@@ -149,7 +149,7 @@ const Register = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     
-    if (step === 5) {
+    if (step === 4) {
       let selectedPlanData = null;
 
       if (userServiceConfiguration.selectedPlan.name === "Freelancer") {

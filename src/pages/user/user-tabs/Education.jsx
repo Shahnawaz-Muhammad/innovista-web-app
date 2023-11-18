@@ -1,34 +1,45 @@
-import React from 'react';
+import React from "react";
 
 const Education = () => {
   return (
-    <div className=" p-3 lg:p-3  ">
-      <div className="pt-2 lg:grid grid-cols-5 gap-4">
-        {/* First Row */}
-        <div className='col-span-1  py-6'>
-          
-          <p className='text-[#adadad] text-sm'>Education</p>
-        </div>
-        <div className=' pt-6 lg:col-span-2'>
-          <h1>Ms Software Engineering.</h1>
-          <p className='text-[#adadad] text-sm '>Completed 2009</p>
-        </div>
-        <div className='pt-6 lg:col-span-2'>
-          <h1>Fsc Pre Engineering</h1>
-          <p className='text-[#adadad] text-sm'>Completed 2005</p>
-        </div>
+    <div className="bg-[#fffbf5] rounded-3xl flex flex-col md:flex-row justify-center">
+      <div
+        className="w-full  md:w-1/3 flex justify-center items-center py-5"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1621243804936-775306a8f2e3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
+        }}
+      >
+        <button className="p-3 rounded-lg text-center text-4xl font-extrabold text-white bg-orange">
+        Education
+        </button>
+      </div>
 
-        {/* Second Row */}
-        <div className=''>
+      <div className="py-10 w-full md:w-2/3 border-2 border-orange  ">
+      <div className="px-10 grid grid-cols-1  gap-10 justify-center items-center">
           
-        </div>
-        <div className='pt-2 lg:col-span-2'>
-          <h1>Bs Software Engineering</h1>
-          <p className='text-[#adadad] text-sm'>Completed 2007</p>
-        </div>
-        <div className='pt-2 lg:col-span-2'>
-          <h1>Matric in Computer Science</h1>
-          <p className='text-[#adadad] text-sm'>Completed 2003</p>
+          
+          <div className="flex flex-col sm:flex-row border-b border-orange items-center text-center sm:text-start">
+            <h1 className="font-bold w-full sm:w-1/3 sm:pl-10">Matric </h1>
+            <h2 className="font-bold w-full sm:w-1/3 ">Science </h2>
+            <h3 className="font-medium w-full sm:w-1/3 sm:text-center">2013</h3>
+          </div>
+          <div className="flex flex-col sm:flex-row border-b border-orange items-center text-center sm:text-start">
+            <h1 className="font-bold w-full sm:w-1/3 sm:pl-10">FSC </h1>
+            <h2 className="font-bold w-full sm:w-1/3">Pre Engineering </h2>
+            <h3 className="font-medium w-full sm:w-1/3 text-center">2015</h3>
+          </div>
+          <div className="flex flex-col sm:flex-row border-b border-orange items-center text-center sm:text-start">
+            <h1 className="font-bold w-full sm:w-1/3 sm:pl-10">BS </h1>
+            <h2 className="font-bold w-full sm:w-1/3">Software Engineering</h2>
+            <h3 className="font-medium w-full sm:w-1/3 text-center">2019</h3>
+          </div>
+          <div className="flex flex-col sm:flex-row border-b border-orange items-center text-center sm:text-start">
+            <h1 className="font-bold w-full sm:w-1/3 sm:pl-10">MS </h1>
+            <h2 className="font-bold w-full sm:w-1/3">Software Engineering</h2>
+            <h3 className="font-medium w-full sm:w-1/3 text-center">2021</h3>
+          </div>
+          
         </div>
       </div>
     </div>
