@@ -24,7 +24,7 @@ export const Group = ({
                 htmlFor="noOfPeople"
                 className="block text-sm font-medium text-gray-900 "
               >
-                Number of People
+                No Of People
               </label>
               {required && showRequired && (
                 <p className="text-primary-starberry-red leading-3 text-sm font-medium">
@@ -37,7 +37,7 @@ export const Group = ({
               id="noOfPeople"
               value={groupInfo.noOfPeople}
               className={clsx(
-                "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:outline-none focus:ring-1 focus:ring-primary-purplish-blue block w-full p-2.5 ",
+                "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary-purplish-blue block w-full p-[.6rem] ",
                 showRequired &&
                   required &&
                   !groupInfo.noOfPeople &&

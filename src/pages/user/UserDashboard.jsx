@@ -6,7 +6,7 @@ import profileImage from "../../assets/images/profile-image.jpg";
 import { IoLocationOutline } from "react-icons/io5";
 import { BsEnvelope } from "react-icons/bs";
 import { TbUserEdit } from "react-icons/tb";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import {  NavLink, Outlet, useLocation } from "react-router-dom";
 
 const UserDashboard = ({ userType }) => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -93,24 +93,19 @@ const UserDashboard = ({ userType }) => {
               </div>
 
               <div className="w-full flex border-b">
-                {freelancerData.map((item) => {
-                  return (
-                    <Link
-                      key={item.id}
-                      className={`px-6 py-1 bg-gray-300 hover:bg-gray-400 transition-all duration-300 relative group cursor-pointer ${
-                        activeTab === `/dashboard/${item.url}`
-                          ? "border-b-2 border-orange"
-                          : ""
-                      }`}
-                      to={item.url}
-                    >
-                      {item.title}
-                      {/* <span
-                      className={`absolute w-full h-1 bg-primary -bottom-1 left-0 transform scale-x-0  group-hover:scale-x-100 transition-transform duration-300 ease-in-out bg-orange`}
-                    ></span> */}
-                    </Link>
-                  );
-                })}
+                {freelancerData.map((item) => (
+                  <NavLink
+                    key={item.id}
+                    className={`px-6 py-1 bg-gray-300 hover:bg-gray-400 transition-all duration-300 relative group cursor-pointer ${
+                      activeTab === `/dashboard/${item.url}`
+                        ? "border-b-2 border-orange"
+                        : ""
+                    } `}
+                    to={`/dashboard/${item.url}`}
+                  >
+                    {item.title}
+                  </NavLink>
+                ))}
               </div>
               <div className="w-full py-10">
                 <Outlet />
@@ -119,7 +114,7 @@ const UserDashboard = ({ userType }) => {
           </div>
           {/* footer */}
           <div className="w-full py-5  bg-lightGray flex justify-center">
-          <div>&copy; 2023 D-Labs. All rights reserved.</div>
+            <div>&copy; 2023 D-Labs. All rights reserved.</div>
           </div>
         </div>
       ) : (
