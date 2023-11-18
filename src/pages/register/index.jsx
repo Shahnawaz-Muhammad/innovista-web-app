@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Button } from "../../components/formComponents/button";
-import { Sidebar } from "../../components/formComponents/sidebar";
-import { PersonalInfo } from "../../components/formComponents/personalInfo";
-import { SelectPlan } from "../../components/formComponents/selectPlan";
-import { Freelance } from "../../components/formComponents/Freelance";
-import { Group } from "../../components/formComponents/Group";
-import { Company } from "../../components/formComponents/Company";
-import { ServiceSummary } from "../../components/formComponents/serviceSummary";
-import { ThankYou } from "../../components/formComponents/thankYou";
+import { Button } from "../../components/register-form-components/button";
+import { Sidebar } from "../../components/register-form-components/sidebar";
+import { PersonalInfo } from "../../components/register-form-components/personalInfo";
+import { SelectPlan } from "../../components/register-form-components/selectPlan";
+import { Freelance } from "../../components/register-form-components/Freelance";
+import { Group } from "../../components/register-form-components/Group";
+import { Company } from "../../components/register-form-components/Company";
+import { ServiceSummary } from "../../components/register-form-components/serviceSummary";
+import { ThankYou } from "../../components/register-form-components/thankYou";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -41,6 +41,13 @@ const Register = () => {
       city: "",
       country: "",
     },
+    companyInfo: {
+      ntn: "",
+      noOfPeople: "",
+      address: "",
+      city: "",
+      country: "",
+    },
     addons: [],
   });
 
@@ -62,13 +69,10 @@ const Register = () => {
   const updateGroupInfo = (groupInfo) => {
     setUserServiceConfiguration({ ...userServiceConfiguration, groupInfo });
   };
-
-  const updateMonthly = () => {
-    setUserServiceConfiguration((prevVal) => ({
-      ...userServiceConfiguration,
-      monthly: !prevVal.monthly,
-    }));
+  const updateCompanyInfo = (companyInfo) => {
+    setUserServiceConfiguration({ ...userServiceConfiguration, companyInfo });
   };
+
 
   const nextStep = (onGoingStep) => {
     if (step === 5) return;
@@ -108,10 +112,23 @@ const Register = () => {
       else if (userServiceConfiguration.selectedPlan.name === "Group") {
         if (
           !userServiceConfiguration.groupInfo.noOfPeople ||
-          !userServiceConfiguration.freelanceInfo.address ||
-          !userServiceConfiguration.freelanceInfo.city ||
-          !userServiceConfiguration.freelanceInfo.country ||
-          !userServiceConfiguration.freelanceInfo.address
+          !userServiceConfiguration.groupInfo.address ||
+          !userServiceConfiguration.groupInfo.city ||
+          !userServiceConfiguration.groupInfo.country ||
+          !userServiceConfiguration.groupInfo.address
+        ) {
+          setShowRequiredFields(true);
+          return;
+        }
+      }
+      else if (userServiceConfiguration.selectedPlan.name === "Company") {
+        if (
+          !userServiceConfiguration.companyInfo.ntn ||
+          !userServiceConfiguration.companyInfo.noOfPeople ||
+          !userServiceConfiguration.companyInfo.address ||
+          !userServiceConfiguration.companyInfo.city ||
+          !userServiceConfiguration.companyInfo.country ||
+          !userServiceConfiguration.companyInfo.address
         ) {
           setShowRequiredFields(true);
           return;
@@ -131,25 +148,37 @@ const Register = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    if (step === 2) {
-      if (userServiceConfiguration.selectedPlan) {
-        updateSelectedPlan(userServiceConfiguration.selectedPlan);
-        setShowRequiredFields(false);
-      } else {
-        // Show the required error message
-        setShowRequiredFields(true);
+    
+    if (step === 5) {
+      let selectedPlanData = null;
+
+      if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
+        selectedPlanData = {
+          selectedPlan: userServiceConfiguration.selectedPlan.name,
+          userInfo: userServiceConfiguration.userInfo,
+          freelanceInfo: userServiceConfiguration.freelanceInfo,
+        };
+      } else if (userServiceConfiguration.selectedPlan.name === "Group") {
+        selectedPlanData = {
+          selectedPlan: userServiceConfiguration.selectedPlan.name,
+          userInfo: userServiceConfiguration.userInfo,
+          groupInfo: userServiceConfiguration.groupInfo,
+        };
+      } else if (userServiceConfiguration.selectedPlan.name === "Company") {
+        selectedPlanData = {
+          selectedPlan: userServiceConfiguration.selectedPlan.name,
+          userInfo: userServiceConfiguration.userInfo,
+          companyInfo: userServiceConfiguration.companyInfo,
+        };
       }
-    }
-    if (step === 4) {
-      console.log("FORM SUBMITTED", userServiceConfiguration);
-      // Perform any additional actions you want after submitting the form
+      console.log("FORM SUBMITTED", selectedPlanData);
       navigate("/login")
     } else {
       nextStep();
     }
   };
   return (
-    <main className="h-screen flex flex-col text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-40 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow ">
+    <main className="h-screen flex flex-col text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-40 lg:mb-20 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow-[10px_10px_40px_10px_rgba(0,0,0,0.2)] ">
       <Sidebar currentStep={step} handleNextStep={nextStep} />
       <div className="px-4 relative bg-neutral-magnolia  lg:bg-transparent lg:flex lg:flex-col lg:w-full ">
         <form className="bg-neutral-alabaster px-6 py-9 rounded-[0.625rem]  -translate-y-[4.5rem] flex w-full grow [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-primary-marine-blue [&_h3]:font-medium [&_h3]:text-primary-marine-blue lg:bg-transparent lg:translate-y-0 ">
@@ -165,7 +194,6 @@ const Register = () => {
               selectedPlan={userServiceConfiguration.selectedPlan}
               monthly={userServiceConfiguration.monthly}
               updateSelectedPlan={updateSelectedPlan}
-              updateIsMonthly={updateMonthly}
               showRequired={showRequired}
             />
           )}
@@ -182,15 +210,13 @@ const Register = () => {
                 updateGroupInfo={updateGroupInfo}
                 showRequired={showRequired}
               />
-            ) : userServiceConfiguration.selectedPlan.name === "Company" ? (
+            ) :  (
               <Company
-                userInfo={userServiceConfiguration.userInfo}
-                updateUserInfo={updateUserInfo}
+                companyInfo={userServiceConfiguration.companyInfo}
+                updateCompanyInfo={updateCompanyInfo}
                 showRequired={showRequired}
               />
-            ) : (
-              <div>error</div>
-            ))}
+            ) )}
           {step === 4 && (
             <ServiceSummary
               userServiceConfiguration={userServiceConfiguration}
