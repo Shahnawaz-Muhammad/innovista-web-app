@@ -1,28 +1,35 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from "react";
 // import { AuthContext } from '../../context/AuthContext';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
-    const { login } = useContext(AuthContext);
-    // const [user, setUser] = useState('')
-    // const navigate = useNavigate()
-
-    const handleLogin = () => {
-      login()
-    };
+  const { login,setUserType } = useContext(AuthContext);
   
-    return (
-      <div className="w-full flex justify-center py-20 mt-20 px-6">
+  // const [user, setUser] = useState('')
+  // const navigate = useNavigate()
+  const [, setSelectedUserType] = useState("");
+
+  const handleUserTypeChange = (event) => {
+    const userType = event.target.value;
+    setSelectedUserType(userType);
+    setUserType(userType);
+  };
+  
+
+
+  const handleLogin = () => {
+    login();
+  };
+
+  return (
+    <div className="w-full flex justify-center py-20 mt-20 px-6">
       <div className="w-full bg-white rounded-lg shadow shadow-slate-400 md:mt-0 sm:max-w-md xl:p-0 ">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Sign in to your account
           </h1>
-          <form
-            className="space-y-4 md:space-y-6"
-            onSubmit={handleLogin}
-          >
+          <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
             <div>
               <label
                 htmlFor="email"
@@ -56,6 +63,27 @@ const Login = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required=""
               />
+            </div>
+
+            <div>
+              <label
+                for="countries"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+
+              >
+                Select an option
+              </label>
+              <select
+                id="user"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={handleUserTypeChange}
+
+              >
+                <option selected>Choose a user</option>
+                <option value="freelancer">Freelancer</option>
+                <option value="group">Group</option>
+                <option value="company">Company</option>
+              </select>
             </div>
             {/* <div>
               <p>{error}</p>
@@ -106,7 +134,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-    );
-}
+  );
+};
 
-export default Login
+export default Login;

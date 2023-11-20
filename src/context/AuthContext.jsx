@@ -11,16 +11,17 @@ const AuthProvider = ({ children }) => {
   const login = () => {
     setIsAuthenticated(true);
   
-    setUserType('company'); 
+    setUserType(userType); 
   };
 
   const logout = () => {
     setIsAuthenticated(false);
+    
     setUserType('');
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userType, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userType,setUserType, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
