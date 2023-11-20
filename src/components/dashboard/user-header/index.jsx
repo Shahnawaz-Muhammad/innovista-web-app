@@ -4,7 +4,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import profileImage from "../../../assets/images/profile-image.jpg";
 import { AuthContext } from "../../../context/AuthContext";
 
-const UserHeader = () => {
+const UserHeader = ({userType}) => {
   const { logout } = useContext(AuthContext);
 
   const [showDropDown, setShowDropDown] = useState(false);
@@ -21,7 +21,10 @@ const UserHeader = () => {
   return (
     <div>
       <div className="w-full py-3 px-10 bg-gray-100 mx-auto shadow-md">
-        <div className="max-w-screen-2xl flex justify-end">
+        <div className="max-w-screen-2xl flex justify-between">
+          <div className="w-full">
+            <h2 className="text-xl uppercase">{userType}</h2>
+          </div>
           <div className="flex gap-3 items-center">
             <VscBellDot className="text-2xl text-gray-600 cursor-pointer" />
             <div

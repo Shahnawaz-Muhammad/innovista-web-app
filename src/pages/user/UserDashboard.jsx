@@ -123,7 +123,7 @@ if (userType === "freelancer") {
       {isAuthenticated ? (
         <div>
           {/* Header */}
-          <UserHeader />
+          <UserHeader userType={userType}/>
           <div className="w-full bg-coverImage h-60 object-cover bg-center relative flex justify-center mx-auto px-5 lg:px-10 xl:px-0 transition-all duration-500">
             <div className=" max-w-7xl w-full ">
               <div className="absolute -bottom-16 md:-bottom-20  flex flex-col items-center w-32 h-32 md:w-40 md:h-40 rounded-full  p-1 bg-white shadow-lg">
