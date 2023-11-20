@@ -11,7 +11,7 @@ const Bio = () => {
         }}
       >
         <button className="p-3 rounded-lg text-center text-4xl font-extrabold text-white bg-orange">
-          Advance Booking
+          Personal Information
         </button>
       </div>
 
