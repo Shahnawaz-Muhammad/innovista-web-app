@@ -45,74 +45,7 @@ const UserDashboard = ({ userType }) => {
       title: "Booking History",
       url: "booking-history",
     },
-    {
-      id: 7,
-      title: "Jobs",
-      url: "job-advertisements",
-    },
   ];
-
-  const groupData = [
-    {
-      id: 1,
-      title: "Bio",
-      url: "",
-    },
-    {
-      id: 2,
-      title: "Members",
-      url: "members",
-    },
-    {
-      id: 3,
-      title: "Advance Booking",
-      url: "advance-booking",
-    },
-    {
-      id: 4,
-      title: "Booking History",
-      url: "booking-history",
-    },
-  ];
-
-  const companyData = [
-    {
-      id: 1,
-      title: "Bio",
-      url: "",
-    },
-    {
-      id: 2,
-      title: "Employees",
-      url: "employees",
-    },
-    
-    {
-      id: 3,
-      title: "Advance Booking",
-      url: "advance-booking",
-    },
-    {
-      id: 4,
-      title: "Booking History",
-      url: "booking-history",
-    },
-    {
-      id:5,
-      title: "Hirings",
-      url: "hirings"
-    },
-  ];
-
-  let userData;
-
-if (userType === "freelancer") {
-  userData = freelancerData;
-} else if (userType === "group") {
-  userData = groupData;
-} else if (userType === "company") {
-  userData = companyData;
-}
 
   useEffect(() => {
     setActiveTab(location.pathname);
@@ -160,7 +93,7 @@ if (userType === "freelancer") {
               </div>
 
               <div className="w-full flex border-b">
-                {userData.map((item) => (
+                {freelancerData.map((item) => (
                   <NavLink
                     key={item.id}
                     className={`px-6 py-1 bg-gray-300 hover:bg-gray-400 transition-all duration-300 relative group cursor-pointer ${
