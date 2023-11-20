@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
   const login = () => {
     setIsAuthenticated(true);
   
-    setUserType('individual'); 
+    setUserType('company'); 
   };
 
   const logout = () => {
