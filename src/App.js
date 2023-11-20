@@ -23,6 +23,10 @@ import Cv from "./pages/user/user-tabs/Cv";
 import AdvanceBooking from "./pages/user/user-tabs/AdvanceBooking";
 import BookingHistory from "./pages/user/user-tabs/BookingHistory";
 import CVUpload from "./pages/user/user-tabs/CVUpload";
+import Employees from "./pages/user/user-tabs/Employees";
+import Hiring from "./pages/user/user-tabs/Hiring";
+import Members from "./pages/user/user-tabs/Members";
+import JobAds from "./pages/user/user-tabs/JobAds";
 
 function App() {
   const { isAuthenticated, userType } = useContext(AuthContext);
@@ -129,6 +133,11 @@ function App() {
           <Route path="cvupload" element={<CVUpload />}/>
           <Route path="advance-booking" element={<AdvanceBooking />}/>
           <Route path="booking-history" element={<BookingHistory />}/>
+          <Route path="employees" element={<Employees />}/>
+          <Route path="hirings" element={<Hiring />}/>
+          <Route path="members" element={<Members />}/>
+          <Route path="job-advertisements" element={<JobAds />}/>
+
         </Route>
       </Routes>
       {/* <Footer /> */}
