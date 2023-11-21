@@ -38,16 +38,16 @@ const JobAds = () => {
       <div className="w-full flex flex-col gap-3">
         {jobPosts.map((post) => {
           return (
-            <div className="w-full flex gap-5 items-center">
-              <div className="w-full flex gap-2 items-center shadow-[2px_1px_10px_5px_rgba(0,0,0,0.1)] rounded-xl p-5">
-                <div className="w-40">
+            <div className="w-full flex  gap-5 items-center">
+              <div className="w-full flex flex-col md:flex-row gap-3 md:gap-2 items-center shadow-[2px_1px_10px_5px_rgba(0,0,0,0.1)] rounded-xl p-5">
+                <div className="w-20 md:w-40">
                   <img src={post.logo} alt="" />
                 </div>
-                <div className="w-full flex flex-col gap-2">
+                <div className="w-full flex flex-col items-center gap-2">
                   <h1 className="font-semibold">{post.company}</h1>
                   <h1>{post.location}</h1>
                 </div>
-                <div className="w-full flex flex-col gap-2">
+                <div className="w-full flex flex-col items-center gap-2">
                   <h2>{post.jobTitle}</h2>
                   <h2 className="text-gray-600 text-sm">{post.skills}</h2>
                 </div>

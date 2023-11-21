@@ -27,6 +27,7 @@ import Employees from "./pages/user/user-tabs/Employees";
 import Hiring from "./pages/user/user-tabs/Hiring";
 import Members from "./pages/user/user-tabs/Members";
 import JobAds from "./pages/user/user-tabs/JobAds";
+import PostJob from "./pages/user/user-tabs/PostJob";
 
 function App() {
   const { isAuthenticated, userType } = useContext(AuthContext);
@@ -137,6 +138,7 @@ function App() {
           <Route path="hirings" element={<Hiring />}/>
           <Route path="members" element={<Members />}/>
           <Route path="job-advertisements" element={<JobAds />}/>
+          <Route path="post-job" element={<PostJob />}/>
 
         </Route>
       </Routes>

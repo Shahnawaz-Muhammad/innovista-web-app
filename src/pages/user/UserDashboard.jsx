@@ -102,6 +102,11 @@ const UserDashboard = ({ userType }) => {
       title: "Hirings",
       url: "hirings"
     },
+    {
+      id:6,
+      title: "Post a Job",
+      url: "post-job"
+    },
   ];
 
   let userData;
