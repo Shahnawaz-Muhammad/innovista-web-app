@@ -73,6 +73,11 @@ const UserDashboard = ({ userType }) => {
       title: "Booking History",
       url: "booking-history",
     },
+    {
+      id:5,
+      title: "Post a Job",
+      url: "post-job"
+    },
   ];
 
   const companyData = [
