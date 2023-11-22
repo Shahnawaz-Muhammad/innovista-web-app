@@ -80,7 +80,8 @@ export default function CVUpload() {
                     <br /> or
                     <button
                       className="text-blue-600 hover:underline"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         const fileInput = document.getElementById("fileInput");
                         fileInput.click();
                       }}
