@@ -6,12 +6,17 @@ export default function CVUpload() {
 
   const handleFileSelect = (e) => {
     const selectedFile = e.target.files[0];
-    if (selectedFile) {
+    if (selectedFile && selectedFile.type === "application/pdf") {
       const reader = new FileReader();
       reader.onloadend = () => {
         setFilePreview(reader.result);
       };
       reader.readAsDataURL(selectedFile);
+    } else {
+      // Notify the user that the selected file is not a PDF
+      alert("Please select a PDF file.");
+      // Clear any existing preview
+      setFilePreview(null);
     }
   };
 
@@ -22,12 +27,17 @@ export default function CVUpload() {
   const handleDrop = (e) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile) {
+    if (droppedFile && droppedFile.type === "application/pdf") {
       const reader = new FileReader();
       reader.onloadend = () => {
         setFilePreview(reader.result);
       };
       reader.readAsDataURL(droppedFile);
+    } else {
+      // Notify the user that the dropped file is not a PDF
+      alert("Please drop a PDF file.");
+      // Clear any existing preview
+      setFilePreview(null);
     }
   };
 
@@ -63,21 +73,22 @@ export default function CVUpload() {
                   id="fileInput"
                   type="file"
                   className="hidden"
+                  accept="application/pdf"
                   onChange={handleFileSelect}
                 />
-                {/* Display file preview for images */}
                 {filePreview && (
-                  <img
+                  <embed
                     src={filePreview}
-                    alt="File Preview"
-                    className="h-56 w-full  object-contain mx-auto"
+                    type="application/pdf"
+                    width="100%"
+                    height="500px"
                   />
                 )}
                 {/* File upload description */}
                 {filePreview ? null : (
                   <p className="pointer-none text-gray-700">
-                    <span className="text-sm">Drag and drop</span> files here
-                    <br /> or
+                    <span className="">Drag and drop</span> files here
+                    <br /> or <br />
                     <button
                       className="text-blue-600 hover:underline"
                       onClick={(e) => {
@@ -86,8 +97,9 @@ export default function CVUpload() {
                         fileInput.click();
                       }}
                     >
-                      select a file
+                      Select File
                     </button>
+                    <br />
                     from your computer
                   </p>
                 )}
@@ -95,7 +107,7 @@ export default function CVUpload() {
             </div>
           </div>
           <p className="text-sm text-gray-700">
-            <span>File type: doc, pdf, types of images</span>
+            <span className="font-bold"> Only pdf Files will be accepted</span>
           </p>
           <div className="flex flex-row justify-center items-center gap-4">
             <Link
