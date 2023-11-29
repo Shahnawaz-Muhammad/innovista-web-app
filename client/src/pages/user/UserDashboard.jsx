@@ -96,7 +96,6 @@ const UserDashboard = ({ user }) => {
       title: "Employees",
       url: "employees",
     },
-
     {
       id: 3,
       title: "Advance Booking",
