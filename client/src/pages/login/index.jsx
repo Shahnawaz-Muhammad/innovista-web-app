@@ -1,42 +1,91 @@
 import React, { useContext, useState } from "react";
-// import { AuthContext } from '../../context/AuthContext';
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import logo from "../../assets/D-labs-logo-white.png";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
-  const handleLogin = (event) => {  
+  const validateEmail = (inputEmail) => {
+    // Basic email validation using a regular expression
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(inputEmail);
+  };
+
+  const validatePassword = (inputPassword) => {
+    // Password validation for uppercase, lowercase, numeric, and special characters
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(inputPassword);
+  };
+
+  const handleLogin = (event) => {
     event.preventDefault();
-  login({ email, password }, event);
+
+    // Validate email
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    } else {
+      setEmailError("");
+    }
+
+    // Validate password
+    if (!validatePassword(password)) {
+      setPasswordError(
+        "Password must contain at least 8 characters, including uppercase, lowercase, numeric, and special characters"
+      );
+      return;
+    } else {
+      setPasswordError("");
+    }
+
+    login({ email, password }, event);
   };
 
   return (
-    <div className="w-full flex justify-center py-20 mt-20 px-6">
+    <div className="w-full flex justify-center py-20 mt-20 px-6" style={{
+      backgroundImage: `url(https://d2bq2usf2vwncx.cloudfront.net/Pictures/480xAny/5/0/3/1851503_modernoffice_527181.jpg)`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }}>
       <div className="w-full bg-white rounded-lg shadow shadow-slate-400 md:mt-0 sm:max-w-md xl:p-0 ">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Sign in to your account
+        <div className="bg-black rounded-full p-5 flex justify-center " >
+              <img src={logo} alt="" className="h-16" />
+            </div>
+
+          <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            Welcome to D-Labs
           </h1>
-          <form className="space-y-4 md:space-y-6" onSubmit={(event) => handleLogin(event)}>
+          <form
+            className="space-y-4 md:space-y-6"
+            onSubmit={(event) => handleLogin(event)}
+          >
             <div>
               <label
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Your email
+                Email Address
               </label>
               <input
                 type="email"
                 name="email"
                 id="email"
-                placeholder="name@company.com"
+                placeholder="d-labs@gmail.com"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {emailError && (
+                <p className="text-red-500 text-xs mt-1">{emailError}</p>
+              )}
             </div>
             <div>
               <label
@@ -54,31 +103,11 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {passwordError && (
+                <p className="text-red-500 text-xs mt-1">{passwordError}</p>
+              )}
             </div>
 
-            {/* <div>
-              <label
-                htmlFor="countries"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-
-              >
-                Select an option
-              </label>
-              <select
-                id="user"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                onChange={handlecategoryChange}
-
-              >
-                <option selected>Choose a user</option>
-                <option value="freelancer">Freelancer</option>
-                <option value="group">Group</option>
-                <option value="company">Company</option>
-              </select>
-            </div> */}
-            {/* <div>
-              <p>{error}</p>
-            </div> */}
             <div className="flex items-center justify-between">
               <div className="flex items-start">
                 <div className="flex items-center h-5">
