@@ -7,15 +7,6 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [user, setUser] = useState('')
-  // const navigate = useNavigate()
-  // const [, setSelectedcategory] = useState("");
-
-  // const handlecategoryChange = (event) => {
-  //   const category = event.target.value;
-  //   setSelectedcategory(category);
-  //   setCategory(category);
-  // };
 
   const handleLogin = (event) => {  
     event.preventDefault();

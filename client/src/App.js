@@ -34,16 +34,16 @@ function App() {
   const { isAuthenticated, setIsAuthenticated, user, setUser } =
     useContext(AuthContext);
 
-  useEffect(() => {
-    // Check for the presence of the token in local storage
-    const authToken = localStorage.getItem("token");
-    const currentUser = localStorage.getItem("user");
+    useEffect(() => {
+      const authToken = localStorage.getItem("token");
+      const currentUser = localStorage.getItem("user");
+    
+      if (authToken && currentUser) {
+        setIsAuthenticated(true);
+        setUser(JSON.parse(currentUser));
+      }
+    }, [setIsAuthenticated, setUser]);
 
-    if (authToken && currentUser) {
-      setIsAuthenticated(true);
-      setUser(user)
-    }
-  }, [setIsAuthenticated,user,setUser]);
   return (
     <div className="App">
       {/* <Header /> */}

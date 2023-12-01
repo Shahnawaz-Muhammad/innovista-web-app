@@ -1,61 +1,54 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useState } from 'react'
 
-const ExperienceModal = ({ toggleModal, setModalOpen }) => {
-  const [experienceData, setEducationalData] = useState({
-    companyName: "",
-    designation: "",
-    startDate: "",
-    endDate: "",
-  });
+const UpdateEduModal = ({toggleModal, setModalOpen, selectedItemData}) => {
+    console.log("seleceted Item data")
 
-  const { user } = useContext(AuthContext);
-
-  function handleChange(evt) {
-    const value = evt.target.value;
-    setEducationalData({
-      ...experienceData,
-      [evt.target.name]: value,
-    });
-  }
-
-  const handleFormSubmit = async (event) => {
-    try {
-      event.preventDefault();
-
-      const startDateTime = new Date(experienceData.startDate).getTime();
-      const endDateTime = new Date(experienceData.endDate).getTime();
-
-      if (startDateTime > endDateTime) {
-        alert("Start date cannot be greater than end date");
-        return;
+    const [educationalData, setEducationalData] = useState({
+        degree: selectedItemData.degree,
+        subject: selectedItemData.subject,
+        year: selectedItemData.year,
+      });
+    
+     
+    
+      function handleChange(evt) {
+        const value = evt.target.value;
+        setEducationalData({
+          ...educationalData,
+          [evt.target.name]: value,
+        });
       }
-      // Make an API call to authenticate the user and fetch user data
-      const response = await fetch(
-        `http://localhost:8080/api/experience?userEmail=${user.email}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            companyName: experienceData.companyName,
-            designation: experienceData.designation,
-            startDate: experienceData.startDate,
-            endDate: experienceData.endDate,
-          }),
-        }
-      );
 
-      if (!response.ok) {
-        throw new Error("Login failed");
+  const handleFormSubmit = async(event) => {
+    event.preventDefault();
+
+    try {
+      // Make an update API call using fetch
+      const response = await fetch(`http://localhost:8080/api/updateEducation/${selectedItemData._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(educationalData),
+      });
+
+      // Handle the response accordingly
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Update successful:', data);
+
+        // Close the modal
+        toggleModal();
+      } else {
+        // Handle errors (you may show an error message)
+        const errorData = await response.json();
+        console.error('Error updating education:', errorData);
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error('Error updating education:', error);
     }
-    setModalOpen(false);
-  };
-
+  
+}
   return (
     <>
       <div
@@ -96,18 +89,18 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
               <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-2">
                   <label
-                    htmlFor="companyName"
+                    htmlFor="degree"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Company Name
+                    Degree
                   </label>
                   <input
                     type="text"
-                    name="companyName"
-                    id="companyName"
+                    name="degree"
+                    id="degree"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter the company name"
-                    value={experienceData.companyName}
+                    placeholder="Enter your degree"
+                    value={educationalData.degree}
                     onChange={handleChange}
                   />
                 </div>
@@ -116,48 +109,33 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     htmlFor="subject"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Designation
+                    Subject
                   </label>
                   <input
                     type="text"
-                    name="designation"
-                    id="designation"
+                    name="subject"
+                    id="subject"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your designation"
-                    value={experienceData.designation}
+                    placeholder="Enter your subject"
+                    value={educationalData.subject}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="col-span-2 md:col-span-1">
+                <div className="col-span-2">
                   <label
-                    htmlFor="startDate"
+                    htmlFor="year"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Starting Date
+                    Year
                   </label>
                   <input
-                    type="date"
-                    name="startDate"
-                    id="startDate"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    value={experienceData.startDate}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="col-span-2 md:col-span-1">
-                  <label
-                    htmlFor="endDate"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    End Date
-                  </label>
-                  <input
-                    type="date"
-                    name="endDate"
-                    id="endDate"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    value={experienceData.endDate}
+                    type="text"
+                    name="year"
+                    id="year"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                    placeholder="Enter your year"
+                    value={educationalData.year}
                     onChange={handleChange}
                   />
                 </div>
@@ -175,7 +153,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ExperienceModal;
+export default UpdateEduModal

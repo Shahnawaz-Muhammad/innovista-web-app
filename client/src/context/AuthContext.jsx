@@ -29,13 +29,13 @@ const AuthProvider = ({ children }) => {
 
       const responseData = await response.json();
       const { token, user } = responseData;
-      const {category, email} = user
+      // const {category, email} = user
       
 
       // Store token and user type in local storage
       localStorage.setItem("token", token);
-      localStorage.setItem("email", email);
-      localStorage.setItem("category", category);
+      localStorage.setItem("user", JSON.stringify(user));
+
       setUser(user)
       setIsAuthenticated(true);
     } catch (error) {

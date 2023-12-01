@@ -3,6 +3,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import signupRouter from './routes/Route.js';
+import ExperienceRoutes from './routes/ExperienceRoute.js';
+import BookingRoutes from './routes/BookingRoute.js';
 
 import { PORT, mongoDBURL } from './config.js';
 const app = express();
@@ -15,6 +17,8 @@ app.use(cors());
 
 // Use the signup router
 app.use('/api', signupRouter);
+app.use('/api', ExperienceRoutes);
+app.use('/api', BookingRoutes);
 
 // MongoDB connection
 mongoose.connect(mongoDBURL, { useNewUrlParser: true, useUnifiedTopology: true })

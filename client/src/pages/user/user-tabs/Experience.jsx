@@ -1,32 +1,84 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ExperienceModal from "../../../components/dashboard/ExperienceModal";
 import { CiEdit } from "react-icons/ci";
 import { IoTrashOutline } from "react-icons/io5";
+import { AuthContext } from "../../../context/AuthContext";
+import DeleteExperienceModal from "../../../components/dashboard/DeleteExperienceModal";
+import UpdateExperienceModal from "../../../components/dashboard/UpdateExperienceModal";
 
 const Experience = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [experienceData, setExperienceData] = useState(null);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState(null);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [selectedItemData, setSelectedItemData] = useState(null);
+
+  const { user } = useContext(AuthContext);
 
   const toggleExperienceModal = () => {
     setModalOpen(!isModalOpen);
   };
-  const jobData = [
-    {
-      // id:1,
-      company: "Mr. IT Company",
-      totalExperience: "14 Months",
-      designation: "Senior Software Developer",
-      startDate: "Aug 2022",
-      endDate: "Oct 2023",
-    },
-    {
-      // id:2,
-      company: "Mr. ABC Company",
-      totalExperience: "12 Months",
-      designation: "Junior Software Developer",
-      startDate: "Aug 2021",
-      endDate: "Aug 2022",
-    },
-  ];
+
+  const toggleEditModal = (item) => {
+    setEditModalOpen(!isEditModalOpen);
+    setSelectedItemData(item);
+    setSelectedItemId(item._id);
+  };
+
+  const toggleDeleteModal = (id) => {
+    setDeleteModalOpen(!isDeleteModalOpen);
+    setSelectedItemId(id);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/api/getExperience?userEmail=${user.email}`
+        );
+        if (!response.ok) {
+          throw new Error("Error fetching data");
+        }
+        const data = await response.json();
+        setExperienceData(data); // setUserData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [user.email, experienceData]);
+
+  const handleConfirmDelete = async () => {
+    try {
+      if (!selectedItemId) {
+        return;
+      }
+
+      const response = await fetch(
+        `http://localhost:8080/api/deleteExperience/${selectedItemId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete Experience");
+      }
+
+      setSelectedItemId(null);
+      setDeleteModalOpen(false);
+    } catch (error) {
+      console.error("Error deleting Experience:", error);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    // Clear the selectedItemId and close the modal
+    setSelectedItemId(null);
+    setDeleteModalOpen(false);
+  };
 
   return (
     <div>
@@ -49,36 +101,42 @@ const Experience = () => {
         </div>
 
         <div className="w-full flex flex-col gap-3 md:w-2/3 border-2 border-orange py-5 ">
-          {jobData.map((jobData, index) => (
+          {experienceData?.map((item, index) => (
             <div className="border-y py-3 px-2" key={index}>
-              <h1 className="text-xl text-orange font-bold  decoration-slate-900">
-                {jobData.company}
+              <h1 className="text-xl text-orange font-bold uppercase decoration-slate-900">
+                {item.companyName}
               </h1>
               <div className=" grid grid-cols-1 lg:grid-cols-2 gap-1">
                 <div className="flex flex-row ">
                   <h1 className="font-bold w-1/3">Total Experience</h1>
                   <h1 className="font-medium w-2/3">
-                    {jobData.totalExperience}
+                    {/* {item.totalExperience} */}
                   </h1>
                 </div>
                 <div className="flex flex-row ">
                   <h1 className="font-bold w-1/3">Designation</h1>
-                  <h1 className="font-medium w-2/3">{jobData.designation}</h1>
+                  <h1 className="font-medium w-2/3">{item.designation}</h1>
                 </div>
                 <div className="flex flex-row ">
                   <h1 className="font-bold w-1/3">Start Date</h1>
-                  <h1 className="font-medium w-2/3">{jobData.startDate}</h1>
+                  <h1 className="font-medium w-2/3">{item.startDate}</h1>
                 </div>
                 <div className="flex flex-row ">
                   <h1 className="font-bold w-1/3">End Date</h1>
-                  <h1 className="font-medium w-2/3">{jobData.endDate}</h1>
+                  <h1 className="font-medium w-2/3">{item.endDate}</h1>
                 </div>
                 <div className="col-span-full px-5 w-full flex justify-end gap-1">
                   <button className="bg-orange p-1 text-white">
-                    <CiEdit className="text-lg" />
+                    <CiEdit
+                      className="text-lg"
+                      onClick={() => toggleEditModal(item)}
+                    />
                   </button>
                   <button className="bg-red-700 p-1 text-white">
-                    <IoTrashOutline className="text-lg" />
+                    <IoTrashOutline
+                      className="text-lg"
+                      onClick={() => toggleDeleteModal(item._id)}
+                    />
                   </button>
                 </div>
               </div>
@@ -94,10 +152,29 @@ const Experience = () => {
           </div>
         </div>
         {isModalOpen && (
-        <>
-          <ExperienceModal toggleModal={toggleExperienceModal} setModalOpen={setModalOpen} />
-        </>
-      )}
+          <>
+            <ExperienceModal
+              toggleModal={toggleExperienceModal}
+              setModalOpen={setModalOpen}
+            />
+          </>
+        )}
+
+        {isEditModalOpen && (
+          <UpdateExperienceModal
+            toggleModal={toggleEditModal}
+            setModalOpen={setEditModalOpen}
+            selectedItemData={selectedItemData}
+            selectedItemId={selectedItemId}
+          />
+        )}
+
+        {isDeleteModalOpen && (
+          <DeleteExperienceModal
+            onConfirmDelete={handleConfirmDelete}
+            onCancelDelete={handleCancelDelete}
+          />
+        )}
       </div>
     </div>
   );

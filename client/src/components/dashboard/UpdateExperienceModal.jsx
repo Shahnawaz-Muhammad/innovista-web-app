@@ -1,15 +1,19 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
-const ExperienceModal = ({ toggleModal, setModalOpen }) => {
+const UpdateExperienceModal = ({
+  toggleModal,
+  setModalOpen,
+  selectedItemData,
+}) => {
   const [experienceData, setEducationalData] = useState({
-    companyName: "",
-    designation: "",
-    startDate: "",
-    endDate: "",
+    companyName: selectedItemData.companyName,
+    designation: selectedItemData.designation,
+    startDate: selectedItemData.startDate,
+    endDate: selectedItemData.endDate,
   });
 
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
 
   function handleChange(evt) {
     const value = evt.target.value;
@@ -20,40 +24,36 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
   }
 
   const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
     try {
-      event.preventDefault();
-
-      const startDateTime = new Date(experienceData.startDate).getTime();
-      const endDateTime = new Date(experienceData.endDate).getTime();
-
-      if (startDateTime > endDateTime) {
-        alert("Start date cannot be greater than end date");
-        return;
-      }
-      // Make an API call to authenticate the user and fetch user data
+      // Make an update API call using fetch
       const response = await fetch(
-        `http://localhost:8080/api/experience?userEmail=${user.email}`,
+        `http://localhost:8080/api/updateExperience/${selectedItemData._id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            companyName: experienceData.companyName,
-            designation: experienceData.designation,
-            startDate: experienceData.startDate,
-            endDate: experienceData.endDate,
-          }),
+          body: JSON.stringify(experienceData),
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Login failed");
+      // Handle the response accordingly
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Update successful:", data);
+
+        // Close the modal
+        toggleModal();
+      } else {
+        // Handle errors (you may show an error message)
+        const errorData = await response.json();
+        console.error("Error updating education:", errorData);
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Error updating education:", error);
     }
-    setModalOpen(false);
   };
 
   return (
@@ -106,7 +106,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     name="companyName"
                     id="companyName"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter the company name"
+                    placeholder="Enter your degree"
                     value={experienceData.companyName}
                     onChange={handleChange}
                   />
@@ -178,4 +178,4 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
   );
 };
 
-export default ExperienceModal;
+export default UpdateExperienceModal;

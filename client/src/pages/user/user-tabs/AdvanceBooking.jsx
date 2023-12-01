@@ -1,6 +1,72 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function AdvanceBooking() {
+  const [BookingData, setBookingData] = useState({
+    Fullname: "",
+    ContactNo: "",
+    Member: "",
+    BookingDate: "",
+    ExpiryDate: "",
+    BookingTime: "",
+    ExpiryTime: "",
+    Station: "",
+  });
+  const { user} =
+    useContext(AuthContext);
+
+
+  function handleChange(evt) {
+    const value = evt.target.value;
+    setBookingData({
+      ...BookingData,
+      [evt.target.name]: value,
+    });
+  }
+  const SubmitBookingData = async (e) => {
+  e.preventDefault();
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/bookings?userEmail=${user.email}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            FullName: BookingData.Fullname,
+            ContactNo: BookingData.ContactNo,
+            Member: BookingData.Member,
+            BookingDate: BookingData.BookingDate,
+            ExpiryDate: BookingData.ExpiryDate,
+            BookingTime: BookingData.BookingTime,
+            ExpiryTime: BookingData.ExpiryTime,
+            BookingStation: BookingData.Station,
+          }),
+        }
+      );
+
+      setBookingData({
+        Fullname: "",
+        ContactNo: "",
+        Member: "",
+        BookingDate: "",
+        ExpiryDate: "",
+        BookingTime: "",
+        ExpiryTime: "",
+        Station: "",
+      })
+
+       
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  };
+
   return (
     <div className=" flex flex-col md:flex-row ">
       <div
@@ -10,10 +76,12 @@ export default function AdvanceBooking() {
             "url('https://images.unsplash.com/photo-1621243804936-775306a8f2e3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
         }}
       >
-<button className="p-5 rounded-lg text-center text-4xl font-extrabold text-white bg-orange">Advance Booking</button>
+        <button className="p-5 rounded-lg text-center text-4xl font-extrabold text-white bg-orange">
+          Advance Booking
+        </button>
       </div>
       <div className="w-full   md:w-2/3 border-2 border-orange">
-        <form action="" method="POST" className="px-5 py-10">
+        <form className="px-5 py-10" onSubmit={SubmitBookingData}>
           <div className="flex flex-wrap">
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5">
@@ -25,9 +93,11 @@ export default function AdvanceBooking() {
                 </label>
                 <input
                   type="text"
-                  name="fName"
+                  name="Fullname"
                   id="fName"
                   placeholder="First Name"
+                  value={BookingData.Fullname}
+                  onChange={handleChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
@@ -42,60 +112,91 @@ export default function AdvanceBooking() {
                 </label>
                 <input
                   type="numeric"
-                  name="mobile"
+                  name="ContactNo"
                   id="mobile"
+                  value={BookingData.ContactNo}
+                  onChange={handleChange}
                   placeholder="XXXX-XXXXXXX"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
             </div>
           </div>
-          <div className="px-3 mb-5">
-            <label
-              htmlFor="guest"
-              className="mb-3 block text-base font-bold "
-            >
-              How many guest are you bringing?
-            </label>
-            <input
-              type="number"
-              name="guest"
-              id="guest"
-              placeholder="5"
-              min="0"
-              className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-            />
+          <div className=" flex flex-wrap">
+            <div className="w-full px-3 md:w-1/2">
+              <div className="mb-5 ">
+                <label
+                  htmlFor="members"
+                  className="mb-3 block text-base font-bold "
+                >
+                  How many members are you bringing?
+                </label>
+                <input
+                  type="number"
+                  name="Member"
+                  id="members"
+                  placeholder="5"
+                  value={BookingData.Member}
+                  onChange={handleChange}
+                  min="0"
+                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                />
+              </div>
+            </div>
+            <div className="w-full px-3 md:w-1/2">
+              <div className="mb-5">
+                <label
+                  htmlFor="station"
+                  className="mb-3 block text-base font-bold "
+                >
+                  Station
+                </label>
+                <input
+                  type="text"
+                  name="Station"
+                  id="station"
+                  value={BookingData.Station}
+                  onChange={handleChange}
+                  placeholder="Rawalpindi"
+                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                />
+              </div>
+            </div>
           </div>
 
           <div className=" flex flex-wrap">
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5 ">
                 <label
-                  htmlFor="date"
+                  htmlFor="dateFrom"
                   className="mb-3 block text-base font-bold "
                 >
                   Date From
                 </label>
                 <input
                   type="date"
-                  name="date"
-                  id="date"
+                  name="BookingDate"
+                  value={BookingData.BookingDate}
+                  onChange={handleChange}
+                  id="dateFrom"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
             </div>
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5">
-              <label
-                  htmlFor="date"
+                <label
+                  htmlFor="dateTo"
                   className="mb-3 block text-base font-bold "
                 >
                   Date To
                 </label>
                 <input
                   type="date"
-                  name="date"
-                  id="date"
+                  name="ExpiryDate"
+                  id="dateTo"
+                  value={BookingData.ExpiryDate}
+                  onChange={handleChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
@@ -105,16 +206,18 @@ export default function AdvanceBooking() {
           <div className=" flex flex-wrap">
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5">
-              <label
-                  htmlFor="time"
+                <label
+                  htmlFor="timeFrom"
                   className="mb-3 block text-base font-bold "
                 >
                   Time From
                 </label>
                 <input
                   type="time"
-                  name="time"
-                  id="time"
+                  name="BookingTime"
+                  id="timeFrom"
+                  value={BookingData.BookingTime}
+                  onChange={handleChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
@@ -122,15 +225,17 @@ export default function AdvanceBooking() {
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-5">
                 <label
-                  htmlFor="time"
+                  htmlFor="timeTo"
                   className="mb-3 block text-base font-bold "
                 >
                   Time To
                 </label>
                 <input
                   type="time"
-                  name="time"
-                  id="time"
+                  name="ExpiryTime"
+                  id="timeTo"
+                  value={BookingData.ExpiryTime}
+                  onChange={handleChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
@@ -138,21 +243,19 @@ export default function AdvanceBooking() {
           </div>
 
           <div className="mb-5 px-3">
-            <label className="mb-3 block text-base font-bold ">
-              Payment
-            </label>
-            <div className="flex items-center">
-              
-              Advance Payment
-            </div>
+            <label className="mb-3 block text-base font-bold ">Payment</label>
+            <div className="flex items-center">Advance Payment</div>
           </div>
 
           <div className="flex justify-center">
-            <button className="  rounded-lg bg-orange hover:bg-orangeDark hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none">
+            <button
+              className="rounded-lg bg-orange hover:bg-orangeDark hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none "
+              type="submit"
+            >
               Submit
             </button>
           </div>
-        </form> 
+        </form>
       </div>
     </div>
   );

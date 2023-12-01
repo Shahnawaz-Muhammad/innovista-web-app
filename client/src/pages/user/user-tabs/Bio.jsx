@@ -20,9 +20,8 @@ const Bio = ({ user }) => {
     };
 
     fetchData();
-  }, []);
+  }, [user.email]);
 
-  console.log("bio data++", userData);
 
   return (
     <div className="bg-[#fffbf5] rounded-3xl flex flex-col md:flex-row justify-center">
