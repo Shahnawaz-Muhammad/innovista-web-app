@@ -5,6 +5,8 @@ import cors from 'cors';
 import signupRouter from './routes/Route.js';
 import ExperienceRoutes from './routes/ExperienceRoute.js';
 import BookingRoutes from './routes/BookingRoute.js';
+import JobRoutes from './routes/JobRoute.js';
+import CvRoutes from './routes/CvRoute.js';
 
 import { PORT, mongoDBURL } from './config.js';
 const app = express();
@@ -19,6 +21,8 @@ app.use(cors());
 app.use('/api', signupRouter);
 app.use('/api', ExperienceRoutes);
 app.use('/api', BookingRoutes);
+app.use('/api', JobRoutes);
+app.use('/api', CvRoutes);
 
 // MongoDB connection
 mongoose.connect(mongoDBURL, { useNewUrlParser: true, useUnifiedTopology: true })
