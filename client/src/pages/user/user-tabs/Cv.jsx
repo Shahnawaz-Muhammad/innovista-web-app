@@ -32,7 +32,7 @@ const Cv = () => {
     fetchData();
   }, [user.email, cvFile]);
 
-  // console.log("pdf viewer", cvFile.FilePath)
+  console.log("pdf viewer", cvFile?.FilePath)
 
   return (
     <div className="h-96 flex flex-col md:flex-row justify-center">
@@ -51,7 +51,7 @@ const Cv = () => {
         </button>
       </div>
       <div className="w-full   md:w-2/3 border-2 border-orange  flex justify-center items-center font-bold text-4xl ">
-        {cvFile?.FilePath ? (
+        {/* {cvFile?.FilePath ? (
           <iframe
             title="PDF Viewer"
             src={`file:///${cvFile.FilePath}`} // Replace with the actual URL
@@ -60,7 +60,7 @@ const Cv = () => {
           />
         ) : (
           <h2>No file found</h2>
-        )}
+        )} */}
       </div>
 
       {isAddModalOpen && (
