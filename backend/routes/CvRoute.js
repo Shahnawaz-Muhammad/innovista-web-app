@@ -30,8 +30,6 @@ router.post('/uploadCV', upload.single('cv'), async (req, res) => {
       const originalFileName = req.file.originalname;
       const filePath = join(folderPath, originalFileName);
       fs.writeFileSync(filePath, req.file.buffer);
-      console.log("filePath ",filePath)
-      console.log("req.file.buffer ",req.file.buffer)
   
       if (!existingUser) {
         return res.status(404).json({ error: 'User not found. Please sign up first.' });

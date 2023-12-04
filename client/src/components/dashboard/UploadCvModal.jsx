@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const UploadCvModal = ({ toggleModal, setModalOpen }) => {
   const [filePreview, setFilePreview] = useState(null);
-
+  const [showFileHere,setShowFileHere]=useState(null);
   const { user } = useContext(AuthContext);
 
   const handleFileSelect = (e) => {
@@ -11,6 +11,12 @@ const UploadCvModal = ({ toggleModal, setModalOpen }) => {
 
     if (selectedFile && selectedFile.type === "application/pdf") {
       setFilePreview(selectedFile);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setShowFileHere(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+
     } else {
       alert("Please select a PDF file.");
 
@@ -25,9 +31,13 @@ const UploadCvModal = ({ toggleModal, setModalOpen }) => {
   const handleDrop = (e) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
-    setFilePreview(droppedFile);
     if (droppedFile && droppedFile.type === "application/pdf") {
       setFilePreview(droppedFile);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setShowFileHere(reader.result);
+      };
+      reader.readAsDataURL(droppedFile);
     } else {
       // Notify the user that the dropped file is not a PDF
       alert("Please drop a PDF file.");
@@ -93,16 +103,16 @@ const UploadCvModal = ({ toggleModal, setModalOpen }) => {
                       accept="application/pdf"
                       onChange={handleFileSelect}
                     />
-                    {filePreview && (
+                    {showFileHere && (
                       <embed
-                        src={filePreview}
+                        src={showFileHere}
                         type="application/pdf"
                         width="100%"
                         height="500px"
                       />
                     )}
                     {/* File upload description */}
-                    {filePreview ? null : (
+                    {showFileHere ? null : (
                       <p className="pointer-none text-gray-700">
                         <span className="">Drag and drop</span> files here
                         <br /> or <br />

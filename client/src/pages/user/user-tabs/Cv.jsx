@@ -4,7 +4,7 @@ import { AuthContext } from "../../../context/AuthContext";
 
 const Cv = () => {
   const [isAddModalOpen, setAddModalOpen] = useState(false);
-  const [cvFile, setCvFile] = useState(null);
+  const [pdfUrl, setPdfUrl] = useState("");
 
   const toggleAddModal = () => {
     setAddModalOpen(!isAddModalOpen);
@@ -13,26 +13,28 @@ const Cv = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8080/api/getCv?userEmail=${user.email}`
-        );
-        if (!response.ok) {
-          throw new Error("Error fetching data");
+    // Make API request to get Base64 data
+    // For example, using fetch or Axios
+    fetch(`http://localhost:8080/api/getCv?userEmail=${user.email}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const binaryData = atob(data.cvContent);
+
+        // Create a blob from the binary data
+        const arrayBuffer = new Uint8Array(binaryData.length);
+        for (let i = 0; i < binaryData.length; i++) {
+          arrayBuffer[i] = binaryData.charCodeAt(i);
         }
-        const data = await response.json();
-        console.log("cv data", data);
-        setCvFile(data); // setUserData(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+        const blob = new Blob([arrayBuffer], { type: "application/pdf" });
 
-    fetchData();
-  }, [user.email, cvFile]);
+        // Create a URL for the blob and set it in state
+        const url = URL.createObjectURL(blob);
+        setPdfUrl(url);
+      })
+      .catch((error) => console.error("Error fetching PDF:", error));
+  }, [user.email, isAddModalOpen] );
 
-  console.log("pdf viewer", cvFile?.FilePath)
+  console.log("pdf viewer", pdfUrl);
 
   return (
     <div className="h-96 flex flex-col md:flex-row justify-center">
@@ -51,16 +53,18 @@ const Cv = () => {
         </button>
       </div>
       <div className="w-full   md:w-2/3 border-2 border-orange  flex justify-center items-center font-bold text-4xl ">
-        {/* {cvFile?.FilePath ? (
+        {pdfUrl ? (
           <iframe
-            title="PDF Viewer"
-            src={`file:///${cvFile.FilePath}`} // Replace with the actual URL
+            src={`${pdfUrl}#toolbar=0`}
             width="100%"
             height="100%"
+            title="PDF Viewer"
+            allowFullScreen
+            controls={false}
           />
         ) : (
-          <h2>No file found</h2>
-        )} */}
+          <p>Loading PDF...</p>
+        )}
       </div>
 
       {isAddModalOpen && (
