@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../context/AuthContext";
+import emailjs from "emailjs-com";
 
 const JobAds = () => {
   const [jobAds, setJobAds] = useState(null);
+
+  const { user, pdfUrl } = useContext(AuthContext);
+  console.log("pdfUrl",pdfUrl)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,7 +18,6 @@ const JobAds = () => {
           throw new Error("Error fetching data");
         }
         const data = await response.json();
-        console.log("Job Ads____________", data);
         setJobAds(data); // setUserData(data);
       } catch (error) {
         console.error(error);
@@ -22,6 +26,36 @@ const JobAds = () => {
 
     fetchData();
   }, [jobAds]);
+
+  const handleApply = async (receiverEmail) => {
+    try {
+      const templateParams = {
+        to_email: receiverEmail,
+        from_name: user.email,
+        cvLink: pdfUrl,
+      };
+
+      const file = await fetch(pdfUrl).then((res) => res.blob());
+
+
+
+      const response = await emailjs.send(
+        "service_xvm6qji", // replace with your serviceID
+        "template_1q4scwi", // replace with your templateID
+        templateParams,
+        "iXLqSwaAmmr_ku5qW", // replace with your userID
+        { attachments: [{ file: file, name: "cv.pdf" }] }
+        );
+
+      console.log(response);
+
+      // Handle success or show a notification to the user
+    } catch (error) {
+      console.error(error);
+      // Handle error or show an error notification to the user
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="w-full flex flex-col gap-3">
@@ -58,7 +92,10 @@ const JobAds = () => {
                   </h3>
                 </div>
                 <div className="lg:w-[50%]">
-                  <button className="w-full bg-orange hover:bg-orangeDark text-white px-10 py-2 text-md">
+                  <button
+                    onClick={() => handleApply(post.Email)}
+                    className="w-full bg-orange hover:bg-orangeDark text-white px-10 py-2 text-md"
+                  >
                     Apply Now
                   </button>
                 </div>{" "}

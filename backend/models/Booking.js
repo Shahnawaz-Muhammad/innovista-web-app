@@ -39,6 +39,10 @@ const BookingSchema = new mongoose.Schema({
     required: true,
     //unique: true,
   },
+  category: {
+    type: String,
+    required: true,
+  },
 });
 
 const Booking = mongoose.model('Booking', BookingSchema);

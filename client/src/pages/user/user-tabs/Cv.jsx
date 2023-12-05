@@ -4,13 +4,12 @@ import { AuthContext } from "../../../context/AuthContext";
 
 const Cv = () => {
   const [isAddModalOpen, setAddModalOpen] = useState(false);
-  const [pdfUrl, setPdfUrl] = useState("");
 
   const toggleAddModal = () => {
     setAddModalOpen(!isAddModalOpen);
   };
 
-  const { user } = useContext(AuthContext);
+  const { user, pdfUrl,setPdfUrlContext} = useContext(AuthContext);
 
   useEffect(() => {
     // Make API request to get Base64 data
@@ -29,12 +28,11 @@ const Cv = () => {
 
         // Create a URL for the blob and set it in state
         const url = URL.createObjectURL(blob);
-        setPdfUrl(url);
+        setPdfUrlContext(url);
       })
       .catch((error) => console.error("Error fetching PDF:", error));
   }, [user.email, isAddModalOpen] );
 
-  console.log("pdf viewer", pdfUrl);
 
   return (
     <div className="h-96 flex flex-col md:flex-row justify-center">

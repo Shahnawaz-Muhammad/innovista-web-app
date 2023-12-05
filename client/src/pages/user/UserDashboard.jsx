@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import UserHeader from "../../components/dashboard/user-header";
-import profileImage from "../../assets/images/profile-image.jpg";
 import { IoLocationOutline } from "react-icons/io5";
 import { BsEnvelope } from "react-icons/bs";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -11,6 +10,31 @@ import { RxHamburgerMenu } from "react-icons/rx";
 const UserDashboard = ({ user }) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      
+      formData.append("profilePicture", file);
+  
+      try {
+        const response = await fetch(`http://localhost:8080/api/uploadProfilePicture?userEmail=${user.email}`, {
+          method: "POST",
+          body: formData,
+        });
+  
+        if (response.ok) {
+          console.log("Image uploaded successfully");
+        } else {
+          console.error("Failed to upload image");
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -154,7 +178,6 @@ const UserDashboard = ({ user }) => {
           throw new Error("Error fetching data");
         }
         const data = await response.json();
-        console.log("user data", data)
         setUserInfo(data); // setUserInfo(data);
       } catch (error) {
         console.error(error);
@@ -163,6 +186,27 @@ const UserDashboard = ({ user }) => {
 
     fetchData();
   }, [user.email]);
+
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/api/getProfilePicture?userEmail=${user.email}`
+        );
+        if (!response.ok) {
+          throw new Error("Error fetching data");
+        }
+        const data = await response.json();
+        setSelectedFile(data); // setUserInfo(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProfilePicture();
+  }, [user.email, selectedFile]);
+
+  // console.log("selectedFile", selectedFile?.imageURL)
 
   return (
     <div>
@@ -178,7 +222,7 @@ const UserDashboard = ({ user }) => {
               onMouseLeave={() => setIsHovered(false)}
             >
               <img
-                src={profileImage}
+                src={`http://localhost:8080/api${selectedFile?.imageURL}`}
                 alt=""
                 className={`w-full h-full rounded-full object-cover ${
                   isHovered ? 'scale-105 duration-300' : 'scale-100 duration-300'
@@ -193,7 +237,7 @@ const UserDashboard = ({ user }) => {
                     type="file"
                     id="fileInput"
                     className="hidden"
-                    onChange={(e) => console.log(e.target.files[0])} // Handle the file change as needed
+                    onChange={handleFileChange} // Handle the file change as needed
                   />
                 </div>
               )}
