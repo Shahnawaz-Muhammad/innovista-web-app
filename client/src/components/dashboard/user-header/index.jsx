@@ -21,10 +21,8 @@ const UserHeader = ({user}) => {
   return (
     <div>
       <div className="w-full py-3 px-10 bg-gray-100 mx-auto shadow-md">
-        <div className="max-w-screen-2xl flex justify-between">
-          <div className="w-full">
-            <h2 className="text-xl uppercase">{user.category}</h2>
-          </div>
+        <div className="max-w-screen-2xl flex justify-end">
+         
           <div className="flex gap-3 items-center">
             <VscBellDot className="text-2xl text-gray-600 cursor-pointer" />
             <div

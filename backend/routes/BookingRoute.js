@@ -26,6 +26,7 @@ router.post('/bookings', async (req, res) => {
         BookingTime: req.body.BookingTime,
         ExpiryTime: req.body.ExpiryTime,
         Email: user.emailAddress,
+        category:user.category
       });
   
       // Save the booking to the database

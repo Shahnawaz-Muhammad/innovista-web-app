@@ -7,6 +7,10 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({});
+  const [pdfUrl, setPdfUrl] = useState(null);
+
+
+
 
   const login = async (credentials, event) => {
     try {
@@ -53,9 +57,13 @@ const AuthProvider = ({ children }) => {
     setUser({});
   };
 
+  const setPdfUrlContext = (url) => {
+    setPdfUrl(url);
+  };
+  
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated,setIsAuthenticated, user, setUser, login, logout }}
+      value={{ isAuthenticated,setIsAuthenticated, user, setUser, login, logout, pdfUrl, setPdfUrlContext }}
     >
       {children}
     </AuthContext.Provider>
