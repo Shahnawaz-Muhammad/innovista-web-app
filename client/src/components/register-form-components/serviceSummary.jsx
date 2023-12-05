@@ -7,7 +7,7 @@ export const ServiceSummary = ({
 
 	return (
 		<section className="flex flex-col gap-4 w-full">
-			<h2>Finishing up</h2>
+			<h2>Confirmation</h2>
 			{/* <p>Double-check everyghing looks OK before confirming.</p> */}
 			<ul className="flex flex-col gap-2 px-4 py-5 bg-neutral-magnolia rounded-lg">
 				<li className="border-b border-neutral-light-gray pb-2">

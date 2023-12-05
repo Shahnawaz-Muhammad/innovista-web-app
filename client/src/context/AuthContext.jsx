@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
     try {
       event.preventDefault();
       // Make an API call to authenticate the user and fetch user data
-      const response = await fetch("http://localhost:8080/api/login", {
+      const response = await fetch("http://192.168.100.53:8080/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -4,19 +4,19 @@ import clsx from 'clsx';
 const steps = [
 	{
 		step: 1,
-		title: 'Your Info',
+		title: 'Personal Info',
 	},
 	{
 		step: 2,
-		title: 'Select Plan',
+		title: 'Select Category',
 	},
 	{
 		step: 3,
-		title: 'Add-ons',
+		title: 'Detailed Info',
 	},
 	{
 		step: 4,
-		title: 'Summary',
+		title: 'Confirmation',
 	},
 ];
 export const Sidebar = ({ currentStep, handleNextStep }) => {

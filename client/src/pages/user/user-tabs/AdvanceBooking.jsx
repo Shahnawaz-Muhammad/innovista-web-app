@@ -2,6 +2,70 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 
 export default function AdvanceBooking() {
+  const stations = [
+    "Rawalpindi",
+    "Lahore",
+    "Karachi",
+    "Islamabad",
+    "Faisalabad",
+  ];
+  const [errors, setErrors] = useState({
+    Fullname: "",
+    ContactNo: "",
+    Member: "",
+    BookingDate: "",
+    ExpiryDate: "",
+    BookingTime: "",
+    ExpiryTime: "",
+    Station: "",
+  });
+
+  const nameRegex = /^[a-zA-Z\s]+$/;
+  const contactNoRegex = /^\d{11}$/;
+  const numberRegex = /^\d+$/;
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+  const stationRegex = /^[a-zA-Z\s]+$/;
+
+  // Validation function
+  const validateInput = (fieldName, value) => {
+    switch (fieldName) {
+      case "Fullname":
+        return nameRegex.test(value.trim());
+      case "ContactNo":
+        return contactNoRegex.test(value);
+      case "Member":
+        return numberRegex.test(value);
+      case "BookingDate":
+      case "ExpiryDate":
+        return dateRegex.test(value);
+      case "BookingTime":
+      case "ExpiryTime":
+        return timeRegex.test(value);
+      case "Station":
+        return stationRegex.test(value.trim());
+      default:
+        return true;
+    }
+  };
+
+  // Validation handler for form submission
+  const handleValidation = () => {
+    let isValid = true;
+    const newErrors = { ...errors };
+    for (const field in BookingData) {
+      if (!validateInput(field, BookingData[field])) {
+        newErrors[field] = `Invalid ${field}`;
+        isValid = false;
+      } else {
+        newErrors[field] = "";
+      }
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const [BookingData, setBookingData] = useState({
     Fullname: "",
     ContactNo: "",
@@ -12,9 +76,7 @@ export default function AdvanceBooking() {
     ExpiryTime: "",
     Station: "",
   });
-  const { user} =
-    useContext(AuthContext);
-
+  const { user } = useContext(AuthContext);
 
   function handleChange(evt) {
     const value = evt.target.value;
@@ -24,11 +86,16 @@ export default function AdvanceBooking() {
     });
   }
   const SubmitBookingData = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+
+    const isFormValid = handleValidation();
+
+    if (isFormValid) {
+      console.log("Data to be sent:", BookingData);
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/bookings?userEmail=${user.email}`,
+        `http://192.168.100.53:8080/api/bookings?userEmail=${user.email}`,
         {
           method: "POST",
           headers: {
@@ -56,15 +123,15 @@ export default function AdvanceBooking() {
         BookingTime: "",
         ExpiryTime: "",
         Station: "",
-      })
+      });
 
-       
       if (!response.ok) {
-        throw new Error("Login failed");
+        throw new Error("Booking failed");
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Booking error:", error);
     }
+  }
   };
 
   return (
@@ -95,11 +162,15 @@ export default function AdvanceBooking() {
                   type="text"
                   name="Fullname"
                   id="fName"
-                  placeholder="First Name"
+                  placeholder="Name"
                   value={BookingData.Fullname}
                   onChange={handleChange}
+                  onFocus={() => setErrors({ ...errors, Fullname: '' })}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+                {errors.Fullname && (
+                  <p className="text-red-500">{errors.Fullname}</p>
+                )}
               </div>
             </div>
             <div className="w-full px-3 md:w-1/2">
@@ -116,9 +187,13 @@ export default function AdvanceBooking() {
                   id="mobile"
                   value={BookingData.ContactNo}
                   onChange={handleChange}
-                  placeholder="XXXX-XXXXXXX"
+                  onFocus={() => setErrors({ ...errors, ContactNo: '' })}
+                  placeholder="XXXXXXXXXXX"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+                {errors.ContactNo && (
+                  <p className="text-red-500">{errors.ContactNo}</p>
+                )}
               </div>
             </div>
           </div>
@@ -138,9 +213,13 @@ export default function AdvanceBooking() {
                   placeholder="5"
                   value={BookingData.Member}
                   onChange={handleChange}
+                  onFocus={() => setErrors({ ...errors, Member: '' })}
                   min="0"
                   className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+                {errors.Member && (
+                  <p className="text-red-500">{errors.Member}</p>
+                )}
               </div>
             </div>
             <div className="w-full px-3 md:w-1/2">
@@ -151,15 +230,24 @@ export default function AdvanceBooking() {
                 >
                   Station
                 </label>
-                <input
-                  type="text"
+                <select
                   name="Station"
                   id="station"
                   value={BookingData.Station}
                   onChange={handleChange}
-                  placeholder="Rawalpindi"
+                  onFocus={() => setErrors({ ...errors, Station: '' })}
                   className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
+                >
+                  <option value="">Select Your Station</option>
+                  {stations.map((station, index) => (
+                    <option key={index} value={station}>
+                      {station}
+                    </option>
+                  ))}
+                </select>
+                {errors.Station && (
+                  <p className="text-red-500">{errors.Station}</p>
+                )}
               </div>
             </div>
           </div>
@@ -178,9 +266,13 @@ export default function AdvanceBooking() {
                   name="BookingDate"
                   value={BookingData.BookingDate}
                   onChange={handleChange}
+                  onFocus={() => setErrors({ ...errors, BookingDate: '' })}
                   id="dateFrom"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+                {errors.BookingDate && (
+                  <p className="text-red-500">{errors.BookingDate}</p>
+                )}
               </div>
             </div>
             <div className="w-full px-3 md:w-1/2">
@@ -197,8 +289,12 @@ export default function AdvanceBooking() {
                   id="dateTo"
                   value={BookingData.ExpiryDate}
                   onChange={handleChange}
+                  onFocus={() => setErrors({ ...errors, ExpiryDate: '' })}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+                {errors.ExpiryDate && (
+                  <p className="text-red-500">{errors.ExpiryDate}</p>
+                )}
               </div>
             </div>
           </div>
@@ -218,8 +314,12 @@ export default function AdvanceBooking() {
                   id="timeFrom"
                   value={BookingData.BookingTime}
                   onChange={handleChange}
+                  onFocus={() => setErrors({ ...errors, BookingTime: '' })}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+                {errors.BookingTime && (
+                  <p className="text-red-500">{errors.BookingTime}</p>
+                )}
               </div>
             </div>
             <div className="w-full px-3 md:w-1/2">
@@ -236,8 +336,12 @@ export default function AdvanceBooking() {
                   id="timeTo"
                   value={BookingData.ExpiryTime}
                   onChange={handleChange}
+                  onFocus={() => setErrors({ ...errors, ExpiryTime: '' })}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
+                {errors.ExpiryTime && (
+                  <p className="text-red-500">{errors.ExpiryTime}</p>
+                )}
               </div>
             </div>
           </div>

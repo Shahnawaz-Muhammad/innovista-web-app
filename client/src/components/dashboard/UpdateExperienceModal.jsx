@@ -1,61 +1,111 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useState } from "react";
 
 const UpdateExperienceModal = ({
   toggleModal,
   setModalOpen,
   selectedItemData,
 }) => {
-  const [experienceData, setEducationalData] = useState({
+  const [experienceData, setExperienceData] = useState({
     companyName: selectedItemData.companyName,
     designation: selectedItemData.designation,
     startDate: selectedItemData.startDate,
     endDate: selectedItemData.endDate,
   });
 
+  const [errors, setErrors] = useState({
+    companyName: "",
+    designation: "",
+    startDate: "",
+    endDate: "",
+  });
   // const { user } = useContext(AuthContext);
 
   function handleChange(evt) {
     const value = evt.target.value;
-    setEducationalData({
+    setExperienceData({
       ...experienceData,
       [evt.target.name]: value,
     });
   }
 
+  const validateDate = (date) => {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD format
+    return dateRegex.test(date);
+  };
+
+  const handleDateChange = (evt) => {
+    const { name, value } = evt.target;
+    if (validateDate(value)) {
+      setExperienceData({
+        ...experienceData,
+        [name]: value,
+      });
+    } else {
+      // Handle invalid date format here (e.g., show error message)
+      console.error("Invalid date format");
+      // You can set an error state or display a message to the user
+    }
+  };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
-      // Make an update API call using fetch
-      const response = await fetch(
-        `http://localhost:8080/api/updateExperience/${selectedItemData._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(experienceData),
+      let validForm = true;
+      const newErrors = { ...errors };
+  
+      // Validate each field
+      for (const field in experienceData) {
+        if (!experienceData[field]) {
+          newErrors[field] = `Please enter your ${field}`;
+          validForm = false;
+        } else {
+          newErrors[field] = "";
+  
+          // Validate date fields
+          if (["startDate", "endDate"].includes(field)) {
+            if (!validateDate(experienceData[field])) {
+              newErrors[field] = `Please enter a valid ${field}`;
+              validForm = false;
+            }
+          }
         }
-      );
-
-      // Handle the response accordingly
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Update successful:", data);
-
-        // Close the modal
-        toggleModal();
-      } else {
-        // Handle errors (you may show an error message)
-        const errorData = await response.json();
-        console.error("Error updating education:", errorData);
+      }
+  
+      // Update the errors state with newErrors
+      setErrors(newErrors);
+  
+      if (validForm) {
+        // Make an update API call using fetch
+        const response = await fetch(
+          `http://192.168.100.53:8080/api/updateExperience/${selectedItemData._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(experienceData),
+          }
+        );
+  
+        // Handle the response accordingly
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Update successful:", data);
+  
+          // Close the modal
+          toggleModal();
+        } else {
+          // Handle errors (you may show an error message)
+          const errorData = await response.json();
+          console.error("Error updating education:", errorData);
+        }
       }
     } catch (error) {
       console.error("Error updating education:", error);
     }
   };
-
+  
   return (
     <>
       <div
@@ -109,7 +159,11 @@ const UpdateExperienceModal = ({
                     placeholder="Enter your degree"
                     value={experienceData.companyName}
                     onChange={handleChange}
-                  />
+                    onFocus={() => setErrors({ ...errors, companyName: "" })}
+                    />
+                    {errors.companyName && (
+                      <p className="text-red-500">{errors.companyName}</p>
+                    )}
                 </div>
                 <div className="col-span-2">
                   <label
@@ -126,7 +180,11 @@ const UpdateExperienceModal = ({
                     placeholder="Enter your designation"
                     value={experienceData.designation}
                     onChange={handleChange}
-                  />
+                    onFocus={() => setErrors({ ...errors, designation: "" })}
+                    />
+                    {errors.designation && (
+                      <p className="text-red-500">{errors.designation}</p>
+                    )}
                 </div>
 
                 <div className="col-span-2 md:col-span-1">
@@ -142,8 +200,12 @@ const UpdateExperienceModal = ({
                     id="startDate"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     value={experienceData.startDate}
-                    onChange={handleChange}
-                  />
+                    onChange={handleDateChange}
+                    onFocus={() => setErrors({ ...errors, startDate: "" })}
+                    />
+                    {errors.startDate && (
+                      <p className="text-red-500">{errors.startDate}</p>
+                    )}
                 </div>
                 <div className="col-span-2 md:col-span-1">
                   <label
@@ -158,8 +220,12 @@ const UpdateExperienceModal = ({
                     id="endDate"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     value={experienceData.endDate}
-                    onChange={handleChange}
-                  />
+                    onChange={handleDateChange}
+                    onFocus={() => setErrors({ ...errors, endDate: "" })}
+                    />
+                    {errors.endDate && (
+                      <p className="text-red-500">{errors.endDate}</p>
+                    )}
                 </div>
               </div>
               <div className="w-full flex justify-center">

@@ -17,7 +17,7 @@ export const Group = ({
       <h2>Group Info</h2>
 
       <div className=" flex flex-col md:flex-row justify-center gap-4">
-        <div className="w-full relative mb-16">
+        <div className="w-full relative  h-16 flex flex-col gap-1">
           <div className="absolute top-0 left-0 w-full">
             <div className="w-full inline-flex justify-between">
               <label
@@ -26,11 +26,7 @@ export const Group = ({
               >
                 No Of People
               </label>
-              {required && showRequired && (
-                <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                  This field is required
-                </p>
-              )}
+              
             </div>
 
             <select
@@ -55,6 +51,12 @@ export const Group = ({
               <option value="21-30">21 - 30</option>
               <option value="moreThan30">More than 30</option>
             </select>
+            {showRequired &&
+                !groupInfo.people && ( // Display error message condition
+                  <p className="text-primary-starberry-red leading-3 text-sm font-medium">
+                    This field is required
+                  </p>
+                )}
           </div>
         </div>
       </div>
@@ -66,10 +68,17 @@ export const Group = ({
         showRequired={showRequired && !groupInfo.address}
         value={groupInfo.address}
         onChange={(e) => handleGroupInfo(e, "address")}
+        className="h-16 flex flex-col gap-1"
       />
+      {showRequired &&
+                !groupInfo.address && ( // Display error message condition
+                  <p className="text-primary-starberry-red leading-3 text-sm font-medium">
+                    This field is required
+                  </p>
+                )}
 
       <div className=" flex flex-col md:flex-row justify-center gap-4">
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 h-16 flex flex-col gap-1">
           <Input
             type="text"
             label="City"
@@ -78,8 +87,14 @@ export const Group = ({
             value={groupInfo.city}
             onChange={(e) => handleGroupInfo(e, "city")}
           />
+          {showRequired &&
+                !groupInfo.city && ( // Display error message condition
+                  <p className="text-primary-starberry-red leading-3 text-sm font-medium">
+                    This field is required
+                  </p>
+                )}
         </div>
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 h-16 flex flex-col gap-1">
           <Input
             label="Country"
             placeholder="Pakistan"
@@ -87,6 +102,12 @@ export const Group = ({
             value={groupInfo.country}
             onChange={(e) => handleGroupInfo(e, "country")}
           />
+          {showRequired &&
+                !groupInfo.country && ( // Display error message condition
+                  <p className="text-primary-starberry-red leading-3 text-sm font-medium">
+                    This field is required
+                  </p>
+                )}
         </div>
       </div>
     </section>

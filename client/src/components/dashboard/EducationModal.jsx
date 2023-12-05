@@ -1,4 +1,4 @@
-import React, { useContext,  useState } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const EducationModal = ({ toggleModal, setModalOpen }) => {
@@ -8,8 +8,43 @@ const EducationModal = ({ toggleModal, setModalOpen }) => {
     year: "",
   });
 
-  const { user} =
-    useContext(AuthContext);
+  const [errors, setErrors] = useState({
+    degree: "",
+    subject: "",
+    year: "",
+  });
+
+  // Validation function
+  const validateInput = (fieldName, value) => {
+    switch (fieldName) {
+      case "degree":
+        return value.trim() !== "";
+      case "subject":
+        return value.trim() !== "";
+      case "year":
+        return /^\d{4}$/.test(value.trim());
+      default:
+        return true;
+    }
+  };
+
+  // Validation handler for form submission
+  const handleValidation = () => {
+    let isValid = true;
+    const newErrors = { ...errors };
+    for (const field in educationalData) {
+      if (!validateInput(field, educationalData[field])) {
+        newErrors[field] = `Please enter a valid ${field}`;
+        isValid = false;
+      } else {
+        newErrors[field] = "";
+      }
+    }
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const { user } = useContext(AuthContext);
 
   function handleChange(evt) {
     const value = evt.target.value;
@@ -19,35 +54,40 @@ const EducationModal = ({ toggleModal, setModalOpen }) => {
     });
   }
 
-  
-
-  const handleFormSubmit = async(event) => {
+  const handleFormSubmit = async (event) => {
     try {
       event.preventDefault();
-      // Make an API call to authenticate the user and fetch user data
-      const response = await fetch(`http://localhost:8080/api/educations?userEmail=${user.email}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          degree: educationalData.degree,
-          subject: educationalData.subject,
-          year: educationalData.year,
-        }),
-      });
+      const isFormValid = handleValidation();
 
-      if (!response.ok) {
-        throw new Error("Login failed");
+      if (!isFormValid) {
+        console.error("Form validation failed");
+        return;
       }
 
+      // Make an API call to authenticate the user and fetch user data
+      const response = await fetch(
+        `http://localhost:8080/api/educations?userEmail=${user.email}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            degree: educationalData.degree,
+            subject: educationalData.subject,
+            year: educationalData.year,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed");
+      }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Error:", error);
     }
     setModalOpen(false);
   };
-
-
 
   return (
     <>
@@ -102,7 +142,11 @@ const EducationModal = ({ toggleModal, setModalOpen }) => {
                     placeholder="Enter your degree"
                     value={educationalData.degree}
                     onChange={handleChange}
+                    onFocus={() => setErrors({ ...errors, degree: "" })}
                   />
+                  {errors.degree && (
+                    <p className="text-red-500">{errors.degree}</p>
+                  )}
                 </div>
                 <div className="col-span-2">
                   <label
@@ -119,7 +163,11 @@ const EducationModal = ({ toggleModal, setModalOpen }) => {
                     placeholder="Enter your subject"
                     value={educationalData.subject}
                     onChange={handleChange}
+                    onFocus={() => setErrors({ ...errors, subject: "" })}
                   />
+                  {errors.subject && (
+                    <p className="text-red-500">{errors.subject}</p>
+                  )}
                 </div>
 
                 <div className="col-span-2">
@@ -130,14 +178,18 @@ const EducationModal = ({ toggleModal, setModalOpen }) => {
                     Year
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="year"
                     id="year"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="Enter your year"
                     value={educationalData.year}
                     onChange={handleChange}
+                    onFocus={() => setErrors({ ...errors, year: "" })}
+                    min="1900"
+                    max={new Date().getFullYear()} // Restrict to the current year
                   />
+                  {errors.year && <p className="text-red-500">{errors.year}</p>}
                 </div>
               </div>
               <div className="w-full flex justify-center">

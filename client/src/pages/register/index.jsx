@@ -15,6 +15,13 @@ const Register = () => {
   const [showRequired, setShowRequiredFields] = useState(false);
   const navigate = useNavigate();
 
+  const nameRegex = /^[A-Za-z ]+$/;
+  const emailRegex = /\S+@\S+\.\S+/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+  const cnicRegex = /^\d{13}$/;
+  const mobileRegex = /^\d{11}$/;
+  const ntnRegex = /^\d{8}$/;
+
   const [userServiceConfiguration, setUserServiceConfiguration] = useState({
     userInfo: {
       firstName: "",
@@ -51,6 +58,8 @@ const Register = () => {
     addons: [],
   });
 
+ 
+
   const updateUserInfo = (userInfo) => {
     setUserServiceConfiguration({ ...userServiceConfiguration, userInfo });
   };
@@ -77,10 +86,14 @@ const Register = () => {
     if (step === 5) return;
     if (step === 1 || (onGoingStep && onGoingStep !== 1 && step === 1)) {
       if (
-        !userServiceConfiguration.userInfo.firstName ||
-        !userServiceConfiguration.userInfo.lastName ||
-        !userServiceConfiguration.userInfo.email.includes("@") ||
-        !userServiceConfiguration.userInfo.password
+        !nameRegex.test(userServiceConfiguration.userInfo.firstName) ||
+        !nameRegex.test(userServiceConfiguration.userInfo.lastName) ||
+        !cnicRegex.test(userServiceConfiguration.userInfo.cnic) ||
+        !mobileRegex.test(userServiceConfiguration.userInfo.mobile) ||
+        !emailRegex.test(userServiceConfiguration.userInfo.email) ||
+        !passwordRegex.test(userServiceConfiguration.userInfo.password) ||
+        !userServiceConfiguration.userInfo.confirmPassword ||
+        userServiceConfiguration.userInfo.password !== userServiceConfiguration.userInfo.confirmPassword
       ) {
         setShowRequiredFields(true);
         return;
@@ -119,12 +132,11 @@ const Register = () => {
         }
       } else if (userServiceConfiguration.selectedPlan.name === "Company") {
         if (
-          !userServiceConfiguration.companyInfo.ntn ||
+          !ntnRegex.test(userServiceConfiguration.companyInfo.ntn) ||
           !userServiceConfiguration.companyInfo.people ||
           !userServiceConfiguration.companyInfo.address ||
           !userServiceConfiguration.companyInfo.city ||
-          !userServiceConfiguration.companyInfo.country ||
-          !userServiceConfiguration.companyInfo.address
+          !userServiceConfiguration.companyInfo.country
         ) {
           setShowRequiredFields(true);
           return;
@@ -200,7 +212,7 @@ const Register = () => {
 
       // Check if selectedPlanData exists before attempting to send it
       if (selectedPlanData) {
-        await fetch("http://localhost:8080/api/signup", {
+        await fetch("http://192.168.100.53:8080/api/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -232,7 +244,7 @@ const Register = () => {
   };
 
   return (
-    <main className="h-screen flex flex-col text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-40 lg:mb-20 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow-[10px_10px_40px_10px_rgba(0,0,0,0.2)] ">
+    <main className=" flex flex-col text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-40 lg:mb-20 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow-[10px_10px_40px_10px_rgba(0,0,0,0.2)] ">
       <Sidebar currentStep={step} handleNextStep={nextStep} />
       <div className="px-4 relative bg-neutral-magnolia  lg:bg-transparent lg:flex lg:flex-col lg:w-full ">
         <form className="bg-neutral-alabaster px-6 py-9 rounded-[0.625rem]  -translate-y-[4.5rem] flex w-full grow [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-primary-marine-blue [&_h3]:font-medium [&_h3]:text-primary-marine-blue lg:bg-transparent lg:translate-y-0 ">

@@ -1,54 +1,94 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-const UpdateEduModal = ({toggleModal, setModalOpen, selectedItemData}) => {
-    console.log("seleceted Item data")
+const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
+  console.log("seleceted Item data");
 
-    const [educationalData, setEducationalData] = useState({
-        degree: selectedItemData.degree,
-        subject: selectedItemData.subject,
-        year: selectedItemData.year,
-      });
-    
-     
-    
-      function handleChange(evt) {
-        const value = evt.target.value;
-        setEducationalData({
-          ...educationalData,
-          [evt.target.name]: value,
-        });
-      }
+  const [educationalData, setEducationalData] = useState({
+    degree: selectedItemData.degree,
+    subject: selectedItemData.subject,
+    year: selectedItemData.year,
+  });
 
-  const handleFormSubmit = async(event) => {
+  const [errors, setErrors] = useState({
+    degree: "",
+    subject: "",
+    year: "",
+  });
+
+  function handleChange(evt) {
+    const value = evt.target.value;
+    setEducationalData({
+      ...educationalData,
+      [evt.target.name]: value,
+    });
+  }
+
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      // Make an update API call using fetch
-      const response = await fetch(`http://localhost:8080/api/updateEducation/${selectedItemData._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(educationalData),
-      });
+      const isValid = validateForm(); // Function to validate the form
 
-      // Handle the response accordingly
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Update successful:', data);
+      if (isValid) {
+        // Make an update API call using fetch
+        const response = await fetch(
+          `http://192.168.100.53:8080/api/updateEducation/${selectedItemData._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(educationalData),
+          }
+        );
 
-        // Close the modal
-        toggleModal();
-      } else {
-        // Handle errors (you may show an error message)
-        const errorData = await response.json();
-        console.error('Error updating education:', errorData);
+        // Handle the response accordingly
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Update successful:", data);
+
+          // Close the modal
+          toggleModal();
+        } else {
+          // Handle errors (you may show an error message)
+          const errorData = await response.json();
+          console.error("Error updating education:", errorData);
+        }
       }
     } catch (error) {
-      console.error('Error updating education:', error);
+      console.error("Error updating education:", error);
+    }
+  };
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { ...errors };
+  
+    // Validate each field
+    for (const field in educationalData) {
+      if (!educationalData[field]) {
+        newErrors[field] = `Please enter your Updated ${field}`;
+        valid = false;
+      } else {
+        newErrors[field] = "";
+  
+        // Validate year range
+        if (field === "year") {
+          const enteredYear = educationalData.year;
+          const isNumeric = /^\d+$/.test(enteredYear); // Check if the year consists of only digits
+  
+          if (!isNumeric || enteredYear < 1900 || enteredYear > new Date().getFullYear()) {
+            newErrors[field] = "Please enter a valid year";
+            valid = false;
+          }
+        }
+      }
     }
   
-}
+    setErrors(newErrors);
+    return valid;
+  };
+  
   return (
     <>
       <div
@@ -102,7 +142,11 @@ const UpdateEduModal = ({toggleModal, setModalOpen, selectedItemData}) => {
                     placeholder="Enter your degree"
                     value={educationalData.degree}
                     onChange={handleChange}
+                    onFocus={() => setErrors({ ...errors, degree: "" })}
                   />
+                  {errors.degree && (
+                    <p className="text-red-500 text-xs mt-1">{errors.degree}</p>
+                  )}
                 </div>
                 <div className="col-span-2">
                   <label
@@ -119,7 +163,13 @@ const UpdateEduModal = ({toggleModal, setModalOpen, selectedItemData}) => {
                     placeholder="Enter your subject"
                     value={educationalData.subject}
                     onChange={handleChange}
+                    onFocus={() => setErrors({ ...errors, subject: "" })}
                   />
+                  {errors.subject && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.subject}
+                    </p>
+                  )}
                 </div>
 
                 <div className="col-span-2">
@@ -137,7 +187,11 @@ const UpdateEduModal = ({toggleModal, setModalOpen, selectedItemData}) => {
                     placeholder="Enter your year"
                     value={educationalData.year}
                     onChange={handleChange}
+                    onFocus={() => setErrors({ ...errors, year: "" })}
+                    min="1900"
+                    max={new Date().getFullYear()} // Restrict to the current year
                   />
+                  {errors.year && <p className="text-red-500 text-xs mt-1">{errors.year}</p>}
                 </div>
               </div>
               <div className="w-full flex justify-center">
@@ -153,7 +207,7 @@ const UpdateEduModal = ({toggleModal, setModalOpen, selectedItemData}) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default UpdateEduModal
+export default UpdateEduModal;

@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import freelancer from '../../assets/images/conference-room.jpeg'
 import group from '../../assets/images/conference-room.jpeg'
 import company from '../../assets/images/conference-room.jpeg'
+import { useState } from 'react';
 
 const activeClasses =
 	'border border-primary-purplish-blue bg-neutral-magnolia falopa';
@@ -29,6 +30,8 @@ export const SelectPlan = ({
 	showRequired
 
 }) => {
+	const [categorySelected, setCategorySelected] = useState(false);
+
 	return (
 		<section className="flex flex-col gap-4 w-full ">
 			<h2>Select your Category</h2>
@@ -43,7 +46,10 @@ export const SelectPlan = ({
 									? activeClasses
 									: 'border border-neutral-light-gray'
 							)}
-							onClick={() => updateSelectedPlan(plan)}
+							onClick={() => {
+								updateSelectedPlan(plan);
+								setCategorySelected(true); // Set category as selected on click
+							  }}
 						>
 							<figure className="">
 								<img
@@ -62,8 +68,11 @@ export const SelectPlan = ({
 					</li>
 				))}
 			</ul>
-				{showRequired && <div>
-					Please Select a Category</div>}
+			{showRequired && (
+        <div className={`font-bold text-xl ${categorySelected ? 'text-green-500' : 'text-red-500'}`}>
+          {categorySelected ? 'Category Selected!' : 'Please Select a Category'}
+        </div>
+      )}
 			
 		</section>
 	);

@@ -9,6 +9,13 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
     endDate: "",
   });
 
+  const [errors, setErrors] = useState({
+    companyName: "",
+    designation: "",
+    startDate: "",
+    endDate: "",
+  });
+
   const { user } = useContext(AuthContext);
 
   function handleChange(evt) {
@@ -17,11 +24,37 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
       ...experienceData,
       [evt.target.name]: value,
     });
+
+     // Clear error when user starts typing in a field
+     setErrors({
+      ...errors,
+    });
   }
 
   const handleFormSubmit = async (event) => {
     try {
       event.preventDefault();
+
+      // Frontend validation
+      const validationErrors = {};
+
+      if (experienceData.companyName.trim() === "") {
+        validationErrors.companyName = "Company name is required";
+      }
+      if (experienceData.designation.trim() === "") {
+        validationErrors.designation = "Designation is required";
+      }
+      if (experienceData.startDate.trim() === "") {
+        validationErrors.startDate = "Start date is required";
+      }
+      if (experienceData.endDate.trim() === "") {
+        validationErrors.endDate = "End date is required";
+      }
+
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return;
+      }
 
       const startDateTime = new Date(experienceData.startDate).getTime();
       const endDateTime = new Date(experienceData.endDate).getTime();
@@ -67,7 +100,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Add Education
+                Add Experience
               </h3>
               <button
                 type="button"
@@ -109,7 +142,11 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     placeholder="Enter the company name"
                     value={experienceData.companyName}
                     onChange={handleChange}
-                  />
+                    onFocus={() => setErrors({ ...errors, companyName: "" })}
+                    />
+                    {errors.companyName && (
+                      <p className="text-red-500">{errors.companyName}</p>
+                    )}
                 </div>
                 <div className="col-span-2">
                   <label
@@ -126,7 +163,11 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     placeholder="Enter your designation"
                     value={experienceData.designation}
                     onChange={handleChange}
-                  />
+                    onFocus={() => setErrors({ ...errors, designation: "" })}
+                    />
+                    {errors.designation && (
+                      <p className="text-red-500">{errors.designation}</p>
+                    )}
                 </div>
 
                 <div className="col-span-2 md:col-span-1">
@@ -143,7 +184,11 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     value={experienceData.startDate}
                     onChange={handleChange}
-                  />
+                    onFocus={() => setErrors({ ...errors, startDate: "" })}
+                    />
+                    {errors.startDate && (
+                      <p className="text-red-500">{errors.startDate}</p>
+                    )}
                 </div>
                 <div className="col-span-2 md:col-span-1">
                   <label
@@ -159,7 +204,11 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     value={experienceData.endDate}
                     onChange={handleChange}
-                  />
+                    onFocus={() => setErrors({ ...errors, endDate: "" })}
+                    />
+                    {errors.endDate && (
+                      <p className="text-red-500">{errors.endDate}</p>
+                    )}
                 </div>
               </div>
               <div className="w-full flex justify-center">

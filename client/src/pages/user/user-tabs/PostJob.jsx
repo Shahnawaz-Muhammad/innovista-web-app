@@ -32,49 +32,49 @@ export default function PostJob() {
     e.preventDefault();
 
     if (!formData.title) {
-      setError({ ...error, title: "title Field is required" });
+      setError({ ...error, title: "Title is Required" });
       return;
     }
 
     if (!formData.salary) {
-      setError({ ...error, salary: "salary Field is required" });
+      setError({ ...error, salary: "Salary is Required" });
       return;
     }
 
     if (!formData.email) {
-      setError({ ...error, email: "Email Field is Required" });
+      setError({ ...error, email: "Email is Required" });
       return;
     }
 
     if (!formData.company) {
-      setError({ ...error, company: "company Field is required" });
+      setError({ ...error, company: "Company is Required" });
       return;
     }
     if (!formData.description) {
-      setError({ ...error, description: "description Field is required" });
+      setError({ ...error, description: "Description is Required" });
       return;
     }
     if (!formData.job_category) {
-      setError({ ...error, job_category: "job_category Field is required" });
+      setError({ ...error, job_category: "Category is Required" });
       return;
     }
     if (!formData.job_type) {
-      setError({ ...error, job_type: "job_type Field is required" });
+      setError({ ...error, job_type: "Type is Required" });
       return;
     }
     if (!formData.job_experience) {
       setError({
         ...error,
-        job_experience: "job_experience Field is required",
+        job_experience: "Experience is Required",
       });
       return;
     }
     if (!formData.job_vacancy) {
-      setError({ ...error, job_vacancy: "job_vacancy Field is required" });
+      setError({ ...error, job_vacancy: "Vacancies are Required" });
       return;
     }
     if (!formData.job_deadline) {
-      setError({ ...error, job_deadline: "job_deadline Field is required" });
+      setError({ ...error, job_deadline: "Deadline date is Required" });
       return;
     }
 
@@ -113,7 +113,7 @@ export default function PostJob() {
         >
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label htmlFor="title" className="mb-1 text-base font-semibold">
-              Title :
+              Title
             </label>
             <input
               onChange={(e) =>
@@ -123,6 +123,7 @@ export default function PostJob() {
               id="title"
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter title of job"
+              onFocus={() => setError({ ...error, title: '' })}
             />
             {error.title && (
               <p className="text-sm text-red-500">{error.title}</p>
@@ -130,7 +131,7 @@ export default function PostJob() {
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label htmlFor="salary" className="mb-1 text-base font-semibold">
-              Salary :
+              Salary
             </label>
             <input
               onChange={(e) =>
@@ -140,6 +141,7 @@ export default function PostJob() {
               id="salary"
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Salary for this job"
+              onFocus={() => setError({ ...error, salary: '' })}
             />
             {error.salary && (
               <p className="text-sm text-red-500">{error.salary}</p>
@@ -147,7 +149,7 @@ export default function PostJob() {
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label htmlFor="email" className="mb-1 text-base font-semibold">
-              Email :
+              Email
             </label>
             <input
               onChange={(e) =>
@@ -157,6 +159,7 @@ export default function PostJob() {
               id="email"
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Email to be Contacted for this job"
+              onFocus={() => setError({ ...error, email: '' })}
             />
             {error.email && (
               <p className="text-sm text-red-500">{error.email}</p>
@@ -164,7 +167,7 @@ export default function PostJob() {
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label htmlFor="company" className="mb-1 text-base font-semibold">
-              Company :
+              Company
             </label>
             <input
               onChange={(e) =>
@@ -174,6 +177,7 @@ export default function PostJob() {
               id="company"
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Company of job"
+              onFocus={() => setError({ ...error, company: '' })}
             />
             {error.company && (
               <p className="text-sm text-red-500">{error.company}</p>
@@ -184,7 +188,7 @@ export default function PostJob() {
               htmlFor="description"
               className="mb-1 text-base font-semibold"
             >
-              Description :
+              Description
             </label>
             <textarea
               onChange={(e) =>
@@ -195,6 +199,7 @@ export default function PostJob() {
               id="description"
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter description of job"
+              onFocus={() => setError({ ...error, description: '' })}
             />
             {error.description && (
               <p className="text-sm text-red-500">{error.description}</p>
@@ -205,7 +210,7 @@ export default function PostJob() {
               htmlFor="jobCategory"
               className="mb-1 text-base font-semibold"
             >
-              Job Category :
+              Job Category
             </label>
             <input
               onChange={(e) =>
@@ -215,6 +220,7 @@ export default function PostJob() {
               id="jobCategory"
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Category of job"
+              onFocus={() => setError({ ...error, job_category: '' })}
             />
             {error.job_category && (
               <p className="text-sm text-red-500">{error.job_category}</p>
@@ -225,13 +231,14 @@ export default function PostJob() {
               htmlFor="jobCategory"
               className="mb-1 text-base font-semibold"
             >
-              Job Type :
+              Job Type 
             </label>
             <select
             onChange={(e) =>
               setFormData({ ...formData, job_type: e.target.value })
             }
             placeholder="Please Select Job type"
+            onFocus={() => setError({ ...error, job_type: '' })}
             value={formData.job_type}
             className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
           >
@@ -258,7 +265,7 @@ export default function PostJob() {
               htmlFor="jobExperience"
               className="mb-1 text-base font-semibold"
             >
-              Job Experience :
+              Job Experience 
             </label>
             <input
               onChange={(e) =>
@@ -268,6 +275,7 @@ export default function PostJob() {
               id="jobExperience"
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Experience Required for this job"
+              onFocus={() => setError({ ...error, job_experience: '' })}
             />
             {error.job_experience && (
               <p className="text-sm text-red-500">{error.job_experience}</p>
@@ -275,7 +283,7 @@ export default function PostJob() {
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label htmlFor="jobva" className="mb-1 text-base font-semibold">
-              Job Vacancy :
+              Job Vacancy
             </label>
             <input
               onChange={(e) =>
@@ -285,6 +293,7 @@ export default function PostJob() {
               id="jobva"
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Number  of Vacancies"
+              onFocus={() => setError({ ...error, job_vacancy: '' })}
             />
             {error.job_vacancy && (
               <p className="text-sm text-red-500">{error.job_vacancy}</p>
@@ -292,7 +301,7 @@ export default function PostJob() {
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label htmlFor="jobva" className="mb-1 text-base font-semibold">
-              Job Deadline :
+              Job Deadline
             </label>
             <input
               onChange={(e) =>
@@ -302,6 +311,7 @@ export default function PostJob() {
               id="jobva"
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Deadline of job"
+              onFocus={() => setError({ ...error, job_deadline: '' })}
             />
             {error.job_deadline && (
               <p className="text-sm text-red-500">{error.job_deadline}</p>
