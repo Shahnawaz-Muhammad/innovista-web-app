@@ -7,7 +7,6 @@ import ExperienceRoutes from './routes/ExperienceRoute.js';
 import BookingRoutes from './routes/BookingRoute.js';
 import JobRoutes from './routes/JobRoute.js';
 import CvRoutes from './routes/CvRoute.js';
-import EmailRoute from './routes/EmailRoute.js';
 import DifferenceCategory from './routes/DifferenceCategory.js'
 import ActiveFreelancer from './routes/ActiveFreelancer.js'
 import ActiveGroup from './routes/ActiveGroup.js';
@@ -31,7 +30,6 @@ app.use('/api', ExperienceRoutes);
 app.use('/api', BookingRoutes);
 app.use('/api', JobRoutes);
 app.use('/api', CvRoutes);
-app.use('/api', EmailRoute);
 app.use('/api', DifferenceCategory);
 app.use('/api', ActiveFreelancer);
 app.use('/api', ActiveGroup);

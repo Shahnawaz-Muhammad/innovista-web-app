@@ -19,7 +19,6 @@ import Login from "./pages/login";
 import Bio from "./pages/user/user-tabs/Bio";
 import Experience from "./pages/user/user-tabs/Experience";
 import Education from "./pages/user/user-tabs/Education";
-import Cv from "./pages/user/user-tabs/Cv";
 import AdvanceBooking from "./pages/user/user-tabs/AdvanceBooking";
 import BookingHistory from "./pages/user/user-tabs/BookingHistory";
 import Employees from "./pages/user/user-tabs/Employees";
@@ -141,7 +140,6 @@ function App() {
           <Route path="" element={<Bio user={user}/>}/>
           <Route path="education" element={<Education />}/>
           <Route path="experience" element={<Experience />}/>
-          <Route path="cv" element={<Cv />}/>
           <Route path="advance-booking" element={<AdvanceBooking />}/>
           <Route path="booking-history" element={<BookingHistory />}/>
           <Route path="employees" element={<Employees />}/>

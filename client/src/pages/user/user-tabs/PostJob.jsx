@@ -2,7 +2,22 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 
 export default function PostJob() {
+  const currentDate = new Date().toISOString().split("T")[0];
+
   const [formData, setFormData] = useState({
+    job_title: "",
+    salary: "",
+    company: "",
+    description: "",
+    job_category: "",
+    job_type: "",
+    job_experience: "",
+    job_vacancy: "",
+    job_deadline: "",
+    status: "",
+  });
+
+  const [errors, setErrors] = useState({
     job_title: "",
     salary: "",
     company: "",
@@ -26,12 +41,65 @@ export default function PostJob() {
   const { user } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
-    console.log("formData", formData);
+    
     try {
       event.preventDefault();
+
+      const newErrors = {};
+      let hasErrors = false;
+
+      if (!formData.job_title) {
+        newErrors.job_title = "Please enter Job Title";
+        hasErrors = true;
+      }
+
+      if (!formData.salary) {
+        newErrors.salary = "Please enter Job Salary";
+        hasErrors = true;
+      }
+
+      if (!formData.company) {
+        newErrors.company = "Please enter Company Name";
+        hasErrors = true;
+      }
+      if (!formData.description) {
+        newErrors.description = "Please enter Job Description";
+        hasErrors = true;
+      }
+      if (!formData.job_category) {
+        newErrors.job_category = "Please enter Job Category";
+        hasErrors = true;
+      }
+      if (!formData.job_type) {
+        newErrors.job_type = "Please enter Job Type";
+        hasErrors = true;
+      }
+      if (!formData.job_experience) {
+        newErrors.job_experience = "Please enter Job Experience";
+        hasErrors = true;
+      }
+      if (!formData.job_vacancy) {
+        newErrors.job_vacancy = "Please enter Job Vacancy";
+        hasErrors = true;
+      }
+      if (!formData.job_deadline) {
+        newErrors.job_deadline = "Please enter Applying Deadline";
+        hasErrors = true;
+      }
+      if (!formData.status) {
+        newErrors.status = "Please enter Job Status";
+        hasErrors = true;
+      }
+      
+
+      if (hasErrors) {
+        setErrors(newErrors);
+        console.log(hasErrors)
+        return;
+      }
       // Make an API call to authenticate the user and fetch user data
       const response = await fetch(
-        `http://localhost:8080/api/PostJob?userEmail=${user.email}`,
+        `http://192.168.150.134:8080/api/PostJob?userEmail=${user.email}`,
         {
           method: "POST",
           headers: {
@@ -52,6 +120,7 @@ export default function PostJob() {
         }
       );
       console.log("Form submitted successfully");
+      console.log("formData", formData);
 
       setFormData({
         job_title: "",
@@ -64,7 +133,7 @@ export default function PostJob() {
         job_vacancy: "",
         job_deadline: "",
         status: "",
-      })
+      });
       if (!response.ok) {
         throw new Error("Login failed");
       }
@@ -74,7 +143,7 @@ export default function PostJob() {
   };
 
   const options = [
-    { value: "", label: "Enter Category of job" },
+    { value: "", label: "Enter Job Type" },
     { value: "fulltime", label: "Full Time" },
     { value: "parttime", label: "Part Time" },
     { value: "internship", label: "Internship" },
@@ -103,8 +172,11 @@ export default function PostJob() {
               onChange={handleChange}
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter title of job"
-              onFocus={() => setError({ ...error, title: '' })}
+              onFocus={() => setErrors({ ...errors, job_title: "" })}
             />
+            {errors.job_title && (
+              <p className="text-red-500 text-xs mt-1">{errors.job_title}</p>
+            )}
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label htmlFor="salary" className="mb-1 text-base font-semibold">
@@ -118,8 +190,11 @@ export default function PostJob() {
               onChange={handleChange}
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Salary for this job"
-              onFocus={() => setError({ ...error, salary: '' })}
+              onFocus={() => setErrors({ ...errors, salary: "" })}
             />
+            {errors.salary && (
+              <p className="text-red-500 text-xs mt-1">{errors.salary}</p>
+            )}
           </div>
 
           <div className="w-full mb-4  flex flex-col items-start justify-center">
@@ -134,8 +209,11 @@ export default function PostJob() {
               onChange={handleChange}
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Company of job"
-              onFocus={() => setError({ ...error, company: '' })}
+              onFocus={() => setErrors({ ...errors, company: "" })}
             />
+            {errors.company && (
+              <p className="text-red-500 text-xs mt-1">{errors.company}</p>
+            )}
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label
@@ -153,8 +231,11 @@ export default function PostJob() {
               rows={3}
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter description of job"
-              onFocus={() => setError({ ...error, description: '' })}
+              onFocus={() => setErrors({ ...errors, description: "" })}
             />
+            {errors.description && (
+              <p className="text-red-500 text-xs mt-1">{errors.description}</p>
+            )}
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label
@@ -171,15 +252,18 @@ export default function PostJob() {
               onChange={handleChange}
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Category of job"
-              onFocus={() => setError({ ...error, job_category: '' })}
+              onFocus={() => setErrors({ ...errors, job_category: "" })}
             />
+            {errors.job_category && (
+              <p className="text-red-500 text-xs mt-1">{errors.job_category}</p>
+            )}
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label
               htmlFor="jobCategory"
               className="mb-1 text-base font-semibold"
             >
-              Job Type 
+              Job Type
             </label>
             <select
               placeholder="Please Select Job type"
@@ -187,7 +271,11 @@ export default function PostJob() {
               onChange={handleChange}
               value={formData.job_type}
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
+              onFocus={() => setErrors({ ...errors, job_type: "" })}
             >
+              {errors.job_type && (
+              <p className="text-red-500 text-xs mt-1">{errors.job_type}</p>
+            )}
               {/* Populate options here */}
               {options.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -197,31 +285,34 @@ export default function PostJob() {
             </select>
           </div>
 
-          <div className="w-full mb-4  flex flex-col items-start justify-center"></div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label
               htmlFor="jobExperience"
               className="mb-1 text-base font-semibold"
             >
-              Job Experience 
+              Job Experience
             </label>
             <input
-              type="text"
+              type="number"
               id="jobExperience"
               name="job_experience"
               value={formData.job_experience}
               onChange={handleChange}
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Experience Required for this job"
-              onFocus={() => setError({ ...error, job_experience: '' })}
+              onFocus={() => setErrors({ ...errors, job_experience: "" })}
+              min={0}
             />
+            {errors.job_experience && (
+              <p className="text-red-500 text-xs mt-1">{errors.job_experience}</p>
+            )}
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label
               htmlFor="jobvacancy"
               className="mb-1 text-base font-semibold"
             >
-              Job Vacancy :
+              Job Vacancy 
             </label>
             <input
               type="number"
@@ -231,15 +322,19 @@ export default function PostJob() {
               onChange={handleChange}
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Number  of Vacancies"
-              onFocus={() => setError({ ...error, job_vacancy: '' })}
+              onFocus={() => setErrors({ ...errors, job_vacancy: "" })}
+              min={1}
             />
+            {errors.job_vacancy && (
+              <p className="text-red-500 text-xs mt-1">{errors.job_vacancy}</p>
+            )}
           </div>
           <div className="w-full mb-4  flex flex-col items-start justify-center">
             <label
               htmlFor="job_deadline"
               className="mb-1 text-base font-semibold"
             >
-              Job Deadline :
+              Job Deadline 
             </label>
             <input
               type="date"
@@ -249,8 +344,12 @@ export default function PostJob() {
               onChange={handleChange}
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
               placeholder="Enter Deadline of job"
-              onFocus={() => setError({ ...error, job_deadline: '' })}
+              onFocus={() => setErrors({ ...errors, job_deadline: "" })}
+              min={currentDate}
             />
+            {errors.job_deadline && (
+              <p className="text-red-500 text-xs mt-1">{errors.job_deadline}</p>
+            )}
           </div>
 
           <div className="w-full mb-4  flex flex-col items-start justify-center">
@@ -258,7 +357,7 @@ export default function PostJob() {
               htmlFor="jobCategory"
               className="mb-1 text-base font-semibold"
             >
-              Status :
+              Status 
             </label>
             <select
               placeholder="Please Select an Option"
@@ -266,7 +365,10 @@ export default function PostJob() {
               onChange={handleChange}
               value={formData.status}
               className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
-            >
+            >              
+            {errors.status && (
+              <p className="text-red-500 text-xs mt-1">{errors.status}</p>
+            )}
               <option value="">Select an option</option>
               <option value={1}>Active</option>
               <option value={0}>Inactive</option>

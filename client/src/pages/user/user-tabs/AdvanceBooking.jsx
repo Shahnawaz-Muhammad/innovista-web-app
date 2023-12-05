@@ -2,6 +2,10 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 
 export default function AdvanceBooking() {
+
+  
+  const currentDate = new Date().toISOString().split("T")[0];
+
   const stations = [
     "Rawalpindi",
     "Lahore",
@@ -95,7 +99,7 @@ export default function AdvanceBooking() {
 
     try {
       const response = await fetch(
-        `http://192.168.100.53:8080/api/bookings?userEmail=${user.email}`,
+        `http://192.168.150.134:8080/api/bookings?userEmail=${user.email}`,
         {
           method: "POST",
           headers: {
@@ -268,6 +272,7 @@ export default function AdvanceBooking() {
                   onChange={handleChange}
                   onFocus={() => setErrors({ ...errors, BookingDate: '' })}
                   id="dateFrom"
+                  min={currentDate}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
                 {errors.BookingDate && (

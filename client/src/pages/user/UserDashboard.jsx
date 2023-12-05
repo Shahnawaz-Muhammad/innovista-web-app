@@ -61,21 +61,16 @@ const UserDashboard = ({ user }) => {
     },
     {
       id: 4,
-      title: "Cv",
-      url: "cv",
-    },
-    {
-      id: 5,
       title: "Advance Booking",
       url: "advance-booking",
     },
     {
-      id: 6,
+      id: 5,
       title: "Booking History",
       url: "booking-history",
     },
     {
-      id: 7,
+      id: 6,
       title: "Jobs",
       url: "job-advertisements",
     },

@@ -2,13 +2,16 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import logo from "../../assets/D-labs-logo-white.png";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
 const Login = () => {
+  
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const validateEmail = (inputEmail) => {
     // Basic email validation using a regular expression
@@ -87,18 +90,18 @@ const Login = () => {
                 <p className="text-red-500 text-xs mt-1">{emailError}</p>
               )}
             </div>
-            <div>
+            <div className="relative">
               <label
                 htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className=" mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Password
               </label>
               <input
-                type="password"
                 name="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
-                placeholder="••••••••"
+                placeholder="********"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -106,6 +109,17 @@ const Login = () => {
               {passwordError && (
                 <p className="text-red-500 text-xs mt-1">{passwordError}</p>
               )}
+              {showPassword ? (
+            <IoIosEye
+              className=" absolute right-2 top-9 cursor-pointer text-xl"
+              onClick={() => setShowPassword(false)}
+            />
+          ) : (
+            <IoIosEyeOff
+              className="absolute right-2 top-9 cursor-pointer text-xl"
+              onClick={() => setShowPassword(true)}
+            />
+          )}
             </div>
 
             <div className="flex items-center justify-between">
@@ -116,7 +130,6 @@ const Login = () => {
                     aria-describedby="remember"
                     type="checkbox"
                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                    required=""
                   />
                 </div>
                 <div className="ml-3 text-sm">

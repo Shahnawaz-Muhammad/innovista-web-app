@@ -53,7 +53,7 @@ const UploadCvModal = ({ toggleModal, setModalOpen }) => {
       formData.append("cv", filePreview);
 
       const response = await fetch(
-        `http://localhost:8080/api/uploadCV?userEmail=${user.email}`,
+        `http://192.168.150.134:8080/api/uploadCV?userEmail=${user.email}`,
         {
           method: "POST",
           body: formData,

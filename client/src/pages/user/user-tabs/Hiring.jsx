@@ -33,7 +33,7 @@ const Hirings = () => {
       }
 
       const response = await fetch(
-        `http://localhost:8080/api/deleteJobPost/${selectedItemId}`,
+        `http://192.168.150.134:8080/api/deleteJobPost/${selectedItemId}`,
         {
           method: "DELETE",
         }
@@ -62,7 +62,7 @@ const Hirings = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/GetJobPost?userEmail=${user.email}`
+          `http://192.168.150.134:8080/api/GetJobPost?userEmail=${user.email}`
         );
         if (!response.ok) {
           throw new Error("Error fetching data");
@@ -85,21 +85,25 @@ const Hirings = () => {
             <div className="w-full flex  gap-5 items-center">
               <div className="w-full flex flex-col md:flex-row gap-3 md:gap-2 items-center shadow-[2px_1px_10px_5px_rgba(0,0,0,0.1)] rounded-xl p-5">
                 <div className="w-full md:w-[30%] flex flex-col items-center gap-2">
-                  <h1 className="font-semibold">{post.company}</h1>
-                  {/* <h1>{post.location}</h1> */}
+                  <h1 className="font-semibold bg-orange underline text-white text-3xl p-2">{post.company}</h1>
                 </div>
                 <div className="w-full flex flex-col items-center gap-2 text-center">
-                  <h2>{post.job_title}</h2>
+                  <h2 className="underline">{post.job_title}</h2>
                   <h2 className="text-gray-600 text-sm ">{post.description}</h2>
                 </div>
                 <div className="w-[35%] flex flex-col items-center">
-                  <h3 className=" text-gray-600 ">{post.salary} </h3>
-                  <h3 className="text-sm text-gray-600">per year</h3>
+                  <h3 className=" text-gray-600 font-bold">{post.salary}  </h3>
+                  <h3 className=" text-gray-600 font-semibold">per Month </h3>
                 </div>
-                <h3 className="w-[20%] text-gray-600 text-sm">
-                  {post.job_type}
-                </h3>
-                <div className="lg:w-[30%] flex gap-2 justify-center">
+                <div className="w-[35%] flex flex-col items-center">
+                  <h3 className=" text-gray-600 font-bold">{post.job_vacancy}  </h3>
+                  <h3 className=" text-gray-600 font-semibold">{post.job_type} </h3>
+                </div>
+                <div className="w-[20%] flex flex-col items-center">
+                  <h3 className=" text-gray-600 font-bold text-xl p-1">{post.status == 0 ? "In Active" : "Active"}  </h3>
+                </div>
+                
+                <div className="lg:w-[15%] flex gap-2 justify-center">
                   <button className="bg-orange p-1 text-white">
                     <CiEdit
                       className="text-lg"
