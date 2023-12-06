@@ -1,95 +1,138 @@
-import express from "express";
-import User from "../models/User.js";
-import Cv from "../models/Cv.js";
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-import fs from 'fs';
 import path from 'path';
+import express from 'express';
 import multer from 'multer';
-import { fileURLToPath } from 'url';
-import { dirname, join,extname } from 'path';
+import fs from 'fs/promises'; // Import the fs module for file operations
+import User from '../models/User.js';
+import CV from '../models/Cv.js'; // Assuming you have a CV model
+
 const router = express.Router();
 
-// route for cv post cv through Email 
+
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+
 const __filename = fileURLToPath(import.meta.url);
- const __dirname = dirname(__filename);
+const __dirname = dirname(__filename);
 
 
-router.post('/uploadCV', upload.single('cv'), async (req, res) => {
-    try {
-      const { userEmail } = req.query;
-      const folderPath = join(__dirname, '../media'); // Adjust the path as needed
-  
-      // Check if the email exists in the Signup table
-      const existingUser = await User.findOne({ emailAddress: userEmail });
-  
-      if (!fs.existsSync(folderPath)) {
-        fs.mkdirSync(folderPath, { recursive: true });
-      }
-  
-      const originalFileName = req.file.originalname;
-      const filePath = join(folderPath, originalFileName);
-      fs.writeFileSync(filePath, req.file.buffer);
-  
-      if (!existingUser) {
-        return res.status(404).json({ error: 'User not found. Please sign up first.' });
-      }
-  
-      // Check if there is an existing UserCv document for the user
-      const existingUserCv = await Cv.findOne({ Email: userEmail });
-  
-      if (!existingUserCv) {
-        const newUserCv = new Cv({
-          Email: existingUser.emailAddress,
-          CvContent: req.file.buffer,
-          CvFilePath: filePath,
-        });
-  
-        // Save the instance to the database
-        await newUserCv.save();
-  
-        res.status(200).json({ message: 'CV added successfully' });
-      } else {
-        // Update the existing UserCv document
-        existingUserCv.CvContent = req.file.buffer;
-        existingUserCv.CvFilePath = filePath; // Corrected this line
-  
-        // Save the updated instance to the database
-        await existingUserCv.save();
-  
-        res.status(200).json({ message: 'CV updated successfully' });
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
+// Set up multer to store files in the 'cv' directory
+const storage = multer.diskStorage({
+  destination: async function (req, file, cb) {
+    const cvDir = 'cv/';
+    await fs.mkdir(cvDir, { recursive: true }); // Create 'cv' directory if it doesn't exist
+    cb(null, cvDir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  },
+});
 
-  //route for get cv request 
-  router.get('/getCv', async (req, res) => {
-    try {
-      const { userEmail } = req.query;
-  
-   
-      // Find the CV for the specified user
-      const userCv = await Cv.findOne({ Email: userEmail });
-  
-      if (!userCv) {
-        return res.status(404).json({ error: 'CV not found for the specified user.' });
-      }
-  
-      // Assuming you want to send the CV content in the response
-      res.status(200).json({
-        message: 'CV fetched successfully',
-        FilePath:userCv.CvFilePath,
-        cvContent: userCv.CvContent.toString('base64'),
-        
+const upload = multer({ storage: storage });
+
+router.post('/uploadCV', upload.single('cvFile'), async (req, res) => {
+  try {
+    const { userEmail } = req.query;
+
+    // Find the user by email
+    const user = await User.findOne({ emailAddress: userEmail });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }  
+
+    const existingCV = await CV.findOne({ Email: userEmail });
+
+    if (!existingCV) {
+      const cvPath = path.join('cv', req.file.filename);
+
+      const newCV = new CV({
+        cvFile: cvPath,
+        Email: user.emailAddress,
       });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+
+      await newCV.save();
+
+      res.json({ message: 'CV file added successfully.' });
+    } else {
+      // If the CV already exists, delete the old CV file
+      const oldCVPath =  existingCV.cvFile
+      await fs.unlink(oldCVPath); // Delete the old CV file
+
+      // Update the CV file in the database
+      const cvPath = path.join('cv', req.file.filename);
+      await CV.updateOne({ Email: userEmail }, { $set: { cvFile: cvPath } });
+
+      res.json({ message: 'CV file updated successfully.' });
     }
-  });
-  
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// GET request to retrieve the CV file by user email
+router.get('/getCV/:cvId', async (req, res) => {
+  try {
+    const { cvId } = req.params;
+
+    // Find the CV by ID
+    const cv = await CV.findById(cvId);
+
+    if (!cv) {
+      return res.status(404).json({ message: 'CV not found.' });
+    }
+
+    // Return the CV file URL
+    const cvURL = `/${cv.cvFile}`;
+    const EmailAddress = `${cv.Email}`;
+
+    res.json({ cvURL, EmailAddress });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// GET request to retrieve the complete list of CVs
+router.get('/getAllCVs', async (req, res) => {
+  try {
+      // Retrieve all CVs from the UserCv table
+      const allCvs = await CV.find();
+
+      // Return the list of CVs in the response
+      res.json({ allCvs ,
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+router.delete('/deleteCV/:cvId', async (req, res) => {
+  try {
+      const { cvId } = req.params;
+
+      // Find the CV by ID
+      const cv = await CV.findById(cvId);
+
+      if (!cv) {
+          return res.status(404).json({ message: 'CV not found.' });
+      }
+
+      // Delete the CV document
+      await CV.findByIdAndDelete(cvId);
+
+      // Return success message
+      res.json({ message: 'CV deleted successfully.' });
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
 export default router;

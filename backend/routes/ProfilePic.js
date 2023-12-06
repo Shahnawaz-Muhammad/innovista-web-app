@@ -23,7 +23,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req, res) => {
-  console.log("request file", req.file)
     try {
       const { userEmail } = req.query;
   
@@ -50,7 +49,11 @@ router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req
   
         res.json({ message: 'Profile picture added successfully.' });
       } else {
-        // If the profile already exists, update the profile picture
+       
+        const oldImagePath = existingProfile.profilePicture
+        await fs.unlink(oldImagePath); 
+  
+        // Update the profile picture in the database
         const imagePath = path.join('profile', req.file.filename);
   
         await Profile.updateOne({ Email: userEmail }, { $set: { profilePicture: imagePath } });

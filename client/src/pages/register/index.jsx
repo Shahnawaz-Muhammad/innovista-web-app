@@ -212,7 +212,7 @@ const Register = () => {
 
       // Check if selectedPlanData exists before attempting to send it
       if (selectedPlanData) {
-        await fetch("http://192.168.100.53:8080/api/signup", {
+        await fetch("http://localhost:8080/api/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

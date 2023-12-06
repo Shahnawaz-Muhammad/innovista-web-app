@@ -5,12 +5,8 @@ const CvSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-  },
-  CvContent: {
-    type: Buffer,
-    required: true,
-  },
-  CvFilePath: {
+  }, 
+  cvFile: {
     type: String,
     required: true,
   },

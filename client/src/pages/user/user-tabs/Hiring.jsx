@@ -1,7 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-// import appleLogo from "../../../assets/logos/apple.png";
-// import amazonLogo from "../../../assets/logos/amazon.jpeg";
-// import ciscoLogo from "../../../assets/logos/cisco.png";
 import { CiEdit } from "react-icons/ci";
 import { IoTrashOutline } from "react-icons/io5";
 import { AuthContext } from "../../../context/AuthContext";
@@ -68,8 +65,9 @@ const Hirings = () => {
           throw new Error("Error fetching data");
         }
         const data = await response.json();
-        console.log(data);
-        setHiringData(data); // setUserData(data);
+        if (JSON.stringify(data) !== JSON.stringify(hiringData)) {
+          setHiringData(data);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -77,6 +75,7 @@ const Hirings = () => {
 
     fetchData();
   }, [user.email, hiringData]);
+
   return (
     <div className="w-full">
       <div className="w-full flex flex-col gap-3">
@@ -100,7 +99,7 @@ const Hirings = () => {
                   <h3 className=" text-gray-600 font-semibold">{post.job_type} </h3>
                 </div>
                 <div className="w-[20%] flex flex-col items-center">
-                  <h3 className=" text-gray-600 font-bold text-xl p-1">{post.status == 0 ? "In Active" : "Active"}  </h3>
+                  <h3 className=" text-gray-600 font-bold text-xl p-1">{post.status === 0 ? "In Active" : "Active"}  </h3>
                 </div>
                 
                 <div className="lg:w-[15%] flex gap-2 justify-center">

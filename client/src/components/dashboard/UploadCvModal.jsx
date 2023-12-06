@@ -7,44 +7,34 @@ const UploadCvModal = ({ toggleModal, setModalOpen }) => {
   const { user } = useContext(AuthContext);
 
   const handleFileSelect = (e) => {
-    const selectedFile = e.target.files[0];
+  e.preventDefault();
 
-    if (selectedFile && selectedFile.type === "application/pdf") {
-      setFilePreview(selectedFile);
-      const reader = new FileReader();
-      reader.onload = () => {
-        setShowFileHere(reader.result);
-      };
-      reader.readAsDataURL(selectedFile);
+  const selectedFile = e.dataTransfer
+    ? e.dataTransfer.files[0]
+    : e.target.files[0];
 
-    } else {
-      alert("Please select a PDF file.");
+  if (selectedFile ) {
+    setFilePreview(selectedFile);
+console.log("inside function",filePreview)
 
-      setFilePreview(null);
-    }
-  };
+    const reader = new FileReader();
+    reader.onload = () => {
+      setShowFileHere(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
+  } else {
+    alert('Please select a PDF file.');
+    setFilePreview(null);
+  }
+};
+
+console.log("outside function",filePreview)
 
   const handleDragOver = (e) => {
     e.preventDefault();
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile && droppedFile.type === "application/pdf") {
-      setFilePreview(droppedFile);
-      const reader = new FileReader();
-      reader.onload = () => {
-        setShowFileHere(reader.result);
-      };
-      reader.readAsDataURL(droppedFile);
-    } else {
-      // Notify the user that the dropped file is not a PDF
-      alert("Please drop a PDF file.");
-      // Clear any existing preview
-      setFilePreview(null);
-    }
-  };
+  
 
   const handleCvSubmit = async (event) => {
     try {
@@ -53,7 +43,7 @@ const UploadCvModal = ({ toggleModal, setModalOpen }) => {
       formData.append("cv", filePreview);
 
       const response = await fetch(
-        `http://192.168.150.134:8080/api/uploadCV?userEmail=${user.email}`,
+        `http://localhost:8080/api/uploadCV?userEmail=${user.email}`,
         {
           method: "POST",
           body: formData,
@@ -93,20 +83,20 @@ const UploadCvModal = ({ toggleModal, setModalOpen }) => {
                     htmlFor="fileInput"
                     className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 pt-2 group text-center relative"
                     onDragOver={handleDragOver}
-                    onDrop={handleDrop}
+                    onDrop={handleFileSelect}
                   >
                     {/* File Input */}
                     <input
                       id="fileInput"
                       type="file"
                       className="hidden"
-                      accept="application/pdf"
+                      // accept="application/pdf"
                       onChange={handleFileSelect}
                     />
                     {showFileHere && (
                       <embed
                         src={showFileHere}
-                        type="application/pdf"
+                        // type="application/pdf"
                         width="100%"
                         height="500px"
                       />
