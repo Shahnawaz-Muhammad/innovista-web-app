@@ -51,7 +51,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full flex justify-center py-20 mt-20 px-6" style={{
+    <div className="w-full flex justify-center py-10 mt-20 px-6" style={{
       backgroundImage: `url(https://d2bq2usf2vwncx.cloudfront.net/Pictures/480xAny/5/0/3/1851503_modernoffice_527181.jpg)`,
       backgroundSize: "cover",
       backgroundPosition: "center",
@@ -59,7 +59,7 @@ const Login = () => {
     }}>
       <div className="w-full bg-white rounded-lg shadow shadow-slate-400 md:mt-0 sm:max-w-md xl:p-0 ">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <div className="bg-black rounded-full p-5 flex justify-center " >
+        <div className="bg-black rounded-full p-3 flex justify-center " >
               <img src={logo} alt="" className="h-16" />
             </div>
 

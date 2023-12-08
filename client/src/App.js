@@ -28,6 +28,7 @@ import JobAds from "./pages/user/user-tabs/JobAds";
 import PostJob from "./pages/user/user-tabs/PostJob";
 import Projects from "./pages/user/user-tabs/Projects";
 import Candidates from "./pages/user/user-tabs/Candidates";
+import Profile from "./pages/user/user-tabs/Profile";
 
 function App() {
   const { isAuthenticated, setIsAuthenticated, user, setUser } =
@@ -150,6 +151,7 @@ function App() {
           <Route path="post-job" element={<PostJob />}/>
           <Route path="projects" element={<Projects />}/>
           <Route path="candidates" element={<Candidates />}/>
+          <Route path="profile" element={<Profile />}/>
 
         </Route>
       </Routes>
