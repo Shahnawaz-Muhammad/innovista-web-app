@@ -13,8 +13,8 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
+
 
 
 // Set up multer to store files in the 'cv' directory
@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
+ 
 router.post('/uploadCV', upload.single('cvFile'), async (req, res) => {
   try {
     const { userEmail } = req.query;
@@ -51,6 +51,9 @@ router.post('/uploadCV', upload.single('cvFile'), async (req, res) => {
       const newCV = new CV({
         cvFile: cvPath,
         Email: user.emailAddress,
+        CompanyEmail:req.body.CompanyEmail,
+        JobTitle:req.body.JobTitle
+        
       });
 
       await newCV.save();
@@ -100,17 +103,22 @@ router.get('/getCV/:cvId', async (req, res) => {
 // GET request to retrieve the complete list of CVs
 router.get('/getAllCVs', async (req, res) => {
   try {
-      // Retrieve all CVs from the UserCv table
-      const allCvs = await CV.find();
+    const { companyEmail } = req.query;
 
-      // Return the list of CVs in the response
-      res.json({ allCvs ,
-      });
+    // Define a filter object based on the presence of companyEmail
+    const filter = companyEmail ? { CompanyEmail: companyEmail } : {};
+
+    // Retrieve CVs based on the filter
+    const allCvs = await CV.find(filter);
+
+    // Return the list of CVs in the response
+    res.json({ allCvs });
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 
 router.delete('/deleteCV/:cvId', async (req, res) => {
   try {

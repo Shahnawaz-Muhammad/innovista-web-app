@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
-  console.log("seleceted Item data");
 
   const [educationalData, setEducationalData] = useState({
     degree: selectedItemData.degree,
@@ -32,7 +31,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
       if (isValid) {
         // Make an update API call using fetch
         const response = await fetch(
-          `http://192.168.100.53:8080/api/updateEducation/${selectedItemData._id}`,
+          `http://192.168.150.134:8080/api/updateEducation/${selectedItemData._id}`,
           {
             method: "PUT",
             headers: {
@@ -45,7 +44,6 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
         // Handle the response accordingly
         if (response.ok) {
           const data = await response.json();
-          console.log("Update successful:", data);
 
           // Close the modal
           toggleModal();

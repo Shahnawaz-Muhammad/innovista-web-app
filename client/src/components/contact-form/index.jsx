@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-
+import emailjs from "emailjs-com";
 const ContactForm = () => {
   const {
     register,
@@ -13,10 +13,28 @@ const ContactForm = () => {
   //   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = (event) => {
+  const onSubmit = async (data) => {
     setLoading(true);
-    console.log(event);
-    setLoading(false);
+  
+    try {
+      // Use your Email.js service ID and template ID
+      await emailjs.send(
+        "service_xvm6qji",
+        "template_1q4scwi",
+        {
+          from_name: data.name, // Make sure these names match your template placeholders
+          from_email: data.email,
+          message: data.message,
+        },
+        "iXLqSwaAmmr_ku5qW"
+      );
+  
+      console.log("Email sent successfully!");
+    } catch (error) {
+      console.error("Error sending email:", error);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div

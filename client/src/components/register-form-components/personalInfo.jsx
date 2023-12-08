@@ -6,12 +6,47 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
 
-  const cnicRegex = /^\d{13}$/;
-  const mobileRegex = /^\d{11}$/;
+  const cnicRegex = /^\d{5}-\d{7}-\d{1}$/;
+  const mobileRegex = /^\d{4}-\d{7}$/;
+  const nameRegex = /^[A-Za-z]+$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 
   const handlePersonalInfo = (event, key) => {
-    const updatedUserInfo = { ...userInfo };
-    updatedUserInfo[key] = event.currentTarget.value;
+    let updatedValue = event.currentTarget.value;
+
+    // Format CNIC by inserting dashes after the 5th and 12th digit
+    if (key === "cnic") {
+      // Remove existing dashes
+      const numericValue = updatedValue.replace(/[^\d]/g, "");
+
+      // Insert dashes after the 5th and 12th digit
+      updatedValue =
+        numericValue.slice(0, 5) +
+        (numericValue.length >= 6 ? "-" : "") +
+        numericValue.slice(5, 12) +
+        (numericValue.length >= 13 ? "-" : "") +
+        numericValue.slice(12);
+
+      // Limit the total number of characters to 15
+      updatedValue = updatedValue.slice(0, 15);
+    }
+
+    if (key === "mobile") {
+      // Remove existing dashes
+      const numericValue = updatedValue.replace(/[^\d]/g, "");
+
+      // Insert dashes after the 5th and 12th digit
+      updatedValue =
+        numericValue.slice(0, 4) +
+        (numericValue.length >= 5 ? "-" : "") +
+        numericValue.slice(4, 11);
+
+      // Limit the total number of characters to 15
+      updatedValue = updatedValue.slice(0, 12);
+    }
+
+    const updatedUserInfo = { ...userInfo, [key]: updatedValue };
     updateUserInfo(updatedUserInfo);
   };
 
@@ -34,6 +69,13 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
               Please enter your First Name.
             </p>
           )}
+          {showRequired &&
+            userInfo.firstName &&
+            !nameRegex.test(userInfo.firstName) && (
+              <p className="text-primary-starberry-red leading-3 text-sm">
+                First name can only be Alphabets
+              </p>
+            )}
         </div>
         <div className="md:w-1/2 h-16 flex flex-col gap-1">
           <Input
@@ -49,6 +91,13 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
               Please enter your Last Name.
             </p>
           )}
+          {showRequired &&
+            userInfo.lastName &&
+            !nameRegex.test(userInfo.lastName) && (
+              <p className="text-primary-starberry-red leading-3 text-sm">
+                Last name can only be Alphabets
+              </p>
+            )}
         </div>
       </div>
 
@@ -57,7 +106,7 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
           <Input
             type="text"
             data-inputmask="'mask': '99999-9999999-9'"
-            placeholder="XXXXXXXXXXXXX"
+            placeholder="XXXXX-XXXXXXX-X"
             label="CNIC No"
             showRequired={showRequired && !userInfo.cnic}
             value={userInfo.cnic}
@@ -65,19 +114,19 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
           />
           {showRequired && !userInfo.cnic && (
             <p className="text-primary-starberry-red leading-3 text-sm">
-              Please enter your CNIC No. 
+              Please enter your CNIC No.
             </p>
           )}
           {showRequired && userInfo.cnic && !cnicRegex.test(userInfo.cnic) && (
             <p className="text-primary-starberry-red leading-3 text-sm">
-              CNIC No. format should be XXXXXXXXXXXXX.
+              Enter valid CNIC
             </p>
           )}
         </div>
         <div className="md:w-1/2 h-16 flex flex-col gap-1">
           <Input
             type="numeric"
-            placeholder="XXXXXXXXXXX"
+            placeholder="XXXX-XXXXXXX"
             label="Mobile No"
             showRequired={showRequired && !userInfo.mobile}
             value={userInfo.mobile}
@@ -85,32 +134,36 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
           />
           {showRequired && !userInfo.mobile && (
             <p className="text-primary-starberry-red leading-3 text-sm">
-              Please enter your Mobile No. 
+              Please enter your Mobile No.
             </p>
           )}
-          {showRequired && userInfo.mobile && !mobileRegex.test(userInfo.mobile) && (
-            <p className="text-primary-starberry-red leading-3 text-sm">
-              Mobile No. format should be XXXXXXXXXXX.
-            </p>
-          )}
+          {showRequired &&
+            userInfo.mobile &&
+            !mobileRegex.test(userInfo.mobile) && (
+              <p className="text-primary-starberry-red leading-3 text-sm">
+                Enter Valid Phone Number
+              </p>
+            )}
         </div>
       </div>
 
-      <Input
-        label="Email Address"
-        className="h-16 flex flex-col gap-1"
-        placeholder="e.g. stephenking@lorem.com"
-        showRequired={
-          showRequired && (!userInfo.email || !userInfo.email.includes("@"))
-        }
-        value={userInfo.email}
-        onChange={(e) => handlePersonalInfo(e, "email")}
-      />
-      {showRequired && !userInfo.email && (
-            <p className=" text-primary-starberry-red leading-3 text-sm">
-              Please enter your Email Address.
-            </p>
-          )}
+      <div className="flex flex-col gap-1">
+        <Input
+          label="Email"
+          className="h-12 flex flex-col gap-1"
+          placeholder="e.g. stephenking@lorem.com"
+          showRequired={
+            showRequired && (!userInfo.email || !userInfo.email.includes("@"))
+          }
+          value={userInfo.email}
+          onChange={(e) => handlePersonalInfo(e, "email")}
+        />
+        {showRequired && !userInfo.email && (
+          <p className=" text-primary-starberry-red leading-3 text-sm">
+            Please enter your Email Address.
+          </p>
+        )}
+      </div>
 
       <div className=" flex flex-col md:flex-row justify-center gap-4">
         <div className="md:w-1/2 relative h-16 flex flex-col gap-1">
@@ -127,6 +180,15 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
               Please enter your Password.
             </p>
           )}
+          {showRequired &&
+            userInfo.password &&
+            !passwordRegex.test(userInfo.password) && (
+              <p className="text-primary-starberry-red leading-3 text-sm">
+                Password should have a minimum of 8 characters with at least one
+                uppercase letter, one lowercase letter, one numeric digit, and
+                one special character.
+              </p>
+            )}
           {showPassword ? (
             <IoIosEye
               className="absolute right-2 top-7 cursor-pointer text-xl"
@@ -147,7 +209,7 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
             showRequired={showRequired && !userInfo.confirmPassword}
             value={userInfo.confirmPassword}
             onChange={(e) => handlePersonalInfo(e, "confirmPassword")}
-          />          
+          />
           {showRequired && userInfo.password !== userInfo.confirmPassword && (
             <p className="text-primary-starberry-red leading-3 text-sm">
               Passwords do not match.

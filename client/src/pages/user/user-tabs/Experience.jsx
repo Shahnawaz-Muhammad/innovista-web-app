@@ -41,7 +41,10 @@ const Experience = () => {
           throw new Error("Error fetching data");
         }
         const data = await response.json();
-        setExperienceData(data); // setUserData(data);
+
+        if (JSON.stringify(data) !== JSON.stringify(experienceData)) {
+          setExperienceData(data);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -103,14 +106,14 @@ const Experience = () => {
         <div className="w-full flex flex-col gap-3 md:w-2/3 border-2 border-orange py-5 ">
           {experienceData?.map((item, index) => (
             <div className="border-y py-3 px-2" key={index}>
-              <h1 className="text-xl text-orange font-bold uppercase decoration-slate-900">
+              {/* <h1 className="text-xl text-orange font-bold uppercase decoration-slate-900">
                 {item.companyName}
-              </h1>
+              </h1> */}
               <div className=" grid grid-cols-1 lg:grid-cols-2 gap-1">
                 <div className="flex flex-row ">
-                  <h1 className="font-bold w-1/3">Total Experience</h1>
+                  <h1 className="font-bold w-1/3">Company</h1>
                   <h1 className="font-medium w-2/3">
-                    {/* {item.totalExperience} */}
+                  {item.companyName}
                   </h1>
                 </div>
                 <div className="flex flex-row ">

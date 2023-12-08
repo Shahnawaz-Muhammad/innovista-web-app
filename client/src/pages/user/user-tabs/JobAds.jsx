@@ -6,11 +6,12 @@ const JobAds = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user, pdfUrl } = useContext(AuthContext);
   const [pdfData, setPdfData] = useState(null);
+  const [cvData, setCvData] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleButtonClick = (post) => {
-    console.log('post', post)
     setIsModalOpen(true);
+    setCvData(post);
   };
 
   const handleSelectFile = () => {
@@ -21,7 +22,6 @@ const JobAds = () => {
     const selectedFile = e.target.files[0];
 
     if (selectedFile) {
-      console.log("Selected File:", selectedFile);
       setPdfData(selectedFile);
     }
   };
@@ -32,10 +32,17 @@ const JobAds = () => {
   };
 
   const HandlePdfFile = async (event) => {
+    if(!cvData){
+      alert("no data")
+      return
+    }
+
     try {
       event.preventDefault();
       const formData = new FormData();
       formData.append("cvFile", pdfData);
+      formData.append("CompanyEmail", cvData.Email);
+      formData.append("JobTitle", cvData.job_title);
 
       if (!pdfData) {
         alert("Please select a file.");
@@ -64,7 +71,7 @@ const JobAds = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://192.168.150.134:8080/api/ShowJobByStatus/${1}`
+          `http://192.168.150.134:8080/api/getCV/${1}`
         );
         if (!response.ok) {
           throw new Error("Error fetching data");

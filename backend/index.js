@@ -6,7 +6,7 @@ import ExperienceRoutes from './routes/ExperienceRoute.js';
 import BookingRoutes from './routes/BookingRoute.js';
 import JobRoutes from './routes/JobRoute.js';
 import CvRoutes from './routes/CvRoute.js';
-// import EmailRoute from './routes/EmailRoute.js';
+import EmployeeRoute from './routes/EmployeeRoute.js';
 import DifferenceCategory from './routes/DifferenceCategory.js'
 import ActiveFreelancer from './routes/ActiveFreelancer.js'
 import ActiveGroup from './routes/ActiveGroup.js';
@@ -45,6 +45,7 @@ app.use('/api', ActiveGroup);
 app.use('/api', ActiveCompany);
 app.use('/api', BookingRecords);
 app.use('/api', RegisterRecords);
+app.use('/api', EmployeeRoute);
 app.use('/api', ProfilePic);
 app.use('/api/profile', express.static('profile'));
 app.use('/api/cv', express.static('cv'));

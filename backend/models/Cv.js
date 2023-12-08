@@ -10,6 +10,14 @@ const CvSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  CompanyEmail:{
+    type:String,
+    required:true
+  },
+  JobTitle:{
+    type:String,
+    required:true
+  }
 });
 
 const UserCv = mongoose.model('UserCv', CvSchema);

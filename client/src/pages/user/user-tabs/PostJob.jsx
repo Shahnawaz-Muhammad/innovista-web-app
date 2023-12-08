@@ -119,9 +119,7 @@ export default function PostJob() {
           }),
         }
       );
-      console.log("Form submitted successfully");
-      console.log("formData", formData);
-
+      
       setFormData({
         job_title: "",
         salary: "",
@@ -144,10 +142,10 @@ export default function PostJob() {
 
   const options = [
     { value: "", label: "Enter Job Type" },
-    { value: "fulltime", label: "Full Time" },
-    { value: "parttime", label: "Part Time" },
-    { value: "internship", label: "Internship" },
-    { value: "contract", label: "Contract" },
+    { value: "Full Time", label: "Full Time" },
+    { value: "Part Time", label: "Part Time" },
+    { value: "Internship", label: "Internship" },
+    { value: "Contract", label: "Contract" },
   ];
 
   return (

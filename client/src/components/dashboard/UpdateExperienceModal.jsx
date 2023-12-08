@@ -50,7 +50,7 @@ const UpdateExperienceModal = ({
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
       let validForm = true;
       const newErrors = { ...errors };
@@ -79,7 +79,7 @@ const UpdateExperienceModal = ({
       if (validForm) {
         // Make an update API call using fetch
         const response = await fetch(
-          `http://192.168.100.53:8080/api/updateExperience/${selectedItemData._id}`,
+          `http://192.168.150.134:8080/api/updateExperience/${selectedItemData._id}`,
           {
             method: "PUT",
             headers: {
@@ -92,7 +92,6 @@ const UpdateExperienceModal = ({
         // Handle the response accordingly
         if (response.ok) {
           const data = await response.json();
-          console.log("Update successful:", data);
   
           // Close the modal
           toggleModal();

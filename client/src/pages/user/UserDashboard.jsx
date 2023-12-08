@@ -97,13 +97,9 @@ const UserDashboard = ({ user }) => {
       title: "Booking History",
       url: "booking-history",
     },
+    
     {
       id: 5,
-      title: "Projects",
-      url: "projects",
-    },
-    {
-      id: 6,
       title: "Jobs",
       url: "job-advertisements",
     },
@@ -139,6 +135,11 @@ const UserDashboard = ({ user }) => {
       id: 6,
       title: "Post a Job",
       url: "post-job",
+    },
+    {
+      id: 7,
+      title: "Candidates",
+      url: "candidates",
     },
   ];
 
@@ -201,7 +202,6 @@ const UserDashboard = ({ user }) => {
     fetchProfilePicture();
   }, [user.email, selectedFile]);
 
-  // console.log("selectedFile", selectedFile?.imageURL)
 
   return (
     <div>
