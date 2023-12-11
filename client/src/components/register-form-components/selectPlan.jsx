@@ -5,8 +5,7 @@ import group from "../../assets/images/conference-room.jpeg";
 import company from "../../assets/images/conference-room.jpeg";
 import { useState } from "react";
 
-const activeClasses =
-  "border border-primary-purplish-blue bg-neutral-magnolia falopa";
+const activeClasses = "border border-orange bg-neutral-magnolia falopa ";
 
 const plans = [
   {
@@ -28,18 +27,33 @@ export const SelectPlan = ({
   updateSelectedPlan,
   showRequired,
 }) => {
-  const [categorySelected, setCategorySelected] = useState(false);
+  const [, setCategorySelected] = useState(false);
+
+  const categoryData = {
+    Freelancer: {
+      description: "Freelancer plan description...",
+      additionalInfo: "Additional information for freelancers...",
+    },
+    Group: {
+      description: "Group plan description...",
+      additionalInfo: "Additional information for groups...",
+    },
+    Company: {
+      description: "Company plan description...",
+      additionalInfo: "Additional information for companies...",
+    },
+  };
 
   return (
-    <section className="flex flex-col gap-4 w-full ">
+    <section className="flex flex-col gap-2 w-full ">
       <h2>Select your Category</h2>
 
-      <ul className="mt-16 flex flex-col gap-2 lg:flex-row">
+      <ul className="mt-2 flex flex-col gap-2 lg:flex-row">
         {plans.map((plan) => (
           <li key={plan.name} className="lg:w-full">
             <Card
               className={clsx(
-                " flex gap-4 transition-all w-full lg:flex-col lg:gap-8 hover:border-primary-purplish-blue hover:bg-neutral-magnolia cursor-pointer",
+                " flex gap-4 transition-all w-full lg:flex-col lg:gap-3 hover:border-orange hover:bg-neutral-magnolia cursor-pointer",
                 plan.name === selectedPlan?.name
                   ? activeClasses
                   : "border border-neutral-light-gray"
@@ -65,13 +79,18 @@ export const SelectPlan = ({
           </li>
         ))}
       </ul>
-      {showRequired && (
-        <div
-          className={`font-bold text-xl ${
-            categorySelected ? "text-green-500" : "text-red-500"
-          }`}
-        >
-          {categorySelected && "Please Select a Category"}
+      {showRequired && !selectedPlan && (
+        <p className="text-primary-starberry-red leading-3 text-sm">
+          Please Select a Category
+        </p>
+      )}
+
+
+{selectedPlan && (
+        <div className="mt-4">
+          <h3 className="text-2xl font-bold">{selectedPlan.name} Details</h3>
+          <p>{categoryData[selectedPlan.name].description}</p>
+          <p>{categoryData[selectedPlan.name].additionalInfo}</p>
         </div>
       )}
     </section>

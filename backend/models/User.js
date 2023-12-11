@@ -10,11 +10,11 @@ const signupSchema = new mongoose.Schema({
     required: true,
   },
   cnicNo: {
-    type: Number,
+    type: String,
     required: true,
   }, 
   mobileNo: {
-    type: Number,
+    type: String,
     required: true,
   },
   emailAddress: {

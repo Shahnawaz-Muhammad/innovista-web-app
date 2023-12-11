@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { Input } from "./input";
+import { useEffect, useState } from "react";
 
 export const Company = ({
   companyInfo,
@@ -12,8 +13,34 @@ export const Company = ({
     updatedCompanyInfo[key] = event.currentTarget.value;
     updateCompanyInfo(updatedCompanyInfo);
   };
+  const [cities, setCities] = useState(null)
 
   const ntnRegex = /^\d{8}$/;
+
+  // useEffect(()=> {
+  //   fetch('https://countriesnow.space/api/v0.1/countries/population/cities')
+    
+  useEffect(() => {
+    const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `https://countriesnow.space/api/v0.1/countries/population/cities`
+      );
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      const data = await response.json();
+      console.log(data, "cities data_____"); // Check the placement of this line
+      if (JSON.stringify(data) !== JSON.stringify(cities)) {
+        setCities(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+fetchData()  
+}, []);
+
 
   return (
     <section className="flex flex-col gap-4 w-full ">

@@ -57,16 +57,21 @@ const Register = () => {
     },
   });
 
- 
-
   const updateUserInfo = (userInfo) => {
     setUserServiceConfiguration({ ...userServiceConfiguration, userInfo });
   };
 
   const updateSelectedPlan = (plan) => {
-    setUserServiceConfiguration({
-      ...userServiceConfiguration,
-      selectedPlan: plan,
+    setUserServiceConfiguration((prevConfig) => {
+      const newSelectedPlan =
+        prevConfig.selectedPlan && prevConfig.selectedPlan.name === plan.name
+          ? null
+          : plan;
+
+      return {
+        ...prevConfig,
+        selectedPlan: newSelectedPlan,
+      };
     });
   };
 
@@ -91,7 +96,8 @@ const Register = () => {
         !userServiceConfiguration.userInfo.mobile ||
         !userServiceConfiguration.userInfo.email ||
         !userServiceConfiguration.userInfo.password ||
-        userServiceConfiguration.userInfo.password !== userServiceConfiguration.userInfo.confirmPassword
+        userServiceConfiguration.userInfo.password !==
+          userServiceConfiguration.userInfo.confirmPassword
       ) {
         setShowRequiredFields(true);
         return;
@@ -161,30 +167,30 @@ const Register = () => {
       if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
         selectedPlanData = {
           firstName: userServiceConfiguration.userInfo.firstName,
-            lastName: userServiceConfiguration.userInfo.lastName,
-            cnicNo: userServiceConfiguration.userInfo.cnic,
-            mobileNo: userServiceConfiguration.userInfo.mobile,
-            emailAddress: userServiceConfiguration.userInfo.email,
-            password: userServiceConfiguration.userInfo.password,
-            category: userServiceConfiguration.selectedPlan.name,
-            dob: userServiceConfiguration.freelanceInfo.dob,
-            gender: userServiceConfiguration.freelanceInfo.gender,
-            qualification: userServiceConfiguration.freelanceInfo.qualification,
-            designation: userServiceConfiguration.freelanceInfo.designation,
-            address: userServiceConfiguration.freelanceInfo.address,
-            city: userServiceConfiguration.freelanceInfo.city,
-            country: userServiceConfiguration.freelanceInfo.country,
+          lastName: userServiceConfiguration.userInfo.lastName,
+          cnicNo: userServiceConfiguration.userInfo.cnic,
+          mobileNo: userServiceConfiguration.userInfo.mobile,
+          emailAddress: userServiceConfiguration.userInfo.email,
+          password: userServiceConfiguration.userInfo.password,
+          category: userServiceConfiguration.selectedPlan.name,
+          dob: userServiceConfiguration.freelanceInfo.dob,
+          gender: userServiceConfiguration.freelanceInfo.gender,
+          qualification: userServiceConfiguration.freelanceInfo.qualification,
+          designation: userServiceConfiguration.freelanceInfo.designation,
+          address: userServiceConfiguration.freelanceInfo.address,
+          city: userServiceConfiguration.freelanceInfo.city,
+          country: userServiceConfiguration.freelanceInfo.country,
         };
       } else if (userServiceConfiguration.selectedPlan.name === "Group") {
         selectedPlanData = {
           firstName: userServiceConfiguration.userInfo.firstName,
-            lastName: userServiceConfiguration.userInfo.lastName,
-            cnicNo: userServiceConfiguration.userInfo.cnic,
-            mobileNo: userServiceConfiguration.userInfo.mobile,
-            emailAddress: userServiceConfiguration.userInfo.email,
-            password: userServiceConfiguration.userInfo.password,
-            category: userServiceConfiguration.selectedPlan.name,
-            people: userServiceConfiguration.groupInfo.people,
+          lastName: userServiceConfiguration.userInfo.lastName,
+          cnicNo: userServiceConfiguration.userInfo.cnic,
+          mobileNo: userServiceConfiguration.userInfo.mobile,
+          emailAddress: userServiceConfiguration.userInfo.email,
+          password: userServiceConfiguration.userInfo.password,
+          category: userServiceConfiguration.selectedPlan.name,
+          people: userServiceConfiguration.groupInfo.people,
           address: userServiceConfiguration.groupInfo.address,
           city: userServiceConfiguration.groupInfo.city,
           country: userServiceConfiguration.groupInfo.country,
@@ -192,20 +198,19 @@ const Register = () => {
       } else if (userServiceConfiguration.selectedPlan.name === "Company") {
         selectedPlanData = {
           firstName: userServiceConfiguration.userInfo.firstName,
-            lastName: userServiceConfiguration.userInfo.lastName,
-            cnicNo: userServiceConfiguration.userInfo.cnic,
-            mobileNo: userServiceConfiguration.userInfo.mobile,
-            emailAddress: userServiceConfiguration.userInfo.email,
-            password: userServiceConfiguration.userInfo.password,
-            category: userServiceConfiguration.selectedPlan.name,
-            people: userServiceConfiguration.companyInfo.people,
-            NTN: userServiceConfiguration.companyInfo.ntn,
+          lastName: userServiceConfiguration.userInfo.lastName,
+          cnicNo: userServiceConfiguration.userInfo.cnic,
+          mobileNo: userServiceConfiguration.userInfo.mobile,
+          emailAddress: userServiceConfiguration.userInfo.email,
+          password: userServiceConfiguration.userInfo.password,
+          category: userServiceConfiguration.selectedPlan.name,
+          people: userServiceConfiguration.companyInfo.people,
+          NTN: userServiceConfiguration.companyInfo.ntn,
           address: userServiceConfiguration.companyInfo.address,
           city: userServiceConfiguration.companyInfo.city,
           country: userServiceConfiguration.companyInfo.country,
         };
       }
-
 
       // Check if selectedPlanData exists before attempting to send it
       if (selectedPlanData) {
@@ -225,7 +230,7 @@ const Register = () => {
           .then((data) => {
             // Handle the API response data here
             console.log("API Response:", data);
-            navigate("/login");
+            setStep(5)
           })
           .catch((error) => {
             // Handle errors here

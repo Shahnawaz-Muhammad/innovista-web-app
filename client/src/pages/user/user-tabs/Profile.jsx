@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import ProfileHero from "../../../components/dashboard/ProfileHero";
 
 const Profile = () => {
   return (
-    <div>Profile</div>
-  )
-}
+    <>
+      <ProfileHero />
+      <div className="w-full mt-10">Profle</div>
+    </>
+  );
+};
 
-export default Profile
+export default Profile;
