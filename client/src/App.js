@@ -139,11 +139,11 @@ function App() {
             )
           }
         >
-          <Route path="" element={<Bio user={user}/>}/>
+          {/* <Route path="" element={<Bio user={user}/>}/>
           <Route path="education" element={<Education />}/>
-          <Route path="experience" element={<Experience />}/>
+          <Route path="experience" element={<Experience />}/> */}
+          <Route path="" element={<BookingHistory />}/>
           <Route path="advance-booking" element={<AdvanceBooking />}/>
-          <Route path="booking-history" element={<BookingHistory />}/>
           <Route path="employees" element={<Employees />}/>
           <Route path="hirings" element={<Hiring />}/>
           <Route path="members" element={<Members />}/>

@@ -27,13 +27,14 @@ const UserHeader = ({ user }) => {
   const freelancerData = [
     {
       id: 1,
-      title: "Advance Booking",
-      url: "advance-booking",
+      title: "Booking History",
+      url: "",
     },
+
     {
       id: 2,
-      title: "Booking History",
-      url: "booking-history",
+      title: "Advance Booking",
+      url: "advance-booking",
     },
     {
       id: 3,
@@ -45,15 +46,16 @@ const UserHeader = ({ user }) => {
   const groupData = [
     {
       id: 1,
+      title: "Booking History",
+      url: "",
+    },
+
+    {
+      id: 2,
       title: "Advance Booking",
       url: "advance-booking",
     },
-    {
-      id: 2,
-      title: "Booking History",
-      url: "booking-history",
-    },
-
+    
     {
       id: 3,
       title: "Jobs",
@@ -64,13 +66,14 @@ const UserHeader = ({ user }) => {
   const companyData = [
     {
       id: 1,
-      title: "Advance Booking",
-      url: "advance-booking",
+      title: "Booking History",
+      url: "",
     },
+
     {
       id: 2,
-      title: "Booking History",
-      url: "booking-history",
+      title: "Advance Booking",
+      url: "advance-booking",
     },
     {
       id: 3,

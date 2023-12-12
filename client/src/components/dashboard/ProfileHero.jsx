@@ -114,12 +114,12 @@ const ProfileHero = () => {
             {userInfo?.firstName} {userInfo?.lastName}
           </h2>
         </div>
-        <div className="flex flex-col md:flex-row justify-between">
+        <div className="flex flex-col gap-3 md:flex-row justify-between px-3">
           <h2 className="text-textGray px-3 text-lg">
             {userInfo?.designation}
           </h2>
-          <div className="flex flex-col md:flex-row md:gap-10  text-textGray">
-            <div className="flex items-center gap-1 md:px-2">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-10  text-textGray ">
+            <div className="flex items-center gap-1 ">
               <IoLocationOutline className="text-2xl" />
               <h2 className="text-lg">
                 {userInfo?.city}, {userInfo?.country}

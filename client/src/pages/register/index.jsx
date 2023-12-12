@@ -214,19 +214,13 @@ const Register = () => {
 
       // Check if selectedPlanData exists before attempting to send it
       if (selectedPlanData) {
-        await fetch("http://localhost:8080/api/signup", {
+        await fetch("http://192.168.150.134:8080/api/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(selectedPlanData),
         })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
           .then((data) => {
             // Handle the API response data here
             console.log("API Response:", data);
