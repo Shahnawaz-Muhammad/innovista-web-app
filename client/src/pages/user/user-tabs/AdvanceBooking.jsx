@@ -198,7 +198,7 @@ export default function AdvanceBooking() {
   ></div>
       
 
-      <div className="flex flex-col py-12 justify-center items-center z-50">
+      <div className="flex flex-col py-12 justify-center items-center ">
         <h1
           className="font-extrabold text-orange text-5xl p-5 "
           // style={{

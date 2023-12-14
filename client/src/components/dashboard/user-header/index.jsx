@@ -28,7 +28,7 @@ const UserHeader = ({ user }) => {
     {
       id: 1,
       title: "Booking History",
-      url: "",
+      url: "booking-history",
     },
 
     {
@@ -47,7 +47,7 @@ const UserHeader = ({ user }) => {
     {
       id: 1,
       title: "Booking History",
-      url: "",
+      url: "booking-history",
     },
 
     {
@@ -67,7 +67,7 @@ const UserHeader = ({ user }) => {
     {
       id: 1,
       title: "Booking History",
-      url: "",
+      url: "booking-history",
     },
 
     {
