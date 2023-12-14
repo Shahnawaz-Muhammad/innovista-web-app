@@ -84,7 +84,7 @@ const UserHeader = ({ user }) => {
     },
     {
       id: 5,
-      title: "Candidates",
+      title: "Applications",
       url: "candidates",
     },
   ];
