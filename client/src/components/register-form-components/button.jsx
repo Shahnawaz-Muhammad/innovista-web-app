@@ -11,7 +11,7 @@ export const Button = ({
   const typeClasses =
     type === "primary"
       ? "bg-primary-purplish-blue text-white hover:opacity-70"
-      : type === "secondary"
+      : type === "submit"
       ? "bg-primary-marine-blue text-white hover:opacity-70"
       : "bg-transparent text-neutral-cool-gray ";
   const sizeClasses =

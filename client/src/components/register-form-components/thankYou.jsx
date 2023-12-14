@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import thankyouimg from '../../assets/images/icon-thank-you.svg'
 
 export const ThankYou = () => {
 	return (
 		<section className="flex flex-col justify-center items-center w-full gap-4 py-[36px]">
 			<figure className="w-[60px] h-[60px]">
 				<img
-					src="./assets/images/icon-thank-you.svg"
+					src={thankyouimg}
 					alt="Form compleated, thank you!"
 				/>
 			</figure>

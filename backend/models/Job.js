@@ -40,7 +40,7 @@ const JobSchema = new mongoose.Schema({
     required: true,
   },
   job_deadline: {
-    type: Date,
+    type: String,
     required: true,
   },
   status: {

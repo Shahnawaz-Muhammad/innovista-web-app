@@ -8,18 +8,11 @@ import { Group } from "../../components/register-form-components/Group";
 import { Company } from "../../components/register-form-components/Company";
 import { ServiceSummary } from "../../components/register-form-components/serviceSummary";
 import { ThankYou } from "../../components/register-form-components/thankYou";
-import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [step, setStep] = useState(1);
   const [showRequired, setShowRequiredFields] = useState(false);
-  const navigate = useNavigate();
 
-  // const nameRegex = /^[A-Za-z ]+$/;
-  // const emailRegex = /\S+@\S+\.\S+/;
-  // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
-  // const cnicRegex = /^\d{13}$/;
-  // const mobileRegex = /^\d{11}$/;
   const ntnRegex = /^\d{8}$/;
 
   const [userServiceConfiguration, setUserServiceConfiguration] = useState({
@@ -102,14 +95,16 @@ const Register = () => {
         setShowRequiredFields(true);
         return;
       }
-    } else if (step === 2 || (onGoingStep && onGoingStep !== 2 && step === 2)) {
-      if (userServiceConfiguration.selectedPlan === null) {
-        setShowRequiredFields(true);
-        return;
-      } else {
-        setShowRequiredFields(false);
-      }
-    } else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3)) {
+    } 
+    // else if (step === 2 || (onGoingStep && onGoingStep === 2 && step === 2)) {
+    //   if (userServiceConfiguration.selectedPlan === null) {
+    //     setShowRequiredFields(true);
+    //     return;
+    //   } else {
+    //     setShowRequiredFields(false);
+    //   }
+    // } 
+    else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3)) {
       if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
         if (
           !userServiceConfiguration.freelanceInfo.dob ||
@@ -163,8 +158,10 @@ const Register = () => {
 
     if (step === 4) {
       let selectedPlanData = null;
-
-      if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
+      if(userServiceConfiguration.selectedPlan?.name === null){
+        setShowRequiredFields(true)
+      }
+      else if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
         selectedPlanData = {
           firstName: userServiceConfiguration.userInfo.firstName,
           lastName: userServiceConfiguration.userInfo.lastName,
@@ -214,19 +211,13 @@ const Register = () => {
 
       // Check if selectedPlanData exists before attempting to send it
       if (selectedPlanData) {
-        await fetch("http://localhost:8080/api/signup", {
+        await fetch("http://192.168.150.134:8080/api/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(selectedPlanData),
         })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
           .then((data) => {
             // Handle the API response data here
             console.log("API Response:", data);

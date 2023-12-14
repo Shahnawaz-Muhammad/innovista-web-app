@@ -6,13 +6,11 @@ import { Outlet } from "react-router-dom";
 const UserDashboard = ({ user }) => {
   return (
     <div>
-      {/* {isAuthenticated ? ( */}
       <div>
-        {/* Header */}
         <UserHeader user={user} />
 
-        <div className="w-full flex justify-center mb-20 mx-auto px-5 lg:px-10 xl:px-0 transition-all duration-500 relative ">
-          <div className="  w-full flex flex-col gap-2 ">
+        <div className="w-full flex justify-center mx-auto px-5 lg:px-10 xl:px-0 transition-all duration-500 relative mb-20">
+          <div className=" max-w-7xl w-full flex flex-col gap-2 ">
             <div className="flex  flex-row md:flex-col gap-1 ">
               <div className="w-full md:py-5">
                 <Outlet />
@@ -20,7 +18,6 @@ const UserDashboard = ({ user }) => {
             </div>
           </div>
         </div>
-        {/* footer */}
         <div className="w-full py-5  bg-lightGray flex justify-center fixed bottom-0">
           <div>&copy; 2023 D-Labs. All rights reserved.</div>
         </div>

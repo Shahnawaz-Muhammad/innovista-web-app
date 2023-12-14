@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Input } from "./input";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
+
 export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
 
   const cnicRegex = /^\d{5}-\d{7}-\d{1}$/;
-  const mobileRegex = /^\d{4}-\d{7}$/;
+  const mobileRegex =  /^03\d{2}-\d{7}$/;;
   const nameRegex = /^[A-Za-z]+$/;
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
