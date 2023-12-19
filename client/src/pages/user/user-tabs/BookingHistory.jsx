@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
-import SuccessModel from "../../../components/dashboard/SuccessModel";
 
 
 import { apiUrl } from "../../../config";
@@ -177,14 +176,13 @@ const BookingHistory = () => {
               </div>
             ))
           ) : (
-            <div className="text-black h-20 flex justify-center it">
+            <div className="text-black h-20 flex justify-center items-center">
               <h2 className="font-bold text-2xl">No Recent Booking</h2>
             </div>
           )}
         </div>
       </div>
     </div>
-    <SuccessModel/>
     </>
   );
 };

@@ -88,7 +88,7 @@ export default function PostJob() {
 
       if (hasErrors) {
         setErrors(newErrors);
-        console.log("Form has errors:", hasErrors);
+        console.log("Form has errors:", errors);
         return;
       }
       // Make an API call to authenticate the user and fetch user data
@@ -272,7 +272,7 @@ export default function PostJob() {
                 )}
               </div>
 
-              <div className="h-[5.5rem] w-full px-3 lg:w-1/3   flex flex-col items-start ">
+              <div className="h-[5.5rem] w-full px-3 md:w-1/2   flex flex-col items-start ">
                 <label
                   htmlFor="jobExperience"
                   className="pl-3  text-base font-semibold"
@@ -296,7 +296,32 @@ export default function PostJob() {
                   </p>
                 )}
               </div>
-              <div className="h-[5.5rem] w-full px-3 md:w-1/2 lg:w-1/3   flex flex-col items-start ">
+              <div className="h-[5.5rem] w-full px-3 md:w-1/2   flex flex-col items-start ">
+                <label
+                  htmlFor="jobSalary"
+                  className="pl-3  text-base font-semibold"
+                >
+                  Job Salary
+                </label>
+                <input
+                  type="number"
+                  id="jobSalary"
+                  name="salary"
+                  value={formData.salary}
+                  onChange={handleChange}
+                  className="w-full py-2 px-3 border border-indigo-600 rounded"
+                  placeholder="Enter Salary for this job"
+                  onFocus={() => setErrors({ ...errors, salary: "" })}
+                  min={0}
+
+                />
+                {errors.salary && (
+                  <p className="text-[#fa0505] font-semibold text-sm pl-3">
+                    {errors.salary}
+                  </p>
+                )}
+              </div>
+              <div className="h-[5.5rem] w-full px-3 md:w-1/2 flex flex-col items-start ">
                 <label
                   htmlFor="job_vacancy"
                   className="pl-3  text-base font-semibold"
@@ -321,7 +346,7 @@ export default function PostJob() {
                 )}
               </div>
 
-              <div className="h-[5.5rem] w-full px-3 md:w-1/2 lg:w-1/3   flex flex-col items-start ">
+              <div className="h-[5.5rem] w-full px-3 md:w-1/2 flex flex-col items-start ">
                 <label
                   htmlFor="status"
                   className="pl-3  text-base font-semibold"
