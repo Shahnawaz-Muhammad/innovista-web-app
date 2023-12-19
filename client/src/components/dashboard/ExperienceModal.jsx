@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { apiUrl } from "../../config";
 
 const ExperienceModal = ({ toggleModal, setModalOpen }) => {
   const [experienceData, setEducationalData] = useState({
@@ -65,7 +66,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
       }
       // Make an API call to authenticate the user and fetch user data
       const response = await fetch(
-        `http://localhost:8080/api/experience?userEmail=${user.email}`,
+        `${apiUrl}/experience?userEmail=${user.email}`,
         {
           method: "POST",
           headers: {
@@ -182,7 +183,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     name="startDate"
                     id="startDate"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    value={experienceData.startDate}
+                    value={experienceData.startDate ? new Date(experienceData.startDate).toISOString().split("T")[0] : ""} // Set the initial value to the existing date or an empty string
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, startDate: "" })}
                     />

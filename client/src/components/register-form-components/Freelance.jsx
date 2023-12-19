@@ -169,8 +169,8 @@ export const Freelance = ({
                 <option value="" selected>
                   Select Your Qualification
                 </option>
-                <option value="male">Matric</option>
-                <option value="female">Intermediate</option>
+                <option value="matric">Matric</option>
+                <option value="intermediate">Intermediate</option>
                 <option value="bachelors">Bachelors</option>
                 <option value="masters">Masters</option>
                 <option value="phd">PhD</option>
@@ -201,7 +201,7 @@ export const Freelance = ({
             )}
         </div>
 
-        <div className="col-span-full h-[4.3rem] w-full flex flex-col md:gap-1">
+        <div className="col-span-full h-[4.3rem] w-full flex flex-col gap-1">
           <Input
             label="Address"
             type="text"

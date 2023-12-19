@@ -1,9 +1,9 @@
-import React, { useContext, useState  } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
+import { apiUrl } from "../../../config";
 
 export default function AdvanceBooking() {
-
   const currentDate = new Date().toISOString().split("T")[0];
 
   const stations = [
@@ -52,7 +52,7 @@ export default function AdvanceBooking() {
         return true;
     }
   };
-  
+
   const handleValidation = () => {
     let isValid = true;
     const newErrors = { ...errors };
@@ -64,11 +64,10 @@ export default function AdvanceBooking() {
         newErrors[field] = "";
       }
     }
-  
+
     setErrors(newErrors);
     return isValid;
   };
-  
 
   const [BookingData, setBookingData] = useState({
     Name: "",
@@ -84,13 +83,13 @@ export default function AdvanceBooking() {
 
   function handleChange(evt) {
     const { name, value } = evt.target;
-  
+
     if (name === "BookingDate" || name === "ExpiryDate") {
       setBookingData({
         ...BookingData,
         [name]: value,
       });
-  
+
       if (BookingData.BookingDate === BookingData.ExpiryDate) {
         if (
           (name === "BookingTime" && BookingData.ExpiryTime <= value) ||
@@ -106,6 +105,16 @@ export default function AdvanceBooking() {
             ExpiryTime: "",
           });
         }
+      }
+    }
+    if (name === "ContactNo") {
+      const numericValue = value.replace(/\D/g, "");
+
+      if (!numericValue.startsWith("03")) {
+        setBookingData({
+          ...BookingData,
+          [name]: `03${numericValue.slice(2, 11)}`,
+        });
       } else {
         setErrors({
           ...errors,
@@ -119,9 +128,8 @@ export default function AdvanceBooking() {
       });
     }
   }
-  
-  
-  
+
+
   const SubmitBookingData = async (e) => {
     e.preventDefault();
 
@@ -132,7 +140,7 @@ export default function AdvanceBooking() {
 
       try {
         const response = await fetch(
-          `http://192.168.150.134:8080/api/bookings?userEmail=${user.email}`,
+          `${apiUrl}/bookings?userEmail=${user.email}`,
           {
             method: "POST",
             headers: {
@@ -173,24 +181,36 @@ export default function AdvanceBooking() {
 
   return (
     <div
-      className=" flex flex-col absolute left-0 top-0 w-full "style={{ position: 'relative' }}
+      className=" flex flex-col absolute left-0 top-0 w-full "
+      style={{ position: "relative" }}
     >
-      <div className="w-full"
-      style={{
-        backgroundImage: `url(${bgMain})`,
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        position: "absolute",
-        top: "0",
-        left: "0",
-        zIndex: "-1",
-        filter: 'blur(1px)',
-        height: "100%",
-      }}
-    ></div>
-    
-      
+      <div
+        className="w-full"
+        style={{
+          backgroundImage: `url(${bgMain})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          position: "absolute",
+          top: "0",
+          left: "0",
+          zIndex: "-1",
+          filter: "blur(1px)",
+          height: "100%",
+        }}
+      ></div>
+      <div
+        className="w-full h-full"
+        style={{
+          position: "absolute",
+          top: "0",
+          left: "0",
+          width: "100%",
+          height: "100%",
+          // background: 'rgba(0, 0, 0, 0.5)', /* Adjust opacity as needed */
+          zIndex: "-0.5",
+        }}
+      ></div>
 
       <div className="flex flex-col py-12 justify-center items-center ">
         <h1
@@ -230,7 +250,9 @@ export default function AdvanceBooking() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.Name && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6 ">{errors.Name}</p>
+                  <p className="text-[#fa0505] font-semibold text-sm pl-6 ">
+                    {errors.Name}
+                  </p>
                 )}
               </div>
             </div>
@@ -253,7 +275,9 @@ export default function AdvanceBooking() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.ContactNo && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">{errors.ContactNo}</p>
+                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
+                    {errors.ContactNo}
+                  </p>
                 )}
               </div>
             </div>
@@ -279,7 +303,9 @@ export default function AdvanceBooking() {
                   className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.Member && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">{errors.Member}</p>
+                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
+                    {errors.Member}
+                  </p>
                 )}
               </div>
             </div>
@@ -307,7 +333,9 @@ export default function AdvanceBooking() {
                   ))}
                 </select>
                 {errors.Station && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">{errors.Station}</p>
+                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
+                    {errors.Station}
+                  </p>
                 )}
               </div>
             </div>
@@ -333,7 +361,9 @@ export default function AdvanceBooking() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.BookingDate && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">{errors.BookingDate}</p>
+                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
+                    {errors.BookingDate}
+                  </p>
                 )}
               </div>
             </div>
@@ -349,7 +379,7 @@ export default function AdvanceBooking() {
                   type="date"
                   name="ExpiryDate"
                   id="dateTo"
-                  min={ BookingData.BookingDate}
+                  min={BookingData.BookingDate}
                   value={BookingData.ExpiryDate}
                   onChange={handleChange}
                   disabled={!BookingData.BookingDate}
@@ -357,7 +387,9 @@ export default function AdvanceBooking() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.ExpiryDate && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">{errors.ExpiryDate}</p>
+                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
+                    {errors.ExpiryDate}
+                  </p>
                 )}
               </div>
             </div>
@@ -382,7 +414,9 @@ export default function AdvanceBooking() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.BookingTime && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">{errors.BookingTime}</p>
+                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
+                    {errors.BookingTime}
+                  </p>
                 )}
               </div>
             </div>
@@ -406,7 +440,9 @@ export default function AdvanceBooking() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.ExpiryTime && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">{errors.ExpiryTime}</p>
+                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
+                    {errors.ExpiryTime}
+                  </p>
                 )}
               </div>
             </div>
@@ -419,12 +455,12 @@ export default function AdvanceBooking() {
             >
               Payment
             </button>
-              <button
-                className="rounded-lg bg-orange hover:bg-orangeDark hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none focus:shadow-lg shadow-sm shadow-orange"
-                type="submit"
-              >
-                Submit
-              </button>
+            <button
+              className="rounded-lg bg-orange hover:bg-orangeDark hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none focus:shadow-lg shadow-sm shadow-orange"
+              type="submit"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>

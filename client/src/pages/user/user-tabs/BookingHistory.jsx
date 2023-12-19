@@ -4,6 +4,7 @@ import bgMain from "../../../assets/images/bg-main.png";
 import SuccessModel from "../../../components/dashboard/SuccessModel";
 
 
+import { apiUrl } from "../../../config";
 
 const BookingHistory = () => {
   const [BookingData, setBookingData] = useState([]);
@@ -18,21 +19,23 @@ const BookingHistory = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://192.168.150.134:8080/api/BookingHistory?userEmail=${user.email}`
+          `${apiUrl}/BookingHistory?userEmail=${user.email}`
         );
         if (!response.ok) {
           throw new Error("Error fetching data");
         }
         const data = await response.json();
-        setBookingData(data); // setUserData(data);
-        console.log(data);
+        if (JSON.stringify(data) !== JSON.stringify(BookingData)) {
+          setBookingData(data);
+        }
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, [user.email]);
+  }, [user.email, BookingData]);
+
   return (
     <>
     <div className=" flex flex-col h-full ">
@@ -45,8 +48,12 @@ const BookingHistory = () => {
           backgroundSize: "cover",
         }}
       >
-        <h1 className="text-orange text-5xl font-bold p-5" 
-            style={{ backdropFilter: 'blur(1x)', background: 'rgba(255, 255, 255, 0.6)' }} 
+        <h1
+          className="text-orange text-5xl font-bold p-5"
+          style={{
+            backdropFilter: "blur(1x)",
+            background: "rgba(255, 255, 255, 0.6)",
+          }}
         >
           Booking History
         </h1>
@@ -62,19 +69,25 @@ const BookingHistory = () => {
                 {expandedIndex !== index ? (
                   <div className="w-full flex flex-col md:flex-row justify-around items-center ">
                     <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                      <h1 className="text-xl font-bold text-center md:text-left">Name</h1>
+                      <h1 className="text-xl font-bold text-center md:text-left">
+                        Name
+                      </h1>
                       <h1 className="text-lg font-semibold text-center md:text-left">
-                        {booking?.Name }
+                        {booking?.FullName}
                       </h1>
                     </div>
                     <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                      <h1 className="text-xl font-bold text-center md:text-left">Station</h1>
+                      <h1 className="text-xl font-bold text-center md:text-left">
+                        Station
+                      </h1>
                       <h2 className="text-lg font-semibold text-center md:text-left">
                         {booking?.BookingStation}
                       </h2>
                     </div>
                     <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                      <h1 className="text-xl font-bold text-center md:text-left">Booking Date</h1>
+                      <h1 className="text-xl font-bold text-center md:text-left">
+                        Booking Date
+                      </h1>
                       <p className="text-lg font-semibold text-center md:text-left">
                         {booking?.BookingDate
                           ? new Date(booking.BookingDate).toLocaleDateString(
@@ -88,13 +101,17 @@ const BookingHistory = () => {
                   <div className="w-full flex flex-col  items-center md:items-stretch md:gap-5">
                     <div className="flex flex-col md:flex-row justify-center md:justify-around">
                       <div className="flex flex-col w-40 border-b-2 border-orange md:border-b-0 ">
-                        <h1 className="text-xl font-bold text-center md:text-left">Name </h1>
+                        <h1 className="text-xl font-bold text-center md:text-left">
+                          Name{" "}
+                        </h1>
                         <h1 className="text-lg font-semibold text-center md:text-left">
                           {booking?.Name ? booking.Name : "Not available"}
                         </h1>
                       </div>
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">Station</h1>
+                        <h1 className="text-xl font-bold text-center md:text-left">
+                          Station
+                        </h1>
                         <h2 className="text-lg font-semibold text-center md:text-left">
                           {booking?.BookingStation
                             ? booking.BookingStation
@@ -102,7 +119,9 @@ const BookingHistory = () => {
                         </h2>
                       </div>
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">Booking Date</h1>
+                        <h1 className="text-xl font-bold text-center md:text-left">
+                          Booking Date
+                        </h1>
                         <p className="text-lg font-semibold text-center md:text-left">
                           {booking?.BookingDate
                             ? new Date(booking.BookingDate).toLocaleDateString(
@@ -114,7 +133,9 @@ const BookingHistory = () => {
                     </div>
                     <div className="flex flex-col md:flex-row justify-around">
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">Expiry Date</h1>
+                        <h1 className="text-xl font-bold text-center md:text-left">
+                          Expiry Date
+                        </h1>
                         <p className="text-lg font-semibold text-center md:text-left">
                           {booking?.ExpiryDate
                             ? new Date(booking.ExpiryDate).toLocaleDateString(
@@ -124,7 +145,9 @@ const BookingHistory = () => {
                         </p>
                       </div>
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">Booking Time</h1>
+                        <h1 className="text-xl font-bold text-center md:text-left">
+                          Booking Time
+                        </h1>
                         <h1 className="text-lg font-semibold text-center md:text-left">
                           {booking?.BookingTime
                             ? booking.BookingTime
@@ -132,7 +155,9 @@ const BookingHistory = () => {
                         </h1>
                       </div>
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">Expiry Time</h1>
+                        <h1 className="text-xl font-bold text-center md:text-left">
+                          Expiry Time
+                        </h1>
                         <h1 className="text-lg font-semibold text-center md:text-left">
                           {booking?.ExpiryTime
                             ? booking.ExpiryTime

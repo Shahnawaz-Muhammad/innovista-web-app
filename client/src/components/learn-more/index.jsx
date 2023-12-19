@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function LearnMore() {
   return (
@@ -24,9 +25,9 @@ export default function LearnMore() {
           <p className="max-w-lg text-textGray">
           As we emphasize sustainability and comfort within our coworking space, we wholeheartedly guarantee your complete satisfaction and the opportunity to maximize your overall experience while working here.
           </p>
-          <button className="px-10 py-4 bg-orange mt-8  lg:mt-12 text-white">
+          <Link to="/about" className="px-10 py-4 bg-orange mt-8  lg:mt-12 text-white">
               Learn More
-            </button>
+            </Link>
         </div>
       </div>
     </div>

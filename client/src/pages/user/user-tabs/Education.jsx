@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import EducationModal from "../../../components/dashboard/EducationModal";
-import { CiEdit } from "react-icons/ci";
-import { IoTrashOutline } from "react-icons/io5";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { MdAddBox, MdDeleteForever } from "react-icons/md";
+import { TbEdit } from "react-icons/tb";
 import { AuthContext } from "../../../context/AuthContext";
-import DeleteEducationModal from "../../../components/dashboard/DeleteEduModal";
+import EducationModal from "../../../components/dashboard/EducationModal";
 import UpdateEduModal from "../../../components/dashboard/UpdateEduModal";
 import SuccessModel from "../../../components/dashboard/SuccessModel";
+import DeleteEducationModal from "../../../components/dashboard/DeleteEduModal";
+import { apiUrl } from '../../../config.js';
 
-const Education = () => {
+const Education = ({ isEducationOpen, toggleEducation , name}) => {
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -15,7 +17,6 @@ const Education = () => {
   const [educationData, setEducationData] = useState(null);
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [selectedItemData, setSelectedItemData] = useState(null);
-
 
   const { user } = useContext(AuthContext);
 
@@ -25,8 +26,8 @@ const Education = () => {
 
   const toggleEditModal = (item) => {
     setEditModalOpen(!isEditModalOpen);
-    setSelectedItemData(item)
-    setSelectedItemId(item._id)
+    setSelectedItemData(item);
+    setSelectedItemId(item._id);
   };
 
   const toggleDeleteModal = (id) => {
@@ -35,11 +36,10 @@ const Education = () => {
   };
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/geteducations?userEmail=${user.email}`
+          `${apiUrl}/geteducations?userEmail=${user.email}`
         );
         if (!response.ok) {
           throw new Error("Error fetching data");
@@ -54,8 +54,6 @@ const Education = () => {
     fetchData();
   }, [user.email, educationData]);
 
-
-
   const handleConfirmDelete = async () => {
     try {
       if (!selectedItemId) {
@@ -63,7 +61,7 @@ const Education = () => {
       }
 
       const response = await fetch(
-        `http://localhost:8080/api/deleteEducation/${selectedItemId}`,
+        `${apiUrl}/deleteEducation/${selectedItemId}`,
         {
           method: "DELETE",
         }
@@ -87,68 +85,66 @@ const Education = () => {
     setDeleteModalOpen(false);
   };
   return (
-    <div className="bg-[#fffbf5] rounded-3xl flex flex-col md:flex-row justify-center">
+    <div className="flex flex-col justify-between  cursor-pointer shadow-lg border border-gray-300 mt-5">
       <div
-        className="w-full  md:w-1/3 flex justify-center items-center py-5"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1621243804936-775306a8f2e3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
-        }}
+        onClick={toggleEducation}
+        className={`flex items-center justify-between ${
+          isEducationOpen ? "bg-orange text-white" : "bg-white hover:bg-slate-100 text-[#f15a27]"
+        } p-5 `}
       >
-        <button className="p-3 rounded-lg text-center text-4xl font-extrabold text-white bg-orange">
-          Education
-        </button>
-      </div>
-
-      <div className="py-10 w-full md:w-2/3 border-2 border-orange  ">
-        <div className="px-10 grid grid-cols-1  gap-10 justify-center items-center">
-          {educationData?.map((item) => {
-            return (
-              <div
-                key={item.id}
-                className="flex flex-col sm:flex-row border-b border-orange items-center text-center sm:text-start"
-              >
-                <h1 className="font-bold w-full sm:w-1/3 sm:pl-10">
-                  {item.degree}{" "}
-                </h1>
-                <h2 className="font-bold w-full sm:w-1/3 ">{item.subject}</h2>
-                <h3 className="font-medium w-full sm:w-1/3 sm:text-center">
-                  {item.year}
-                </h3>
-                <div className="flex gap-1">
-                  <button
-                    className="bg-orange p-1 text-white"
-                    onClick={() => toggleEditModal(item)}
-                  >
-                    <CiEdit className="text-lg" />
-                  </button>
-                  <button
-                    className="bg-red-700 p-1 text-white"
-                    onClick={() => toggleDeleteModal(item._id)}
-                  >
-                    <IoTrashOutline className="text-lg" />
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-          <div className="w-full flex justify-center">
-            <button
-              className="bg-orange px-4 py-1 rounded-lg"
-              onClick={toggleAddModal}
-            >
-              Add
-            </button>
-          </div>
+        <div>
+          <h1 className="text-2xl ">Education</h1>
+        </div>
+        <div>
+          {isEducationOpen ? (
+            <IoIosArrowUp size={30} />
+          ) : (
+            <IoIosArrowDown size={30} />
+          )}
         </div>
       </div>
+
+      {isEducationOpen && (
+        <div className=" pt-5 pb-10 px-5 ">
+          <div className="flex  justify-end ">
+            <MdAddBox
+              className="text-2xl md:text-3xl text-green-700 hover:scale-125 transition-all duration-300"
+              onClick={toggleAddModal}
+            />
+          </div>
+          {educationData?.length > 0 ? (
+            educationData?.map((item) => {
+              return (
+                <div className="flex justify-between border-b-2 pb-2  pt-10 md:pt-10">
+                  <div className="flex justify-between  w-[75%]">
+                    <h1 className="text-lg ">{item?.degree}</h1>
+                    <h1 className="text-lg ">{item?.subject}</h1>
+                    <h1 className="text-lg ">{item?.year}</h1>
+                  </div>
+                  <div className="flex w-[25%] gap-4  justify-end">
+                  <TbEdit
+                        className="text-2xl md:text-3xl text-green-700 hover:scale-125 transition-all duration-300"
+                        onClick={() => toggleEditModal(item)}
+                      />
+                      <MdDeleteForever
+                        className="text-2xl md:text-3xl text-red-500 hover:scale-125 transition-all duration-300"
+                        onClick={() => toggleDeleteModal(item._id)}
+                      />
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div>No Data Found</div>
+          )}
+        </div>
+      )}
       {isAddModalOpen && (
         <EducationModal
           toggleModal={toggleAddModal}
           setModalOpen={setAddModalOpen}
         />
       )}
-
       {isEditModalOpen && (
         <UpdateEduModal
           toggleModal={toggleEditModal}

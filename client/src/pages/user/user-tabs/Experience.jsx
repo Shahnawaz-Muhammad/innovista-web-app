@@ -1,12 +1,14 @@
+// Experience.js
 import React, { useContext, useEffect, useState } from "react";
-import ExperienceModal from "../../../components/dashboard/ExperienceModal";
-import { CiEdit } from "react-icons/ci";
-import { IoTrashOutline } from "react-icons/io5";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { MdAddBox, MdDeleteForever } from "react-icons/md";
+import { TbEdit } from "react-icons/tb";
 import { AuthContext } from "../../../context/AuthContext";
-import DeleteExperienceModal from "../../../components/dashboard/DeleteExperienceModal";
+import ExperienceModal from "../../../components/dashboard/ExperienceModal";
 import UpdateExperienceModal from "../../../components/dashboard/UpdateExperienceModal";
-
-const Experience = () => {
+import DeleteExperienceModal from "../../../components/dashboard/DeleteExperienceModal";
+import { apiUrl } from "../../../config";
+const Experience = ({ isExperienceOpen, toggleExperience }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [experienceData, setExperienceData] = useState(null);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -35,7 +37,7 @@ const Experience = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/getExperience?userEmail=${user.email}`
+          `${apiUrl}/getExperience?userEmail=${user.email}`
         );
         if (!response.ok) {
           throw new Error("Error fetching data");
@@ -60,7 +62,7 @@ const Experience = () => {
       }
 
       const response = await fetch(
-        `http://localhost:8080/api/deleteExperience/${selectedItemId}`,
+        `${apiUrl}/deleteExperience/${selectedItemId}`,
         {
           method: "DELETE",
         }
@@ -83,102 +85,122 @@ const Experience = () => {
     setDeleteModalOpen(false);
   };
 
+  console.log(experienceData);
   return (
-    <div>
-      <div className="bg-[#fffbf5] rounded-3xl flex flex-col md:flex-row justify-center">
-        <div
-          className="w-full  md:w-1/3 flex justify-center items-center py-5"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1621243804936-775306a8f2e3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
-          }}
-        >
-          <div className="flex flex-col gap-4">
-            <button className="p-3 rounded-lg text-center text-4xl font-extrabold text-white bg-orange">
-              Work Experience
-            </button>
-            {/* <button className="p-3 rounded-lg text-center text-4xl font-extrabold text-white bg-orange">
-              2 Years
-            </button> */}
-          </div>
+    <div className="flex flex-col justify-between cursor-pointer shadow-lg border border-gray-300 mt-5">
+      <div
+        onClick={toggleExperience}
+        className={`flex items-center justify-between ${
+          isExperienceOpen
+            ? "bg-orange text-white"
+            : "bg-white hover:bg-slate-100 text-[#f15a27]"
+        } p-5 `}
+      >
+        <div>
+          <h1 className="text-2xl ">Experience</h1>
         </div>
-
-        <div className="w-full flex flex-col gap-3 md:w-2/3 border-2 border-orange py-5 ">
-          {experienceData?.map((item, index) => (
-            <div className="border-y py-3 px-2" key={index}>
-              {/* <h1 className="text-xl text-orange font-bold uppercase decoration-slate-900">
-                {item.companyName}
-              </h1> */}
-              <div className=" grid grid-cols-1 lg:grid-cols-2 gap-1">
-                <div className="flex flex-row ">
-                  <h1 className="font-bold w-1/3">Company</h1>
-                  <h1 className="font-medium w-2/3">
-                  {item.companyName}
-                  </h1>
-                </div>
-                <div className="flex flex-row ">
-                  <h1 className="font-bold w-1/3">Designation</h1>
-                  <h1 className="font-medium w-2/3">{item.designation}</h1>
-                </div>
-                <div className="flex flex-row ">
-                  <h1 className="font-bold w-1/3">Start Date</h1>
-                  <h1 className="font-medium w-2/3">{item.startDate}</h1>
-                </div>
-                <div className="flex flex-row ">
-                  <h1 className="font-bold w-1/3">End Date</h1>
-                  <h1 className="font-medium w-2/3">{item.endDate}</h1>
-                </div>
-                <div className="col-span-full px-5 w-full flex justify-end gap-1">
-                  <button className="bg-orange p-1 text-white">
-                    <CiEdit
-                      className="text-lg"
-                      onClick={() => toggleEditModal(item)}
-                    />
-                  </button>
-                  <button className="bg-red-700 p-1 text-white">
-                    <IoTrashOutline
-                      className="text-lg"
-                      onClick={() => toggleDeleteModal(item._id)}
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-          <div className="w-full flex justify-center">
-            <button
-              className="bg-orange px-4 py-1 rounded-lg text-white"
-              onClick={toggleExperienceModal}
-            >
-              Add
-            </button>
-          </div>
+        <div>
+          {isExperienceOpen ? (
+            <IoIosArrowUp size={30} />
+          ) : (
+            <IoIosArrowDown size={30} />
+          )}
         </div>
-        {isModalOpen && (
-          <>
-            <ExperienceModal
-              toggleModal={toggleExperienceModal}
-              setModalOpen={setModalOpen}
-            />
-          </>
-        )}
-
-        {isEditModalOpen && (
-          <UpdateExperienceModal
-            toggleModal={toggleEditModal}
-            setModalOpen={setEditModalOpen}
-            selectedItemData={selectedItemData}
-            selectedItemId={selectedItemId}
-          />
-        )}
-
-        {isDeleteModalOpen && (
-          <DeleteExperienceModal
-            onConfirmDelete={handleConfirmDelete}
-            onCancelDelete={handleCancelDelete}
-          />
-        )}
       </div>
+
+      {isExperienceOpen && (
+        <div className=" pt-5 pb-10 px-5 ">
+          <div className="flex  justify-end ">
+            <MdAddBox
+              className="text-2xl md:text-4xl text-orange hover:scale-125 transition-all duration-300"
+              onClick={toggleExperienceModal}
+            />
+          </div>
+          {experienceData?.length > 0 ? (
+            experienceData?.map((item) => {
+              return (
+                <div className="border-b-2">
+                  <div className="flex justify-between  mt-10">
+                    <h1 className="text-xl md:text-2xl ">
+                      {item?.companyName}
+                    </h1>
+                    <div className="flex gap-4">
+                      <TbEdit
+                        className="text-2xl md:text-3xl text-green-700 hover:scale-125 transition-all duration-300"
+                        onClick={() => toggleEditModal(item)}
+                      />
+                      <MdDeleteForever
+                        className="text-2xl md:text-3xl text-red-500 hover:scale-125 transition-all duration-300"
+                        onClick={() => toggleDeleteModal(item._id)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="md:flex  md:py-5 ">
+                    <div className="md:flex md:w-[68%]">
+                      <div className="py-5 md:py-0 md:w-1/2">
+                        <h1 className="text-lg ">Total Experience</h1>
+                        <h1 className="text-lg ">14 Months</h1>
+                      </div>
+
+                      <div className="md:w-1/2">
+                        <h1 className="text-lg ">Designation</h1>
+                        <h1 className="text-lg ">{item?.designation}</h1>
+                      </div>
+                    </div>
+                    <div className="flex md:justify-between py-5  gap-20 md:gap-0 md:py-0 md:w-[32%]  ">
+                      <div className=" md:py-0 ">
+                        <h1 className="text-lg ">Start Date</h1>
+                        <h1 className="text-lg ">
+                          {item?.startDate &&
+                            new Date(item.startDate).toLocaleDateString(
+                              "en-US"
+                            )}
+                        </h1>
+                      </div>
+
+                      <div className=" md:py-0 ">
+                        <h1 className="text-lg ">End Date</h1>
+                        <h1 className="text-lg ">
+                          {item?.endDate &&
+                            new Date(item.endDate).toLocaleDateString("en-US")}
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div>No Data Found</div>
+          )}
+        </div>
+      )}
+
+      {isModalOpen && (
+        <>
+          <ExperienceModal
+            toggleModal={toggleExperienceModal}
+            setModalOpen={setModalOpen}
+          />
+        </>
+      )}
+
+      {isEditModalOpen && (
+        <UpdateExperienceModal
+          toggleModal={toggleEditModal}
+          setModalOpen={setEditModalOpen}
+          selectedItemData={selectedItemData}
+          selectedItemId={selectedItemId}
+        />
+      )}
+
+      {isDeleteModalOpen && (
+        <DeleteExperienceModal
+          onConfirmDelete={handleConfirmDelete}
+          onCancelDelete={handleCancelDelete}
+        />
+      )}
     </div>
   );
 };

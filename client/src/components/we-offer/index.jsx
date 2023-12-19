@@ -34,12 +34,12 @@ const WeOffer = () => {
                   <h1 className="text-2xl font-bold text-orange">
                     Private Office
                   </h1>
-                  <Link
+                  {/* <Link
                     to="/book-a-tour"
                     className="text-white font-semibold text-lg underline"
                   >
                     Book A Tour
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>
@@ -66,12 +66,12 @@ const WeOffer = () => {
                   <h1 className="text-2xl font-bold text-orange">
                     Conference Room
                   </h1>
-                  <Link
+                  {/* <Link
                     to="/book-a-tour"
                     className="text-white font-semibold text-lg underline"
                   >
                     Book A Tour
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>
@@ -98,10 +98,10 @@ const WeOffer = () => {
                 </h1>
                 <div>
                   <Link
-                    to="/book-a-tour"
+                    to="/contact"
                     className="text-lg md:text-xl bg-orange hover:bg-orangeDark px-4 py-2 md:px-8 md:py-4 text-white"
                   >
-                    Book A Tour
+                    Contact Us
                   </Link>
                 </div>
               </div>

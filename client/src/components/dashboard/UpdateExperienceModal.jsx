@@ -1,4 +1,5 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
+import { apiUrl } from "../../config";
 // import { AuthContext } from "../../context/AuthContext";
 
 const UpdateExperienceModal = ({
@@ -54,7 +55,7 @@ const UpdateExperienceModal = ({
     try {
       let validForm = true;
       const newErrors = { ...errors };
-  
+
       // Validate each field
       for (const field in experienceData) {
         if (!experienceData[field]) {
@@ -62,7 +63,7 @@ const UpdateExperienceModal = ({
           validForm = false;
         } else {
           newErrors[field] = "";
-  
+
           // Validate date fields
           if (["startDate", "endDate"].includes(field)) {
             if (!validateDate(experienceData[field])) {
@@ -72,14 +73,14 @@ const UpdateExperienceModal = ({
           }
         }
       }
-  
+
       // Update the errors state with newErrors
       setErrors(newErrors);
-  
+
       if (validForm) {
         // Make an update API call using fetch
         const response = await fetch(
-          `http://192.168.150.134:8080/api/updateExperience/${selectedItemData._id}`,
+          `${apiUrl}/updateExperience/${selectedItemData._id}`,
           {
             method: "PUT",
             headers: {
@@ -88,11 +89,12 @@ const UpdateExperienceModal = ({
             body: JSON.stringify(experienceData),
           }
         );
-  
+
         // Handle the response accordingly
         if (response.ok) {
-          const data = await response.json();
-  
+          // const data = await response.json();
+          // console.log(data)
+
           // Close the modal
           toggleModal();
         } else {
@@ -105,7 +107,7 @@ const UpdateExperienceModal = ({
       console.error("Error updating education:", error);
     }
   };
-  
+
   return (
     <>
       <div
@@ -160,10 +162,10 @@ const UpdateExperienceModal = ({
                     value={experienceData.companyName}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, companyName: "" })}
-                    />
-                    {errors.companyName && (
-                      <p className="text-red-500">{errors.companyName}</p>
-                    )}
+                  />
+                  {errors.companyName && (
+                    <p className="text-red-500">{errors.companyName}</p>
+                  )}
                 </div>
                 <div className="col-span-2">
                   <label
@@ -181,10 +183,10 @@ const UpdateExperienceModal = ({
                     value={experienceData.designation}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, designation: "" })}
-                    />
-                    {errors.designation && (
-                      <p className="text-red-500">{errors.designation}</p>
-                    )}
+                  />
+                  {errors.designation && (
+                    <p className="text-red-500">{errors.designation}</p>
+                  )}
                 </div>
 
                 <div className="col-span-2 md:col-span-1">
@@ -199,13 +201,13 @@ const UpdateExperienceModal = ({
                     name="startDate"
                     id="startDate"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    value={experienceData.startDate}
+                    value={experienceData.startDate ? new Date(experienceData.startDate).toISOString().split("T")[0] : ""} // Set the initial value to the existing date or an empty string
                     onChange={handleDateChange}
                     onFocus={() => setErrors({ ...errors, startDate: "" })}
-                    />
-                    {errors.startDate && (
-                      <p className="text-red-500">{errors.startDate}</p>
-                    )}
+                  />
+                  {errors.startDate && (
+                    <p className="text-red-500">{errors.startDate}</p>
+                  )}
                 </div>
                 <div className="col-span-2 md:col-span-1">
                   <label
@@ -219,13 +221,13 @@ const UpdateExperienceModal = ({
                     name="endDate"
                     id="endDate"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    value={experienceData.endDate}
+                    value={experienceData.endDate ? new Date(experienceData.endDate).toISOString().split("T")[0] : ""} // Set the initial value to the existing date or an empty string
                     onChange={handleDateChange}
                     onFocus={() => setErrors({ ...errors, endDate: "" })}
-                    />
-                    {errors.endDate && (
-                      <p className="text-red-500">{errors.endDate}</p>
-                    )}
+                  />
+                  {errors.endDate && (
+                    <p className="text-red-500">{errors.endDate}</p>
+                  )}
                 </div>
               </div>
               <div className="w-full flex justify-center">

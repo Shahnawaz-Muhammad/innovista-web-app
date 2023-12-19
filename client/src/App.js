@@ -29,20 +29,23 @@ import PostJob from "./pages/user/user-tabs/PostJob";
 import Projects from "./pages/user/user-tabs/Projects";
 import Application from "./pages/user/user-tabs/Application";
 import Profile from "./pages/user/user-tabs/Profile";
+import ForgotPassword from "./pages/user/forgot-password/ForgotPassword";
+import ConfirmOtp from "./pages/user/forgot-password/ConfirmOtp";
+import ResetPassword from "./pages/user/forgot-password/ResetPassword";
 
 function App() {
   const { isAuthenticated, setIsAuthenticated, user, setUser } =
     useContext(AuthContext);
 
-    useEffect(() => {
-      const authToken = localStorage.getItem("token");
-      const currentUser = localStorage.getItem("user");
-    
-      if (authToken && currentUser) {
-        setIsAuthenticated(true);
-        setUser(JSON.parse(currentUser));
-      }
-    }, [setIsAuthenticated, setUser]);
+  useEffect(() => {
+    const authToken = localStorage.getItem("token");
+    const currentUser = localStorage.getItem("user");
+
+    if (authToken && currentUser) {
+      setIsAuthenticated(true);
+      setUser(JSON.parse(currentUser));
+    }
+  }, [setIsAuthenticated, setUser]);
 
   return (
     <div className="App">
@@ -112,6 +115,30 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          path="/forgot-password"
+          element={
+            <Layout>
+              <ForgotPassword />
+            </Layout>
+          }
+        />
+        <Route
+          path="/confirm-otp"
+          element={
+            <Layout>
+              <ConfirmOtp />
+            </Layout>
+          }
+        />
+        <Route
+          path="/reset-password"
+          element={
+            <Layout>
+              <ResetPassword />
+            </Layout>
+          }
+        />
         <Route path="*" element={<NotFound title="Page Not Found" />} />
         <Route
           path="/register"
@@ -127,7 +154,15 @@ function App() {
         />
         <Route
           path="/login"
-          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Layout><Login /></Layout>}
+          element={
+            isAuthenticated ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <Layout>
+                <Login />
+              </Layout>
+            )
+          }
         />
         <Route
           path="/dashboard"
@@ -139,20 +174,17 @@ function App() {
             )
           }
         >
-          {/* <Route path="" element={<Bio user={user}/>}/>
-          <Route path="education" element={<Education />}/>
-          <Route path="experience" element={<Experience />}/> */}
-          <Route path="booking-history" element={<BookingHistory />}/>
-          <Route path="advance-booking" element={<AdvanceBooking />}/>
-          <Route path="employees" element={<Employees />}/>
-          <Route path="hirings" element={<Hiring />}/>
-          <Route path="members" element={<Members />}/>
-          <Route path="job-advertisements" element={<JobAds />}/>
-          <Route path="post-job" element={<PostJob />}/>
-          <Route path="projects" element={<Projects />}/>
-          <Route path="candidates" element={<Application />}/>
-          <Route path="profile" element={<Profile />}/>
-
+          <Route index element={<BookingHistory />} />
+          <Route path="booking-history" element={<BookingHistory />} />
+          <Route path="advance-booking" element={<AdvanceBooking />} />
+          <Route path="employees" element={<Employees />} />
+          <Route path="hirings" element={<Hiring />} />
+          <Route path="members" element={<Members />} />
+          <Route path="job-advertisements" element={<JobAds />} />
+          <Route path="post-job" element={<PostJob />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="candidates" element={<Application />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
       {/* <Footer /> */}

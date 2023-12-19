@@ -8,7 +8,7 @@ const FrequentlyAskedQuestions = () => {
       id: 1,
       title: "What are your hours?  ",
       description:
-        "We are open from 9am in the Morning till 2 am over the Night.",
+        "We are open from 9:00 AM in the Morning till 2:00 AM over the Night.",
     },
     {
       id: 2,
@@ -112,7 +112,7 @@ const FrequentlyAskedQuestions = () => {
                       }}
                       transition={{ duration: 0.3, ease: "easeOut" }}
                     >
-                      <p className="text-lg font-light text-gray-500">
+                      <p className="text-lg font-light text-gray-500 font-roboto">
                         {item.description}
                       </p>
                     </motion.div>

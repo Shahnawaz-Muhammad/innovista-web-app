@@ -65,7 +65,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
       
       // Make an API call to authenticate the user and fetch user data
       const response = await fetch(
-        `http://localhost:8080/api/Employees?userEmail=${user.email}`,
+        `${apiUrl}/Employees?userEmail=${user.email}`,
         {
           method: "POST",
           headers: {

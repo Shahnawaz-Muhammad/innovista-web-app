@@ -4,7 +4,7 @@ const CvSchema = new mongoose.Schema({
   Email: {
     type: String,
     required: true,
-    unique: true,
+  
   }, 
   cvFile: {
     type: String,
@@ -15,6 +15,10 @@ const CvSchema = new mongoose.Schema({
     required:true
   },
   JobTitle:{
+    type:String,
+    required:true
+  },
+  Job_id:{
     type:String,
     required:true
   }

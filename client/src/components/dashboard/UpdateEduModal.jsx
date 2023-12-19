@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { apiUrl } from "../../config";
+import clsx from "clsx";
 
 const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
-
   const [educationalData, setEducationalData] = useState({
     degree: selectedItemData.degree,
     subject: selectedItemData.subject,
@@ -31,7 +32,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
       if (isValid) {
         // Make an update API call using fetch
         const response = await fetch(
-          `http://192.168.150.134:8080/api/updateEducation/${selectedItemData._id}`,
+          `${apiUrl}/updateEducation/${selectedItemData._id}`,
           {
             method: "PUT",
             headers: {
@@ -44,7 +45,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
         // Handle the response accordingly
         if (response.ok) {
           const data = await response.json();
-
+          console.log(data);
           // Close the modal
           toggleModal();
         } else {
@@ -61,7 +62,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
   const validateForm = () => {
     let valid = true;
     const newErrors = { ...errors };
-  
+
     // Validate each field
     for (const field in educationalData) {
       if (!educationalData[field]) {
@@ -69,24 +70,28 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
         valid = false;
       } else {
         newErrors[field] = "";
-  
+
         // Validate year range
         if (field === "year") {
           const enteredYear = educationalData.year;
           const isNumeric = /^\d+$/.test(enteredYear); // Check if the year consists of only digits
-  
-          if (!isNumeric || enteredYear < 1900 || enteredYear > new Date().getFullYear()) {
+
+          if (
+            !isNumeric ||
+            enteredYear < 1900 ||
+            enteredYear > new Date().getFullYear()
+          ) {
             newErrors[field] = "Please enter a valid year";
             valid = false;
           }
         }
       }
     }
-  
+
     setErrors(newErrors);
     return valid;
   };
-  
+
   return (
     <>
       <div
@@ -125,7 +130,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
             </div>
             <form className="p-4 md:p-5" onSubmit={handleFormSubmit}>
               <div className="grid gap-4 mb-4 grid-cols-2">
-                <div className="col-span-2">
+                {/* <div className="col-span-2">
                   <label
                     htmlFor="degree"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -145,6 +150,42 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                   {errors.degree && (
                     <p className="text-red-500 text-xs mt-1">{errors.degree}</p>
                   )}
+                </div> */}
+                <div className="col-span-2 relative  h-[4.3rem] flex flex-col gap-1">
+                  <div className="absolute top-0 left-0 w-full">
+                    {/* <div className="w-full inline-flex justify-between"> */}
+                    <div className="mb-1">
+                      <label
+                        htmlFor="degree"
+                        className="block text-sm font-medium text-gray-900 "
+                      >
+                        Degree
+                      </label>
+
+                      <select
+                        id="degree"
+                        name="degree"
+                        value={educationalData.degree}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                        onChange={handleChange}
+                        onFocus={() => setErrors({ ...errors, degree: "" })}
+                      >
+                        <option value="" selected>
+                          Select Your Degree
+                        </option>
+                        <option value="matric">Matric</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="bachelors">Bachelors</option>
+                        <option value="masters">Masters</option>
+                        <option value="phd">PhD</option>
+                      </select>
+                    </div>
+                    {errors.degree && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.degree}
+                      </p>
+                    )}
+                  </div>
                 </div>
                 <div className="col-span-2">
                   <label
@@ -189,7 +230,9 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     min="1900"
                     max={new Date().getFullYear()} // Restrict to the current year
                   />
-                  {errors.year && <p className="text-red-500 text-xs mt-1">{errors.year}</p>}
+                  {errors.year && (
+                    <p className="text-red-500 text-xs mt-1">{errors.year}</p>
+                  )}
                 </div>
               </div>
               <div className="w-full flex justify-center">

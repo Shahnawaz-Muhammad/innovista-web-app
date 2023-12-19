@@ -137,7 +137,7 @@ export const Company = ({
             )}
         </div>
 
-        <div className="col-span-full h-[4.3rem] w-full flex flex-col md:gap-1">
+        <div className="col-span-full h-[4.3rem] w-full flex flex-col gap-1">
           <Input
             label="Address"
             type="text"

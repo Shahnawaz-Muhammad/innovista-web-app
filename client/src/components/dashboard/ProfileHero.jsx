@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { BsEnvelope } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { AuthContext } from "../../context/AuthContext";
+import { apiUrl } from "../../config";
 
 const ProfileHero = () => {
   const { user } = useContext(AuthContext);
@@ -18,7 +19,7 @@ const ProfileHero = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:8080/api/uploadProfilePicture?userEmail=${user.email}`,
+          `${apiUrl}/uploadProfilePicture?userEmail=${user.email}`,
           {
             method: "POST",
             body: formData,
@@ -40,7 +41,7 @@ const ProfileHero = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/bio?email=${user.email}`
+          `${apiUrl}/bio?email=${user.email}`
         );
         if (!response.ok) {
           throw new Error("Error fetching data");
@@ -59,7 +60,7 @@ const ProfileHero = () => {
     const fetchProfilePicture = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/getProfilePicture?userEmail=${user.email}`
+          `${apiUrl}/getProfilePicture?userEmail=${user.email}`
         );
         if (!response.ok) {
           throw new Error("Error fetching data");
@@ -83,7 +84,7 @@ const ProfileHero = () => {
             onMouseLeave={() => setIsHovered(false)}
           >
             <img
-              src={`http://localhost:8080/api${selectedFile?.imageURL}`}
+              src={`${apiUrl}${selectedFile?.imageURL}`}
               alt=""
               className={`w-full h-full rounded-full object-cover ${
                 isHovered ? "scale-105 duration-300" : "scale-100 duration-300"

@@ -1,5 +1,6 @@
 import React from "react";
 import images from "../../assets/images/utils/Images";
+import { Link } from "react-router-dom";
 export default function OurBenefits() {
   return (
     <div className="w-full flex justify-center pb-10 bg-bgGray">
@@ -18,14 +19,20 @@ export default function OurBenefits() {
           </div>
 
           <div className="w-full md:w-1/2 ">
-          <h2 className="text-orange font-bold uppercase text-lg">BENEFITS</h2>
+            <h2 className="text-orange font-bold uppercase text-lg">
+              BENEFITS
+            </h2>
             <h1 className="text-2xl lg:text-5xl font-bold pt-6 text-darkGray">
               Perks of
               <br /> Your Startup in Our
               <br /> Co-working Space
             </h1>
             <p className="text-justify pt-6 lg:pt-10 px-2 text-textGray">
-            We're thrilled with the vibrant community we've cultivated at our center! Here, you can engage with a wide array of talented professionals from diverse fields such as design, photography, engineering, and beyond. Find out how you can become a part of our community today
+              We're thrilled with the vibrant community we've cultivated at our
+              center! Here, you can engage with a wide array of talented
+              professionals from diverse fields such as design, photography,
+              engineering, and beyond. Find out how you can become a part of our
+              community today
             </p>
             <div className=" h-[1px] bg-lightGray mt-8 mx-2"></div>
             <h1 className="pt-8 text-textGray">
@@ -47,10 +54,13 @@ export default function OurBenefits() {
               <span className="font-bold mr-2 text-darkGray text-2xl">4</span>{" "}
               Comfy accommodations and comfortable couches
             </h1>
-            <div className=" h-[1px] bg-lightGray mt-6 mx-2 lg:mt-10"></div>
-            <button className="px-10 py-4 bg-orange hover:bg-orangeDark mt-8  lg:mt-12 text-white">
+            <div className=" h-[1px] bg-lightGray my-8 mx-2 lg:my-10"></div>
+            <Link
+              to="/services"
+              className="px-10 py-4 bg-orange hover:bg-orangeDark mt-8 lg:mt-20 text-white"
+            >
               Learn More
-            </button>
+            </Link>
           </div>
         </div>
       </div>
