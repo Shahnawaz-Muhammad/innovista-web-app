@@ -83,8 +83,8 @@ const Application = () => {
                 </div>
               ))
             ) : (
-              <div className="text-black">
-                <h2 className="font-semibold text-xl text-center">No Applicants</h2>
+              <div className="text-black h-20 flex justify-center items-center">
+                <h2 className="font-semibold text-xl ">No Applicants</h2>
               </div>
             )}
           </div>

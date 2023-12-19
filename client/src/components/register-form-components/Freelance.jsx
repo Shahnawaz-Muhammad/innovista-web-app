@@ -8,6 +8,7 @@ export const Freelance = ({
   showRequired = false,
   required = true,
 }) => {
+  const currentDate = new Date().toISOString().split("T")[0];
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -72,19 +73,35 @@ export const Freelance = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div className="col-span-1 h-[4.3rem] flex flex-col gap-1">
-          <Input
-            type="date"
-            label="DOB"
-            showRequired={showRequired && !freelanceInfo.dob}
-            value={freelanceInfo.dob}
-            onChange={(e) => handleFreelanceInfo(e, "dob")}
-          />
-          {showRequired &&
-            !freelanceInfo.dob && ( // Display error message condition
-              <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                This field is required
-              </p>
-            )}
+          <div className="mb-1">
+            <label
+              htmlFor="gender"
+              className="block text-sm font-medium text-gray-900 "
+            >
+              DOB
+            </label>
+            <input
+              type="date"
+              name="dob"
+              max={currentDate}
+              showRequired={showRequired && !freelanceInfo.dob}
+              value={freelanceInfo.dob}
+              onChange={(e) => handleFreelanceInfo(e, "dob")}
+              className={clsx(
+                " border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary-purplish-blue block w-full p-2 ",
+                showRequired &&
+                  required &&
+                  !freelanceInfo.dob &&
+                  "ring-1 ring-primary-starberry-red"
+              )}
+            />
+            {showRequired &&
+              !freelanceInfo.dob && ( // Display error message condition
+                <p className=" mt-1 text-primary-starberry-red leading-3 text-sm font-medium">
+                  This field is required
+                </p>
+              )}
+          </div>
         </div>
         <div className="col-span-1 relative  h-[4.3rem] flex flex-col gap-1">
           <div className="absolute top-0 left-0 w-full">
@@ -254,29 +271,28 @@ export const Freelance = ({
                 City
               </label>
 
-              
-                <select
-                  id="city"
-                  value={freelanceInfo.city}
-                  className={clsx(
-                    "border text-gray-900 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary-purplish-blue block w-full p-2.5",
-                    showRequired &&
-                      required &&
-                      !freelanceInfo.city &&
-                      "ring-1 ring-primary-starberry-red"
-                  )}
-                  onChange={(e) => handleFreelanceInfo(e, "city")}
-                >
-                  <option value="" disabled selected>
-                    Select Your City
-                  </option>
-                  {cities.length > 0 && cities.map((city) => (
+              <select
+                id="city"
+                value={freelanceInfo.city}
+                className={clsx(
+                  "border text-gray-900 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary-purplish-blue block w-full p-2.5",
+                  showRequired &&
+                    required &&
+                    !freelanceInfo.city &&
+                    "ring-1 ring-primary-starberry-red"
+                )}
+                onChange={(e) => handleFreelanceInfo(e, "city")}
+              >
+                <option value="" disabled selected>
+                  Select Your City
+                </option>
+                {cities.length > 0 &&
+                  cities.map((city) => (
                     <option key={city.id} value={city.name}>
                       {city.name}
                     </option>
                   ))}
-                </select>
-             
+              </select>
             </div>
             {showRequired && !freelanceInfo.city && (
               <p className="text-primary-starberry-red leading-3 text-sm font-medium">

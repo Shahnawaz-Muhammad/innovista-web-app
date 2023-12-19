@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
+import SuccessModel from "../../../components/dashboard/SuccessModel";
 
 
 
@@ -33,6 +34,7 @@ const BookingHistory = () => {
     fetchData();
   }, [user.email]);
   return (
+    <>
     <div className=" flex flex-col h-full ">
       <div
         className=" h-60  flex justify-center items-center"
@@ -49,13 +51,13 @@ const BookingHistory = () => {
           Booking History
         </h1>
       </div>
-      <div className=" -mt-10 w-full  flex  justify-center items-center gap-3">
-        <div className="w-full md:w-2/3 bg-white rounded-lg flex flex-col shadow-sm shadow-orange">
+      <div className=" -mt-10 w-full flex justify-center items-center gap-3">
+        <div className="w-full md:w-2/3 bg-white rounded-lg flex flex-col justify-center items-center shadow-sm shadow-orange">
           {BookingData.length > 0 ? (
             BookingData.map((booking, index) => (
               <div
                 key={index}
-                className={`flex flex-col justify-between items-center  pt-5 rounded-md `}
+                className={`flex flex-col justify-between items-center w-full pt-5 rounded-md shadow-sm shadow-orange `}
               >
                 {expandedIndex !== index ? (
                   <div className="w-full flex flex-col md:flex-row justify-around items-center ">
@@ -142,7 +144,7 @@ const BookingHistory = () => {
                 )}
 
                 <button
-                  className="mt-2 bg-indigo-600 rounded-b-lg text-white font-bold p-2 w-full text-center"
+                  className="mt-2 bg-orange hover:bg-orangeDark rounded-b-lg text-white font-bold p-2 w-full text-center"
                   onClick={() => handleToggleDetails(index)}
                 >
                   {expandedIndex === index ? "Less Details" : "View Details"}
@@ -150,13 +152,15 @@ const BookingHistory = () => {
               </div>
             ))
           ) : (
-            <div className="text-black">
-              <h2 className="font-semibold text-xl">No recent bookings</h2>
+            <div className="text-black h-20 flex justify-center it">
+              <h2 className="font-bold text-2xl">No Recent Booking</h2>
             </div>
           )}
         </div>
       </div>
     </div>
+    <SuccessModel/>
+    </>
   );
 };
 

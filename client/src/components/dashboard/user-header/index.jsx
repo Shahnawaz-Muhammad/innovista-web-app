@@ -121,8 +121,8 @@ const UserHeader = ({ user }) => {
     <div>
       <div className="w-full py-3 px-10 bg-gray-100 mx-auto shadow-md">
         <div className="max-w-screen-2xl flex justify-between items-center">
-          <img src={logo} alt="" className="w-20 hidden md:flex" />
-          <div className="block md:hidden">
+          <img src={logo} alt="" className="w-20 hidden lg:flex" />
+          <div className="block lg:hidden">
             <RxHamburgerMenu
               className="text-2xl"
               onClick={() => setShowTabs(!showTabs)}
@@ -130,7 +130,7 @@ const UserHeader = ({ user }) => {
           </div>
           <div>
             {showTabs ? (
-              <div className="absolute md:hidden top-0 left-0  w-full  border-b z-50 bg-gray-300 py-3 px-6">
+              <div className="absolute lg:hidden top-0 left-0  w-full  border-b z-50 bg-gray-300 py-3 px-6">
                 <div >
                   <IoMdClose
                     className="text-3xl"
@@ -154,11 +154,11 @@ const UserHeader = ({ user }) => {
                 </div>
               </div>
             ) : (
-              <div className="hidden  md:flex  w-full  flex-col md:flex-row ">
+              <div className="hidden  lg:flex  w-full  flex-col md:flex-row ">
                 {userData?.map((item) => (
                   <NavLink
                     key={item.id}
-                    className={`px-2 md:px-6 py-1  hover:bg-gray-200 transition-all duration-300 relative group cursor-pointer ${
+                    className={`px-2 md:px-0 lg:px-6 py-1  hover:bg-gray-200 transition-all duration-300 relative group cursor-pointer ${
                       activeTab === `/dashboard/${item.url}`
                         ? "border-b-2 border-orange"
                         : ""

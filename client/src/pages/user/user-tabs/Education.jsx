@@ -5,11 +5,13 @@ import { IoTrashOutline } from "react-icons/io5";
 import { AuthContext } from "../../../context/AuthContext";
 import DeleteEducationModal from "../../../components/dashboard/DeleteEduModal";
 import UpdateEduModal from "../../../components/dashboard/UpdateEduModal";
+import SuccessModel from "../../../components/dashboard/SuccessModel";
 
 const Education = () => {
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
   const [educationData, setEducationData] = useState(null);
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [selectedItemData, setSelectedItemData] = useState(null);
@@ -66,6 +68,7 @@ const Education = () => {
           method: "DELETE",
         }
       );
+      setSuccessModalOpen(true);
 
       if (!response.ok) {
         throw new Error("Failed to delete education");

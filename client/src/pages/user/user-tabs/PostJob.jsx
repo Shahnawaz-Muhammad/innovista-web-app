@@ -271,7 +271,7 @@ export default function PostJob() {
                 )}
               </div>
 
-              <div className="h-[5.5rem] w-full px-3 md:w-1/3   flex flex-col items-start ">
+              <div className="h-[5.5rem] w-full px-3 lg:w-1/3   flex flex-col items-start ">
                 <label
                   htmlFor="jobExperience"
                   className="pl-3  text-base font-semibold"
@@ -295,7 +295,7 @@ export default function PostJob() {
                   </p>
                 )}
               </div>
-              <div className="h-[5.5rem] w-full px-3 md:w-1/3   flex flex-col items-start ">
+              <div className="h-[5.5rem] w-full px-3 md:w-1/2 lg:w-1/3   flex flex-col items-start ">
                 <label
                   htmlFor="job_vacancy"
                   className="pl-3  text-base font-semibold"
@@ -320,7 +320,7 @@ export default function PostJob() {
                 )}
               </div>
 
-              <div className="h-[5.5rem] w-full px-3 md:w-1/3   flex flex-col items-start ">
+              <div className="h-[5.5rem] w-full px-3 md:w-1/2 lg:w-1/3   flex flex-col items-start ">
                 <label
                   htmlFor="status"
                   className="pl-3  text-base font-semibold"

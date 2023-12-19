@@ -142,7 +142,7 @@ function App() {
           {/* <Route path="" element={<Bio user={user}/>}/>
           <Route path="education" element={<Education />}/>
           <Route path="experience" element={<Experience />}/> */}
-          <Route path="" element={<BookingHistory />}/>
+          <Route path="booking-history" element={<BookingHistory />}/>
           <Route path="advance-booking" element={<AdvanceBooking />}/>
           <Route path="employees" element={<Employees />}/>
           <Route path="hirings" element={<Hiring />}/>

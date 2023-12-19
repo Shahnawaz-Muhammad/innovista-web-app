@@ -10,6 +10,7 @@ import { ServiceSummary } from "../../components/register-form-components/servic
 import { ThankYou } from "../../components/register-form-components/thankYou";
 
 const Register = () => {
+
   const [step, setStep] = useState(1);
   const [showRequired, setShowRequiredFields] = useState(false);
 

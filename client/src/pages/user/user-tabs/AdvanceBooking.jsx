@@ -1,9 +1,8 @@
-import React, { useContext, useState, useRef  } from "react";
+import React, { useContext, useState  } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
 
 export default function AdvanceBooking() {
-  const contactNoRef = useRef(null);
 
   const currentDate = new Date().toISOString().split("T")[0];
 
@@ -53,23 +52,23 @@ export default function AdvanceBooking() {
         return true;
     }
   };
-
-  // Validation handler for form submission
+  
   const handleValidation = () => {
     let isValid = true;
     const newErrors = { ...errors };
     for (const field in BookingData) {
       if (!validateInput(field, BookingData[field])) {
-        newErrors[field] = `Invalid ${field}`;
+        newErrors[field] = "This Field is Required";
         isValid = false;
       } else {
         newErrors[field] = "";
       }
     }
-
+  
     setErrors(newErrors);
     return isValid;
   };
+  
 
   const [BookingData, setBookingData] = useState({
     Name: "",
@@ -86,18 +85,31 @@ export default function AdvanceBooking() {
   function handleChange(evt) {
     const { name, value } = evt.target;
   
-    if (name === "ContactNo") {
-      const numericValue = value.replace(/\D/g, "");
+    if (name === "BookingDate" || name === "ExpiryDate") {
+      setBookingData({
+        ...BookingData,
+        [name]: value,
+      });
   
-      if (!numericValue.startsWith("03")) {
-        setBookingData({
-          ...BookingData,
-          [name]: `03${numericValue.slice(2, 11)}`,
-        });
+      if (BookingData.BookingDate === BookingData.ExpiryDate) {
+        if (
+          (name === "BookingTime" && BookingData.ExpiryTime <= value) ||
+          (name === "ExpiryTime" && BookingData.BookingTime >= value)
+        ) {
+          setErrors({
+            ...errors,
+            ExpiryTime: "Expiry time must be greater than Booking time",
+          });
+        } else {
+          setErrors({
+            ...errors,
+            ExpiryTime: "",
+          });
+        }
       } else {
-        setBookingData({
-          ...BookingData,
-          [name]: `03${numericValue.slice(2, 11)}`,
+        setErrors({
+          ...errors,
+          ExpiryTime: "",
         });
       }
     } else {
@@ -108,13 +120,6 @@ export default function AdvanceBooking() {
     }
   }
   
-  function handleFocus() {
-    if (contactNoRef.current) {
-      const value = "03"; // Fixed value '03'
-      contactNoRef.current.focus();
-      contactNoRef.current.setSelectionRange(value.length, value.length);
-    }
-  }
   
   
   const SubmitBookingData = async (e) => {
@@ -184,18 +189,7 @@ export default function AdvanceBooking() {
         height: "100%",
       }}
     ></div>
-    <div
-    className="w-full h-full"
-    style={{
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      width: '100%',
-      height: '100%',
-      // background: 'rgba(0, 0, 0, 0.5)', /* Adjust opacity as needed */
-      zIndex: '-0.5',
-    }}
-  ></div>
+    
       
 
       <div className="flex flex-col py-12 justify-center items-center ">
@@ -254,8 +248,7 @@ export default function AdvanceBooking() {
                   id="mobile"
                   value={BookingData.ContactNo}
                   onChange={handleChange}
-                  onFocus={handleFocus}
-                  // onFocus={() => setErrors({ ...errors, ContactNo: "" })}
+                  onFocus={() => setErrors({ ...errors, ContactNo: "" })}
                   placeholder="03XX-XXXXXXX"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
@@ -356,8 +349,10 @@ export default function AdvanceBooking() {
                   type="date"
                   name="ExpiryDate"
                   id="dateTo"
+                  min={ BookingData.BookingDate}
                   value={BookingData.ExpiryDate}
                   onChange={handleChange}
+                  disabled={!BookingData.BookingDate}
                   onFocus={() => setErrors({ ...errors, ExpiryDate: "" })}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
@@ -403,8 +398,10 @@ export default function AdvanceBooking() {
                   type="time"
                   name="ExpiryTime"
                   id="timeTo"
+                  min={BookingData.BookingTime}
                   value={BookingData.ExpiryTime}
                   onChange={handleChange}
+                  disabled={!BookingData.BookingTime}
                   onFocus={() => setErrors({ ...errors, ExpiryTime: "" })}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
