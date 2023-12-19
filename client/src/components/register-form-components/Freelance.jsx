@@ -152,8 +152,8 @@ export const Freelance = ({
                 <option value="" selected>
                   Select Your Qualification
                 </option>
-                <option value="male">Matric</option>
-                <option value="female">Intermediate</option>
+                <option value="matric">Matric</option>
+                <option value="intermediate">Intermediate</option>
                 <option value="bachelors">Bachelors</option>
                 <option value="masters">Masters</option>
                 <option value="phd">PhD</option>
@@ -184,7 +184,7 @@ export const Freelance = ({
             )}
         </div>
 
-        <div className="col-span-full h-[4.3rem] w-full flex flex-col md:gap-1">
+        <div className="col-span-full h-[4.3rem] w-full flex flex-col gap-1">
           <Input
             label="Address"
             type="text"
@@ -254,29 +254,28 @@ export const Freelance = ({
                 City
               </label>
 
-              
-                <select
-                  id="city"
-                  value={freelanceInfo.city}
-                  className={clsx(
-                    "border text-gray-900 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary-purplish-blue block w-full p-2.5",
-                    showRequired &&
-                      required &&
-                      !freelanceInfo.city &&
-                      "ring-1 ring-primary-starberry-red"
-                  )}
-                  onChange={(e) => handleFreelanceInfo(e, "city")}
-                >
-                  <option value="" disabled selected>
-                    Select Your City
-                  </option>
-                  {cities.length > 0 && cities.map((city) => (
+              <select
+                id="city"
+                value={freelanceInfo.city}
+                className={clsx(
+                  "border text-gray-900 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary-purplish-blue block w-full p-2.5",
+                  showRequired &&
+                    required &&
+                    !freelanceInfo.city &&
+                    "ring-1 ring-primary-starberry-red"
+                )}
+                onChange={(e) => handleFreelanceInfo(e, "city")}
+              >
+                <option value="" disabled selected>
+                  Select Your City
+                </option>
+                {cities.length > 0 &&
+                  cities.map((city) => (
                     <option key={city.id} value={city.name}>
                       {city.name}
                     </option>
                   ))}
-                </select>
-             
+              </select>
             </div>
             {showRequired && !freelanceInfo.city && (
               <p className="text-primary-starberry-red leading-3 text-sm font-medium">

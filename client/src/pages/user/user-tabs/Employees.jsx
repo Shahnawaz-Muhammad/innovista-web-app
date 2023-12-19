@@ -5,12 +5,25 @@ import ProfileCard from "./ProfileCard";
 
 function Employees({ isEmployeeOpen, toggleEmp }) {
   return (
-    <div className="flex flex-col justify-between border-b border-[#f15a27] cursor-pointer pb-4" onClick={toggleEmp}>
-      <div className={`flex items-center justify-between ${isEmployeeOpen ? "bg-orange text-white" : "bg-white text-[#f15a27]"} p-5 `}>
+    <div className="flex flex-col justify-between  cursor-pointer shadow-lg border border-gray-300 mt-5">
+      <div
+        onClick={toggleEmp}
+        className={`flex items-center justify-between ${
+          isEmployeeOpen
+            ? "bg-orange text-white"
+            : "bg-white hover:bg-slate-100 text-[#f15a27]"
+        } p-5 `}
+      >
         <div>
           <h1 className="text-2xl ">Employee</h1>
         </div>
-        <div>{isEmployeeOpen ? <IoIosArrowUp size={30} /> : <IoIosArrowDown size={30} />}</div>
+        <div>
+          {isEmployeeOpen ? (
+            <IoIosArrowUp size={30} />
+          ) : (
+            <IoIosArrowDown size={30} />
+          )}
+        </div>
       </div>
 
       {isEmployeeOpen && (

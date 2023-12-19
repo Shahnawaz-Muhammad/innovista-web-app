@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
+import { apiUrl } from "../../../config";
 
 export default function PostJob() {
   const currentDate = new Date().toISOString().split("T")[0];
@@ -92,7 +93,7 @@ export default function PostJob() {
       }
       // Make an API call to authenticate the user and fetch user data
       const response = await fetch(
-        `http://192.168.150.134:8080/api/PostJob?userEmail=${user.email}`,
+        `${apiUrl}/PostJob?userEmail=${user.email}`,
         {
           method: "POST",
           headers: {

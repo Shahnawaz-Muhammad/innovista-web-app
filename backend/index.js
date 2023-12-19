@@ -14,6 +14,8 @@ import ActiveCompany from './routes/ActiveCompany.js'
 import BookingRecords from './routes/BookingRecords.js'
 import RegisterRecords from './routes/RegisterationRecords.js'
 import ProfilePic from './routes/ProfilePic.js'
+import ResetPassword from './routes/ResetPassword.js'
+import QualificationDetails from './routes/QualificationDetails.js'
 import { PORT, mongoDBURL } from './config.js';
 // import { fileURLToPath } from 'url';
 // import { dirname } from 'path';
@@ -47,6 +49,9 @@ app.use('/api', BookingRecords);
 app.use('/api', RegisterRecords);
 app.use('/api', EmployeeRoute);
 app.use('/api', ProfilePic);
+app.use('/api', ResetPassword);
+app.use('/api', QualificationDetails);
+
 app.use('/api/profile', express.static('profile'));
 app.use('/api/cv', express.static('cv'));
 

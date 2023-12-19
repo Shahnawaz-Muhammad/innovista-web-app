@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { apiUrl } from "../../config";
 
 
 const currentDate = new Date().toISOString().split("T")[0];
@@ -110,7 +111,7 @@ const UpdateJobPostModal = ({
     try {
       // Make an update API call using fetch
       const response = await fetch(
-        `http://localhost:8080/api/UpdateJobPost/${selectedItemData._id}`,
+        `${apiUrl}/UpdateJobPost/${selectedItemData._id}`,
         {
           method: "PUT",
           headers: {

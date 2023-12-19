@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import ApplyJobModal from "../../../components/dashboard/ApplyJobModal";
+import { apiUrl } from "../../../config";
 
 const JobAds = () => {
   const [jobAds, setJobAds] = useState(null);
   const [isJobDetailOpen, setIsJobDetailOpen] = useState(false);
   const [isJobDetailMobileOpen, setIsJobDetailMobileOpen] = useState(false);
   const [jobDetail, setJobDetail] = useState(null);
+  const [applied, Setapplied] = useState([]);
 
   const handleShowJobDetail = (post) => {
     // If the same item is clicked again, toggle its visibility
@@ -60,6 +62,7 @@ const JobAds = () => {
       formData.append("cvFile", pdfData);
       formData.append("CompanyEmail", cvData.Email);
       formData.append("JobTitle", cvData.job_title);
+      formData.append("Job_id", cvData._id);
 
       if (!pdfData) {
         alert("Please select a file.");
@@ -67,7 +70,7 @@ const JobAds = () => {
       }
 
       const response = await fetch(
-        `http://localhost:8080/api/uploadCV?userEmail=${user.email}`,
+        `${apiUrl}/uploadCV?userEmail=${user.email}`,
         {
           method: "POST",
           body: formData,
@@ -75,8 +78,8 @@ const JobAds = () => {
       );
 
       const data = await response.json();
-
-      console.log(data); // You can handle the response data here
+      CheckEmailIfExist(cvData._id);
+      // console.log(data); // You can handle the response data here
       setPdfData(null);
     } catch (error) {
       console.error(error);
@@ -85,20 +88,55 @@ const JobAds = () => {
   };
   // -------------------------------------//
 
+  const CheckEmailIfExist = async (jobid) => {
+    try {
+      const response = await fetch(
+        "http://192.168.150.134:8080/api/checkEmailAndJobId",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.email,
+            job_id: jobid,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.emailAndJobIdExist === true) {
+        Setapplied((prevApplied) => [...prevApplied, { jobid: jobid }]);
+      }
+
+      console.log("dataa[[[[-----------", applied);
+      // Handle the response data as needed
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle errors here
+    }
+  };
   // const { user, pdfUrl } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://192.168.150.134:8080/api/ShowJobByStatus/${1}`
-        );
+        const response = await fetch(`${apiUrl}/ShowJobByStatus/${1}`);
         if (!response.ok) {
           throw new Error("Error fetching data");
         } else {
           const data = await response.json();
           if (JSON.stringify(data) !== JSON.stringify(jobAds)) {
+            data.forEach((item) => {
+              CheckEmailIfExist(item._id);
+            });
             setJobAds(data);
+
             if (data.length > 0) {
               setJobDetail(data[0]);
             }
@@ -134,7 +172,7 @@ const JobAds = () => {
                       </h2>
                       <div>
                         <button
-                          className="bg-orange text-sm text-white rounded-lg px-5 py-2 block md:hidden"
+                          className="bg-orange hover:bg-orangeDark text-sm text-white rounded-lg px-5 py-2 block md:hidden"
                           onClick={() => handleButtonClick(post)}
                         >
                           Apply Now
@@ -204,10 +242,16 @@ const JobAds = () => {
                   </div>
                   <div className="lg:w-[35%]">
                     <button
-                      className="bg-orange text-white rounded-lg md:px-5 md:py-2"
+                      disabled={
+                        applied.some((item) => item.jobid === jobDetail._id) &&
+                        "Applied"
+                      }
+                      className="bg-orange hover:bg-orangeDark text-white rounded-lg md:px-5 md:py-2"
                       onClick={() => handleButtonClick(jobDetail)}
                     >
-                      Apply Now
+                      {applied.some((item) => item.jobid === jobDetail._id)
+                        ? "Applied"
+                        : "Apply Now"}
                     </button>
                   </div>
                 </div>

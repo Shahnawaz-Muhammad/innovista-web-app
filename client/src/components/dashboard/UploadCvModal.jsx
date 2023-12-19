@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { apiUrl } from "../../config";
 
 const UploadCvModal = ({ toggleModal, setModalOpen }) => {
   const [filePreview, setFilePreview] = useState(null);
@@ -43,7 +44,7 @@ console.log("outside function",filePreview)
       formData.append("cv", filePreview);
 
       const response = await fetch(
-        `http://localhost:8080/api/uploadCV?userEmail=${user.email}`,
+        `${apiUrl}/uploadCV?userEmail=${user.email}`,
         {
           method: "POST",
           body: formData,

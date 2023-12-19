@@ -8,6 +8,7 @@ import { Group } from "../../components/register-form-components/Group";
 import { Company } from "../../components/register-form-components/Company";
 import { ServiceSummary } from "../../components/register-form-components/serviceSummary";
 import { ThankYou } from "../../components/register-form-components/thankYou";
+import { apiUrl } from "../../config";
 
 const Register = () => {
   const [step, setStep] = useState(1);
@@ -80,6 +81,9 @@ const Register = () => {
   };
 
   const nextStep = (onGoingStep) => {
+
+    setShowRequiredFields(false);
+
     if (step === 5) return;
     if (step === 1 || (onGoingStep && onGoingStep !== 1 && step === 1)) {
       if (
@@ -95,7 +99,7 @@ const Register = () => {
         setShowRequiredFields(true);
         return;
       }
-    } 
+    }
     // else if (step === 2 || (onGoingStep && onGoingStep === 2 && step === 2)) {
     //   if (userServiceConfiguration.selectedPlan === null) {
     //     setShowRequiredFields(true);
@@ -103,8 +107,8 @@ const Register = () => {
     //   } else {
     //     setShowRequiredFields(false);
     //   }
-    // } 
-    else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3)) {
+    // }
+    else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3 )) {
       if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
         if (
           !userServiceConfiguration.freelanceInfo.dob ||
@@ -118,7 +122,8 @@ const Register = () => {
           setShowRequiredFields(true);
           return;
         }
-      } else if (userServiceConfiguration.selectedPlan.name === "Group") {
+      }
+      if (userServiceConfiguration.selectedPlan.name === "Group") {
         if (
           !userServiceConfiguration.groupInfo.people ||
           !userServiceConfiguration.groupInfo.address ||
@@ -129,7 +134,8 @@ const Register = () => {
           setShowRequiredFields(true);
           return;
         }
-      } else if (userServiceConfiguration.selectedPlan.name === "Company") {
+      }
+      if (userServiceConfiguration.selectedPlan.name === "Company") {
         if (
           !ntnRegex.test(userServiceConfiguration.companyInfo.ntn) ||
           !userServiceConfiguration.companyInfo.people ||
@@ -158,10 +164,9 @@ const Register = () => {
 
     if (step === 4) {
       let selectedPlanData = null;
-      if(userServiceConfiguration.selectedPlan?.name === null){
-        setShowRequiredFields(true)
-      }
-      else if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
+      if (userServiceConfiguration.selectedPlan?.name === null) {
+        setShowRequiredFields(true);
+      } else if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
         selectedPlanData = {
           firstName: userServiceConfiguration.userInfo.firstName,
           lastName: userServiceConfiguration.userInfo.lastName,
@@ -211,7 +216,7 @@ const Register = () => {
 
       // Check if selectedPlanData exists before attempting to send it
       if (selectedPlanData) {
-        await fetch("http://192.168.150.134:8080/api/signup", {
+        await fetch(`${apiUrl}/signup`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -221,7 +226,7 @@ const Register = () => {
           .then((data) => {
             // Handle the API response data here
             console.log("API Response:", data);
-            setStep(5)
+            setStep(5);
           })
           .catch((error) => {
             // Handle errors here
