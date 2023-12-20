@@ -77,7 +77,7 @@ const Bio = ({ isBioOpen, toggleBio, user }) => {
 
             <div className="px-5 md:w-1/2">
               <h1 className="text-lg  font-semibold">Address</h1>
-              <h1>{userData?.address}</h1>
+              <h1>{userData?.address}{', '}{userData?.city}{', '}{userData?.country}</h1>
             </div>
           </div>
 

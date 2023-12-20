@@ -58,7 +58,7 @@ const BookingHistory = () => {
         </h1>
       </div>
       <div className=" mt-5 md:-mt-10 w-full flex justify-center items-center gap-3">
-        <div className="w-full bg-white md:w-2/3 flex flex-col  shadow-sm shadow-orange max-h-[26rem] overflow-y-auto">
+        <div className="w-full bg-white md:w-4/5 lg:w-2/3 flex flex-col  shadow-sm shadow-orange max-h-[26rem] overflow-y-auto">
           {BookingData.length > 0 ? (
             BookingData.map((booking, index) => (
               <div
@@ -68,26 +68,26 @@ const BookingHistory = () => {
                 {expandedIndex !== index ? (
                   <div className="w-full flex flex-col md:flex-row justify-around items-center ">
                     <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                      <h1 className="text-xl font-bold text-center md:text-left">
+                      <h1 className="text-xl font-bold text-center ">
                         Members/Guests
                       </h1>
-                      <h1 className="text-lg font-semibold text-center md:text-left">
+                      <h1 className="text-lg font-semibold text-center ">
                         {booking?.Member}
                       </h1>
                     </div>
                     <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                      <h1 className="text-xl font-bold text-center md:text-left">
+                      <h1 className="text-xl font-bold text-center ">
                         Station
                       </h1>
-                      <h2 className="text-lg font-semibold text-center md:text-left">
+                      <h2 className="text-lg font-semibold text-center ">
                         {booking?.BookingStation}
                       </h2>
                     </div>
                     <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                      <h1 className="text-xl font-bold text-center md:text-left">
+                      <h1 className="text-xl font-bold text-center ">
                         Booking Date
                       </h1>
-                      <p className="text-lg font-semibold text-center md:text-left">
+                      <p className="text-lg font-semibold text-center ">
                         {booking?.BookingDate
                           ? new Date(booking.BookingDate).toLocaleDateString(
                               "en-US"
@@ -100,26 +100,26 @@ const BookingHistory = () => {
                   <div className="w-full flex flex-col  items-center md:items-stretch md:gap-5">
                     <div className="flex flex-col md:flex-row justify-center md:justify-around">
                       <div className="flex flex-col w-40 border-b-2 border-orange md:border-b-0 ">
-                        <h1 className="text-xl font-bold text-center md:text-left">
+                        <h1 className="text-xl font-bold text-center ">
                           Members/Guests
                         </h1>
-                        <h1 className="text-lg font-semibold text-center md:text-left">
+                        <h1 className="text-lg font-semibold text-center ">
                         {booking?.Member}
                         </h1>
                       </div>
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">
+                        <h1 className="text-xl font-bold text-center ">
                           Station
                         </h1>
-                        <h2 className="text-lg font-semibold text-center md:text-left">
+                        <h2 className="text-lg font-semibold text-center ">
                           {booking?.BookingStation}
                         </h2>
                       </div>
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">
+                        <h1 className="text-xl font-bold text-center ">
                           Booking Date
                         </h1>
-                        <p className="text-lg font-semibold text-center md:text-left">
+                        <p className="text-lg font-semibold text-center ">
                           {booking?.BookingDate
                              && new Date(booking.BookingDate).toLocaleDateString(
                                 "en-US"
@@ -129,10 +129,10 @@ const BookingHistory = () => {
                     </div>
                     <div className="flex flex-col md:flex-row justify-around">
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">
+                        <h1 className="text-xl font-bold text-center ">
                           Expiry Date
                         </h1>
-                        <p className="text-lg font-semibold text-center md:text-left">
+                        <p className="text-lg font-semibold text-center ">
                           {booking?.ExpiryDate
                           &&  new Date(booking.ExpiryDate).toLocaleDateString(
                                 "en-US"
@@ -140,18 +140,18 @@ const BookingHistory = () => {
                         </p>
                       </div>
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">
+                        <h1 className="text-xl font-bold text-center ">
                           Booking Time
                         </h1>
-                        <h1 className="text-lg font-semibold text-center md:text-left">
+                        <h1 className="text-lg font-semibold text-center ">
                           {booking?.BookingTime}
                         </h1>
                       </div>
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">
+                        <h1 className="text-xl font-bold text-center ">
                           Expiry Time
                         </h1>
-                        <h1 className="text-lg font-semibold text-center md:text-left">
+                        <h1 className="text-lg font-semibold text-center ">
                           {booking?.ExpiryTime}
                         </h1>
                       </div>

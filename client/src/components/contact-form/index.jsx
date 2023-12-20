@@ -74,7 +74,7 @@ const ContactForm = () => {
                     className=" block  px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-700   border bg-gray-300 appearance-none focus:outline-none peer"
                     placeholder=" "
                     {...register("name", {
-                      required: "Name is required  ",
+                      required: "This Field is Required",
                       minLength: 3,
                       pattern: {
                         value: /^[A-Za-z]+$/i,
@@ -105,7 +105,7 @@ const ContactForm = () => {
                     // value={contactData.email}
                     // onChange={handleInputChange}
                     {...register("email", {
-                      required: "Please enter a valid email",
+                      required: "This Field is Required",
                       pattern: {
                         value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
                         message: "Invalid Email",
@@ -134,7 +134,7 @@ const ContactForm = () => {
                   rows="4"
                   placeholder="I'm interested in"
                   {...register("message", {
-                    required: "Message is required",
+                    required: "This Field is Required",
                   })}
                 ></textarea>
                 {errors.message && (
@@ -151,7 +151,7 @@ const ContactForm = () => {
                       type="checkbox"
                       {...register("termsConditions", {
                         required:
-                          "Check the field to Agree with Terms & Conditions",
+                          "Check Field is Required",
                       })}
                       className="w-4 h-4"
                     />

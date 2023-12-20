@@ -21,7 +21,7 @@ export default function Packages() {
               Standard
             </div>
             <div className="pt-3 px-5 font-bold leading-tight text-center  ">
-              <h1 className="text-4xl md:text-6xl  text-orange">Rs 2,000</h1>
+              <h1 className="text-4xl   text-orange">Rs 2,000</h1>
               <p className="text-xl py-3 border-b-2 text-darkGray"> per Day</p>
             </div>
             <div className="pt-2 px-5 md:px-10 ">
@@ -67,7 +67,7 @@ export default function Packages() {
               plus
             </div>
             <div className="pt-3 px-5 font-bold leading-tight text-center  ">
-              <h1 className="text-4xl md:text-6xl  text-orange">Rs 20,000</h1>
+              <h1 className="text-4xl text-orange">Rs 20,000</h1>
               <p className="text-xl py-3 border-b-2 text-darkGray">
                 {" "}
                 per Month
@@ -120,7 +120,7 @@ export default function Packages() {
               premium
             </div>
             <div className="pt-3 px-5 font-bold leading-tight text-center  ">
-              <h1 className="text-4xl md:text-6xl  text-orange">Rs 30,000</h1>
+              <h1 className="text-4xl text-orange">Rs 30,000</h1>
               <p className="text-xl py-3 border-b-2 text-darkGray">
                 {" "}
                 per Month
