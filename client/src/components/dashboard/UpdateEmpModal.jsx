@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { apiUrl } from "../../config";
+import { toast } from "react-toastify";
 
-const UpdateEmpModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
+const UpdateEmpModal = ({
+  toggleModal,
+  setModalOpen,
+  selectedItemData,
+  updateEmployeeList,
+}) => {
   const [employeeData, setEmployeeData] = useState({
     name: selectedItemData.EmployeeName,
     designation: selectedItemData.Designation,
@@ -52,20 +58,33 @@ const UpdateEmpModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
         );
 
         // Handle the response accordingly
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          // Close the modal
-          toggleModal();
-        } else {
-          // Handle errors (you may show an error message)
+        if (!response.ok) {
           const errorData = await response.json();
-          console.error("Error updating education:", errorData);
+          toast.error(errorData, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            theme: "light",
+          });
+          return;
         }
+        updateEmployeeList();
+  
+        toast.success("Employee Updated Successfully!",
+        {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          theme: "light",
+        });
+        toggleModal()
       }
     } catch (error) {
       console.error("Error updating education:", error);
     }
+    
   };
 
   const validateForm = () => {
@@ -79,7 +98,6 @@ const UpdateEmpModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
         valid = false;
       } else {
         newErrors[field] = "";
-
       }
     }
 

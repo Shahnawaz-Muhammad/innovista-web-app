@@ -115,7 +115,13 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,updateEmployeeList }) => {
       });
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Error adding employee. Please try again.");
+      toast.error(error, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      });
     }
     setModalOpen(false);
   };

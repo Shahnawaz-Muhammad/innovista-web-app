@@ -217,6 +217,7 @@ function Employees({ isEmployeeOpen, toggleEmp }) {
 
       {isEditModalOpen && (
         <UpdateEmpModal
+        updateEmployeeList={updateEmployeeList}
           toggleModal={toggleEditModal}
           setModalOpen={setEditModalOpen}
           selectedItemData={selectedItemData}
