@@ -71,6 +71,9 @@ const Experience = ({ isExperienceOpen, toggleExperience }) => {
       if (!response.ok) {
         throw new Error("Failed to delete Experience");
       }
+      setExperienceData((prevData) =>
+        prevData.filter((item) => item._id !== selectedItemId)
+      );
 
       setSelectedItemId(null);
       setDeleteModalOpen(false);

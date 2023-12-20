@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
+import { toast } from "react-toastify";
 
 export default function PostJob() {
   const currentDate = new Date().toISOString().split("T")[0];
@@ -112,8 +113,18 @@ export default function PostJob() {
           }),
         }
       );
-      console.log("Response status:", response.status);
-      console.log(formData);
+
+     
+      if (!response.ok) {
+        throw new Error("Failed to post a job");
+      }
+      toast.success("Job Posted successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      });
 
       setFormData({
         job_title: "",
@@ -126,11 +137,15 @@ export default function PostJob() {
         job_deadline: "",
         status: "",
       });
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
     } catch (error) {
       console.error("Login error:", error);
+      toast.success(error, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      });
     }
   };
 

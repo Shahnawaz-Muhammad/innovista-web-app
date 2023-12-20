@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { apiUrl } from "../../config";
 
 const ExperienceModal = ({ toggleModal, setModalOpen }) => {
   const [employeeData, setEmployeeData] = useState({
@@ -120,7 +121,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   ></path>
                 </svg>

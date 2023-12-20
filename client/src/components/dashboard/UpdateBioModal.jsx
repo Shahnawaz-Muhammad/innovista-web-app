@@ -40,13 +40,16 @@ const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
 
       if (isValid) {
         // Make an update API call using fetch
-        const response = await fetch(`${apiUrl}/UpdateBio?email=${user.email}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(bioData),
-        });
+        const response = await fetch(
+          `${apiUrl}/UpdateBio?email=${user.email}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bioData),
+          }
+        );
 
         // Handle the response accordingly
         if (response.ok) {
@@ -112,7 +115,7 @@ const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   ></path>
                 </svg>
@@ -207,10 +210,11 @@ const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     value={bioData.address}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, address: "" })}
-                    
                   />
                   {errors.address && (
-                    <p className="text-red-500 text-xs mt-1">{errors.address}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.address}
+                    </p>
                   )}
                 </div>
 
@@ -232,9 +236,7 @@ const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     onFocus={() => setErrors({ ...errors, phone: "" })}
                   />
                   {errors.phone && (
-                    <p className="text-red-500 text-xs mt-1">
-                      {errors.phone}
-                    </p>
+                    <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
                   )}
                 </div>
 
@@ -251,7 +253,11 @@ const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     id="dob"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     placeholder="Enter your dob"
-                    value={bioData.dob ? new Date(bioData.dob).toISOString().split("T")[0] : ""} // Set the initial value to the existing date or an empty string
+                    value={
+                      bioData.dob
+                        ? new Date(bioData.dob).toISOString().split("T")[0]
+                        : ""
+                    } // Set the initial value to the existing date or an empty string
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, dob: "" })}
                     max={new Date().toISOString().split("T")[0]}

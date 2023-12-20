@@ -5,15 +5,15 @@ import { TbEdit } from "react-icons/tb";
 import { AuthContext } from "../../../context/AuthContext";
 import EducationModal from "../../../components/dashboard/EducationModal";
 import UpdateEduModal from "../../../components/dashboard/UpdateEduModal";
-import SuccessModel from "../../../components/dashboard/SuccessModel";
+// import SuccessModel from "../../../components/dashboard/SuccessModel";
 import DeleteEducationModal from "../../../components/dashboard/DeleteEduModal";
-import { apiUrl } from '../../../config.js';
+import { apiUrl } from "../../../config.js";
 
-const Education = ({ isEducationOpen, toggleEducation , name}) => {
+const Education = ({ isEducationOpen, toggleEducation, name }) => {
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
+  // const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
   const [educationData, setEducationData] = useState(null);
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [selectedItemData, setSelectedItemData] = useState(null);
@@ -66,11 +66,15 @@ const Education = ({ isEducationOpen, toggleEducation , name}) => {
           method: "DELETE",
         }
       );
-      setSuccessModalOpen(true);
+      // setSuccessModalOpen(true);
 
       if (!response.ok) {
         throw new Error("Failed to delete education");
       }
+
+      setEducationData((prevData) =>
+        prevData.filter((item) => item._id !== selectedItemId)
+      );
 
       setSelectedItemId(null);
       setDeleteModalOpen(false);
@@ -89,7 +93,9 @@ const Education = ({ isEducationOpen, toggleEducation , name}) => {
       <div
         onClick={toggleEducation}
         className={`flex items-center justify-between ${
-          isEducationOpen ? "bg-orange text-white" : "bg-white hover:bg-slate-100 text-[#f15a27]"
+          isEducationOpen
+            ? "bg-orange text-white"
+            : "bg-white hover:bg-slate-100 text-[#f15a27]"
         } p-5 `}
       >
         <div>
@@ -122,14 +128,14 @@ const Education = ({ isEducationOpen, toggleEducation , name}) => {
                     <h1 className="text-lg ">{item?.year}</h1>
                   </div>
                   <div className="flex w-[25%] gap-4  justify-end">
-                  <TbEdit
-                        className="text-2xl md:text-3xl text-green-700 hover:scale-125 transition-all duration-300"
-                        onClick={() => toggleEditModal(item)}
-                      />
-                      <MdDeleteForever
-                        className="text-2xl md:text-3xl text-red-500 hover:scale-125 transition-all duration-300"
-                        onClick={() => toggleDeleteModal(item._id)}
-                      />
+                    <TbEdit
+                      className="text-2xl md:text-3xl text-green-700 hover:scale-125 transition-all duration-300"
+                      onClick={() => toggleEditModal(item)}
+                    />
+                    <MdDeleteForever
+                      className="text-2xl md:text-3xl text-red-500 hover:scale-125 transition-all duration-300"
+                      onClick={() => toggleDeleteModal(item._id)}
+                    />
                   </div>
                 </div>
               );

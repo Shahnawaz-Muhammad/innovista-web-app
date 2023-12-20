@@ -56,38 +56,40 @@ const Application = () => {
         <div className=" -mt-10 w-full  flex  justify-center items-center gap-3">
           <div className="w-full md:w-2/3   flex flex-col max-h-[26rem] overflow-y-auto">
             {!candidateList?.allCvs?.length < 1 ? (
-              candidateList?.allCvs?.map((candidate) => (
-                <div
-                  // key={index}
-                  className={`flex flex-col  justify-between items-center  py-5 bg-white border shadow-sm hover:bg-gray-100`}
-                >
-                  <div className="w-full flex flex-col md:flex-row justify-around ">
-                    <div className="w-full md:w-2/5 flex flex-col items-center ">
-                      <h3 className=" font-semibold underline">Applicant</h3>
-                      <h1 className="text-gray-600 text-xl md:mt-2 ">
-                        {candidate.Email}
-                      </h1>
-                    </div>
-
-                    <div className="w-full md:w-2/5 flex flex-col items-center mt-2 md:mt-0">
-                      <h3 className=" font-semibold underline">Job Title</h3>
-                      <h3 className="text-gray-600 text-xl  md:mt-2">
-                        {candidate.JobTitle}
-                      </h3>
-                    </div>
-                    <div className="w-full md:w-1/5 flex flex-col justify-center items-center mt-2 md:mt-0">
-                      <a
-                        href={`${apiUrl}/${candidate.cvFile}`}
-                        rel="noreferrer"
-                        target="_blank"
-                        className=" "
-                      >
-                        <VscFilePdf className="text-5xl" />
-                      </a>
+              candidateList?.allCvs?.map((candidate) => {
+                return(
+                  <div
+                    key={candidate._id}
+                    className={`flex flex-col  justify-between items-center  py-5 bg-white border shadow-sm hover:bg-gray-100`}
+                  >
+                    <div className="w-full flex flex-col md:flex-row justify-around ">
+                      <div className="w-full md:w-2/5 flex flex-col items-center ">
+                        <h3 className=" font-semibold underline">Applicant</h3>
+                        <h1 className="text-gray-600 text-xl md:mt-2 ">
+                          {candidate.Email}
+                        </h1>
+                      </div>
+  
+                      <div className="w-full md:w-2/5 flex flex-col items-center mt-2 md:mt-0">
+                        <h3 className=" font-semibold underline">Job Title</h3>
+                        <h3 className="text-gray-600 text-xl  md:mt-2">
+                          {candidate.JobTitle}
+                        </h3>
+                      </div>
+                      <div className="w-full md:w-1/5 flex flex-col justify-center items-center mt-2 md:mt-0">
+                        <a
+                          href={`${apiUrl}/${candidate.cvFile}`}
+                          rel="noreferrer"
+                          target="_blank"
+                          className=" "
+                        >
+                          <VscFilePdf className="text-5xl" />
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
+                )
+              })
             ) : (
               <div
                 // key={index}

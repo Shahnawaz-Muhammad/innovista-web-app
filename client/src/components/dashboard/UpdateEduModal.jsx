@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { apiUrl } from "../../config";
-import clsx from "clsx";
 
 const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
   const [educationalData, setEducationalData] = useState({
@@ -23,41 +22,41 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
     });
   }
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+    const handleFormSubmit = async (event) => {
+      event.preventDefault();
 
-    try {
-      const isValid = validateForm(); // Function to validate the form
+      try {
+        const isValid = validateForm(); // Function to validate the form
 
-      if (isValid) {
-        // Make an update API call using fetch
-        const response = await fetch(
-          `${apiUrl}/updateEducation/${selectedItemData._id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(educationalData),
+        if (isValid) {
+          // Make an update API call using fetch
+          const response = await fetch(
+            `${apiUrl}/updateEducation/${selectedItemData._id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(educationalData),
+            }
+          );
+
+          // Handle the response accordingly
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            // Close the modal
+            toggleModal();
+          } else {
+            // Handle errors (you may show an error message)
+            const errorData = await response.json();
+            console.error("Error updating education:", errorData);
           }
-        );
-
-        // Handle the response accordingly
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          // Close the modal
-          toggleModal();
-        } else {
-          // Handle errors (you may show an error message)
-          const errorData = await response.json();
-          console.error("Error updating education:", errorData);
         }
+      } catch (error) {
+        console.error("Error updating education:", error);
       }
-    } catch (error) {
-      console.error("Error updating education:", error);
-    }
-  };
+    };
 
   const validateForm = () => {
     let valid = true;
@@ -121,7 +120,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   ></path>
                 </svg>
