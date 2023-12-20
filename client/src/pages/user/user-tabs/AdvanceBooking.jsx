@@ -2,9 +2,21 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
+import { toast } from "react-toastify";
 
 export default function AdvanceBooking() {
   const { user } = useContext(AuthContext);
+  const [BookingData, setBookingData] = useState({
+    // Name: userData?.firstName,
+    // ContactNo: userData?.mobileNo,
+    Member: "",
+    BookingDate: "",
+    ExpiryDate: "",
+    BookingTime: "",
+    ExpiryTime: "",
+    Station: "",
+  });
+
   const currentDate = new Date().toISOString().split("T")[0];
 
   const stations = [
@@ -25,8 +37,8 @@ export default function AdvanceBooking() {
     Station: "",
   });
 
-  const nameRegex = /^[a-zA-Z\s]+$/;
-  const contactNoRegex = /^03\d{2}-\d{7}$/;
+  // const nameRegex = /^[a-zA-Z\s]+$/;
+  // const contactNoRegex = /^03\d{2}-\d{7}$/;
   const numberRegex = /^\d+$/;
   const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
   const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
@@ -57,7 +69,7 @@ export default function AdvanceBooking() {
   const handleValidation = () => {
     let isValid = true;
     const newErrors = { ...errors };
-  
+
     for (const field in BookingData) {
       if (!validateInput(field, BookingData[field])) {
         newErrors[field] = "This Field is Required";
@@ -65,20 +77,22 @@ export default function AdvanceBooking() {
       } else {
         newErrors[field] = "";
       }
-  
+
       // Custom validation logic for ExpiryTime based on BookingDate and ExpiryDate
-      if (field === "ExpiryTime" && BookingData.BookingDate === BookingData.ExpiryDate) {
+      if (
+        field === "ExpiryTime" &&
+        BookingData.BookingDate === BookingData.ExpiryDate
+      ) {
         if (BookingData.ExpiryTime <= BookingData.BookingTime) {
           newErrors[field] = "Expiry time must be greater than Booking time";
           isValid = false;
         }
       }
     }
-  
+
     setErrors(newErrors);
     return isValid;
   };
-  
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -110,17 +124,6 @@ export default function AdvanceBooking() {
     fetchData();
   }, [user.email, userData]);
 
-  const [BookingData, setBookingData] = useState({
-    // Name: userData?.firstName,
-    // ContactNo: userData?.mobileNo,
-    Member: "",
-    BookingDate: "",
-    ExpiryDate: "",
-    BookingTime: "",
-    ExpiryTime: "",
-    Station: "",
-  });
-
   const SubmitBookingData = async (e) => {
     e.preventDefault();
 
@@ -149,7 +152,25 @@ export default function AdvanceBooking() {
             }),
           }
         );
-        console.log(BookingData);
+        if (!response.ok) {
+          const errorData = await response.json();
+          toast.error(errorData, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            theme: "light",
+          });
+          return;
+        }
+
+        toast.success("Slot Booked Successfully!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          theme: "light",
+        });
 
         setBookingData({
           // Name: "",
@@ -161,12 +182,15 @@ export default function AdvanceBooking() {
           ExpiryTime: "",
           Station: "",
         });
-
-        if (!response.ok) {
-          throw new Error("Booking failed");
-        }
       } catch (error) {
         console.error("Booking error:", error);
+        toast.error(error, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          theme: "light",
+        });
       }
     }
   };
@@ -203,7 +227,7 @@ export default function AdvanceBooking() {
           Advance Booking
         </h1>
         <form
-          className="mt-10 w-full md:w-2/3 p-10 mb-10 rounded-lg "
+          className="mt-10 w-full md:w-4/5 lg:w-2/3 p-10 mb-10 rounded-lg "
           style={{
             backdropFilter: "blur(1x)",
             background: "rgba(255, 255, 255, 0.4)",
@@ -223,8 +247,8 @@ export default function AdvanceBooking() {
                   type="text"
                   name="name"
                   id="name"
-                  disabled
-                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  readOnly
+                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-gray-300 py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                   value={userData?.firstName || ""}
                   onChange={handleChange}
                 />
@@ -242,8 +266,8 @@ export default function AdvanceBooking() {
                   type="text"
                   name="mobileNo"
                   id="mobileNo"
-                  disabled
-                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  readOnly
+                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-gray-300 py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                   value={userData?.mobileNo || ""}
                   onChange={handleChange}
                 />
@@ -405,7 +429,6 @@ export default function AdvanceBooking() {
                   disabled={!BookingData.BookingTime}
                   onFocus={() => setErrors({ ...errors, ExpiryTime: "" })}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
-                  
                 />
                 {errors.ExpiryTime && (
                   <p className="text-[#fa0505] font-semibold text-sm pl-6">

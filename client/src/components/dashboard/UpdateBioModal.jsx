@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { apiUrl } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
   console.log(selectedItemData);
@@ -51,17 +52,26 @@ const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
           }
         );
 
-        // Handle the response accordingly
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          // Close the modal
-          toggleModal();
-        } else {
-          // Handle errors (you may show an error message)
+        if (!response.ok) {
           const errorData = await response.json();
-          console.error("Error updating education:", errorData);
-        }
+          toast.error(errorData, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            theme: "light",
+          });
+          return;
+        }  
+        toast.success("Bio Updated Successfully!",
+        {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          theme: "light",
+        });
+        toggleModal()
       }
     } catch (error) {
       console.error("Error updating education:", error);
