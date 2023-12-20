@@ -2,6 +2,7 @@
 
 import React, { createContext, useState } from "react";
 import { apiUrl } from "../config";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -35,7 +36,15 @@ const AuthProvider = ({ children }) => {
       });
 
       if (!response.ok) {
-        throw new Error("Login failed");
+        const errorData = await response.json();
+        toast.error(errorData, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          theme: "light",
+        });
+        return;
       }
 
       const responseData = await response.json();
@@ -48,7 +57,15 @@ const AuthProvider = ({ children }) => {
 
       setUser(user);
       setIsAuthenticated(true);
+      toast.success("Successfully Logged In!")
     } catch (error) {
+      toast.error(error, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        theme: "light",
+      });
       setIsAuthenticated(false);
       setUser({});
       console.error("Login error:", error);

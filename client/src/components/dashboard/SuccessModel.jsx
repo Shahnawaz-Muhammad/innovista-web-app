@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function SuccessModel(onCancelDelete) {
+export default function SuccessModel(onCancelDelete, message) {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function SuccessModel(onCancelDelete) {
               </div>
               <div className="flex flex-row gap-1 pt-5 justify-center">
                 <p className="text-lg  text-center font-semibold mb-4">
-                  Record Deleted Successfully
+                  {message}
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

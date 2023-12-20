@@ -41,15 +41,20 @@ const UpdateEmpModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(employeeData),
+            body: JSON.stringify({
+              EmployeeName: employeeData.name,
+              EmpId: employeeData.empID,
+              Designation: employeeData.designation,
+              EmployeeEmail: employeeData.email,
+              E_ContactNo: employeeData.contact,
+            }),
           }
         );
 
         // Handle the response accordingly
         if (response.ok) {
-          // const data = await response.json();
-          // console.log(data)
-
+          const data = await response.json();
+          console.log(data);
           // Close the modal
           toggleModal();
         } else {
@@ -75,20 +80,6 @@ const UpdateEmpModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
       } else {
         newErrors[field] = "";
 
-        // Validate year range
-        if (field === "year") {
-          const enteredYear = employeeData.year;
-          const isNumeric = /^\d+$/.test(enteredYear); // Check if the year consists of only digits
-
-          if (
-            !isNumeric ||
-            enteredYear < 1900 ||
-            enteredYear > new Date().getFullYear()
-          ) {
-            newErrors[field] = "Please enter a valid year";
-            valid = false;
-          }
-        }
       }
     }
 
@@ -103,7 +94,7 @@ const UpdateEmpModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
         onClick={() => setModalOpen(false)}
       ></div>
       <div className="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div className="relative p-4 w-full max-w-md max-h-full">
+        <div className="relative p-4 w-full max-w-xl max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -125,7 +116,7 @@ const UpdateEmpModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   ></path>
                 </svg>
