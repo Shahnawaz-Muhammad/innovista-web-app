@@ -1,5 +1,4 @@
 import React from "react";
-import "../user-tabs/Employees.css";
 
 const Members = () => {
   const employeesList = [

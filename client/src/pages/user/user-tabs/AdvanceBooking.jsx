@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
 
 export default function AdvanceBooking() {
+  const { user } = useContext(AuthContext);
   const currentDate = new Date().toISOString().split("T")[0];
 
   const stations = [
@@ -14,8 +15,8 @@ export default function AdvanceBooking() {
     "Faisalabad",
   ];
   const [errors, setErrors] = useState({
-    Name: "",
-    ContactNo: "",
+    // Name: "",
+    // ContactNo: "",
     Member: "",
     BookingDate: "",
     ExpiryDate: "",
@@ -34,10 +35,10 @@ export default function AdvanceBooking() {
   // Validation function
   const validateInput = (fieldName, value) => {
     switch (fieldName) {
-      case "Name":
-        return nameRegex.test(value.trim());
-      case "ContactNo":
-        return contactNoRegex.test(value);
+      // case "Name":
+      //   return nameRegex.test(value.trim());
+      // case "ContactNo":
+      //   return contactNoRegex.test(value);
       case "Member":
         return numberRegex.test(value);
       case "BookingDate":
@@ -56,6 +57,7 @@ export default function AdvanceBooking() {
   const handleValidation = () => {
     let isValid = true;
     const newErrors = { ...errors };
+  
     for (const field in BookingData) {
       if (!validateInput(field, BookingData[field])) {
         newErrors[field] = "This Field is Required";
@@ -63,15 +65,54 @@ export default function AdvanceBooking() {
       } else {
         newErrors[field] = "";
       }
+  
+      // Custom validation logic for ExpiryTime based on BookingDate and ExpiryDate
+      if (field === "ExpiryTime" && BookingData.BookingDate === BookingData.ExpiryDate) {
+        if (BookingData.ExpiryTime <= BookingData.BookingTime) {
+          newErrors[field] = "Expiry time must be greater than Booking time";
+          isValid = false;
+        }
+      }
     }
-
+  
     setErrors(newErrors);
     return isValid;
   };
+  
+
+  function handleChange(evt) {
+    const { name, value } = evt.target;
+
+    setBookingData({
+      ...BookingData,
+      [name]: value,
+    });
+  }
+
+  const [userData, setUserData] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/bio?email=${user.email}`);
+        if (!response.ok) {
+          throw new Error("Error fetching data");
+        }
+        const data = await response.json();
+        if (JSON.stringify(data) !== JSON.stringify(userData)) {
+          setUserData(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [user.email, userData]);
 
   const [BookingData, setBookingData] = useState({
-    Name: "",
-    ContactNo: "",
+    // Name: userData?.firstName,
+    // ContactNo: userData?.mobileNo,
     Member: "",
     BookingDate: "",
     ExpiryDate: "",
@@ -79,56 +120,6 @@ export default function AdvanceBooking() {
     ExpiryTime: "",
     Station: "",
   });
-  const { user } = useContext(AuthContext);
-
-  function handleChange(evt) {
-    const { name, value } = evt.target;
-
-    if (name === "BookingDate" || name === "ExpiryDate") {
-      setBookingData({
-        ...BookingData,
-        [name]: value,
-      });
-
-      if (BookingData.BookingDate === BookingData.ExpiryDate) {
-        if (
-          (name === "BookingTime" && BookingData.ExpiryTime <= value) ||
-          (name === "ExpiryTime" && BookingData.BookingTime >= value)
-        ) {
-          setErrors({
-            ...errors,
-            ExpiryTime: "Expiry time must be greater than Booking time",
-          });
-        } else {
-          setErrors({
-            ...errors,
-            ExpiryTime: "",
-          });
-        }
-      }
-    }
-    if (name === "ContactNo") {
-      const numericValue = value.replace(/\D/g, "");
-
-      if (!numericValue.startsWith("03")) {
-        setBookingData({
-          ...BookingData,
-          [name]: `03${numericValue.slice(2, 11)}`,
-        });
-      } else {
-        setErrors({
-          ...errors,
-          ExpiryTime: "",
-        });
-      }
-    } else {
-      setBookingData({
-        ...BookingData,
-        [name]: value,
-      });
-    }
-  }
-
 
   const SubmitBookingData = async (e) => {
     e.preventDefault();
@@ -136,7 +127,7 @@ export default function AdvanceBooking() {
     const isFormValid = handleValidation();
 
     if (isFormValid) {
-      console.log("Data to be sent:", BookingData);
+      console.log(userData);
 
       try {
         const response = await fetch(
@@ -147,8 +138,8 @@ export default function AdvanceBooking() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              Name: BookingData.Name,
-              ContactNo: BookingData.ContactNo,
+              // Name: BookingData.Name,
+              // ContactNo: BookingData.ContactNo,
               Member: BookingData.Member,
               BookingDate: BookingData.BookingDate,
               ExpiryDate: BookingData.ExpiryDate,
@@ -158,10 +149,11 @@ export default function AdvanceBooking() {
             }),
           }
         );
+        console.log(BookingData);
 
         setBookingData({
-          Name: "",
-          ContactNo: "",
+          // Name: "",
+          // ContactNo: "",
           Member: "",
           BookingDate: "",
           ExpiryDate: "",
@@ -199,7 +191,6 @@ export default function AdvanceBooking() {
           height: "100%",
         }}
       ></div>
-      
 
       <div className="flex flex-col py-12 justify-center items-center ">
         <h1
@@ -224,50 +215,38 @@ export default function AdvanceBooking() {
               <div className="mb-2 h-24">
                 <label
                   htmlFor="Name"
-                  className="pl-5 block text-base font-bold "
+                  className="pl-5 block text-base font-bold"
                 >
                   Name
                 </label>
                 <input
                   type="text"
-                  name="Name"
-                  id="Name"
-                  placeholder="Name"
-                  value={BookingData.Name}
+                  name="name"
+                  id="name"
+                  disabled
+                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  value={userData?.firstName || ""}
                   onChange={handleChange}
-                  onFocus={() => setErrors({ ...errors, Name: "" })}
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
-                {errors.Name && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6 ">
-                    {errors.Name}
-                  </p>
-                )}
               </div>
             </div>
             <div className="w-full px-3 md:w-1/2">
               <div className="mb-2 h-24">
                 <label
-                  htmlFor="lName"
-                  className="pl-5 block text-base font-bold "
+                  htmlFor="mobileNo"
+                  className="pl-5 block text-base font-bold"
                 >
                   Contact No
                 </label>
                 <input
-                  type="numeric"
-                  name="ContactNo"
-                  id="mobile"
-                  value={BookingData.ContactNo}
+                  type="text"
+                  name="mobileNo"
+                  id="mobileNo"
+                  disabled
+                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  value={userData?.mobileNo || ""}
                   onChange={handleChange}
-                  onFocus={() => setErrors({ ...errors, ContactNo: "" })}
-                  placeholder="03XX-XXXXXXX"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
-                {errors.ContactNo && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
-                    {errors.ContactNo}
-                  </p>
-                )}
               </div>
             </div>
           </div>
@@ -413,7 +392,7 @@ export default function AdvanceBooking() {
               <div className="mb-2 h-24">
                 <label
                   htmlFor="timeTo"
-                  className="pl-5 block text-base font-bold "
+                  className="pl-5 block text-base font-bold"
                 >
                   Time To
                 </label>
@@ -421,12 +400,12 @@ export default function AdvanceBooking() {
                   type="time"
                   name="ExpiryTime"
                   id="timeTo"
-                  min={BookingData.BookingTime}
                   value={BookingData.ExpiryTime}
                   onChange={handleChange}
                   disabled={!BookingData.BookingTime}
                   onFocus={() => setErrors({ ...errors, ExpiryTime: "" })}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  
                 />
                 {errors.ExpiryTime && (
                   <p className="text-[#fa0505] font-semibold text-sm pl-6">
@@ -440,7 +419,7 @@ export default function AdvanceBooking() {
           <div className="flex flex-col md:flex-row justify-end gap-5 mt-3 px-3">
             <button
               className="rounded-lg bg-green-500 hover:bg-green-700 hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none focus:shadow-lg shadow-sm shadow-orange"
-              type="submit"
+              type="button"
             >
               Payment
             </button>

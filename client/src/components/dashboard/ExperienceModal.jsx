@@ -3,6 +3,8 @@ import { AuthContext } from "../../context/AuthContext";
 import { apiUrl } from "../../config";
 
 const ExperienceModal = ({ toggleModal, setModalOpen }) => {
+  const currentDate = new Date().toISOString().split("T")[0];
+
   const [experienceData, setEducationalData] = useState({
     companyName: "",
     designation: "",
@@ -185,6 +187,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     value={experienceData.startDate ? new Date(experienceData.startDate).toISOString().split("T")[0] : ""} // Set the initial value to the existing date or an empty string
                     onChange={handleChange}
+                    max={currentDate}
                     onFocus={() => setErrors({ ...errors, startDate: "" })}
                     />
                     {errors.startDate && (
@@ -205,6 +208,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     value={experienceData.endDate}
                     onChange={handleChange}
+                    max={currentDate}
                     onFocus={() => setErrors({ ...errors, endDate: "" })}
                     />
                     {errors.endDate && (

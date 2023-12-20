@@ -85,6 +85,22 @@ const Experience = ({ isExperienceOpen, toggleExperience }) => {
     setDeleteModalOpen(false);
   };
 
+  const getExperience = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Calculate the difference in milliseconds
+    const difference = end - start;
+
+    // Convert milliseconds to months
+    const monthsDifference = difference / (1000 * 60 * 60 * 24 * 30);
+
+    // Round down to the nearest whole number
+    const totalMonths = Math.floor(monthsDifference);
+
+    return `${totalMonths} Months`;
+  };
+
   console.log(experienceData);
   return (
     <div className="flex flex-col justify-between cursor-pointer shadow-lg border border-gray-300 mt-5">
@@ -140,7 +156,11 @@ const Experience = ({ isExperienceOpen, toggleExperience }) => {
                     <div className="md:flex md:w-[68%]">
                       <div className="py-5 md:py-0 md:w-1/2">
                         <h1 className="text-lg ">Total Experience</h1>
-                        <h1 className="text-lg ">14 Months</h1>
+                        <h1 className="text-lg">
+                          {item?.startDate &&
+                            item?.endDate &&
+                            getExperience(item.startDate, item.endDate)}
+                        </h1>
                       </div>
 
                       <div className="md:w-1/2">

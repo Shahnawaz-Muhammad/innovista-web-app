@@ -23,7 +23,9 @@ const Bio = ({ isBioOpen, toggleBio, user }) => {
           throw new Error("Error fetching data");
         }
         const data = await response.json();
-        setUserData(data); 
+        if (JSON.stringify(data) !== JSON.stringify(userData)) {
+          setUserData(data);
+        }
       } catch (error) {
         console.error(error);
       }

@@ -59,18 +59,10 @@ const UpdateExperienceModal = ({
       // Validate each field
       for (const field in experienceData) {
         if (!experienceData[field]) {
-          newErrors[field] = `Please enter your ${field}`;
+          newErrors[field] = `This Field is Required`;
           validForm = false;
         } else {
           newErrors[field] = "";
-
-          // Validate date fields
-          if (["startDate", "endDate"].includes(field)) {
-            if (!validateDate(experienceData[field])) {
-              newErrors[field] = `Please enter a valid ${field}`;
-              validForm = false;
-            }
-          }
         }
       }
 
@@ -119,7 +111,7 @@ const UpdateExperienceModal = ({
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Add Education
+                Update Experience
               </h3>
               <button
                 type="button"
@@ -201,7 +193,13 @@ const UpdateExperienceModal = ({
                     name="startDate"
                     id="startDate"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    value={experienceData.startDate ? new Date(experienceData.startDate).toISOString().split("T")[0] : ""} // Set the initial value to the existing date or an empty string
+                    value={
+                      experienceData.startDate
+                        ? new Date(experienceData.startDate)
+                            .toISOString()
+                            .split("T")[0]
+                        : ""
+                    } // Set the initial value to the existing date or an empty string
                     onChange={handleDateChange}
                     onFocus={() => setErrors({ ...errors, startDate: "" })}
                   />
@@ -221,7 +219,13 @@ const UpdateExperienceModal = ({
                     name="endDate"
                     id="endDate"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    value={experienceData.endDate ? new Date(experienceData.endDate).toISOString().split("T")[0] : ""} // Set the initial value to the existing date or an empty string
+                    value={
+                      experienceData.endDate
+                        ? new Date(experienceData.endDate)
+                            .toISOString()
+                            .split("T")[0]
+                        : ""
+                    } // Set the initial value to the existing date or an empty string
                     onChange={handleDateChange}
                     onFocus={() => setErrors({ ...errors, endDate: "" })}
                   />

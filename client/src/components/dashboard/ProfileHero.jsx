@@ -47,7 +47,9 @@ const ProfileHero = () => {
           throw new Error("Error fetching data");
         }
         const data = await response.json();
-        setUserInfo(data); // setUserInfo(data);
+        if (JSON.stringify(data) !== JSON.stringify(userInfo)) {
+          setUserInfo(data);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -60,13 +62,15 @@ const ProfileHero = () => {
     const fetchProfilePicture = async () => {
       try {
         const response = await fetch(
-          `${apiUrl}/getProfilePicture?userEmail=${user.email}`
+          `${apiUrl}/getProfilePicture?userEmail=${user?.email}`
         );
         if (!response.ok) {
           throw new Error("Error fetching data");
         }
         const data = await response.json();
-        setSelectedFile(data); // setUserInfo(data);
+        if (JSON.stringify(data) !== JSON.stringify(selectedFile)) {
+          setSelectedFile(data);
+        }
       } catch (error) {
         console.error(error);
       }

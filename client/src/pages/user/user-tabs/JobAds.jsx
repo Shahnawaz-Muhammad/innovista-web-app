@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import ApplyJobModal from "../../../components/dashboard/ApplyJobModal";
 import { apiUrl } from "../../../config";
+import bgMain from "../../../assets/images/bg-main.png";
 
 const JobAds = () => {
   const [jobAds, setJobAds] = useState(null);
@@ -146,14 +147,35 @@ const JobAds = () => {
         console.error(error);
       }
     };
+    console.log(jobAds)
 
     fetchData();
   }, [jobAds]);
 
   return (
     <>
+    <div className=" flex flex-col h-full ">
+    <div
+        className=" h-60 flex justify-center items-center"
+        style={{
+          backgroundImage: `url(${bgMain})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
+        <h1
+          className="text-orange text-5xl font-bold p-5"
+          style={{
+            backdropFilter: "blur(1x)",
+            background: "rgba(255, 255, 255, 0.6)",
+          }}
+        >
+          Jobs
+        </h1>
+      </div>
       {jobAds?.length > 0 ? (
-        <div className="w-full flex gap-5 mt-20">
+        <div className="w-full flex gap-5 mt-5">
           <div className="w-full md:w-1/2 lg:w-[55%] flex flex-col gap-2 md:gap-0">
             {jobAds
               ?.slice()
@@ -186,16 +208,16 @@ const JobAds = () => {
                         </h2>
                         <div>
                           <h1 className="text-gray-600">
-                            Bahria Town Rawalpindi
+                            {post.job_deadline}
                           </h1>
                         </div>
                       </div>
                       <div className="w-full flex flex-col ">
                         <h3 className=" text-gray-600 text-md lg:text-lg">
-                          {post.salary} - 70000 per year
+                          {post.salary} per Month
                         </h3>
                         <h3 className=" text-gray-600 text-sm lg:text-md">
-                          Full Time
+                          {post.job_type}
                         </h3>
                       </div>
                     </div>
@@ -230,14 +252,14 @@ const JobAds = () => {
                         {jobDetail.company}
                       </h2>
                       <h2 className="text-sm text-gray-500">
-                        Bahria Phase 7 Rwp
+                      {jobDetail.job_deadline}
                       </h2>
                     </div>
                     <div className="w-full">
                       <h2 className="text-gray-500">
-                        {jobDetail.salary} - 70000 per month
+                        {jobDetail.salary} per month
                       </h2>
-                      <p className="text-gray-500">Full Time</p>
+                      <p className="text-gray-500">{jobDetail.job_type} </p>
                     </div>
                   </div>
                   <div className="lg:w-[35%]">
@@ -277,6 +299,7 @@ const JobAds = () => {
           handleCancel={handleCancel}
         />
       )}
+      </div>
     </>
   );
 };
