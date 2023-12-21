@@ -78,18 +78,18 @@ const BookingHistory = () => {
                       </div>
 
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">
+                        <h1 className="text-xl font-bold text-center ">
                           Station
                         </h1>
-                        <h2 className="text-lg font-semibold text-center md:text-left">
+                        <h2 className="text-lg font-semibold text-center ">
                           {booking?.BookingStation}
                         </h2>
                       </div>
                       <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
-                        <h1 className="text-xl font-bold text-center md:text-left">
+                        <h1 className="text-xl font-bold text-center ">
                           Booking Date
                         </h1>
-                        <p className="text-lg font-semibold text-center md:text-left">
+                        <p className="text-lg font-semibold text-center ">
                           {booking?.BookingDate
                             ? new Date(booking.BookingDate).toLocaleDateString(
                                 "en-US"
