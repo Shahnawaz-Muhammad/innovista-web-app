@@ -114,7 +114,6 @@ export default function PostJob() {
         }
       );
 
-     
       if (!response.ok) {
         throw new Error("Failed to post a job");
       }
@@ -174,13 +173,13 @@ export default function PostJob() {
       >
         <div className="flex flex-col py-12 justify-center items-center">
           <h1
-            className="font-extrabold text-orange text-5xl p-5 "
+            className="font-extrabold text-orange text-5xl  "
             // style={{ backdropFilter: 'blur(1x)', background: 'rgba(255, 255, 255, 0.8)' }}
           >
             Job Details
           </h1>
           <form
-            className=" w-full md:w-2/3 my-10 p-5 rounded-lg"
+            className=" w-full md:w-2/3 my-10 p-10 rounded-lg"
             style={{
               backdropFilter: "blur(5x)",
               background: "rgba(255, 255, 255, 0.4)",
@@ -201,7 +200,7 @@ export default function PostJob() {
                   name="job_title"
                   value={formData.job_title}
                   onChange={handleChange}
-                  className="w-full py-2 px-3 border border-indigo-600 rounded "
+                  className="w-full py-2 px-3 border border-orange rounded focus:outline-none "
                   placeholder="Enter title of job"
                   onFocus={() => setErrors({ ...errors, job_title: "" })}
                 />
@@ -224,7 +223,7 @@ export default function PostJob() {
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full py-2 px-3 border border-indigo-600 rounded"
+                  className="w-full py-2 px-3 border border-orange rounded focus:outline-none"
                   placeholder="Enter Company Name"
                   onFocus={() => setErrors({ ...errors, company: "" })}
                 />
@@ -246,7 +245,7 @@ export default function PostJob() {
                   name="job_type"
                   onChange={handleChange}
                   value={formData.job_type}
-                  className="w-full py-2.5 px-3 border border-indigo-600 rounded"
+                  className="w-full py-2.5 px-3 border border-orange rounded"
                   onFocus={() => setErrors({ ...errors, job_type: "" })}
                 >
                   {options.map((option) => (
@@ -275,7 +274,7 @@ export default function PostJob() {
                   name="job_deadline"
                   value={formData.job_deadline}
                   onChange={handleChange}
-                  className="w-full py-2 px-3 border border-indigo-600 rounded"
+                  className="w-full py-2 px-3 border border-orange rounded focus:outline-none"
                   placeholder="Enter Deadline of job"
                   onFocus={() => setErrors({ ...errors, job_deadline: "" })}
                   min={currentDate}
@@ -300,7 +299,7 @@ export default function PostJob() {
                   name="job_experience"
                   value={formData.job_experience}
                   onChange={handleChange}
-                  className="w-full py-2 px-3 border border-indigo-600 rounded"
+                  className="w-full py-2 px-3 border border-orange rounded focus:outline-none"
                   placeholder="Enter Experience Required for this job"
                   onFocus={() => setErrors({ ...errors, job_experience: "" })}
                   min={0}
@@ -324,11 +323,10 @@ export default function PostJob() {
                   name="salary"
                   value={formData.salary}
                   onChange={handleChange}
-                  className="w-full py-2 px-3 border border-indigo-600 rounded"
+                  className="w-full py-2 px-3 border border-orange rounded focus:outline-none"
                   placeholder="Enter Salary for this job"
                   onFocus={() => setErrors({ ...errors, salary: "" })}
                   min={0}
-
                 />
                 {errors.salary && (
                   <p className="text-[#fa0505] font-semibold text-sm pl-3">
@@ -349,7 +347,7 @@ export default function PostJob() {
                   name="job_vacancy"
                   value={formData.job_vacancy}
                   onChange={handleChange}
-                  className="w-full py-2 px-3 border border-indigo-600 rounded"
+                  className="w-full py-2 px-3 border border-orange rounded focus:outline-none"
                   placeholder="Number of Vacancies"
                   onFocus={() => setErrors({ ...errors, job_vacancy: "" })}
                   min={1}
@@ -373,7 +371,7 @@ export default function PostJob() {
                   name="status"
                   onChange={handleChange}
                   value={formData.status}
-                  className="w-full py-2.5 px-3 border border-indigo-600 rounded"
+                  className="w-full py-2.5 px-3 border border-orange rounded"
                   onFocus={() => setErrors({ ...errors, status: "" })}
                 >
                   <option value="">Select an option</option>
@@ -400,7 +398,7 @@ export default function PostJob() {
                   value={formData.description}
                   onChange={handleChange}
                   rows={3}
-                  className="w-full py-2 px-3 border border-indigo-600 rounded"
+                  className="w-full py-2 px-3 border border-orange rounded focus:outline-none"
                   placeholder="Enter description of job"
                   onFocus={() => setErrors({ ...errors, description: "" })}
                 />
@@ -413,7 +411,7 @@ export default function PostJob() {
 
               <button
                 type="submit"
-                className="mt-5 p-2 rounded bg-indigo-600 text-white font-semibold "
+                className="mt-5 px-5 py-2 rounded bg-orange text-white font-semibold "
               >
                 Submit
               </button>

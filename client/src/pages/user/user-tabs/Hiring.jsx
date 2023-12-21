@@ -6,6 +6,7 @@ import UpdateJobPostModal from "../../../components/dashboard/UpdateJobPostModal
 import DeleteJobModal from "../../../components/dashboard/DeleteJobModal";
 import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
+import { toast } from "react-toastify";
 
 const Hirings = () => {
   const [hiringData, setHiringData] = useState(null);
@@ -13,6 +14,8 @@ const Hirings = () => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedItemData, setSelectedItemData] = useState(null);
   const [selectedItemId, setSelectedItemId] = useState(null);
+
+  const { user } = useContext(AuthContext);
 
   const toggleEditModal = (item) => {
     setEditModalOpen(!isEditModalOpen);
@@ -24,6 +27,27 @@ const Hirings = () => {
     setDeleteModalOpen(!isDeleteModalOpen);
     setSelectedItemId(id);
   };
+
+  const fetchHiring = async (userEmail, hiringData) => {
+    try {
+      const response = await fetch(
+        `${apiUrl}/GetJobPost?userEmail=${userEmail}`
+      );
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      const data = await response.json();
+      if (JSON.stringify(data) !== JSON.stringify(hiringData)) {
+        setHiringData(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchHiring(user.email, hiringData);
+  }, [user.email, hiringData]);
 
   const handleConfirmDelete = async () => {
     try {
@@ -41,11 +65,26 @@ const Hirings = () => {
       if (!response.ok) {
         throw new Error("Failed to delete education");
       }
+      fetchHiring(user.email, hiringData);
 
       setSelectedItemId(null);
       setDeleteModalOpen(false);
+      toast.success("Job Ad Deleted Successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      });
     } catch (error) {
       console.error("Error deleting education:", error);
+      toast.error("Error deleting Job Ad", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      });
     }
   };
 
@@ -55,47 +94,28 @@ const Hirings = () => {
     setDeleteModalOpen(false);
   };
 
-  const { user } = useContext(AuthContext);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${apiUrl}/GetJobPost?userEmail=${user.email}`
-        );
-        if (!response.ok) {
-          throw new Error("Error fetching data");
-        }
-        const data = await response.json();
-        if (JSON.stringify(data) !== JSON.stringify(hiringData)) {
-          setHiringData(data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, [user.email, hiringData]);
-
   return (
     <div className="w-full">
       <div className="w-full flex flex-col gap-3">
-      <div
-        className=" h-60  flex justify-center items-center"
-        style={{
-          backgroundImage: `url(${bgMain})`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      >
-        <h1 className="text-orange text-5xl font-bold p-5" 
-            style={{ backdropFilter: 'blur(1x)', background: 'rgba(255, 255, 255, 0.6)' }} 
+        <div
+          className=" h-60  flex justify-center items-center"
+          style={{
+            backgroundImage: `url(${bgMain})`,
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+          }}
         >
-          Hirings
-        </h1>
-      </div>
+          <h1
+            className="text-orange text-5xl font-bold p-5"
+            style={{
+              backdropFilter: "blur(1x)",
+              background: "rgba(255, 255, 255, 0.6)",
+            }}
+          >
+            Hirings
+          </h1>
+        </div>
         {hiringData?.length > 0 ? (
           hiringData.map((post) => (
             <div key={post._id} className="w-full flex gap-5 items-center">
@@ -155,9 +175,11 @@ const Hirings = () => {
       </div>
       {isEditModalOpen && (
         <UpdateJobPostModal
+          userEmail={user.email}
           toggleModal={toggleEditModal}
           setModalOpen={setEditModalOpen}
           selectedItemData={selectedItemData}
+          fetchHiring={fetchHiring}
         />
       )}
 

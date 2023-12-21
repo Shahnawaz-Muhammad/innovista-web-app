@@ -26,7 +26,7 @@ import PostJob from "./pages/user/user-tabs/PostJob";
 import Projects from "./pages/user/user-tabs/Projects";
 import Application from "./pages/user/user-tabs/Application";
 import Profile from "./pages/user/user-tabs/Profile";
-import ForgotPassword from "./pages/user/forgot-password/ForgotPassword";
+import ConfirmEmail from "./pages/user/forgot-password/ConfirmEmail";
 import ConfirmOtp from "./pages/user/forgot-password/ConfirmOtp";
 import ResetPassword from "./pages/user/forgot-password/ResetPassword";
 
@@ -116,7 +116,7 @@ function App() {
           path="/forgot-password"
           element={
             <Layout>
-              <ForgotPassword />
+              <ConfirmEmail />
             </Layout>
           }
         />

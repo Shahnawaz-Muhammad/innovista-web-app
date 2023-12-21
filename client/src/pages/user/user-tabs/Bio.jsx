@@ -15,23 +15,24 @@ const Bio = ({ isBioOpen, toggleBio, user }) => {
     setSelectedItemData(item);
     setSelectedItemId(item._id);
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/bio?email=${user.email}`);
-        if (!response.ok) {
-          throw new Error("Error fetching data");
-        }
-        const data = await response.json();
-        if (JSON.stringify(data) !== JSON.stringify(userData)) {
-          setUserData(data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    fetchData();
+  const fetchBio = async (userEmail, userData) => {
+    try {
+      const response = await fetch(`${apiUrl}/bio?email=${userEmail}`);
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      const data = await response.json();
+      if (JSON.stringify(data) !== JSON.stringify(userData)) {
+        setUserData(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBio(user.email, userData);
   }, [user.email, userData]);
   return (
     <div className="flex flex-col justify-between  cursor-pointer shadow-lg border border-gray-300 mt-10">
@@ -104,10 +105,12 @@ const Bio = ({ isBioOpen, toggleBio, user }) => {
       )}
       {isEditModalOpen && (
         <UpdateBioModal
+          userEmail={user.email}
           toggleModal={toggleEditModal}
           setModalOpen={setEditModalOpen}
           selectedItemData={selectedItemData}
           selectedItemId={selectedItemId}
+          fetchBio={fetchBio}
         />
       )}
     </div>

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { apiUrl } from "../../config";
+import { toast } from "react-toastify";
 // import { AuthContext } from "../../context/AuthContext";
 
 const UpdateExperienceModal = ({
   toggleModal,
   setModalOpen,
   selectedItemData,
+  fetchExperience,
+  userEmail,
 }) => {
   const [experienceData, setExperienceData] = useState({
     companyName: selectedItemData.companyName,
@@ -82,21 +85,28 @@ const UpdateExperienceModal = ({
           }
         );
 
-        // Handle the response accordingly
-        if (response.ok) {
-          // const data = await response.json();
-          // console.log(data)
-
-          // Close the modal
-          toggleModal();
-        } else {
-          // Handle errors (you may show an error message)
-          const errorData = await response.json();
-          console.error("Error updating education:", errorData);
+        if (!response.ok) {
+          throw new Error("Failed updating experience");
         }
+        fetchExperience(userEmail, experienceData);
+        toast.success("Error updating Experience!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          theme: "light",
+        });
+        toggleModal();
       }
     } catch (error) {
       console.error("Error updating education:", error);
+      toast.error(error, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      });
     }
   };
 

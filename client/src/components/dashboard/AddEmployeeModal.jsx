@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { apiUrl } from "../../config";
 import { toast } from "react-toastify";
 
-const AddEmployeeModal = ({ toggleModal, setModalOpen,updateEmployeeList }) => {
+const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail }) => {
   const [employeeData, setEmployeeData] = useState({
     empName: "",
     empId: "",
@@ -103,7 +103,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,updateEmployeeList }) => {
         });
         return;
       }
-      updateEmployeeList();
+      fetchEmployees(userEmail, employeeData);
 
       toast.success("Employee added Successfully!",
       {

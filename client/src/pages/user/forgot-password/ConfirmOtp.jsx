@@ -1,21 +1,38 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { apiUrl } from "../../../config";
 
 const ConfirmOtp = () => {
   const navigate = useNavigate();
-  const { randomNumber } = useContext(AuthContext);
   const [otpValue, setOtpValue] = useState(null);
   const [showError, setShowError] = useState(false);
+  const { state } = useLocation();
+  const emailAddress = state?.emailAddress || "";
 
-  const handleConfirmOtp = (e) => {
-    e.preventDefault()
-    const otpNumber = parseInt(otpValue, 10); // or Number(otpValue);
-    
-    if (!isNaN(otpNumber) && otpNumber === randomNumber) {
-      navigate("/reset-password");
-      setShowError(false);
-    } else {
+  const handleConfirmOtp = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${apiUrl}/verify-otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ enteredOTP: otpValue }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const { isOTPVerified } = await response.json();
+      if (isOTPVerified) {
+        console.log(isOTPVerified);
+        navigate("/reset-password", { state: { emailAddress } });
+      } else {
+        setShowError(true);
+      }
+    } catch (error) {
+      console.error("Error verifying OTP:", error);
       setShowError(true);
     }
   };
