@@ -3,9 +3,8 @@ import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { MdAddBox, MdDeleteForever } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
 import { AuthContext } from "../../../context/AuthContext";
-import EducationModal from "../../../components/dashboard/EducationModal";
+import AddEducationModal from "../../../components/dashboard/AddEducationModal";
 import UpdateEduModal from "../../../components/dashboard/UpdateEduModal";
-// import SuccessModel from "../../../components/dashboard/SuccessModel";
 import DeleteEducationModal from "../../../components/dashboard/DeleteEduModal";
 import { apiUrl } from "../../../config.js";
 
@@ -35,23 +34,25 @@ const Education = ({ isEducationOpen, toggleEducation, name }) => {
     setSelectedItemId(id);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${apiUrl}/geteducations?userEmail=${user.email}`
-        );
-        if (!response.ok) {
-          throw new Error("Error fetching data");
-        }
-        const data = await response.json();
-        setEducationData(data); // setUserData(data);
-      } catch (error) {
-        console.error(error);
+  const fetchEducation = async (userEmail, educationData) => {
+    try {
+      const response = await fetch(
+        `${apiUrl}/geteducations?userEmail=${userEmail}`
+      );
+      if (!response.ok) {
+        throw new Error("Error fetching data");
       }
-    };
+      const data = await response.json();
+      if (JSON.stringify(data) !== JSON.stringify(educationData)) {
+        setEducationData(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    fetchData();
+  useEffect(() => {
+    fetchEducation(user.email, educationData);
   }, [user.email, educationData]);
 
   const handleConfirmDelete = async () => {
@@ -72,9 +73,7 @@ const Education = ({ isEducationOpen, toggleEducation, name }) => {
         throw new Error("Failed to delete education");
       }
 
-      setEducationData((prevData) =>
-        prevData.filter((item) => item._id !== selectedItemId)
-      );
+      fetchEducation(user.email, educationData);
 
       setSelectedItemId(null);
       setDeleteModalOpen(false);
@@ -119,44 +118,51 @@ const Education = ({ isEducationOpen, toggleEducation, name }) => {
             />
           </div>
           {educationData?.length > 0 ? (
-            educationData?.map((item) => {
-              return (
-                <div className="flex justify-between border-b-2 pb-2  pt-10 md:pt-10">
-                  <div className="flex justify-between  w-[75%]">
-                    <h1 className="text-lg ">{item?.degree}</h1>
-                    <h1 className="text-lg ">{item?.subject}</h1>
-                    <h1 className="text-lg ">{item?.year}</h1>
+            educationData
+              ?.slice()
+              .reverse()
+              .map((item) => {
+                return (
+                  <div className="flex justify-between border-b-2 pb-2  pt-10 md:pt-10">
+                    <div className="flex justify-between  w-[75%]">
+                      <h1 className="text-lg ">{item?.degree}</h1>
+                      <h1 className="text-lg ">{item?.subject}</h1>
+                      <h1 className="text-lg ">{item?.year}</h1>
+                    </div>
+                    <div className="flex w-[25%] gap-4  justify-end">
+                      <TbEdit
+                        className="text-2xl md:text-3xl text-green-700 hover:scale-125 transition-all duration-300"
+                        onClick={() => toggleEditModal(item)}
+                      />
+                      <MdDeleteForever
+                        className="text-2xl md:text-3xl text-red-500 hover:scale-125 transition-all duration-300"
+                        onClick={() => toggleDeleteModal(item._id)}
+                      />
+                    </div>
                   </div>
-                  <div className="flex w-[25%] gap-4  justify-end">
-                    <TbEdit
-                      className="text-2xl md:text-3xl text-green-700 hover:scale-125 transition-all duration-300"
-                      onClick={() => toggleEditModal(item)}
-                    />
-                    <MdDeleteForever
-                      className="text-2xl md:text-3xl text-red-500 hover:scale-125 transition-all duration-300"
-                      onClick={() => toggleDeleteModal(item._id)}
-                    />
-                  </div>
-                </div>
-              );
-            })
+                );
+              })
           ) : (
             <div>No Data Found</div>
           )}
         </div>
       )}
       {isAddModalOpen && (
-        <EducationModal
+        <AddEducationModal
+          uesrEmail={user.email}
           toggleModal={toggleAddModal}
           setModalOpen={setAddModalOpen}
+          fetchEducation={fetchEducation}
         />
       )}
       {isEditModalOpen && (
         <UpdateEduModal
+          uesrEmail={user.email}
           toggleModal={toggleEditModal}
           setModalOpen={setEditModalOpen}
           selectedItemData={selectedItemData}
           selectedItemId={selectedItemId}
+          fetchEducation={fetchEducation}
         />
       )}
 

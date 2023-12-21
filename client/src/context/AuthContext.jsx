@@ -8,18 +8,12 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [unAuthorizedUser, setUnAuthorizedUser] = useState(false)
   const [user, setUser] = useState({});
   const [pdfUrl, setPdfUrl] = useState(null);
-  const [randomNumber, setRandomNumber] = useState(null);
-  const [email, setEmail] = useState(""); // New state for email
+  const [emailAddress, setEmailAddress] = useState(""); 
 
-  const generateRandomNumber = () => {
-    // Generate a 5-digit random number
-    const randomNum = Math.floor(10000 + Math.random() * 90000);
-    setRandomNumber(randomNum);
-    return randomNum;
-  };
-
+ 
   const login = async (credentials, event) => {
     try {
       event.preventDefault();
@@ -37,17 +31,23 @@ const AuthProvider = ({ children }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        toast.error(errorData, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          theme: "light",
-        });
+        if (response.status === 401) {
+          setUnAuthorizedUser(true)
+        } else {
+          // Other errors
+          toast.error(errorData, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            theme: "light",
+          });
+        }
         return;
       }
 
       const responseData = await response.json();
+      console.log(responseData)
       const { token, user } = responseData;
       // const {category, email} = user
 
@@ -57,12 +57,20 @@ const AuthProvider = ({ children }) => {
 
       setUser(user);
       setIsAuthenticated(true);
-      toast.success("Successfully Logged In!")
+      setUnAuthorizedUser(false)
+
+      toast.success("Logged In Successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      })
     } catch (error) {
       toast.error(error, {
         position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
+        autoClose: 3000,
+        hideProgressBar: true,
         closeOnClick: true,
         theme: "light",
       });
@@ -95,11 +103,9 @@ const AuthProvider = ({ children }) => {
         logout,
         pdfUrl,
         setPdfUrlContext,
-        randomNumber,
-        setRandomNumber,
-        generateRandomNumber,
-        email, // Include email in the context value
-        setEmail,
+        emailAddress, 
+        setEmailAddress,
+        unAuthorizedUser
       }}
     >
       {children}

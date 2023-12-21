@@ -6,7 +6,8 @@ const UpdateEmpModal = ({
   toggleModal,
   setModalOpen,
   selectedItemData,
-  updateEmployeeList,
+  fetchEmployees,
+  userEmail,
 }) => {
   const [employeeData, setEmployeeData] = useState({
     name: selectedItemData.EmployeeName,
@@ -129,22 +130,27 @@ const UpdateEmpModal = ({
           });
           return;
         }
-        updateEmployeeList();
-  
-        toast.success("Employee Updated Successfully!",
-        {
+        fetchEmployees(userEmail, employeeData);
+
+        toast.success("Employee Updated Successfully!", {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
           theme: "light",
         });
-        toggleModal()
+        toggleModal();
       }
     } catch (error) {
       console.error("Error updating Employee:", error);
+      toast.error(error, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      });
     }
-    
   };
 
 

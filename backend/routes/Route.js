@@ -109,7 +109,7 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res
         .status(401)
-        .json({ error: "Invalid email address or category." });
+        .json({ error: "Invalid email address or password." });
     }
 
     // Compare the user-provided password with the hashed password stored in the database

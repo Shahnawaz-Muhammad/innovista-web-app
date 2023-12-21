@@ -6,8 +6,7 @@ import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import loginBg from "../../assets/images/bg-main.png";
 
 const Login = () => {
-  
-  const { login } = useContext(AuthContext);
+  const { login, unAuthorizedUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -52,18 +51,26 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full flex justify-center py-10 mt-20 px-6" style={{
-      backgroundImage: `url(${loginBg})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-    }}>
-      <div className="w-full  rounded-lg shadow shadow-slate-400 md:mt-0 sm:max-w-md xl:p-0 " 
-            style={{ backdropFilter: 'blur(10x)', background: 'rgba(255, 255, 255, 0.8)' }}>
+    <div
+      className="w-full flex justify-center py-10 mt-20 px-6"
+      style={{
+        backgroundImage: `url(${loginBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <div
+        className="w-full  rounded-lg shadow shadow-slate-400 md:mt-0 sm:max-w-md xl:p-0 "
+        style={{
+          backdropFilter: "blur(10x)",
+          background: "rgba(255, 255, 255, 0.8)",
+        }}
+      >
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <div className="bg-black rounded-full p-3 flex justify-center " >
-              <img src={logo} alt="" className="h-16" />
-            </div>
+          <div className="bg-black rounded-full p-3 flex justify-center ">
+            <img src={logo} alt="" className="h-16" />
+          </div>
 
           <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-700 md:text-2xl dark:text-white">
             Welcome to D-Labs
@@ -112,16 +119,21 @@ const Login = () => {
                 <p className="text-red-600 text-sm pl-3">{passwordError}</p>
               )}
               {showPassword ? (
-            <IoIosEye
-              className=" absolute right-2 top-9 cursor-pointer text-xl"
-              onClick={() => setShowPassword(false)}
-            />
-          ) : (
-            <IoIosEyeOff
-              className="absolute right-2 top-9 cursor-pointer text-xl"
-              onClick={() => setShowPassword(true)}
-            />
-          )}
+                <IoIosEye
+                  className=" absolute right-2 top-9 cursor-pointer text-xl"
+                  onClick={() => setShowPassword(false)}
+                />
+              ) : (
+                <IoIosEyeOff
+                  className="absolute right-2 top-9 cursor-pointer text-xl"
+                  onClick={() => setShowPassword(true)}
+                />
+              )}
+              {unAuthorizedUser && (
+                <p className="text-red-500 text-sm">
+                  Email or Password is wrong!
+                </p>
+              )}
             </div>
 
             <div className="px-3 flex items-center justify-between">

@@ -1,52 +1,51 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../../context/AuthContext";
+import React, {  useState } from "react";
+
+import { useLocation, useNavigate } from "react-router-dom";
 import { apiUrl } from "../../../config";
-import { useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const { email } = useContext(AuthContext);
+  const { state } = useLocation();
+
+  const emailAddress = state?.emailAddress || "";
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    // Check if passwords match
+
     if (password !== confirmPassword) {
-      setError("Passwords don't match");
+      setError("Passwords do not match");
       return;
     }
 
-    if (!email) {
-      // If email doesn't exist, navigate to the "forgot-password" page
-      navigate("/forgot-password");
-      return;
-    }
-
-    // Call the updatePassword API
     try {
-      const response = await fetch(
-        `${apiUrl}/updatePassword?emailAddress=${email}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ newPassword: password }),
-        }
-      );
+      const response = await fetch(`${apiUrl}/updatePassword?emailAddress=${emailAddress}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          emailAddress: emailAddress, // Replace with the user's email
+          newPassword: password,
+        }),
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to update password");
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      // Password updated successfully
-      console.log("Password updated successfully");
-      setError("");
+      const data = await response.json();
+
+      // Handle the response, e.g., show a success message
+      console.log(data.message);
+
+      // Redirect to a success page or login page
+      navigate("/login");
     } catch (error) {
-      console.error("Error updating password:", error);
-      setError("Error updating password. Please try again.");
+      console.error("Error resetting password:", error);
+      setError("Error resetting password. Please try again.");
     }
   };
 

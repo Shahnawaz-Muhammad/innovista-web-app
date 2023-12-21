@@ -6,7 +6,7 @@ const EmployeeSchema = new mongoose.Schema({
     required: true,
   },
   E_ContactNo: {
-    type: Number,
+    type: String,
     required: true,
   },
   EmpId:{

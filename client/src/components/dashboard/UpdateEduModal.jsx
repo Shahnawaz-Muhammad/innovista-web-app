@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { apiUrl } from "../../config";
+import { toast } from "react-toastify";
 
-const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
-  const [educationalData, setEducationalData] = useState({
+const UpdateEduModal = ({
+  toggleModal,
+  setModalOpen,
+  selectedItemData,
+  fetchEducation,
+  userEmail,
+}) => {
+  const [educationData, setEducationData] = useState({
     degree: selectedItemData.degree,
     subject: selectedItemData.subject,
     year: selectedItemData.year,
@@ -49,47 +56,64 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
 
   function handleChange(evt) {
     const value = evt.target.value;
-    setEducationalData({
-      ...educationalData,
+    setEducationData({
+      ...educationData,
       [evt.target.name]: value,
     });
   }
 
-    const handleFormSubmit = async (event) => {
-      event.preventDefault();
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
 
-      try {
-        const isValid = validateForm(); // Function to validate the form
+    try {
+      const isValid = validateForm(); // Function to validate the form
 
-        if (isValid) {
-          // Make an update API call using fetch
-          const response = await fetch(
-            `${apiUrl}/updateEducation/${selectedItemData._id}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(educationalData),
-            }
-          );
-
-          // Handle the response accordingly
-          if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-            // Close the modal
-            toggleModal();
-          } else {
-            // Handle errors (you may show an error message)
-            const errorData = await response.json();
-            console.error("Error updating education:", errorData);
+      if (isValid) {
+        // Make an update API call using fetch
+        const response = await fetch(
+          `${apiUrl}/updateEducation/${selectedItemData._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(educationData),
           }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          toast.error(errorData, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            theme: "light",
+          });
+          return;
         }
-      } catch (error) {
-        console.error("Error updating education:", error);
+        fetchEducation(userEmail, educationData);
+        toast.success("Employee Updated Successfully!",
+        {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          theme: "light",
+        });
+        toggleModal();
       }
-    };
+    } catch (error) {
+      console.error("Error updating education:", error);
+      toast.error(error, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      });
+    }
+  };
 
   
 
@@ -144,7 +168,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     id="degree"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     placeholder="Enter your degree"
-                    value={educationalData.degree}
+                    value={educationData.degree}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, degree: "" })}
                   />
@@ -166,7 +190,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                       <select
                         id="degree"
                         name="degree"
-                        value={educationalData.degree}
+                        value={educationData.degree}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                         onChange={handleChange}
                         onFocus={() => setErrors({ ...errors, degree: "" })}
@@ -201,7 +225,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     id="subject"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     placeholder="Enter your subject"
-                    value={educationalData.subject}
+                    value={educationData.subject}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, subject: "" })}
                   />
@@ -225,7 +249,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     id="year"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     placeholder="Enter your year"
-                    value={educationalData.year}
+                    value={educationData.year}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, year: "" })}
                     min="1900"

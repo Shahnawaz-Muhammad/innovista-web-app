@@ -3,7 +3,13 @@ import { apiUrl } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 
-const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
+const UpdateBioModal = ({
+  toggleModal,
+  setModalOpen,
+  selectedItemData,
+  userEmail,
+  fetchBio,
+}) => {
   console.log(selectedItemData);
   const [bioData, setBioData] = useState({
     firstName: selectedItemData.firstName,
@@ -33,7 +39,7 @@ const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
     });
   }
 
-  const handleFormSubmit = async (event) => {
+  const handleUpdateBio = async (event) => {
     event.preventDefault();
 
     try {
@@ -64,40 +70,28 @@ const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
             theme: "light",
           });
           return;
-        }  
-        toast.success("Bio Data Updated Successfully!",
-        {
+        }
+
+        toast.success("Bio Updated Successfully!", {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
           theme: "light",
         });
-        toggleModal()
+
+        fetchBio(userEmail, bioData);
+        toggleModal();
       }
     } catch (error) {
-      console.error("Error updating Bio Data:", error);
-    }
-  };
-
-  
-  const contactNoRegex = /^03\d{9}$/;
-
-  // Validation function
-  const validateInput = (fieldName, value) => {
-    switch (fieldName) {
-      case "firstName":
-        return value.trim() !== "";
-      case "lastName":
-        return value.trim() !== "";
-      case "address":
-        return value.trim() !== "";
-      case "dob":
-        return value.trim(); // Check if the value matches the email regex
-      // case "phone":
-      //   return contactNoRegex.test(value.trim());
-      default:
-        return true;
+      console.error("Error updating Bio", error);
+      toast.error("Error updating Bio", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      });
     }
   };
 
@@ -163,7 +157,7 @@ const UpdateBioModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
-            <form className="p-4 md:p-5" onSubmit={handleFormSubmit}>
+            <form className="p-4 md:p-5" onSubmit={handleUpdateBio}>
               <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-1">
                   <label
