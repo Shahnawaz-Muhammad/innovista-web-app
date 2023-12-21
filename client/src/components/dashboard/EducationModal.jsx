@@ -35,7 +35,7 @@ const EducationModal = ({ toggleModal, setModalOpen }) => {
     const newErrors = { ...errors };
     for (const field in educationalData) {
       if (!validateInput(field, educationalData[field])) {
-        newErrors[field] = `Please enter a valid ${field}`;
+        newErrors[field] = `This Field is Required`;
         isValid = false;
       } else {
         newErrors[field] = "";

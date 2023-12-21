@@ -14,6 +14,39 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
     year: "",
   });
 
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { ...errors };
+
+    // Validate each field
+    for (const field in educationalData) {
+      if (!educationalData[field]) {
+        newErrors[field] = `This Field is Required`;
+        valid = false;
+      } else {
+        newErrors[field] = "";
+
+        // Validate year range
+        if (field === "year") {
+          const enteredYear = educationalData.year;
+          const isNumeric = /^\d+$/.test(enteredYear); // Check if the year consists of only digits
+
+          if (
+            !isNumeric ||
+            enteredYear < 1900 ||
+            enteredYear > new Date().getFullYear()
+          ) {
+            newErrors[field] = "Please enter a valid year";
+            valid = false;
+          }
+        }
+      }
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   function handleChange(evt) {
     const value = evt.target.value;
     setEducationalData({
@@ -58,38 +91,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
       }
     };
 
-  const validateForm = () => {
-    let valid = true;
-    const newErrors = { ...errors };
-
-    // Validate each field
-    for (const field in educationalData) {
-      if (!educationalData[field]) {
-        newErrors[field] = `Please enter your Updated ${field}`;
-        valid = false;
-      } else {
-        newErrors[field] = "";
-
-        // Validate year range
-        if (field === "year") {
-          const enteredYear = educationalData.year;
-          const isNumeric = /^\d+$/.test(enteredYear); // Check if the year consists of only digits
-
-          if (
-            !isNumeric ||
-            enteredYear < 1900 ||
-            enteredYear > new Date().getFullYear()
-          ) {
-            newErrors[field] = "Please enter a valid year";
-            valid = false;
-          }
-        }
-      }
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
+  
 
   return (
     <>
@@ -102,7 +104,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Add Education
+                Update Education
               </h3>
               <button
                 type="button"
@@ -218,7 +220,7 @@ const UpdateEduModal = ({ toggleModal, setModalOpen, selectedItemData }) => {
                     Year
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="year"
                     id="year"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "

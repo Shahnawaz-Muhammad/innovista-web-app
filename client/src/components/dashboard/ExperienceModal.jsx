@@ -42,16 +42,16 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
       const validationErrors = {};
 
       if (experienceData.companyName.trim() === "") {
-        validationErrors.companyName = "Company name is required";
+        validationErrors.companyName = "This Field is Required";
       }
       if (experienceData.designation.trim() === "") {
-        validationErrors.designation = "Designation is required";
+        validationErrors.designation = "This Field is Required";
       }
       if (experienceData.startDate.trim() === "") {
-        validationErrors.startDate = "Start date is required";
+        validationErrors.startDate = "This Field is Required";
       }
       if (experienceData.endDate.trim() === "") {
-        validationErrors.endDate = "End date is required";
+        validationErrors.endDate = "This Field is Required";
       }
 
       if (Object.keys(validationErrors).length > 0) {
@@ -59,13 +59,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
         return;
       }
 
-      const startDateTime = new Date(experienceData.startDate).getTime();
-      const endDateTime = new Date(experienceData.endDate).getTime();
-
-      if (startDateTime > endDateTime) {
-        alert("Start date cannot be greater than end date");
-        return;
-      }
+      
       // Make an API call to authenticate the user and fetch user data
       const response = await fetch(
         `${apiUrl}/experience?userEmail=${user.email}`,
@@ -208,6 +202,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     value={experienceData.endDate}
                     onChange={handleChange}
+                    min={experienceData.startDate}
                     max={currentDate}
                     onFocus={() => setErrors({ ...errors, endDate: "" })}
                     />

@@ -27,7 +27,7 @@ export const Company = ({
     updateCompanyInfo(updatedCompanyInfo);
   };
 
-  const ntnRegex = /^\d{8}$/;
+  const ntnRegex = /^\d{7}-\d$/;
 
   useEffect(() => {
     var headers = new Headers();
@@ -97,18 +97,17 @@ export const Company = ({
                 <option value="" selected>
                   Select an option
                 </option>
-                <option value="1-5">1 - 5</option>
-                <option value="6-10">6 - 10</option>
-                <option value="11-15">11 - 15</option>
-                <option value="16-20">16 - 20</option>
-                <option value="21-30">21 - 30</option>
-                <option value="moreThan30">More than 30</option>
+                <option value="1-10">1 - 10</option>
+                <option value="11-20">11 - 20</option>
+                <option value="21-35">21 - 35</option>
+                <option value="36-50">36 - 50</option>
+                <option value="moreThan50">More than 50</option>
               </select>
             </div>
             {showRequired &&
               !companyInfo.people && ( // Display error message condition
                 <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                  This field is required
+                  This Field is Required
                 </p>
               )}
           </div>
@@ -116,8 +115,8 @@ export const Company = ({
 
         <div className="col-span-1 h-[4.3rem] flex flex-col gap-1">
           <Input
-            label="NTN"
-            type="text"
+            label="NTN No"
+            type="numeric"
             placeholder="NTN"
             showRequired={showRequired && !companyInfo.ntn}
             value={companyInfo.ntn}
@@ -132,7 +131,7 @@ export const Company = ({
             companyInfo.ntn &&
             !ntnRegex.test(companyInfo.ntn) && (
               <p className="text-primary-starberry-red leading-3 text-sm">
-                NTN No. format should be XXXXXXXX.
+                Valid NTN No. format is (1234567-8)
               </p>
             )}
         </div>
@@ -149,7 +148,7 @@ export const Company = ({
           {showRequired &&
             !companyInfo.address && ( // Display error message condition
               <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                This field is required
+                This Field is Required
               </p>
             )}
         </div>
@@ -190,7 +189,7 @@ export const Company = ({
             {showRequired &&
               !companyInfo.country && ( // Display error message condition
                 <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                  This field is required
+                  This Field is Required
                 </p>
               )}
           </div>
@@ -232,7 +231,7 @@ export const Company = ({
             </div>
             {showRequired && !companyInfo.city && (
               <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                This field is required
+                This Field is Required
               </p>
             )}
           </div>
