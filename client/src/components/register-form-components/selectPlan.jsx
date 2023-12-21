@@ -31,16 +31,25 @@ export const SelectPlan = ({
 
   const categoryData = {
     Freelancer: {
-      description: "Freelancer plan description...",
-      additionalInfo: "Additional information for freelancers...",
+      description: "Access to job postings and projects matching skills.",
+      additionalInfo: "Direct client communication channels.",
+      additionalInfo1: "Early access to new project listings.",
+      quantity: "Individual Only",
+      additionalInfo2: "",
     },
     Group: {
-      description: "Group plan description...",
-      additionalInfo: "Additional information for groups...",
+      description: "Collaborative workspace for team communication and task management.",
+      additionalInfo: "Dedicated team support for account management.",
+      additionalInfo1: "Group discounts for skill development courses.",
+      additionalInfo2: "Access to job postings and projects matching skills.",
+      quantity: "All Group Members "
     },
     Company: {
-      description: "Company plan description...",
-      additionalInfo: "Additional information for companies...",
+      description: "Customizable corporate profiles and branding.",
+      additionalInfo: "Dedicated account manager and priority customer support.",
+      additionalInfo1: "Enhanced visibility for projects and company listings.",
+      additionalInfo2: "Access to exclusive industry insights and market reports.",
+      quantity: "All Employees"
     },
   };
 
@@ -87,10 +96,12 @@ export const SelectPlan = ({
 
 
 {selectedPlan && (
-        <div className="mt-4">
+        <div className="mt-1 h-24">
           <h3 className="text-2xl font-bold">{selectedPlan.name} Details</h3>
-          <p>{categoryData[selectedPlan.name].description}</p>
-          <p>{categoryData[selectedPlan.name].additionalInfo}</p>
+          <p className="text-md font-md">{categoryData[selectedPlan.name].description}</p>
+          <p className="text-md font-md">{categoryData[selectedPlan.name].additionalInfo}</p>
+          <p className="text-md font-md">{categoryData[selectedPlan.name].additionalInfo1}</p>
+          <p className="text-md font-md">{categoryData[selectedPlan.name].additionalInfo2}</p>
         </div>
       )}
     </section>

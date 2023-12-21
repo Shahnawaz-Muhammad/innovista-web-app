@@ -74,7 +74,9 @@ const UpdateBioModal = ({
             },
             body: JSON.stringify(bioData),
           }
-        );
+          );
+          console.log(bioData)
+          console.log(bioData.phone)
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -110,8 +112,6 @@ const UpdateBioModal = ({
       // });
     }
   };
-
-  
 
   return (
     <>
@@ -250,21 +250,23 @@ const UpdateBioModal = ({
                     htmlFor="phone"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Phone
+                    Contact No
                   </label>
                   <input
                     type="text"
                     name="phone"
                     id="phone"
+                    disabled
+                    maxLength={11}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your phone"
+                    placeholder="Enter your Contact No"
                     value={bioData.phone}
                     onChange={handleChange}
-                    onFocus={() => setErrors({ ...errors, phone: "" })}
+                    // onFocus={() => setErrors({ ...errors, phone: "" })}
                   />
-                  {errors.phone && (
+                  {/* {errors.phone && (
                     <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
-                  )}
+                  )} */}
                 </div>
 
                 <div className="col-span-1">

@@ -25,6 +25,66 @@ const UpdateEmpModal = ({
     email: "",
   });
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for basic email validation
+  const contactNoRegex = /^03\d{2}-\d{7}$/;
+
+  const validateInput = (fieldName, value) => {
+    const trimmedValue = (value || '').toString().trim(); // Ensure value is a string and then trim
+  
+    switch (fieldName) {
+      case "name":
+      case "empID":
+      case "designation":
+        return trimmedValue !== "";
+      case "email":
+        return emailRegex.test(trimmedValue); // Check if the trimmed value matches the email regex
+      case "contact":
+        return contactNoRegex.test(trimmedValue);
+      default:
+        return true;
+    }
+  };
+  
+
+
+  
+  // Validation handler for form submission
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { ...errors };
+    for (const field in employeeData) {
+      if (field === "email") {
+        if (!employeeData[field].trim()) {
+          newErrors[field] = "This Field is Required";
+          isValid = false;
+        } else if (!validateInput(field, employeeData[field])) {
+          newErrors[field] = "Invalid Email";
+          isValid = false;
+        } else {
+          newErrors[field] = "";
+        }
+      } else if (field === "contact") {
+        if (!employeeData[field].trim()) {
+          newErrors[field] = "This Field is Required";
+          isValid = false;
+        } else if (!validateInput(field, employeeData[field])) {
+          newErrors[field] = "Please enter Valid Format i.e. (03xx-xxxxxxx)";
+          isValid = false;
+        } else {
+          newErrors[field] = "";
+        }
+      } else if (!validateInput(field, employeeData[field])) {
+        newErrors[field] = "This Field is Required";
+        isValid = false;
+      } else {
+        newErrors[field] = "";
+      }
+    }
+    setErrors(newErrors);
+    return isValid;
+  };
+  
+
   function handleChange(evt) {
     const value = evt.target.value;
     setEmployeeData((prevEmployeeData) => ({
@@ -82,7 +142,7 @@ const UpdateEmpModal = ({
         toggleModal();
       }
     } catch (error) {
-      console.error("Error updating education:", error);
+      console.error("Error updating Employee:", error);
       toast.error(error, {
         position: "top-center",
         autoClose: 3000,
@@ -93,23 +153,9 @@ const UpdateEmpModal = ({
     }
   };
 
-  const validateForm = () => {
-    let valid = true;
-    const newErrors = { ...errors };
 
-    // Validate each field
-    for (const field in employeeData) {
-      if (!employeeData[field]) {
-        newErrors[field] = `Please enter your Updated ${field}`;
-        valid = false;
-      } else {
-        newErrors[field] = "";
-      }
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
+ 
+  
 
   return (
     <>
@@ -178,7 +224,7 @@ const UpdateEmpModal = ({
                     Employee ID
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="empID"
                     id="empID"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
@@ -223,9 +269,10 @@ const UpdateEmpModal = ({
                     Contact No
                   </label>
                   <input
-                    type="text"
+                    type="numeric"
                     name="contact"
                     id="contact"
+                    maxLength={12}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     placeholder="Enter Contact No"
                     value={employeeData.contact}

@@ -98,7 +98,7 @@ export const Freelance = ({
             {showRequired &&
               !freelanceInfo.dob && ( // Display error message condition
                 <p className=" mt-1 text-primary-starberry-red leading-3 text-sm font-medium">
-                  This field is required
+                  This Field is Required
                 </p>
               )}
           </div>
@@ -137,7 +137,7 @@ export const Freelance = ({
             {showRequired &&
               !freelanceInfo.gender && ( // Display error message condition
                 <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                  This field is required
+                  This Field is Required
                 </p>
               )}
           </div>
@@ -179,7 +179,7 @@ export const Freelance = ({
             {showRequired &&
               !freelanceInfo.qualification && ( // Display error message condition
                 <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                  This field is required
+                  This Field is Required
                 </p>
               )}
           </div>
@@ -196,7 +196,7 @@ export const Freelance = ({
           {showRequired &&
             !freelanceInfo.designation && ( // Display error message condition
               <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                This field is required
+                This Field is Required
               </p>
             )}
         </div>
@@ -213,7 +213,7 @@ export const Freelance = ({
           {showRequired &&
             !freelanceInfo.address && ( // Display error message condition
               <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                This field is required
+                This Field is Required
               </p>
             )}
         </div>
@@ -254,7 +254,7 @@ export const Freelance = ({
             {showRequired &&
               !freelanceInfo.country && ( // Display error message condition
                 <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                  This field is required
+                  This Field is Required
                 </p>
               )}
           </div>
@@ -296,7 +296,7 @@ export const Freelance = ({
             </div>
             {showRequired && !freelanceInfo.city && (
               <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                This field is required
+                This Field is Required
               </p>
             )}
           </div>

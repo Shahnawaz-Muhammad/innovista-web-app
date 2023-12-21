@@ -96,18 +96,16 @@ export const Group = ({
                 <option value="" selected>
                   Select an option
                 </option>
-                <option value="1-5">1 - 5</option>
-                <option value="6-10">6 - 10</option>
-                <option value="11-15">11 - 15</option>
-                <option value="16-20">16 - 20</option>
-                <option value="21-30">21 - 30</option>
-                <option value="moreThan30">More than 30</option>
+                <option value="1-3">1 - 3</option>
+                <option value="4-8">4 - 8</option>
+                <option value="9-15">9 - 15</option>
+                <option value="moreThan15">More than 15</option>
               </select>
             </div>
             {showRequired &&
               !groupInfo.people && ( // Display error message condition
                 <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                  This field is required
+                  This Field is Required
                 </p>
               )}
           </div>
@@ -126,7 +124,7 @@ export const Group = ({
           {showRequired &&
             !groupInfo.address && ( // Display error message condition
               <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                This field is required
+                This Field is Required
               </p>
             )}
         </div>
@@ -167,7 +165,7 @@ export const Group = ({
             {showRequired &&
               !groupInfo.country && ( // Display error message condition
                 <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                  This field is required
+                  This Field is Required
                 </p>
               )}
           </div>
@@ -209,7 +207,7 @@ export const Group = ({
             </div>
             {showRequired && !groupInfo.city && (
               <p className="text-primary-starberry-red leading-3 text-sm font-medium">
-                This field is required
+                This Field is Required
               </p>
             )}
           </div>

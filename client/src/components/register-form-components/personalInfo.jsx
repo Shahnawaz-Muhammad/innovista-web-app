@@ -8,6 +8,7 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
   const [showCPassword, setShowCPassword] = useState(false);
 
   const cnicRegex = /^\d{5}-\d{7}-\d{1}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const mobileRegex =  /^03\d{2}-\d{7}$/;;
   const nameRegex = /^[A-Za-z]+$/;
   const passwordRegex =
@@ -67,14 +68,14 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
           />
           {showRequired && !userInfo.firstName && (
             <p className=" text-primary-starberry-red leading-3 text-sm">
-              Please enter your First Name.
+              This Field is Required 
             </p>
           )}
           {showRequired &&
             userInfo.firstName &&
             !nameRegex.test(userInfo.firstName) && (
               <p className="text-primary-starberry-red leading-3 text-sm">
-                First name can only be Alphabets
+                Name can only be Alphabets
               </p>
             )}
         </div>
@@ -89,14 +90,14 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
           />
           {showRequired && !userInfo.lastName && (
             <p className=" text-primary-starberry-red leading-3 text-sm">
-              Please enter your Last Name.
+              This Field is Required 
             </p>
           )}
           {showRequired &&
             userInfo.lastName &&
             !nameRegex.test(userInfo.lastName) && (
               <p className="text-primary-starberry-red leading-3 text-sm">
-                Last name can only be Alphabets
+                Name can only be Alphabets
               </p>
             )}
         </div>
@@ -115,34 +116,34 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
           />
           {showRequired && !userInfo.cnic && (
             <p className="text-primary-starberry-red leading-3 text-sm">
-              Please enter your CNIC No.
+              This Field is Required 
             </p>
           )}
           {showRequired && userInfo.cnic && !cnicRegex.test(userInfo.cnic) && (
             <p className="text-primary-starberry-red leading-3 text-sm">
-              Enter valid CNIC
+              Enter valid CNIC i.e. (xxxxx-xxxxxxx-x)
             </p>
           )}
         </div>
         <div className="md:w-1/2 h-16 flex flex-col gap-1">
           <Input
             type="numeric"
-            placeholder="XXXX-XXXXXXX"
-            label="Mobile No"
+            placeholder="03XX-XXXXXXX"
+            label="Contact No"
             showRequired={showRequired && !userInfo.mobile}
             value={userInfo.mobile}
             onChange={(e) => handlePersonalInfo(e, "mobile")}
           />
           {showRequired && !userInfo.mobile && (
             <p className="text-primary-starberry-red leading-3 text-sm">
-              Please enter your Mobile No.
+              This Field is Required 
             </p>
           )}
           {showRequired &&
             userInfo.mobile &&
             !mobileRegex.test(userInfo.mobile) && (
               <p className="text-primary-starberry-red leading-3 text-sm">
-                Enter Valid Phone Number
+                Enter Valid Contact No i.e. (03xx-xxxxxxx)
               </p>
             )}
         </div>
@@ -152,7 +153,7 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
         <Input
           label="Email"
           className="h-12 flex flex-col gap-1"
-          placeholder="e.g. stephenking@lorem.com"
+          placeholder="support@dlabs.com"
           showRequired={
             showRequired && (!userInfo.email || !userInfo.email.includes("@"))
           }
@@ -161,9 +162,16 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
         />
         {showRequired && !userInfo.email && (
           <p className=" text-primary-starberry-red leading-3 text-sm">
-            Please enter your Email Address.
+            This Field is Required
           </p>
         )}
+        {showRequired &&
+            userInfo.email &&
+            !emailRegex.test(userInfo.email) && (
+              <p className="text-primary-starberry-red leading-3 text-sm">
+                Enter Valid Email
+              </p>
+            )}
       </div>
 
       <div className=" flex flex-col md:flex-row justify-center gap-4">
@@ -178,16 +186,14 @@ export const PersonalInfo = ({ userInfo, updateUserInfo, showRequired }) => {
           />
           {showRequired && !userInfo.password && (
             <p className=" text-primary-starberry-red leading-3 text-sm">
-              Please enter your Password.
+              This Field is Required 
             </p>
           )}
           {showRequired &&
             userInfo.password &&
             !passwordRegex.test(userInfo.password) && (
               <p className="text-primary-starberry-red leading-3 text-sm">
-                Password should have a minimum of 8 characters with at least one
-                uppercase letter, one lowercase letter, one numeric digit, and
-                one special character.
+                Password must be minimum of 8 characters and combination of uppercase, lowercase, numeric and special characters.
               </p>
             )}
           {showPassword ? (

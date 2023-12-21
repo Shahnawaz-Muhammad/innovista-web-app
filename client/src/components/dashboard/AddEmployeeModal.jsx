@@ -20,6 +20,10 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
     empPhone: "",
   });
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for basic email validation
+  const contactNoRegex = /^03\d{2}-\d{7}$/;
+
+
   // Validation function
   const validateInput = (fieldName, value) => {
     switch (fieldName) {
@@ -30,21 +34,42 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
       case "empDesignation":
         return value.trim() !== "";
       case "empEmail":
-        return value.trim() !== "";
+        return emailRegex.test(value.trim()); // Check if the value matches the email regex
       case "empPhone":
-        return value.trim() !== "";
+        return contactNoRegex.test(value.trim());
       default:
         return true;
     }
   };
+
 
   // Validation handler for form submission
   const handleValidation = () => {
     let isValid = true;
     const newErrors = { ...errors };
     for (const field in employeeData) {
-      if (!validateInput(field, employeeData[field])) {
-        newErrors[field] = `${field} should not be empty`;
+      if (field === "empEmail") {
+        if (!employeeData[field].trim()) {
+          newErrors[field] = "This Field is Required";
+          isValid = false;
+        } else if (!validateInput(field, employeeData[field])) {
+          newErrors[field] = "Invalid Email";
+          isValid = false;
+        } else {
+          newErrors[field] = "";
+        }
+      } else if (field === "empPhone") {
+        if (!employeeData[field].trim()) {
+          newErrors[field] = "This Field is Required";
+          isValid = false;
+        } else if (!validateInput(field, employeeData[field])) {
+          newErrors[field] = "Please enter Valid Format i.e. (03xx-xxxxxxx)";
+          isValid = false;
+        } else {
+          newErrors[field] = "";
+        }
+      } else if (!validateInput(field, employeeData[field])) {
+        newErrors[field] = "This Field is Required";
         isValid = false;
       } else {
         newErrors[field] = "";
@@ -105,8 +130,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
       }
       fetchEmployees(userEmail, employeeData);
 
-      toast.success("Employee added Successfully!",
-      {
+      toast.success("Employee added Successfully!", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
@@ -195,7 +219,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                     Employee ID
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="empId"
                     id="empId"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
@@ -261,17 +285,18 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                     htmlFor="empPhone"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Phone
+                    Contact No
                   </label>
                   <input
-                    type="number"
+                    type="numeric"
                     name="empPhone"
                     id="empPhone"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your subject"
+                    maxLength="12"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="03xx-xxxxxxx"
                     value={employeeData.empPhone}
                     onChange={handleChange}
-                    onFocus={() => setErrors({ ...errors, empPhone: "" })}
+                    // onFocus={() => setErrors({ ...errors, empPhone: "" })}
                   />
                   {errors.empPhone && (
                     <p className="text-red-500 text-sm mt-1">
