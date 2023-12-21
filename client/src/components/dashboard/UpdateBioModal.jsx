@@ -39,6 +39,24 @@ const UpdateBioModal = ({
     });
   }
 
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { ...errors };
+
+    // Validate each field
+    for (const field in bioData) {
+      if (!bioData[field]) {
+        newErrors[field] = `Please enter your Updated ${field}`;
+        valid = false;
+      } else {
+        newErrors[field] = "";
+      }
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   const handleUpdateBio = async (event) => {
     event.preventDefault();
 
@@ -83,33 +101,17 @@ const UpdateBioModal = ({
       }
     } catch (error) {
       console.error("Error updating Bio", error);
-      toast.error("Error updating Bio", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        theme: "light",
-      });
+      // toast.error("Error updating Bio", {
+      //   position: "top-center",
+      //   autoClose: 3000,
+      //   hideProgressBar: true,
+      //   closeOnClick: true,
+      //   theme: "light",
+      // });
     }
   };
 
-  const validateForm = () => {
-    let valid = true;
-    const newErrors = { ...errors };
-
-    // Validate each field
-    for (const field in bioData) {
-      if (!bioData[field]) {
-        newErrors[field] = `Please enter your Updated ${field}`;
-        valid = false;
-      } else {
-        newErrors[field] = "";
-      }
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
+  
 
   return (
     <>
