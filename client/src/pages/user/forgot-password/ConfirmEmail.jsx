@@ -3,15 +3,27 @@ import { apiUrl } from "../../../config";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const isValidEmail = (email) => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+};
+
 const ConfirmEmail = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false)
-  // const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [emailExist, setEmailExist] = useState(false);
+  const [emailError, setEmailError] = useState(null);
 
   const handleEmailCheck = async (e) => {
-    setLoading(false)
+    setLoading(true);
     e.preventDefault();
+    // Validate email
+    if (!isValidEmail(email)) {
+      setEmailError("Invalid email format");
+      setLoading(false);
+      return;
+    }
     try {
       const response = await fetch(`${apiUrl}/checkEmail`, {
         method: "POST",
@@ -27,7 +39,6 @@ const ConfirmEmail = () => {
 
       const { emailExists, message: responseMessage } = await response.json();
 
-
       if (emailExists) {
         toast.success(responseMessage, {
           position: "top-center",
@@ -38,19 +49,17 @@ const ConfirmEmail = () => {
         });
         navigate("/confirm-otp", { state: { emailAddress: email } });
       } else {
-        toast.error("Email doesn't exist. Please Register yourself.", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          theme: "light",
-        });
+        setEmailExist(false);
+        setEmailError("Email Doesn't Exist")
       }
     } catch (error) {
       console.error("Error checking email:", error);
       // setMessage("Error checking email. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div className="bg-slate-200 pt-40 py-20 px-2">
       <div class=" max-w-lg mx-auto  bg-white p-8 rounded-xl shadow shadow-slate-300">
@@ -65,13 +74,14 @@ const ConfirmEmail = () => {
                 className="border border-gray-700 text-gray-700 p-2 w-full"
                 value={email}
                 placeholder="Enter your email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setEmailError(null);
+                }}
               />{" "}
-              {/* {emailExists === false && (
-                <p className="text-red-500 text-sm px-1">
-                  Email does not exist!
-                </p>
-              )} */}
+              {emailError | emailExist === false && (
+                <p className="text-red-500 text-sm px-1">{emailError}</p>
+              )}
             </label>
 
             <button
@@ -87,13 +97,13 @@ const ConfirmEmail = () => {
                 class="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"
                 />
               </svg>
 
-              <span>Send OTP</span>
+              <span>{loading ? "Sending..." : "Send OTP"}</span>
             </button>
 
             <p class="text-center">
@@ -113,8 +123,8 @@ const ConfirmEmail = () => {
                     strokeWidth="2"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                     />
                   </svg>

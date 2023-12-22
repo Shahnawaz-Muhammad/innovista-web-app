@@ -56,7 +56,7 @@ const ProfileHero = () => {
     };
 
     fetchData();
-  }, [user.email]);
+  }, [user.email, userInfo]);
 
   useEffect(() => {
     const fetchProfilePicture = async () => {

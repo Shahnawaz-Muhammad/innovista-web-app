@@ -3,7 +3,9 @@ import QRCode from "qrcode.react";
 import { IoClose } from "react-icons/io5";
 
 const QrCode = ({ booking, setShowQr }) => {
-    console.log(booking)
+
+  const bookingDataString = JSON.stringify(booking);
+
   return (
     <>
       <div
@@ -19,7 +21,7 @@ const QrCode = ({ booking, setShowQr }) => {
             >
               <IoClose  className="text-xl"/>
             </button>
-            <QRCode value={booking} size={200} />
+            <QRCode value={bookingDataString} size={200} />
           </div>
         </div>
       </div>
