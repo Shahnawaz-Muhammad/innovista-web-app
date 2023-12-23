@@ -86,7 +86,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="col-span-full sm:col-span-2 lg:col-span-1 flex flex-col gap-8 text-lightGray">
-            <h2 className="text-xl font-semibold text-white">Subscribe</h2>
+            <h2 className="text-xl font-semibold text-white">Social Links</h2>
             <div className="flex text-2xl gap-4 font-light">
               <BsFacebook className="hover:scale-125 transition-all duration-300 cursor-pointer" />
               <RiTwitterXLine className="hover:scale-125 transition-all duration-300 cursor-pointer" />
