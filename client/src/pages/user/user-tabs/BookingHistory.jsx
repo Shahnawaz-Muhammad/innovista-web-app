@@ -40,7 +40,7 @@ const BookingHistory = () => {
     <>
       <div className=" flex flex-col h-full ">
         <div
-          className=" h-60  flex justify-center items-center"
+          className=" h-40 md:h-60  flex justify-center items-center"
           style={{
             backgroundImage: `url(${bgMain})`,
             backgroundPosition: "center",
@@ -49,7 +49,7 @@ const BookingHistory = () => {
           }}
         >
           <h1
-            className="text-orange text-5xl font-bold p-5"
+            className="text-orange text-3xl md:text-5xl font-bold p-5"
             style={{
               backdropFilter: "blur(1x)",
               background: "rgba(255, 255, 255, 0.6)",
@@ -58,8 +58,8 @@ const BookingHistory = () => {
             Booking History
           </h1>
         </div>
-        <div className=" mt-5 md:-mt-10 w-full flex justify-center items-center gap-3">
-          <div className="w-full bg-white md:w-2/3 flex flex-col  shadow-sm shadow-orange max-h-[26rem] overflow-y-auto">
+        <div className="mt-0 md:-mt-10 w-full flex justify-center items-center gap-3">
+          <div className="w-full bg-white md:w-2/3 flex flex-col  shadow-sm shadow-orange max-h-[27.5rem] overflow-y-auto">
             {BookingData.length > 0 ? (
               BookingData.map((booking, index) => (
                 <div

@@ -98,7 +98,7 @@ const Hirings = () => {
     <div className="w-full">
       <div className="w-full flex flex-col gap-3">
         <div
-          className=" h-60  flex justify-center items-center"
+          className=" h-40  md:h-60 flex justify-center items-center"
           style={{
             backgroundImage: `url(${bgMain})`,
             backgroundPosition: "center",
@@ -107,7 +107,7 @@ const Hirings = () => {
           }}
         >
           <h1
-            className="text-orange text-5xl font-bold p-5"
+            className="text-orange text-3xl md:text-5xl font-bold p-5"
             style={{
               backdropFilter: "blur(1x)",
               background: "rgba(255, 255, 255, 0.6)",

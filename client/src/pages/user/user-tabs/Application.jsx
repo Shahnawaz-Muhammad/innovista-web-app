@@ -32,10 +32,10 @@ const Application = () => {
   }, [user.email, candidateList]);
 
   return (
-    <div>
-      <div className=" flex flex-col h-full ">
+    <div className="w-full">
+      <div className="w-full  flex flex-col  gap-3">
         <div
-          className=" h-60  flex justify-center items-center"
+          className=" h-40 md:h-60  flex justify-center items-center"
           style={{
             backgroundImage: `url(${bgMain})`,
             backgroundPosition: "center",
@@ -44,7 +44,7 @@ const Application = () => {
           }}
         >
           <h1
-            className="font-extrabold text-orange text-5xl p-5 "
+            className="font-extrabold text-orange text-3xl md:text-5xl p-5 "
             style={{
               backdropFilter: "blur(1x)",
               background: "rgba(255, 255, 255, 0.6)",
@@ -53,8 +53,8 @@ const Application = () => {
             Applicants
           </h1>
         </div>
-        <div className=" -mt-10 w-full  flex  justify-center items-center gap-3">
-          <div className="w-full md:w-2/3   flex flex-col max-h-[26rem] overflow-y-auto">
+        <div className="mt-0 md:-mt-10 w-full  flex  justify-center items-center gap-3">
+          <div className="w-full md:w-4/5 lg:w-2/3 flex flex-col max-h-[27.5rem] overflow-y-auto">
             {!candidateList?.allCvs?.length < 1 ? (
               candidateList?.allCvs?.map((candidate) => {
                 return(
@@ -76,14 +76,15 @@ const Application = () => {
                           {candidate.JobTitle}
                         </h3>
                       </div>
-                      <div className="w-full md:w-1/5 flex flex-col justify-center items-center mt-2 md:mt-0">
+                      <div className="w-full md:w-1/5 flex justify-center items-center mt-2 md:mt-0">
                         <a
                           href={`${apiUrl}/${candidate.cvFile}`}
                           rel="noreferrer"
                           target="_blank"
-                          className=" "
+                          className="text-green-400 flex flex-col justify-center items-center"
                         >
-                          <VscFilePdf className="text-5xl" />
+                          <VscFilePdf className="text-4xl text-center" />
+                          <h1 className="text-gray-600 text-md font-bold underline">View CV</h1>
                         </a>
                       </div>
                     </div>

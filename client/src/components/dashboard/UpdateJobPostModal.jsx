@@ -16,7 +16,6 @@ const UpdateJobPostModal = ({
     salary: selectedItemData.salary,
     company: selectedItemData.company,
     description: selectedItemData.description,
-    job_category: selectedItemData.job_category,
     job_type: selectedItemData.job_type,
     job_experience: selectedItemData.job_experience,
     job_vacancy: selectedItemData.job_vacancy,
@@ -29,7 +28,6 @@ const UpdateJobPostModal = ({
     salary: "",
     company: "",
     description: "",
-    job_category: "",
     job_type: "",
     job_experience: "",
     job_vacancy: "",
@@ -46,11 +44,10 @@ const UpdateJobPostModal = ({
   }
 
   const options = [
-    { value: "", label: "Enter Category of job" },
-    { value: "fulltime", label: "Full Time" },
-    { value: "parttime", label: "Part Time" },
-    { value: "internship", label: "Internship" },
-    { value: "contract", label: "Contract" },
+    { value: "Full Time", label: "Full Time" },
+    { value: "Part Time", label: "Part Time" },
+    { value: "Internship", label: "Internship" },
+    { value: "Contract", label: "Contract" },
   ];
 
   const handleFormSubmit = async (event) => {
@@ -60,45 +57,41 @@ const UpdateJobPostModal = ({
     let hasErrors = false;
 
     if (!formData.job_title) {
-      newErrors.job_title = "Please enter Job Title";
+      newErrors.job_title = "This Field is Required";
       hasErrors = true;
     }
 
     if (!formData.salary) {
-      newErrors.salary = "Please enter Job Salary";
+      newErrors.salary = "This Field is Required ";
       hasErrors = true;
     }
 
     if (!formData.company) {
-      newErrors.company = "Please enter Company Name";
+      newErrors.company = "This Field is Required";
       hasErrors = true;
     }
     if (!formData.description) {
-      newErrors.description = "Please enter Job Description";
-      hasErrors = true;
-    }
-    if (!formData.job_category) {
-      newErrors.job_category = "Please enter Job Category";
+      newErrors.description = "This Field is Required";
       hasErrors = true;
     }
     if (!formData.job_type) {
-      newErrors.job_type = "Please enter Job Type";
+      newErrors.job_type = "This Field is Required ";
       hasErrors = true;
     }
     if (!formData.job_experience) {
-      newErrors.job_experience = "Please enter Job Experience";
+      newErrors.job_experience = "This Field is Required ";
       hasErrors = true;
     }
     if (!formData.job_vacancy) {
-      newErrors.job_vacancy = "Please enter Job Vacancy";
+      newErrors.job_vacancy = "This Field is Required";
       hasErrors = true;
     }
     if (!formData.job_deadline) {
-      newErrors.job_deadline = "Please enter Applying Deadline";
+      newErrors.job_deadline = "This Field is Required";
       hasErrors = true;
     }
     if (!formData.status) {
-      newErrors.status = "Please enter Job Status";
+      newErrors.status = "This Field is Required";
       hasErrors = true;
     }
 
@@ -151,7 +144,7 @@ const UpdateJobPostModal = ({
   return (
     <>
       <div
-        className="w-full z-50 h-screen fixed top-0 left-0 bg-gray-600 backdrop-blur-sm bg-opacity-50 overflow-y-hidden max-h-screen"
+        className="w-full z-50 h-screen fixed top-0 left-0 bg-gray-900 backdrop-blur-sm bg-opacity-50 overflow-y-hidden max-h-screen"
         onClick={() => setModalOpen(false)}
       ></div>
       <div className="flex  overflow-x-hidden fixed top-0 my-5 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-3rem)] max-h-full">
@@ -185,8 +178,8 @@ const UpdateJobPostModal = ({
               </button>
             </div>
             <form onSubmit={handleFormSubmit} className=" w-full  h-full py-5">
-              <div className="grid gap-4 mb-4 grid-cols-2 ">
-                <div className="col-span-1">
+              <div className="grid gap-x-4 mb-4 grid-cols-2 ">
+                <div className="col-span-1 h-24">
                   <label
                     htmlFor="title"
                     className="mb-1 text-base font-semibold"
@@ -199,7 +192,7 @@ const UpdateJobPostModal = ({
                     name="job_title"
                     value={formData.job_title}
                     onChange={handleChange}
-                    className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
+                    className="w-full py-2 px-3 border border-indigo-600 rounded"
                     placeholder="Enter title of job"
                     onFocus={() => setErrors({ ...errors, job_title: "" })}
                   />
@@ -209,7 +202,7 @@ const UpdateJobPostModal = ({
                     </span>
                   )}
                 </div>
-                <div className="col-span-1">
+                <div className="col-span-1 h-24">
                   <label
                     htmlFor="salary"
                     className="mb-1 text-base font-semibold"
@@ -222,7 +215,7 @@ const UpdateJobPostModal = ({
                     name="salary"
                     value={formData.salary}
                     onChange={handleChange}
-                    className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
+                    className="w-full py-2 px-3  border border-indigo-600 rounded"
                     placeholder="Enter Salary for this job"
                     onFocus={() => setErrors({ ...errors, salary: "" })}
                     min={1}
@@ -234,7 +227,7 @@ const UpdateJobPostModal = ({
                   )}
                 </div>
 
-                <div className="col-span-2">
+                <div className="col-span-1 h-24">
                   <label
                     htmlFor="company"
                     className="mb-1 text-base font-semibold"
@@ -247,7 +240,7 @@ const UpdateJobPostModal = ({
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
+                    className="w-full py-2 px-3  border border-indigo-600 rounded"
                     placeholder="Enter Company of job"
                     onFocus={() => setErrors({ ...errors, company: "" })}
                   />
@@ -257,7 +250,138 @@ const UpdateJobPostModal = ({
                     </span>
                   )}
                 </div>
-                <div className="col-span-2">
+
+                <div className="col-span-1 h-24">
+                  <label
+                    htmlFor="jobType"
+                    className="mb-1 text-base font-semibold"
+                  >
+                    Job Type
+                  </label>
+                  <select
+                    name="job_type"
+                    onChange={handleChange}
+                    value={formData.job_type}
+                    onFocus={() => setErrors({ ...errors, job_type: "" })}
+                    className="w-full py-2.5 px-3 border border-indigo-600 rounded"
+                  >
+                    <option value="">Please Select Job type</option>{" "}
+                    {/* Placeholder */}
+                    {/* Populate options here */}
+                    {options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+
+                  {errors.job_type && (
+                    <span className="text-red-500 text-sm ">
+                      {errors.job_type}
+                    </span>
+                  )}
+                </div>
+
+                <div className="col-span-1 h-24">
+                  <label
+                    htmlFor="jobExperience"
+                    className="mb-1 text-base font-semibold"
+                  >
+                    Job Experience
+                  </label>
+                  <input
+                    type="number"
+                    id="jobExperience"
+                    name="job_experience"
+                    value={formData.job_experience}
+                    onChange={handleChange}
+                    className="w-full py-2 px-3  border border-indigo-600 rounded"
+                    placeholder="Enter Experience Required for this job"
+                    onFocus={() => setErrors({ ...errors, job_experience: "" })}
+                    min={0}
+                  />
+                  {errors.job_experience && (
+                    <span className="text-red-500 text-sm ">
+                      {errors.job_experience}
+                    </span>
+                  )}
+                </div>
+                <div className="col-span-1 h-24">
+                  <label
+                    htmlFor="jobvacancy"
+                    className="mb-1 text-base font-semibold"
+                  >
+                    Job Vacancy
+                  </label>
+                  <input
+                    type="number"
+                    id="jobvacancy"
+                    name="job_vacancy"
+                    value={formData.job_vacancy}
+                    onChange={handleChange}
+                    className="w-full py-2 px-3  border border-indigo-600 rounded"
+                    placeholder="Enter Number  of Vacancies"
+                    onFocus={() => setErrors({ ...errors, job_vacancy: "" })}
+                    min={1}
+                  />
+                  {errors.job_vacancy && (
+                    <span className="text-red-500 text-sm ">
+                      {errors.job_vacancy}
+                    </span>
+                  )}
+                </div>
+                <div className="col-span-1 h-24">
+                  <label
+                    htmlFor="job_deadline"
+                    className="mb-1 text-base font-semibold"
+                  >
+                    Job Deadline
+                  </label>
+                  <input
+                    type="date"
+                    id="job_deadline"
+                    name="job_deadline"
+                    value={formData.job_deadline}
+                    onChange={handleChange}
+                    className="w-full py-2 px-3  border border-indigo-600 rounded"
+                    placeholder="Enter Deadline of job"
+                    onFocus={() => setErrors({ ...errors, job_deadline: "" })}
+                    min={currentDate}
+                  />
+                  {errors.job_deadline && (
+                    <span className="text-red-500 text-sm ">
+                      {errors.job_deadline}
+                    </span>
+                  )}
+                </div>
+
+                <div className="col-span-1 h-24">
+                  <label
+                    htmlFor="jobCategory"
+                    className="mb-1 text-base font-semibold"
+                  >
+                    Status
+                  </label>
+                  <select
+                    placeholder="Please Select an Option"
+                    name="status"
+                    onChange={handleChange}
+                    onFocus={() => setErrors({ ...errors, status: "" })}
+                    value={formData.status}
+                    className="w-full py-2.5 px-3 border border-indigo-600 rounded"
+                  >
+                    <option value="">Select an option</option>
+                    <option value={1}>Active</option>
+                    <option value={0}>Inactive</option>
+                  </select>
+                  {errors.status && (
+                    <span className="text-red-500 text-sm ">
+                      {errors.status}
+                    </span>
+                  )}
+                </div>
+
+                <div className="col-span-2 h-32">
                   <label
                     htmlFor="description"
                     className="mb-1 text-base font-semibold"
@@ -271,164 +395,14 @@ const UpdateJobPostModal = ({
                     value={formData.description}
                     onChange={handleChange}
                     rows={3}
-                    className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
+                    className="w-full py-2 px-3 border border-indigo-600 rounded"
                     placeholder="Enter description of job"
                     onFocus={() => setErrors({ ...errors, description: "" })}
                   />
                   {errors.description && (
-                    <span className="text-red-500 text-sm ">
+                    <p className="text-red-500 text-sm -mt-1">
                       {errors.description}
-                    </span>
-                  )}
-                </div>
-                <div className="col-span-1">
-                  <label
-                    htmlFor="jobCategory"
-                    className="mb-1 text-base font-semibold"
-                  >
-                    Job Category
-                  </label>
-                  <input
-                    type="text"
-                    id="jobCategory"
-                    name="job_category"
-                    value={formData.job_category}
-                    onChange={handleChange}
-                    className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
-                    placeholder="Enter Category of job"
-                    onFocus={() => setErrors({ ...errors, job_category: "" })}
-                  />
-                  {errors.job_category && (
-                    <span className="text-red-500 text-sm ">
-                      {errors.job_category}
-                    </span>
-                  )}
-                </div>
-                <div className="col-span-1">
-                  <label
-                    htmlFor="jobCategory"
-                    className="mb-1 text-base font-semibold"
-                  >
-                    Job Type
-                  </label>
-                  <select
-                    placeholder="Please Select Job type"
-                    name="job_type"
-                    onChange={handleChange}
-                    value={formData.job_type}
-                    onFocus={() => setErrors({ ...errors, job_type: "" })}
-                    className="w-full py-2.5 px-3 mb-2 border border-indigo-600 rounded"
-                  >
-                    {/* Populate options here */}
-                    {options.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.job_type && (
-                    <span className="text-red-500 text-sm ">
-                      {errors.job_type}
-                    </span>
-                  )}
-                </div>
-
-                <div className="col-span-1">
-                  <label
-                    htmlFor="jobExperience"
-                    className="mb-1 text-base font-semibold"
-                  >
-                    Job Experience
-                  </label>
-                  <input
-                    type="number"
-                    id="jobExperience"
-                    name="job_experience"
-                    value={formData.job_experience}
-                    onChange={handleChange}
-                    className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
-                    placeholder="Enter Experience Required for this job"
-                    onFocus={() => setErrors({ ...errors, job_experience: "" })}
-                    min={0}
-                  />
-                  {errors.job_experience && (
-                    <span className="text-red-500 text-sm ">
-                      {errors.job_experience}
-                    </span>
-                  )}
-                </div>
-                <div className="col-span-1">
-                  <label
-                    htmlFor="jobvacancy"
-                    className="mb-1 text-base font-semibold"
-                  >
-                    Job Vacancy
-                  </label>
-                  <input
-                    type="number"
-                    id="jobvacancy"
-                    name="job_vacancy"
-                    value={formData.job_vacancy}
-                    onChange={handleChange}
-                    className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
-                    placeholder="Enter Number  of Vacancies"
-                    onFocus={() => setErrors({ ...errors, job_vacancy: "" })}
-                    min={1}
-                  />
-                  {errors.job_vacancy && (
-                    <span className="text-red-500 text-sm ">
-                      {errors.job_vacancy}
-                    </span>
-                  )}
-                </div>
-                <div className="col-span-1">
-                  <label
-                    htmlFor="job_deadline"
-                    className="mb-1 text-base font-semibold"
-                  >
-                    Job Deadline
-                  </label>
-                  <input
-                    type="date"
-                    id="job_deadline"
-                    name="job_deadline"
-                    value={formData.job_deadline}
-                    onChange={handleChange}
-                    className="w-full py-2 px-3 mb-2 border border-indigo-600 rounded"
-                    placeholder="Enter Deadline of job"
-                    onFocus={() => setErrors({ ...errors, job_deadline: "" })}
-                    min={currentDate}
-                  />
-                  {errors.job_deadline && (
-                    <span className="text-red-500 text-sm ">
-                      {errors.job_deadline}
-                    </span>
-                  )}
-                </div>
-
-                <div className="col-span-1">
-                  <label
-                    htmlFor="jobCategory"
-                    className="mb-1 text-base font-semibold"
-                  >
-                    Status
-                  </label>
-                  <select
-                    placeholder="Please Select an Option"
-                    name="status"
-                    onChange={handleChange}
-                    onFocus={() => setErrors({ ...errors, status: "" })}
-                    value={formData.status}
-                    className="w-full py-2.5 px-3 mb-2 border border-indigo-600 rounded"
-                  >
-                    <option value="">Select an option</option>
-                    <option value={1}>Active</option>
-                    <option value={0}>Inactive</option>
-                  </select>
-                  {errors.status && (
-                    <span className="text-red-500 text-sm ">
-                      {errors.status}
-                    </span>
+                    </p>
                   )}
                 </div>
               </div>

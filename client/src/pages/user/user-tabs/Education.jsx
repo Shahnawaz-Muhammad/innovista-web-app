@@ -123,11 +123,11 @@ const Education = ({ isEducationOpen, toggleEducation, name }) => {
               .reverse()
               .map((item) => {
                 return (
-                  <div className="flex justify-between border-b-2 pb-2  pt-10 md:pt-10">
-                    <div className="flex justify-between  w-[75%]">
-                      <h1 className="text-lg ">{item?.degree}</h1>
-                      <h1 className="text-lg ">{item?.subject}</h1>
-                      <h1 className="text-lg ">{item?.year}</h1>
+                  <div className="flex flex-row justify-between items-center  border-b-2 pb-2  pt-10 md:pt-10">
+                    <div className="flex flex-col md:flex-row justify-between   w-[75%]">
+                      <h1 className="text-lg w-full md:w-60">{item?.degree}</h1>
+                      <h1 className="text-lg w-full md:w-60">{item?.subject}</h1>
+                      <h1 className="text-lg w-full md:w-40">{item?.year}</h1>
                     </div>
                     <div className="flex w-[25%] gap-4  justify-end">
                       <TbEdit

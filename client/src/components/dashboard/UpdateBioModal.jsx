@@ -46,7 +46,7 @@ const UpdateBioModal = ({
     // Validate each field
     for (const field in bioData) {
       if (!bioData[field]) {
-        newErrors[field] = `Please enter your Updated ${field}`;
+        newErrors[field] = `This Field is Required`;
         valid = false;
       } else {
         newErrors[field] = "";
@@ -163,7 +163,7 @@ const UpdateBioModal = ({
                     name="firstName"
                     id="firstName"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your degree"
+                    placeholder="Enter your First Name"
                     value={bioData.firstName}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, firstName: "" })}

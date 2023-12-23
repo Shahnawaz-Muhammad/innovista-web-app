@@ -164,7 +164,7 @@ const JobAds = () => {
     <>
       <div className=" flex flex-col h-full ">
         <div
-          className=" h-60 flex justify-center items-center"
+          className=" h-40 md:h-60 flex justify-center items-center"
           style={{
             backgroundImage: `url(${bgMain})`,
             backgroundPosition: "center",
@@ -183,7 +183,7 @@ const JobAds = () => {
           </h1>
         </div>
         {jobAds?.length > 0 ? (
-          <div className="w-full flex gap-5 mt-5">
+          <div className="w-full flex gap-5 md:mt-5">
             <div className="w-full md:w-1/2 lg:w-[55%] flex flex-col gap-2 md:gap-0">
               {jobAds
                 ?.slice()

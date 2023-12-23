@@ -216,9 +216,9 @@ export default function AdvanceBooking() {
         }}
       ></div>
 
-      <div className="flex flex-col py-12 justify-center items-center ">
+      <div className="flex flex-col  justify-center items-center ">
         <h1
-          className="font-extrabold text-orange text-5xl p-5 "
+          className="font-extrabold text-orange text-3xl md:text-5xl p-5 "
           // style={{
           //   backdropFilter: "blur(1x)",
           //   background: "rgba(255, 255, 255, 0.3)",
@@ -227,7 +227,7 @@ export default function AdvanceBooking() {
           Advance Booking
         </h1>
         <form
-          className="mt-10 w-full md:w-4/5 lg:w-2/3 p-10 mb-10 rounded-lg "
+          className="mb-10 w-full md:w-4/5 lg:w-2/3 p-5 rounded-lg "
           style={{
             backdropFilter: "blur(1x)",
             background: "rgba(255, 255, 255, 0.4)",

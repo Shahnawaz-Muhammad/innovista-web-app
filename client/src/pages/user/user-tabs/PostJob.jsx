@@ -49,41 +49,41 @@ export default function PostJob() {
       let hasErrors = false;
 
       if (!formData.job_title) {
-        newErrors.job_title = "Please Enter Job Title";
+        newErrors.job_title = "This Field is Required ";
         hasErrors = true;
       }
 
       if (!formData.salary) {
-        newErrors.salary = "Please Enter Job Salary";
+        newErrors.salary = "This Field is Required ";
         hasErrors = true;
       }
 
       if (!formData.company) {
-        newErrors.company = "Please Enter Company Name";
+        newErrors.company = "This Field is Required ";
         hasErrors = true;
       }
       if (!formData.description) {
-        newErrors.description = "Please Enter Job Description";
+        newErrors.description = "This Field is Required";
         hasErrors = true;
       }
       if (!formData.job_type) {
-        newErrors.job_type = "Please Enter Job Type";
+        newErrors.job_type = "This Field is Required ";
         hasErrors = true;
       }
       if (!formData.job_experience) {
-        newErrors.job_experience = "Please Enter Job Experience";
+        newErrors.job_experience = "This Field is Required ";
         hasErrors = true;
       }
       if (!formData.job_vacancy) {
-        newErrors.job_vacancy = "Please Enter Job Vacancies";
+        newErrors.job_vacancy = "This Field is Required ";
         hasErrors = true;
       }
       if (!formData.job_deadline) {
-        newErrors.job_deadline = "Please Enter Deadline";
+        newErrors.job_deadline = "This Field is Required ";
         hasErrors = true;
       }
       if (!formData.status) {
-        newErrors.status = "Please Enter Job Status";
+        newErrors.status = "This Field is Required ";
         hasErrors = true;
       }
 
@@ -173,7 +173,7 @@ export default function PostJob() {
       >
         <div className="flex flex-col py-12 justify-center items-center">
           <h1
-            className="font-extrabold text-orange text-5xl  "
+            className="font-extrabold text-orange text-3xl md:text-5xl  "
             // style={{ backdropFilter: 'blur(1x)', background: 'rgba(255, 255, 255, 0.8)' }}
           >
             Job Details
