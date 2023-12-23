@@ -1,6 +1,5 @@
 import express from "express";
 import User from "../models/User.js";
-import Job from "../models/Job.js";
 import Employees from "../models/EmployeeModel.js";
 const router = express.Router();
 

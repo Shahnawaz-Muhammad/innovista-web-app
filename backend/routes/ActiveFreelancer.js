@@ -1,6 +1,4 @@
 import express from "express";
-import User from "../models/User.js";
-import Job from "../models/Job.js";
 import Booking from "../models/Booking.js";
 const router = express.Router();
 
@@ -24,10 +22,8 @@ router.get('/ActiveFreelancer', async (req, res) => {
       expiryDate.setUTCHours(23, 59, 59, 999); 
 
       if (currentDate >= bookingDate && currentDate <= expiryDate) {
-        console.log('Freelancer is active:', freelancer);
         activeFreelancer++;
       } else {
-        console.log('Freelancer is not active:', freelancer);
         InactiveFreelancer++;
       }
     });

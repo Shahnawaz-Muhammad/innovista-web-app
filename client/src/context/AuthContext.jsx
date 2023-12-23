@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
           // Other errors
           toast.error(errorData, {
             position: "top-center",
-            autoClose: 5000,
+            autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
             theme: "light",
@@ -47,11 +47,9 @@ const AuthProvider = ({ children }) => {
       }
 
       const responseData = await response.json();
-      console.log(responseData)
-      const { token, user } = responseData;
-      // const {category, email} = user
 
-      // Store token and user type in local storage
+      const { token, user } = responseData;
+      
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 

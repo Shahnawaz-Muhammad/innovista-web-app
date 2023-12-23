@@ -28,7 +28,7 @@ const UserHeader = ({ user }) => {
     {
       id: 1,
       title: "Booking History",
-      url: "booking-history",
+      url: ".",
     },
 
     {
