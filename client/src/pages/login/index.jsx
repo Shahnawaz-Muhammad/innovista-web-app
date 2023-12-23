@@ -28,12 +28,16 @@ const Login = () => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-
-    // Validate email
+    if(!email) {
+      setEmailError("Email is Required!");
+      return;
+    }
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email address");
       return;
-    } else {
+    }
+    
+    else {
       setEmailError("");
     }
 
@@ -52,7 +56,7 @@ const Login = () => {
 
   return (
     <div
-      className="w-full flex justify-center py-10 mt-20 px-6"
+      className="w-full flex justify-center py-10 mt-20 px-2"
       style={{
         backgroundImage: `url(${loginBg})`,
         backgroundSize: "cover",
@@ -78,6 +82,7 @@ const Login = () => {
           <form
             className="space-y-4 md:space-y-6"
             onSubmit={(event) => handleLogin(event)}
+            noValidate
           >
             <div>
               <label
@@ -96,7 +101,7 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
               {emailError && (
-                <p className="text-red-600 text-sm pl-3">{emailError}</p>
+                <p className="text-red-600 text-sm pl-2">{emailError}</p>
               )}
             </div>
             <div className="relative">
@@ -116,7 +121,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               {passwordError && (
-                <p className="text-red-600 text-sm pl-3">{passwordError}</p>
+                <p className="text-red-600 text-sm pl-2">{passwordError}</p>
               )}
               {showPassword ? (
                 <IoIosEye
@@ -130,13 +135,13 @@ const Login = () => {
                 />
               )}
               {unAuthorizedUser && (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 text-sm pl-2">
                   Email or Password is wrong!
                 </p>
               )}
             </div>
 
-            <div className="px-3 flex items-center justify-between">
+            <div className="px-3 flex flex-col md:flex-row md:items-center md:justify-between">
               <div className="flex items-start">
                 <div className="flex items-center h-5">
                   <input
@@ -156,7 +161,7 @@ const Login = () => {
                 </div>
               </div>
               <Link
-                to="/forgot-password"
+                to="/find-your-account"
                 className=" font-medium  hover:underline dark:text-primary-500"
               >
                 Forgot password ?

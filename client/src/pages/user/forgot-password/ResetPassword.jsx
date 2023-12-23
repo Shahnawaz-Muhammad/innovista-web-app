@@ -9,12 +9,29 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const { state } = useLocation();
+  const [passwordError, setPasswordError] = useState("");
+
 
   const emailAddress = state?.emailAddress || "";
+
+  const validatePassword = (inputPassword) => {
+    // Password validation for uppercase, lowercase, numeric, and special characters
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(inputPassword);
+  };
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
 
+    if (!validatePassword(password)) {
+      setPasswordError(
+        "Password must contain at least 8 characters, including uppercase, lowercase, numeric, and special characters"
+      );
+      return;
+    } else {
+      setPasswordError("");
+    }
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
@@ -52,8 +69,8 @@ const ResetPassword = () => {
   return (
     <div className="bg-slate-200 pt-40 py-20 px-2">
       <div class=" max-w-lg mx-auto  bg-white p-8 rounded-xl shadow shadow-slate-300">
-        <h1 class="text-3xl font-medium">Confirm OTP</h1>
-        <p class="text-slate-500">Please Enter Your New Password.</p>
+        <h1 class="text-3xl font-medium">Reset Password</h1>
+        {/* <p class="text-slate-500">Please Enter Your New Password.</p> */}
         <form class="my-5">
           <div class="flex flex-col space-y-1 h-48">
             <div class="flex flex-col space-y-5">
@@ -82,10 +99,14 @@ const ResetPassword = () => {
             </div>
 
             {error && <p className="text-red-500">{error}</p>}
+            {passwordError && (
+                <p className="text-red-600 text-sm pl-2">{passwordError}</p>
+              )}
+            
           </div>
           <button
             onClick={handleResetPassword}
-            class="w-full py-3 font-medium text-white bg-orange hover:bg-orangeDark rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+            class="w-full mt-4 py-3 font-medium text-white bg-orange hover:bg-orangeDark rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 
 const router = express.Router();
 
-const otp = generateOTP();
+var otp ;
 
 // Function to generate OTP (you can replace it with your implementation)
 function generateOTP() {
@@ -23,6 +23,7 @@ router.post("/checkEmail", async (req, res) => {
 
     // If the email exists, generate and send OTP
     if (user) {
+      otp = generateOTP();
       // You need to implement or use a function to generate OTP
       await sendOTPEmail(email, otp);
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { apiUrl } from "../../../config";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 const isValidEmail = (email) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -37,20 +36,13 @@ const ConfirmEmail = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const { emailExists, message: responseMessage } = await response.json();
+      const { emailExists } = await response.json();
 
       if (emailExists) {
-        toast.success(responseMessage, {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          theme: "light",
-        });
         navigate("/confirm-otp", { state: { emailAddress: email } });
       } else {
         setEmailExist(false);
-        setEmailError("Email Doesn't Exist")
+        setEmailError("Email Doesn't Exist");
       }
     } catch (error) {
       console.error("Error checking email:", error);
@@ -63,12 +55,12 @@ const ConfirmEmail = () => {
   return (
     <div className="bg-slate-200 pt-40 py-20 px-2">
       <div class=" max-w-lg mx-auto  bg-white p-8 rounded-xl shadow shadow-slate-300">
-        <h1 class="text-3xl font-medium">Verification</h1>
-        <p class="text-slate-500">Fill up the form to verify your email</p>
+        <h1 class="text-3xl font-medium">Find Your Account</h1>
+        <p class="text-slate-500">Please Enter Your Valid Email Address</p>
         <form action="" class="my-10">
           <div class="flex flex-col space-y-5">
             <label for="email">
-              <p class="font-medium text-slate-700 pb-2">Email address</p>
+              <p class="font-medium text-slate-700 pb-2">Email</p>
               <input
                 type="email"
                 className="border border-gray-700 text-gray-700 p-2 w-full"
@@ -79,7 +71,7 @@ const ConfirmEmail = () => {
                   setEmailError(null);
                 }}
               />{" "}
-              {emailError | emailExist === false && (
+              {emailError | (emailExist === false) && (
                 <p className="text-red-500 text-sm px-1">{emailError}</p>
               )}
             </label>

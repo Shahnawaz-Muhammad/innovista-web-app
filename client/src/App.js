@@ -113,7 +113,7 @@ function App() {
           }
         />
         <Route
-          path="/forgot-password"
+          path="/find-your-account"
           element={
             <Layout>
               <ConfirmEmail />

@@ -42,8 +42,7 @@ const ConfirmOtp = () => {
       <div className=" max-w-lg mx-auto  bg-white p-8 rounded-xl shadow shadow-slate-300">
         <h1 className="text-3xl font-medium">Confirm OTP</h1>
         <p className="text-slate-500">
-          Write the OTP that is sent to your email address in the below input
-          field.
+          We will send an OTP your email, if your email matches an existing account. If you have not received an email, please check your spam folder, or verify your email. 
         </p>
         <form className="my-5">
           <div className="flex flex-col space-y-5">

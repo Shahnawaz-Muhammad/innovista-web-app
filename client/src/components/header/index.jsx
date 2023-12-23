@@ -13,6 +13,7 @@ const Header = () => {
 
   const authPages =
     location.pathname === "/login" || location.pathname === "/register";
+ const otherPages  = location.pathname === "/find-your-account" || location.pathname === "/confirm-otp" || location.pathname === "/reset-password";
 
   const navItems = [
     { id: 1, label: "Home", path: "/" },
@@ -61,7 +62,7 @@ const Header = () => {
     <>
       <div
         className={`fixed top-0 w-full z-20 flex justify-center ${
-          authPages || scroll
+          authPages || scroll || otherPages
             ? "bg-black max-w-full"
             : "max-w-full bg-opacity-0"
         }  py-4 text-bgLight mx-auto px-4 md:px-8 xl:px-4`}
