@@ -3,16 +3,22 @@ import { AuthContext } from "../../../context/AuthContext";
 import { VscFilePdf } from "react-icons/vsc";
 import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
+import { useLocation } from 'react-router-dom';
 
 const Application = () => {
   const [candidateList, setCandidateList] = useState(null);
   const { user } = useContext(AuthContext);
 
+  const location = useLocation();
+
+  // Extract 'id' from state
+  const { id } = location.state || {};
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${apiUrl}/getAllCVs?companyEmail=${user.email}`
+          `${apiUrl}/getAllByJobId?companyEmail=${user.email}&job_id=${id}`
         );
         if (!response.ok) {
           throw new Error("Error fetching data");
@@ -29,8 +35,8 @@ const Application = () => {
     };
 
     fetchData();
-  }, [user.email, candidateList]);
-
+  }, [user.email, candidateList, id]);
+console.log("candidateList",candidateList)
   return (
     <div>
       <div className=" flex flex-col h-full ">

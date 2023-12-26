@@ -85,11 +85,6 @@ const UserHeader = ({ user }) => {
       title: "Post a Job",
       url: "post-job",
     },
-    {
-      id: 5,
-      title: "Applications",
-      url: "candidates",
-    },
   ];
 
   let userData;

@@ -6,7 +6,11 @@ const JobSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  salary: {
+  salaryFrom: {
+    type: String,
+    required: true,
+  },
+  salaryTo: {
     type: String,
     required: true,
   },

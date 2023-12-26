@@ -3,13 +3,15 @@ import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function PostJob() {
   const currentDate = new Date().toISOString().split("T")[0];
-
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     job_title: "",
-    salary: "",
+    salaryFrom: "",
+    salaryTo: "",
     company: "",
     description: "",
     job_type: "",
@@ -21,7 +23,8 @@ export default function PostJob() {
 
   const [errors, setErrors] = useState({
     job_title: "",
-    salary: "",
+    salaryFrom: "",
+    salaryTo: "",
     company: "",
     description: "",
     job_type: "",
@@ -48,42 +51,23 @@ export default function PostJob() {
       const newErrors = {};
       let hasErrors = false;
 
-      if (!formData.job_title) {
-        newErrors.job_title = "Please Enter Job Title";
-        hasErrors = true;
-      }
+      const requiredFields = [
+        "job_title",
+        "salaryFrom",
+        "salaryTo",
+        "company",
+        "description",
+        "job_type",
+        "job_experience",
+        "job_vacancy",
+        "job_deadline",
+        "status",
+      ];
 
-      if (!formData.salary) {
-        newErrors.salary = "Please Enter Job Salary";
-        hasErrors = true;
-      }
-
-      if (!formData.company) {
-        newErrors.company = "Please Enter Company Name";
-        hasErrors = true;
-      }
-      if (!formData.description) {
-        newErrors.description = "Please Enter Job Description";
-        hasErrors = true;
-      }
-      if (!formData.job_type) {
-        newErrors.job_type = "Please Enter Job Type";
-        hasErrors = true;
-      }
-      if (!formData.job_experience) {
-        newErrors.job_experience = "Please Enter Job Experience";
-        hasErrors = true;
-      }
-      if (!formData.job_vacancy) {
-        newErrors.job_vacancy = "Please Enter Job Vacancies";
-        hasErrors = true;
-      }
-      if (!formData.job_deadline) {
-        newErrors.job_deadline = "Please Enter Deadline";
-        hasErrors = true;
-      }
-      if (!formData.status) {
-        newErrors.status = "Please Enter Job Status";
+      if (requiredFields.some((field) => !formData[field])) {
+        requiredFields.forEach((field) => {
+          newErrors[field] = "This field is required";
+        });
         hasErrors = true;
       }
 
@@ -102,7 +86,8 @@ export default function PostJob() {
           },
           body: JSON.stringify({
             job_title: formData.job_title,
-            salary: formData.salary,
+            salaryFrom: formData.salaryFrom,
+            salaryTo: formData.salaryTo,
             company: formData.company,
             description: formData.description,
             job_type: formData.job_type,
@@ -124,10 +109,12 @@ export default function PostJob() {
         closeOnClick: true,
         theme: "light",
       });
+      navigate("/dashboard/hirings")
 
       setFormData({
         job_title: "",
-        salary: "",
+        salaryFrom: "",
+        salaryTo: "",
         company: "",
         description: "",
         job_type: "",
@@ -182,7 +169,7 @@ export default function PostJob() {
             className=" w-full md:w-2/3 my-10 p-10 rounded-lg"
             style={{
               backdropFilter: "blur(5x)",
-              background: "rgba(255, 255, 255, 0.4)",
+              background: "rgba(255, 255, 255, 0.8)",
             }}
             onSubmit={handleSubmit}
           >
@@ -205,7 +192,7 @@ export default function PostJob() {
                   onFocus={() => setErrors({ ...errors, job_title: "" })}
                 />
                 {errors.job_title && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-3">
+                  <p className="text-[#fa0505]  text-md pl-2">
                     {errors.job_title}
                   </p>
                 )}
@@ -228,7 +215,7 @@ export default function PostJob() {
                   onFocus={() => setErrors({ ...errors, company: "" })}
                 />
                 {errors.company && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-3">
+                  <p className="text-[#fa0505]  text-md pl-2">
                     {errors.company}
                   </p>
                 )}
@@ -255,7 +242,7 @@ export default function PostJob() {
                   ))}
                 </select>
                 {errors.job_type && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-3">
+                  <p className="text-[#fa0505]  text-md pl-2">
                     {errors.job_type}
                   </p>
                 )}
@@ -280,7 +267,7 @@ export default function PostJob() {
                   min={currentDate}
                 />
                 {errors.job_deadline && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-3">
+                  <p className="text-[#fa0505]  text-md pl-2">
                     {errors.job_deadline}
                   </p>
                 )}
@@ -305,7 +292,7 @@ export default function PostJob() {
                   min={0}
                 />
                 {errors.job_experience && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-3">
+                  <p className="text-[#fa0505]  text-md pl-2">
                     {errors.job_experience}
                   </p>
                 )}
@@ -317,22 +304,44 @@ export default function PostJob() {
                 >
                   Job Salary
                 </label>
-                <input
-                  type="number"
-                  id="jobSalary"
-                  name="salary"
-                  value={formData.salary}
-                  onChange={handleChange}
-                  className="w-full py-2 px-3 border border-orange rounded focus:outline-none"
-                  placeholder="Enter Salary for this job"
-                  onFocus={() => setErrors({ ...errors, salary: "" })}
-                  min={0}
-                />
-                {errors.salary && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-3">
-                    {errors.salary}
-                  </p>
-                )}
+                <div className="flex gap-5">
+                  <div className="flex flex-col">
+                    <input
+                      type="number"
+                      id="jobSalary"
+                      name="salaryFrom"
+                      value={formData.salaryFrom}
+                      onChange={handleChange}
+                      className="w-full py-2 px-3 border border-orange rounded focus:outline-none"
+                      placeholder="Salary From"
+                      onFocus={() => setErrors({ ...errors, salaryFrom: "" })}
+                      min={0}
+                    />
+                    {errors.salaryFrom && (
+                      <p className="text-[#fa0505]  text-md pl-2">
+                        {errors.salaryFrom}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex flex-col">
+                    <input
+                      type="number"
+                      id="jobSalary"
+                      name="salaryTo"
+                      value={formData.salaryTo}
+                      onChange={handleChange}
+                      className="w-full py-2 px-3 border border-orange rounded focus:outline-none"
+                      placeholder="Salary To"
+                      onFocus={() => setErrors({ ...errors, salaryTo: "" })}
+                      min={0}
+                    />
+                    {errors.salaryTo && (
+                      <p className="text-[#fa0505]  text-md pl-2">
+                        {errors.salaryTo}
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
               <div className="h-[5.5rem] w-full px-3 md:w-1/2 flex flex-col items-start ">
                 <label
@@ -353,7 +362,7 @@ export default function PostJob() {
                   min={1}
                 />
                 {errors.job_vacancy && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-3">
+                  <p className="text-[#fa0505]  text-md pl-2">
                     {errors.job_vacancy}
                   </p>
                 )}
@@ -371,7 +380,7 @@ export default function PostJob() {
                   name="status"
                   onChange={handleChange}
                   value={formData.status}
-                  className="w-full py-2.5 px-3 border border-orange rounded"
+                  className="w-full py-2.5 px-3 border border-orange rounded focus:outline-none"
                   onFocus={() => setErrors({ ...errors, status: "" })}
                 >
                   <option value="">Select an option</option>
@@ -379,7 +388,7 @@ export default function PostJob() {
                   <option value={0}>Inactive</option>
                 </select>
                 {errors.status && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-3">
+                  <p className="text-[#fa0505]  text-md pl-2">
                     {errors.status}
                   </p>
                 )}
@@ -403,7 +412,7 @@ export default function PostJob() {
                   onFocus={() => setErrors({ ...errors, description: "" })}
                 />
                 {errors.description && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-3">
+                  <p className="text-[#fa0505]  text-md pl-2">
                     {errors.description}
                   </p>
                 )}

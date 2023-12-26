@@ -9,7 +9,7 @@ const activeClasses = "border border-orange bg-neutral-magnolia falopa ";
 
 const plans = [
   {
-    name: "Freelancer",
+    name: "Individual",
     icon: freelancer,
   },
   {
@@ -30,7 +30,7 @@ export const SelectPlan = ({
   const [, setCategorySelected] = useState(false);
 
   const categoryData = {
-    Freelancer: {
+    Individual: {
       description: "Access to job postings and projects matching skills.",
       additionalInfo: "Direct client communication channels.",
       additionalInfo1: "Early access to new project listings.",
@@ -38,18 +38,21 @@ export const SelectPlan = ({
       additionalInfo2: "",
     },
     Group: {
-      description: "Collaborative workspace for team communication and task management.",
+      description:
+        "Collaborative workspace for team communication and task management.",
       additionalInfo: "Dedicated team support for account management.",
       additionalInfo1: "Group discounts for skill development courses.",
       additionalInfo2: "Access to job postings and projects matching skills.",
-      quantity: "All Group Members "
+      quantity: "All Group Members ",
     },
     Company: {
       description: "Customizable corporate profiles and branding.",
-      additionalInfo: "Dedicated account manager and priority customer support.",
+      additionalInfo:
+        "Dedicated account manager and priority customer support.",
       additionalInfo1: "Enhanced visibility for projects and company listings.",
-      additionalInfo2: "Access to exclusive industry insights and market reports.",
-      quantity: "All Employees"
+      additionalInfo2:
+        "Access to exclusive industry insights and market reports.",
+      quantity: "All Employees",
     },
   };
 
@@ -79,7 +82,7 @@ export const SelectPlan = ({
                   className="rounded-xl h-36 w-full"
                 />
               </figure>
-              <div className="	">
+              <div className="flex justify-center items-center">
                 <h3 className="leading-5 text-center pb-4 text-xl font-extrabold">
                   {plan.name}
                 </h3>
@@ -94,14 +97,21 @@ export const SelectPlan = ({
         </p>
       )}
 
-
-{selectedPlan && (
+      {selectedPlan && (
         <div className="mt-1 h-24">
           <h3 className="text-2xl font-bold">{selectedPlan.name} Details</h3>
-          <p className="text-md font-md">{categoryData[selectedPlan.name].description}</p>
-          <p className="text-md font-md">{categoryData[selectedPlan.name].additionalInfo}</p>
-          <p className="text-md font-md">{categoryData[selectedPlan.name].additionalInfo1}</p>
-          <p className="text-md font-md">{categoryData[selectedPlan.name].additionalInfo2}</p>
+          <p className="text-md font-md">
+            {categoryData[selectedPlan?.name]?.description}
+          </p>
+          <p className="text-md font-md">
+            {categoryData[selectedPlan?.name]?.additionalInfo}
+          </p>
+          <p className="text-md font-md">
+            {categoryData[selectedPlan?.name]?.additionalInfo1}
+          </p>
+          <p className="text-md font-md">
+            {categoryData[selectedPlan?.name]?.additionalInfo2}
+          </p>
         </div>
       )}
     </section>

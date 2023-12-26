@@ -29,6 +29,7 @@ import Profile from "./pages/user/user-tabs/Profile";
 import ConfirmEmail from "./pages/user/forgot-password/ConfirmEmail";
 import ConfirmOtp from "./pages/user/forgot-password/ConfirmOtp";
 import ResetPassword from "./pages/user/forgot-password/ResetPassword";
+import ServiceDetails from "./pages/services/ServiceDetails";
 
 function App() {
   const { isAuthenticated, setIsAuthenticated, user, setUser } =
@@ -80,6 +81,15 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          path="/services/:slug"
+          element={
+            <Layout>
+              <ServiceDetails />
+            </Layout>
+          }
+        />
+
         <Route
           path="/contact"
           element={
@@ -180,7 +190,7 @@ function App() {
           <Route path="job-advertisements" element={<JobAds />} />
           <Route path="post-job" element={<PostJob />} />
           <Route path="projects" element={<Projects />} />
-          <Route path="candidates" element={<Application />} />
+          <Route path="applicants" element={<Application />} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>

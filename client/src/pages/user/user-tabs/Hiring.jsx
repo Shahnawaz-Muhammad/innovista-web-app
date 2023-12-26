@@ -7,6 +7,7 @@ import DeleteJobModal from "../../../components/dashboard/DeleteJobModal";
 import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Hirings = () => {
   const [hiringData, setHiringData] = useState(null);
@@ -15,6 +16,7 @@ const Hirings = () => {
   const [selectedItemData, setSelectedItemData] = useState(null);
   const [selectedItemId, setSelectedItemId] = useState(null);
 
+  const navigate = useNavigate()
   const { user } = useContext(AuthContext);
 
   const toggleEditModal = (item) => {
@@ -94,6 +96,11 @@ const Hirings = () => {
     setDeleteModalOpen(false);
   };
 
+  const handleShowApplicants = (id) => {
+    navigate(`/dashboard/applicants`, {state:{id}})
+  }
+
+
   return (
     <div className="w-full">
       <div className="w-full flex flex-col gap-3">
@@ -117,7 +124,8 @@ const Hirings = () => {
           </h1>
         </div>
         {hiringData?.length > 0 ? (
-          hiringData.map((post) => (
+          hiringData?.slice()
+          .reverse().map((post) => (
             <div key={post._id} className="w-full flex gap-5 items-center">
               <div className="w-full flex flex-col md:flex-row gap-3 md:gap-2 items-center shadow-[2px_1px_10px_5px_rgba(0,0,0,0.1)] rounded-xl p-5">
                 <div className="w-full md:w-[25%] flex flex-col items-center gap-2">
@@ -134,8 +142,10 @@ const Hirings = () => {
                   </h2>
                 </div>
                 <div className="w-[35%] flex flex-col items-center">
-                  <h3 className=" text-gray-600 font-bold">{post.salary} </h3>
-                  <h3 className=" text-gray-600 font-semibold">per Month </h3>
+                  <h3 className=" text-gray-600 ">
+                    {post.salaryFrom} - {post.salaryTo}
+                  </h3>
+                  <h3 className=" text-gray-600 ">Rs. per Month </h3>
                 </div>
                 <div className="w-[35%] flex flex-col items-center">
                   <h3 className=" text-gray-600 font-bold">
@@ -146,9 +156,12 @@ const Hirings = () => {
                   </h3>
                 </div>
                 <div className="w-[20%] flex flex-col items-center">
-                  <h3 className=" text-gray-600 font-bold text-xl p-1">
+                  {/* <h3 className=" text-gray-600 font-bold text-xl p-1">
                     {post.status === 0 ? "In Active" : "Active"}{" "}
-                  </h3>
+                  </h3> */}
+                  <button onClick={() => handleShowApplicants(post._id)} className="px-3 py-1 rounded-lg underline">
+                    Applicants
+                  </button>
                 </div>
                 <div className="lg:w-[15%] flex gap-2 justify-center">
                   <button className="bg-orange p-1 text-white">
