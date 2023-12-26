@@ -3,18 +3,40 @@ import { BsEnvelope } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { AuthContext } from "../../context/AuthContext";
 import { apiUrl } from "../../config";
+import Modal from "react-modal"; // Import the modal library
+import "react-toastify/dist/ReactToastify.css";
 
-const ProfileHero = () => {
+
+const modalStyles = {
+  content: {
+    height:"150px",
+    width: "400px", // Adjust the width as needed
+    margin: "auto", // Center the modal horizontally
+    top: "50%", // Center the modal vertically
+    transform: "translateY(-50%)",
+  },
+};
+
+const ProfileHero = ({ onProfilePictureChange, profilePictureChange }) => {
   const { user } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
-
+  const [isSizeExceededModalOpen, setIsSizeExceededModalOpen] = useState(false);
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const formData = new FormData();
 
+    // Check if a file is selected
+    if (file) {
+      // Check the file size
+      if (file.size > 5 * 1024 * 1024) {
+        // Open the size exceeded modal
+        setIsSizeExceededModalOpen(true);
+        return;
+      }
+
+
+      const formData = new FormData();
       formData.append("profilePicture", file);
 
       try {
@@ -28,6 +50,9 @@ const ProfileHero = () => {
 
         if (response.ok) {
           console.log("Image uploaded successfully");
+          setIsSizeExceededModalOpen(false);
+          onProfilePictureChange();
+         
         } else {
           console.error("Failed to upload image");
         }
@@ -38,7 +63,7 @@ const ProfileHero = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async () => { 
       try {
         const response = await fetch(
           `${apiUrl}/bio?email=${user.email}`
@@ -77,7 +102,7 @@ const ProfileHero = () => {
     };
 
     fetchProfilePicture();
-  }, [user.email, selectedFile]);
+  }, [user.email, selectedFile,onProfilePictureChange, profilePictureChange]);
   return (
     <>
       <div className="w-full bg-coverImage h-60 object-cover bg-center relative flex justify-center mx-auto px-5 lg:px-10 xl:px-0 transition-all duration-500">
@@ -133,6 +158,22 @@ const ProfileHero = () => {
             </div>
           </div>
       </div>
+      <Modal
+        isOpen={isSizeExceededModalOpen}
+        onRequestClose={() => setIsSizeExceededModalOpen(false)}
+        contentLabel="Size Exceeded Modal"
+        style={modalStyles}
+      >
+        <div>
+          <p>Image size exceeds 5 MB limit.</p>
+          <p>Please select a new image.</p>
+          <input
+            type="file"
+            onChange={handleFileChange}
+            // You may want to customize the appearance of the input
+          />
+        </div>
+      </Modal>
      
     </>
   );

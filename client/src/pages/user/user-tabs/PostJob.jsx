@@ -160,7 +160,7 @@ export default function PostJob() {
       >
         <div className="flex flex-col py-12 justify-center items-center">
           <h1
-            className="font-extrabold text-orange text-5xl  "
+            className="font-extrabold text-orange text-3xl md:text-5xl  "
             // style={{ backdropFilter: 'blur(1x)', background: 'rgba(255, 255, 255, 0.8)' }}
           >
             Job Details
