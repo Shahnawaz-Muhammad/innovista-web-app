@@ -11,6 +11,7 @@ const JobAds = () => {
   const [isJobDetailMobileOpen, setIsJobDetailMobileOpen] = useState(false);
   const [jobDetail, setJobDetail] = useState(null);
   const [applied, Setapplied] = useState([]);
+  const [Iserror,setIsError]=useState()
 
   const handleShowJobDetail = (post) => {
     // If the same item is clicked again, toggle its visibility
@@ -44,7 +45,12 @@ const JobAds = () => {
     const selectedFile = e.target.files[0];
 
     if (selectedFile) {
-      setPdfData(selectedFile);
+      if (selectedFile.size <= 30 * 1024 * 1024) {
+        setIsError();
+        setPdfData(selectedFile);
+      } else {
+       setIsError("File Should not be greater then 30 MB");
+      }
     }
   };
 
@@ -68,7 +74,13 @@ const JobAds = () => {
       formData.append("Job_id", cvData._id);
 
       if (!pdfData) {
-        alert("Please select a file.");
+        toast.error("Please Select File ", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          theme: "light",
+        });
         return;
       }
 
@@ -325,6 +337,7 @@ const JobAds = () => {
             pdfData={pdfData}
             HandlePdfFile={HandlePdfFile}
             handleCancel={handleCancel}
+            errorMessage={Iserror}
           />
         )}
       </div>

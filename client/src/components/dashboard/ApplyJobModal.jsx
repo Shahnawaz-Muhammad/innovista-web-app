@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ApplyJobModal = ({fileInputRef,handleFileChange,handleSelectFile,pdfData,HandlePdfFile,handleCancel}) => {
+const ApplyJobModal = ({fileInputRef,handleFileChange,handleSelectFile,pdfData,HandlePdfFile,handleCancel,errorMessage}) => {
   return (
     <><div className="fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-50 ">
     <div className="flex items-center justify-center min-h-screen ">
@@ -19,6 +19,7 @@ const ApplyJobModal = ({fileInputRef,handleFileChange,handleSelectFile,pdfData,H
         >
           {pdfData ? pdfData.name : "Select file"}
         </button>
+        <h1 className='text-red-500 pt-2'>{errorMessage}</h1>
         <div className="flex gap-1 mt-5">
           <button
             className="bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-blue-100 focus:outline-none focus:ring focus:border-blue-300"

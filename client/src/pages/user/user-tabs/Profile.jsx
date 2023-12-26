@@ -11,7 +11,8 @@ const Profile = () => {
   const [isEducationOpen, setIsEducationOpen] = useState(false);
   const [isExperienceOpen, setIsExperienceOpen] = useState(false);
   const [isEmployeesOpen, setIsEmployeesOpen] = useState(false);
-
+  const [profilePictureChange, setProfilePictureChange] = useState(false);
+  
   const { user } = useContext(AuthContext);
 
   const toggleBio = () => {
@@ -27,9 +28,16 @@ const Profile = () => {
     setIsEmployeesOpen(!isEmployeesOpen);
   };
 
+
+  const handleProfilePictureChange = () => {
+    setProfilePictureChange(!profilePictureChange);
+  };
   return (
     <div className="pb-20">
-      <ProfileHero />
+       <ProfileHero
+        onProfilePictureChange={handleProfilePictureChange}
+        profilePictureChange={profilePictureChange}
+      />
 
       <div className=" bg-white mt-6 border-t border-[#dbdbdb]">
         <Bio isBioOpen={isBioOpen} toggleBio={toggleBio} user={user}/>
