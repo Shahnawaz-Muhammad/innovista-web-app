@@ -9,11 +9,12 @@ import { Company } from "../../components/register-form-components/Company";
 import { ServiceSummary } from "../../components/register-form-components/serviceSummary";
 import { ThankYou } from "../../components/register-form-components/thankYou";
 import { apiUrl } from "../../config";
-
+import Spinner from "../../Loader/Spinner";
 const Register = () => {
 
   const [step, setStep] = useState(1);
   const [showRequired, setShowRequiredFields] = useState(false);
+  const [loading,setLoading]=useState(false);
 
   const ntnRegex = /^\d{8}$/;
 
@@ -162,8 +163,10 @@ const Register = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+   
 
     if (step === 4) {
+      setLoading(true);
       let selectedPlanData = null;
       if (userServiceConfiguration.selectedPlan?.name === null) {
         setShowRequiredFields(true);
@@ -227,6 +230,7 @@ const Register = () => {
           .then((data) => {
             // Handle the API response data here
             console.log("API Response:", data);
+            setLoading(false);
             setStep(5);
           })
           .catch((error) => {
@@ -235,6 +239,7 @@ const Register = () => {
               "There was a problem with the fetch operation:",
               error
             );
+            setLoading(false);
           });
       }
     } else {
@@ -302,7 +307,8 @@ const Register = () => {
                 type={step !== 4 ? "primary" : "submit"}
                 onClick={handleFormSubmit}
               >
-                {step !== 4 ? "Next Step" : "Confirm"}
+               
+                {step !== 4 ? "Next Step" :loading ? <Spinner size={30}/> : "Confirm" }
               </Button>
             </li>
           </menu>

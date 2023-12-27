@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { apiUrl } from "../../config";
 import { toast } from "react-toastify";
-
+import Spinner from "../../Loader/Spinner";
 const UpdateEmpModal = ({
   toggleModal,
   setModalOpen,
-  selectedItemData,
+  selectedItemData, 
   fetchEmployees,
   userEmail,
 }) => {
@@ -24,6 +24,7 @@ const UpdateEmpModal = ({
     contact: "",
     email: "",
   });
+  const [loading,setLoading]=useState(false);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for basic email validation
   const contactNoRegex = /^03\d{2}-\d{7}$/;
@@ -101,6 +102,8 @@ const UpdateEmpModal = ({
 
       if (isValid) {
         // Make an update API call using fetch
+
+        setLoading(true);
         const response = await fetch(
           `${apiUrl}/updateEmployee/${selectedItemData._id}`,
           {
@@ -128,6 +131,7 @@ const UpdateEmpModal = ({
             closeOnClick: true,
             theme: "light",
           });
+          setLoading(false)
           return;
         }
         fetchEmployees(userEmail, employeeData);
@@ -139,6 +143,7 @@ const UpdateEmpModal = ({
           closeOnClick: true,
           theme: "light",
         });
+        setLoading(false)
         toggleModal();
       }
     } catch (error) {
@@ -313,7 +318,7 @@ const UpdateEmpModal = ({
                   type="submit"
                   className="text-white inline-flex items-center bg-orange hover:bg-orangeDark focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  Submit
+                   {loading ? <Spinner size={30}/> : "Submit"}
                 </button>
               </div>
             </form>

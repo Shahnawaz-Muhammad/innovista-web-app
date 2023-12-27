@@ -3,7 +3,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
 import { toast } from "react-toastify";
-
+import Spinner from "../../../Loader/Spinner";
 export default function AdvanceBooking() {
   const { user } = useContext(AuthContext);
   const [BookingData, setBookingData] = useState({
@@ -36,6 +36,7 @@ export default function AdvanceBooking() {
     ExpiryTime: "",
     Station: "",
   });
+  const [loading,setLoading]=useState(false);
 
   // const nameRegex = /^[a-zA-Z\s]+$/;
   // const contactNoRegex = /^03\d{2}-\d{7}$/;
@@ -133,6 +134,7 @@ export default function AdvanceBooking() {
       console.log(userData);
 
       try {
+        setLoading(true);
         const response = await fetch(
           `${apiUrl}/bookings?userEmail=${user.email}`,
           {
@@ -152,18 +154,7 @@ export default function AdvanceBooking() {
             }),
           }
         );
-        if (!response.ok) {
-          const errorData = await response.json();
-          toast.error(errorData, {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            theme: "light",
-          });
-          return;
-        }
-
+        if (response.ok) {
         toast.success("Slot Booked Successfully!", {
           position: "top-center",
           autoClose: 3000,
@@ -171,6 +162,7 @@ export default function AdvanceBooking() {
           closeOnClick: true,
           theme: "light",
         });
+        setLoading(false);
 
         setBookingData({
           // Name: "",
@@ -182,8 +174,7 @@ export default function AdvanceBooking() {
           ExpiryTime: "",
           Station: "",
         });
-      } catch (error) {
-        console.error("Booking error:", error);
+      }} catch (error) {
         toast.error(error, {
           position: "top-center",
           autoClose: 3000,
@@ -191,6 +182,7 @@ export default function AdvanceBooking() {
           closeOnClick: true,
           theme: "light",
         });
+        setLoading(false);
       }
     }
   };
@@ -450,7 +442,8 @@ export default function AdvanceBooking() {
               className="rounded-lg bg-orange hover:bg-orangeDark hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none focus:shadow-lg shadow-sm shadow-orange"
               type="submit"
             >
-              Submit
+              {loading ? <Spinner size={30}/> : "Submit"}
+               
             </button>
           </div>
         </form>

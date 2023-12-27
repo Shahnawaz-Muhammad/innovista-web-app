@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { apiUrl } from "../../config";
 import { toast } from "react-toastify";
-
+import Spinner from "../../Loader/Spinner";
 const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail }) => {
   const [employeeData, setEmployeeData] = useState({
     empName: "",
@@ -19,7 +19,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
     empEmail: "",
     empPhone: "",
   });
-
+  const [loading,setLoading]=useState(false);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for basic email validation
   const contactNoRegex = /^03\d{2}-\d{7}$/;
 
@@ -100,6 +100,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
       }
 
       // Make an API call to authenticate the user and fetch user data
+      setLoading(true);
       const response = await fetch(
         `${apiUrl}/Employees?userEmail=${user.email}`,
         {
@@ -126,6 +127,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
           closeOnClick: true,
           theme: "light",
         });
+        setLoading(false);
         return;
       }
       fetchEmployees(userEmail, employeeData);
@@ -137,6 +139,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
         closeOnClick: true,
         theme: "light",
       });
+      setLoading(false);
     } catch (error) {
       console.error("Error:", error);
       toast.error(error, {
@@ -310,7 +313,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                   type="submit"
                   className="text-white inline-flex items-center bg-orange hover:bg-orangeDark focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  Submit
+                    {loading ? <Spinner size={30}/> : "Submit"}
                 </button>
               </div>
             </form>

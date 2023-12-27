@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { apiUrl } from "../../config";
 import { toast } from "react-toastify";
-
+import Spinner from "../../Loader/Spinner";
 const EducationModal = ({
   toggleModal,
   setModalOpen,
@@ -20,6 +20,7 @@ const EducationModal = ({
     subject: "",
     year: "",
   });
+  const [loading,setLoading]=useState(false)
 
   // Validation function
   const validateInput = (fieldName, value) => {
@@ -72,6 +73,7 @@ const EducationModal = ({
       }
 
       // Make an API call to authenticate the user and fetch user data
+      setLoading(true);
       const response = await fetch(
         `${apiUrl}/educations?userEmail=${user.email}`,
         {
@@ -96,6 +98,7 @@ const EducationModal = ({
           closeOnClick: true,
           theme: "light",
         });
+        setLoading(false);
         return;
       }
       fetchEducation(userEmail, educationData);
@@ -108,6 +111,7 @@ const EducationModal = ({
         closeOnClick: true,
         theme: "light",
       });
+      setLoading(false);
     } catch (error) {
       console.error("Error:", error);
       toast.error(error, {
@@ -248,7 +252,8 @@ const EducationModal = ({
                   type="submit"
                   className="text-white inline-flex items-center bg-orange hover:bg-orangeDark focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  Submit
+                {loading ? <Spinner size={30}/> : "Submit"}
+                  
                 </button>
               </div>
             </form>

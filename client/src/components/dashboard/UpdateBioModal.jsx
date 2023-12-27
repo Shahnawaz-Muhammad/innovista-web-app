@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { apiUrl } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import Spinner from "../../Loader/Spinner";
 
 const UpdateBioModal = ({
   toggleModal,
@@ -29,6 +30,7 @@ const UpdateBioModal = ({
     phone: "",
     dob: "",
   });
+  const [loading,setLoading]=useState(false);
 
   function handleChange(evt) {
     const value = evt.target.value;
@@ -64,6 +66,7 @@ const UpdateBioModal = ({
 
       if (isValid) {
         // Make an update API call using fetch
+        setLoading(true);
         const response = await fetch(
           `${apiUrl}/UpdateBio?email=${user.email}`,
           {
@@ -86,6 +89,7 @@ const UpdateBioModal = ({
             closeOnClick: true,
             theme: "light",
           });
+          setLoading(false);
           return;
         }
 
@@ -96,6 +100,8 @@ const UpdateBioModal = ({
           closeOnClick: true,
           theme: "light",
         });
+
+        setLoading(false);
 
         fetchBio(userEmail, bioData);
         toggleModal();
@@ -300,7 +306,8 @@ const UpdateBioModal = ({
                   type="submit"
                   className="text-white inline-flex items-center bg-orange hover:bg-orangeDark focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  Submit
+                {loading ? <Spinner size={30}/> : "Submit"}
+                 
                 </button>
               </div>
             </form>

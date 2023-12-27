@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { apiUrl } from "../../config";
 import { toast } from "react-toastify";
+import Spinner from "../../Loader/Spinner";
 
 const ExperienceModal = ({ toggleModal, setModalOpen,fetchExperience, userEmail }) => {
   const currentDate = new Date().toISOString().split("T")[0];
@@ -16,9 +17,10 @@ const ExperienceModal = ({ toggleModal, setModalOpen,fetchExperience, userEmail 
   const [errors, setErrors] = useState({
     companyName: "",
     designation: "",
-    startDate: "",
+    startDate: "", 
     endDate: "",
   });
+  const [loading,setLoading]=useState(false)
 
   const { user } = useContext(AuthContext);
 
@@ -62,6 +64,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen,fetchExperience, userEmail 
 
       
       // Make an API call to authenticate the user and fetch user data
+      setLoading(true);
       const response = await fetch(
         `${apiUrl}/experience?userEmail=${user.email}`,
         {
@@ -79,7 +82,17 @@ const ExperienceModal = ({ toggleModal, setModalOpen,fetchExperience, userEmail 
       );
 
       if (!response.ok) {
-        throw new Error("Failed Adding Experience");
+       // throw new Error("Failed Adding Experience");
+        const errorData = await response.json();
+        toast.error(errorData, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          theme: "light",
+        });
+        setLoading(false);
+        return;
       }
 
       fetchExperience(userEmail, experienceData);
@@ -91,7 +104,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen,fetchExperience, userEmail 
         closeOnClick: true,
         theme: "light",
       })
-
+      setLoading(false);
 
     } catch (error) {
       console.error("Error Adding Experience:", error);
@@ -236,7 +249,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen,fetchExperience, userEmail 
                   type="submit"
                   className="text-white inline-flex items-center bg-orange hover:bg-orangeDark focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  Submit
+                  {loading ? <Spinner size={30}/> : "Submit"}
                 </button>
               </div>
             </form>

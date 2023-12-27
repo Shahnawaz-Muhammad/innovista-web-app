@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { apiUrl } from "../../config";
 import { toast } from "react-toastify";
-
+import Spinner from "../../Loader/Spinner";
 const UpdateEduModal = ({
   toggleModal,
   setModalOpen,
@@ -20,7 +20,7 @@ const UpdateEduModal = ({
     subject: "",
     year: "",
   });
-
+const [loading,setLoading]=useState(false);
   const validateForm = () => {
     let valid = true;
     const newErrors = { ...errors };
@@ -70,6 +70,8 @@ const UpdateEduModal = ({
 
       if (isValid) {
         // Make an update API call using fetch
+
+        setLoading(true)
         const response = await fetch(
           `${apiUrl}/updateEducation/${selectedItemData._id}`,
           {
@@ -90,6 +92,7 @@ const UpdateEduModal = ({
             closeOnClick: true,
             theme: "light",
           });
+          setLoading(false);
           return;
         }
         fetchEducation(userEmail, educationData);
@@ -101,6 +104,7 @@ const UpdateEduModal = ({
           closeOnClick: true,
           theme: "light",
         });
+        setLoading(false);
         toggleModal();
       }
     } catch (error) {
@@ -265,7 +269,8 @@ const UpdateEduModal = ({
                   type="submit"
                   className="text-white inline-flex items-center bg-orange hover:bg-orangeDark focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  Submit
+                 {loading ? <Spinner size={30}/> : "Submit"}
+                  
                 </button>
               </div>
             </form>

@@ -4,14 +4,21 @@ import { AuthContext } from "../../context/AuthContext";
 import logo from "../../assets/D-labs-logo-white.png";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import loginBg from "../../assets/images/bg-main.png";
-
+import Spinner from "../../Loader/Spinner";
 const Login = () => {
-  const { login, unAuthorizedUser } = useContext(AuthContext);
+  const {
+    login,
+    unAuthorizedUser,
+    loading, 
+    setLoading
+  } = useContext(AuthContext);  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+
 
   const validateEmail = (inputEmail) => {
     // Basic email validation using a regular expression
@@ -26,33 +33,46 @@ const Login = () => {
     return regex.test(inputPassword);
   };
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    if(!email) {
-      setEmailError("Email is Required!");
-      return;
+  const handleLogin = async (event) => {
+    try {
+      event.preventDefault();
+  
+      // Set loading to true before making the API call
+      setLoading(true);
+  
+      if (!email) {
+        setEmailError("Email is Required!");
+        setLoading(false); // Set loading back to false
+        return;
+      }
+  
+      if (!validateEmail(email)) {
+        setEmailError("Please enter a valid email address");
+        setLoading(false); // Set loading back to false
+        return;
+      } else {
+        setEmailError("");
+      }
+  
+      // Validate password
+      if (!validatePassword(password)) {
+        setPasswordError(
+          "Password must contain at least 8 characters, including uppercase, lowercase, numeric, and special characters"
+        );
+        setLoading(false); // Set loading back to false
+        return;
+      } else {
+        setPasswordError("");
+      }
+  
+      // Call the login function from AuthContext
+      await login({ email, password }, event);
+    } finally {
+      // Set loading back to false regardless of the API call result
+      setLoading(false);
     }
-    if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address");
-      return;
-    }
-    
-    else {
-      setEmailError("");
-    }
-
-    // Validate password
-    if (!validatePassword(password)) {
-      setPasswordError(
-        "Password must contain at least 8 characters, including uppercase, lowercase, numeric, and special characters"
-      );
-      return;
-    } else {
-      setPasswordError("");
-    }
-
-    login({ email, password }, event);
   };
+  
 
   return (
     <div
@@ -171,7 +191,7 @@ const Login = () => {
               type="submit"
               className="w-full text-white bg-orange hover:bg-orangeDark focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             >
-              Sign in
+              {loading ? <Spinner size={30}/> : "Sign in"}
             </button>
             <p className="text-md font-medium  dark:text-gray-400">
               Don’t have an account yet?{" "}

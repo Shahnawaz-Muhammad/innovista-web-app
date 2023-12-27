@@ -5,6 +5,7 @@ import { apiUrl } from "../../../config";
 import bgMain from "../../../assets/images/bg-main.png";
 import { toast } from "react-toastify";
 
+
 const JobAds = () => {
   const [jobAds, setJobAds] = useState(null);
   const [isJobDetailOpen, setIsJobDetailOpen] = useState(false);
@@ -29,6 +30,7 @@ const JobAds = () => {
   const { user } = useContext(AuthContext);
   const [pdfData, setPdfData] = useState(null);
   const [cvData, setCvData] = useState(null);
+  
 
   const fileInputRef = useRef(null);
 
@@ -83,7 +85,7 @@ const JobAds = () => {
         });
         return;
       }
-
+   
       const response = await fetch(
         `${apiUrl}/uploadCV?userEmail=${user.email}`,
         {
@@ -93,8 +95,21 @@ const JobAds = () => {
       );
 
       const data = await response.json();
-      console.log(data);
+     // console.log(data);
       CheckEmailIfExist(cvData._id);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast.error(errorData, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          theme: "light",
+        });
+       
+        return;
+      }
       toast.success("CV Submitted Successfully!", {
         position: "top-center",
         autoClose: 3000,
@@ -102,6 +117,7 @@ const JobAds = () => {
         closeOnClick: true,
         theme: "light",
       });
+    
       // console.log(data); // You can handle the response data here
       setPdfData(null);
     } catch (error) {
@@ -224,13 +240,12 @@ const JobAds = () => {
                                 (item) => item.jobid === jobDetail._id
                               ) && "Applied"
                             }
-                            onClick={() => handleApplyJob(post)}
+                            onClick={() => handleApplyJob(post)} 
                           >
                             {applied.some(
                               (item) => item.jobid === jobDetail._id
                             )
-                              ? "Applied"
-                              : "Apply Now"}
+                              ? "Applied" : "Apply Now"}
                           </button>
                         </div>
                       </div>

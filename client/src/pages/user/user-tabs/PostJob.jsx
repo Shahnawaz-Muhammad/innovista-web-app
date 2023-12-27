@@ -3,7 +3,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
 import { toast } from "react-toastify";
-
+import Spinner from "../../../Loader/Spinner";
 export default function PostJob() {
   const currentDate = new Date().toISOString().split("T")[0];
 
@@ -18,7 +18,7 @@ export default function PostJob() {
     job_deadline: "",
     status: "",
   });
-
+  const [loading,setLoading]=useState(false);
   const [errors, setErrors] = useState({
     job_title: "",
     salary: "",
@@ -93,6 +93,7 @@ export default function PostJob() {
         return;
       }
       // Make an API call to authenticate the user and fetch user data
+      setLoading(true);
       const response = await fetch(
         `${apiUrl}/PostJob?userEmail=${user.email}`,
         {
@@ -115,7 +116,17 @@ export default function PostJob() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to post a job");
+       // throw new Error("Failed to post a job");
+        const errorData = await response.json();
+        toast.error("Failed to post a job", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          theme: "light",
+        });
+        setLoading(false);
+        return;
       }
       toast.success("Job Posted successfully!", {
         position: "top-center",
@@ -124,6 +135,7 @@ export default function PostJob() {
         closeOnClick: true,
         theme: "light",
       });
+      setLoading(false);
 
       setFormData({
         job_title: "",
@@ -138,7 +150,7 @@ export default function PostJob() {
       });
     } catch (error) {
       console.error("Login error:", error);
-      toast.success(error, {
+      toast.error(error, {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
@@ -413,7 +425,7 @@ export default function PostJob() {
                 type="submit"
                 className="mt-5 px-5 py-2 rounded bg-orange text-white font-semibold "
               >
-                Submit
+                {loading ? <Spinner size={30}/> : "Submit"}
               </button>
             </div>
           </form>

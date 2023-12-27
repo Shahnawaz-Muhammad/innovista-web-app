@@ -13,10 +13,14 @@ const AuthProvider = ({ children }) => {
   const [pdfUrl, setPdfUrl] = useState(null);
   const [emailAddress, setEmailAddress] = useState(""); 
 
- 
+  const [loading, setLoading] = useState(false); // Include loading state
+
   const login = async (credentials, event) => {
     try {
       event.preventDefault();
+      // Set loading to true before making the API call
+      setLoading(true);
+
       // Make an API call to authenticate the user and fetch user data
       const response = await fetch(`${apiUrl}/login`, {
         method: "POST",
@@ -32,7 +36,7 @@ const AuthProvider = ({ children }) => {
       if (!response.ok) {
         const errorData = await response.json();
         if (response.status === 401) {
-          setUnAuthorizedUser(true)
+          setUnAuthorizedUser(true);
         } else {
           // Other errors
           toast.error(errorData, {
@@ -49,13 +53,13 @@ const AuthProvider = ({ children }) => {
       const responseData = await response.json();
 
       const { token, user } = responseData;
-      
+
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
       setUser(user);
       setIsAuthenticated(true);
-      setUnAuthorizedUser(false)
+      setUnAuthorizedUser(false);
 
       toast.success("Logged In Successfully!", {
         position: "top-center",
@@ -63,7 +67,7 @@ const AuthProvider = ({ children }) => {
         hideProgressBar: true,
         closeOnClick: true,
         theme: "light",
-      })
+      });
     } catch (error) {
       toast.error(error, {
         position: "top-center",
@@ -74,7 +78,11 @@ const AuthProvider = ({ children }) => {
       });
       setIsAuthenticated(false);
       setUser({});
+     
       console.error("Login error:", error);
+    } finally {
+      // Set loading back to false regardless of the API call result
+      setLoading(false);
     }
   };
 
@@ -103,7 +111,9 @@ const AuthProvider = ({ children }) => {
         setPdfUrlContext,
         emailAddress, 
         setEmailAddress,
-        unAuthorizedUser
+        unAuthorizedUser,
+        loading, 
+        setLoading
       }}
     >
       {children}

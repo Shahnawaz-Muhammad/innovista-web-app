@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { apiUrl } from "../../config";
 import { toast } from "react-toastify";
+import Spinner from "../../Loader/Spinner";
 // import { AuthContext } from "../../context/AuthContext";
 
 const UpdateExperienceModal = ({
@@ -23,6 +24,8 @@ const UpdateExperienceModal = ({
     startDate: "",
     endDate: "",
   });
+
+  const [loading,setLoading]=useState(false)
   // const { user } = useContext(AuthContext);
 
   function handleChange(evt) {
@@ -74,6 +77,7 @@ const UpdateExperienceModal = ({
 
       if (validForm) {
         // Make an update API call using fetch
+        setLoading(true);
         const response = await fetch(
           `${apiUrl}/updateExperience/${selectedItemData._id}`,
           {
@@ -86,20 +90,31 @@ const UpdateExperienceModal = ({
         );
 
         if (!response.ok) {
-          throw new Error("Failed updating experience");
+          //throw new Error("Failed updating experience");
+          const errorData = await response.json();
+          toast.error(errorData, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            theme: "light",
+          });
+          setLoading(false);
+          return;
         }
         fetchExperience(userEmail, experienceData);
-        toast.success("Error updating Experience!", {
+        toast.success("Updating Experience Successfully!", {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
           theme: "light",
         });
+        setLoading(false);
         toggleModal();
       }
     } catch (error) {
-      console.error("Error updating education:", error);
+     // console.error("Error updating education:", error);
       toast.error(error, {
         position: "top-center",
         autoClose: 3000,
@@ -250,7 +265,7 @@ const UpdateExperienceModal = ({
                   type="submit"
                   className="text-white inline-flex items-center bg-orange hover:bg-orangeDark focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  Submit
+                 {loading ? <Spinner size={30}/> : "Submit"}
                 </button>
               </div>
             </form>
