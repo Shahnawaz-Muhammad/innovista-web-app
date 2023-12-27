@@ -36,7 +36,6 @@ const BookingHistory = () => {
     fetchData();
   }, [user.email, BookingData]);
 
-  console.log(BookingData);
 
   return (
     <>
@@ -72,7 +71,7 @@ const BookingHistory = () => {
                   >
                     {expandedIndex !== index ? (
                       <div className="w-full flex flex-col md:flex-row justify-around items-center ">
-                        <div className="flex flex-col w-40 h-14 border-b-2 border-orange md:border-b-0">
+                        <div className="flex flex-col w-40 h-14  md:border-b-0">
                           <h1 className="text-xl font-bold text-center md:text-left">
                             Members/Guests
                           </h1>

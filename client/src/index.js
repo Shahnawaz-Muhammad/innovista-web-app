@@ -7,15 +7,18 @@ import { AnimatePresence } from "framer-motion";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ProfileProvider } from "./context/ProfileContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <AnimatePresence mode="wait">
-          <App />
-        </AnimatePresence>
+        <ProfileProvider>
+          <AnimatePresence mode="wait">
+            <App />
+          </AnimatePresence>
+        </ProfileProvider>
       </AuthProvider>
     </BrowserRouter>
     <ToastContainer />

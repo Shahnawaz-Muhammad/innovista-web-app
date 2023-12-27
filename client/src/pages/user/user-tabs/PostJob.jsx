@@ -158,16 +158,16 @@ export default function PostJob() {
           zIndex: "-1",
         }}
       >
-        <div className="flex flex-col py-12 justify-center items-center">
+        <div className="flex flex-col gap-3 py-12 justify-center items-center">
           <h1
-            className="font-extrabold text-orange text-3xl md:text-5xl  "
+            className="font-extrabold text-white text-3xl md:text-5xl  "
             // style={{ backdropFilter: 'blur(1x)', background: 'rgba(255, 255, 255, 0.8)' }}
           >
             Job Details
           </h1>
           <form
-            className=" w-full md:w-2/3 my-10 p-10 rounded-lg"
-            style={{
+          className="mb-5 w-full md:w-4/5 lg:w-2/3 p-5 rounded-lg "
+          style={{
               backdropFilter: "blur(5x)",
               background: "rgba(255, 255, 255, 0.8)",
             }}

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AdvanceBooking() {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [BookingData, setBookingData] = useState({
     // Name: userData?.firstName,
@@ -185,7 +185,7 @@ export default function AdvanceBooking() {
           ExpiryTime: "",
           Station: "",
         });
-        navigate("/dashboard/booking-history") 
+        navigate("/dashboard/booking-history");
       } catch (error) {
         console.error("Booking error:", error);
         toast.error(error, {
@@ -202,27 +202,28 @@ export default function AdvanceBooking() {
   return (
     <div
       className=" flex flex-col absolute left-0 top-0 w-full "
-      style={{ position: "relative" }}
-    >
-      <div
-        className="w-full"
-        style={{
-          backgroundImage: `url(${bgMain})`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          position: "absolute",
-          top: "0",
-          left: "0",
-          zIndex: "-1",
-          filter: "blur(1px)",
-          height: "100%",
-        }}
-      ></div>
+      // style={{ position: "relative" }}
 
-      <div className="flex flex-col  justify-center items-center ">
+      // {/* <div */}
+      // className="w-full"
+      style={{
+        backgroundImage: `url(${bgMain})`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        position: "absolute",
+        top: "0",
+        left: "0",
+        // zIndex: "-1",
+        // filter: "blur(1px)",
+        // height: "100%",
+      }}
+    >
+      {/* // ></div> */}
+
+      <div className="flex flex-col py-12  justify-center items-center ">
         <h1
-          className="font-extrabold text-orange text-3xl md:text-5xl p-5 "
+          className="font-extrabold text-white text-3xl md:text-5xl p-5 "
           // style={{
           //   backdropFilter: "blur(1x)",
           //   background: "rgba(255, 255, 255, 0.3)",
@@ -299,9 +300,7 @@ export default function AdvanceBooking() {
                   className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.Member && (
-                  <p className="text-[#fa0505]  pl-2">
-                    {errors.Member}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.Member}</p>
                 )}
               </div>
             </div>
@@ -329,9 +328,7 @@ export default function AdvanceBooking() {
                   ))}
                 </select>
                 {errors.Station && (
-                  <p className="text-[#fa0505]  pl-2">
-                    {errors.Station}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.Station}</p>
                 )}
               </div>
             </div>
@@ -357,9 +354,7 @@ export default function AdvanceBooking() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.BookingDate && (
-                  <p className="text-[#fa0505]  pl-2">
-                    {errors.BookingDate}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.BookingDate}</p>
                 )}
               </div>
             </div>
@@ -383,9 +378,7 @@ export default function AdvanceBooking() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.ExpiryDate && (
-                  <p className="text-[#fa0505]  pl-2">
-                    {errors.ExpiryDate}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.ExpiryDate}</p>
                 )}
               </div>
             </div>
@@ -410,9 +403,7 @@ export default function AdvanceBooking() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.BookingTime && (
-                  <p className="text-[#fa0505]  pl-2">
-                    {errors.BookingTime}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.BookingTime}</p>
                 )}
               </div>
             </div>
@@ -435,9 +426,7 @@ export default function AdvanceBooking() {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.ExpiryTime && (
-                  <p className="text-[#fa0505]  pl-2">
-                    {errors.ExpiryTime}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.ExpiryTime}</p>
                 )}
               </div>
             </div>

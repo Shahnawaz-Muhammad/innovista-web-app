@@ -8,12 +8,14 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [unAuthorizedUser, setUnAuthorizedUser] = useState(false)
+  const [isOtpConfirmed, setIsOtpConfirmed] = useState(false);
+
+
+  const [unAuthorizedUser, setUnAuthorizedUser] = useState(false);
   const [user, setUser] = useState({});
   const [pdfUrl, setPdfUrl] = useState(null);
-  const [emailAddress, setEmailAddress] = useState(""); 
+  const [emailAddress, setEmailAddress] = useState("");
 
- 
   const login = async (credentials, event) => {
     try {
       event.preventDefault();
@@ -32,7 +34,7 @@ const AuthProvider = ({ children }) => {
       if (!response.ok) {
         const errorData = await response.json();
         if (response.status === 401) {
-          setUnAuthorizedUser(true)
+          setUnAuthorizedUser(true);
         } else {
           // Other errors
           toast.error(errorData, {
@@ -49,13 +51,13 @@ const AuthProvider = ({ children }) => {
       const responseData = await response.json();
 
       const { token, user } = responseData;
-      
+
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
       setUser(user);
       setIsAuthenticated(true);
-      setUnAuthorizedUser(false)
+      setUnAuthorizedUser(false);
 
       toast.success("Logged In Successfully!", {
         position: "top-center",
@@ -63,7 +65,7 @@ const AuthProvider = ({ children }) => {
         hideProgressBar: true,
         closeOnClick: true,
         theme: "light",
-      })
+      });
     } catch (error) {
       toast.error(error, {
         position: "top-center",
@@ -101,9 +103,11 @@ const AuthProvider = ({ children }) => {
         logout,
         pdfUrl,
         setPdfUrlContext,
-        emailAddress, 
+        emailAddress,
         setEmailAddress,
-        unAuthorizedUser
+        unAuthorizedUser,
+        isOtpConfirmed,
+        setIsOtpConfirmed,
       }}
     >
       {children}

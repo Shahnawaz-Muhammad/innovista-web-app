@@ -7,8 +7,11 @@ import ProfileImg from "../../../assets/images/img_bnfts.jpg";
 import { MdAddBox, MdDeleteForever } from "react-icons/md";
 import UpdateEmpModal from "../../../components/dashboard/UpdateEmpModal";
 import DeleteEducationModal from "../../../components/dashboard/DeleteEduModal";
+import { BsQrCodeScan } from "react-icons/bs";
+
 import { TbEdit } from "react-icons/tb";
 import { toast } from "react-toastify";
+import QrCode from "../../../components/dashboard/QrCode";
 
 function Employees({ isEmployeeOpen, toggleEmp }) {
   const { user } = useContext(AuthContext);
@@ -16,7 +19,10 @@ function Employees({ isEmployeeOpen, toggleEmp }) {
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-
+  const [showQr, setShowQr] = useState({
+    isOpen: false,
+    data: null,
+  });
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [selectedItemData, setSelectedItemData] = useState(null);
 
@@ -175,6 +181,12 @@ function Employees({ isEmployeeOpen, toggleEmp }) {
 
                     <div className="w-full flex justify-center gap-1">
                       <button
+                        onClick={() => setShowQr({ isOpen: true, data: data })}
+                        className="border-2 rounded-lg text-white px-3 py-1"
+                      >
+                        <BsQrCodeScan className="text-2xl md:text-2xl text-green-700 hover:scale-125 transition-all duration-300" />
+                      </button>
+                      <button
                         onClick={() => toggleEditModal(data)}
                         className="border-2 rounded-lg text-white px-3 py-1"
                       >
@@ -199,6 +211,13 @@ function Employees({ isEmployeeOpen, toggleEmp }) {
         </div>
       )}
 
+      {showQr.isOpen && (
+        <QrCode
+          booking={showQr.data}
+          showQr={showQr.isOpen}
+          setShowQr={() => setShowQr({ isOpen: false, data: null })}
+        />
+      )}
       {isAddModalOpen && (
         <AddEmployeeModal
           userEmail={user.email}

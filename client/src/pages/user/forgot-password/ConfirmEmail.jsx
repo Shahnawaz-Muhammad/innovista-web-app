@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { apiUrl } from "../../../config";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
 
 const isValidEmail = (email) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -13,6 +14,8 @@ const ConfirmEmail = () => {
   const [loading, setLoading] = useState(false);
   const [emailExist, setEmailExist] = useState(false);
   const [emailError, setEmailError] = useState(null);
+
+  const { setIsOtpConfirmed } = useContext(AuthContext);
 
   const handleEmailCheck = async (e) => {
     setLoading(true);
@@ -39,9 +42,13 @@ const ConfirmEmail = () => {
       const { emailExists } = await response.json();
 
       if (emailExists) {
+        setIsOtpConfirmed(true);
+
         navigate("/confirm-otp", { state: { emailAddress: email } });
       } else {
         setEmailExist(false);
+        setIsOtpConfirmed(false);
+
         setEmailError("Email Doesn't Exist");
       }
     } catch (error) {
@@ -57,7 +64,7 @@ const ConfirmEmail = () => {
       <div className=" max-w-lg mx-auto  bg-white p-8 rounded-xl shadow shadow-slate-300">
         <h1 className="text-3xl font-medium">Find Your Account</h1>
         <p className="text-slate-500">Please Enter Your Valid Email Address</p>
-        <form action="" className="my-10">
+        <form className="my-10" onSubmit={handleEmailCheck}>
           <div className="flex flex-col space-y-5">
             <label htmlFor="email">
               <p className="font-medium text-slate-700 pb-2">Email</p>
@@ -77,7 +84,7 @@ const ConfirmEmail = () => {
             </label>
 
             <button
-              onClick={handleEmailCheck}
+              type="submit"
               className="w-full py-3 font-medium text-white bg-orange hover:bg-orangeDark rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
             >
               <svg

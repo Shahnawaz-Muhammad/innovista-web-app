@@ -33,10 +33,8 @@ router.post("/checkEmail", async (req, res) => {
         UserEmail: email,
       });
       setTimeout(() => {
-        console.log("heloow i am expire");
         otp = generateOTP();
       }, 60000);
-      
     } else {
       res.json({ emailExists: false, message: "You are Not registered" });
     }
@@ -48,7 +46,6 @@ router.post("/checkEmail", async (req, res) => {
 
 // Function to send OTP email using nodemailer with SMTP
 async function sendOTPEmail(email, otp) {
-  
   // Create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",

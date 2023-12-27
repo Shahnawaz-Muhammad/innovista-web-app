@@ -76,7 +76,7 @@ const Login = () => {
             <img src={logo} alt="" className="h-16" />
           </div>
 
-          <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-700 md:text-2xl dark:text-white">
+          <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-700 md:text-2xl ">
             Welcome to D-Labs
           </h1>
           <form
@@ -87,7 +87,7 @@ const Login = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block pl-3 text-sm font-bold  dark:text-white"
+                className="block pl-3 text-sm font-bold  "
               >
                 Email
               </label>
@@ -96,7 +96,7 @@ const Login = () => {
                 name="email"
                 id="email"
                 placeholder="d-labs@gmail.com"
-                className="bg-gray-50 border border-gray-300  sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300  sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -107,7 +107,7 @@ const Login = () => {
             <div className="relative">
               <label
                 htmlFor="password"
-                className=" mb-2 text-sm font-bold pl-3 dark:text-white"
+                className=" mb-2 text-sm font-bold pl-3 "
               >
                 Password
               </label>
@@ -116,7 +116,7 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder="********"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -148,13 +148,13 @@ const Login = () => {
                     id="remember"
                     aria-describedby="remember"
                     type="checkbox"
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
                   />
                 </div>
                 <div className="ml-3 ">
                   <label
                     htmlFor="remember"
-                    className="font-medium dark:text-gray-300"
+                    className="font-medium "
                   >
                     Remember me
                   </label>
@@ -162,22 +162,22 @@ const Login = () => {
               </div>
               <Link
                 to="/find-your-account"
-                className=" font-medium  hover:underline dark:text-primary-500"
+                className=" font-medium  hover:underline "
               >
                 Forgot password ?
               </Link>
             </div>
             <button
               type="submit"
-              className="w-full text-white bg-orange hover:bg-orangeDark focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              className="w-full text-white bg-orange hover:bg-orangeDark focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
             >
               Sign in
             </button>
-            <p className="text-md font-medium  dark:text-gray-400">
+            <p className="text-md font-medium  ">
               Don’t have an account yet?{" "}
               <Link
                 to="/register"
-                className="font-bold p-2 text-gray-600 hover:text-white hover:bg-orange hover:rounded-lg hover:underline dark:text-primary-500"
+                className="font-bold p-2 text-gray-600 hover:text-white hover:bg-orange hover:rounded-lg hover:underline"
               >
                 Sign up
               </Link>

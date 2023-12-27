@@ -68,14 +68,14 @@ const ResetPassword = () => {
 
   return (
     <div className="bg-slate-200 pt-40 py-20 px-2">
-      <div class=" max-w-lg mx-auto  bg-white p-8 rounded-xl shadow shadow-slate-300">
-        <h1 class="text-3xl font-medium">Reset Password</h1>
-        {/* <p class="text-slate-500">Please Enter Your New Password.</p> */}
-        <form class="my-5">
-          <div class="flex flex-col space-y-1 h-48">
-            <div class="flex flex-col space-y-5">
+      <div className=" max-w-lg mx-auto  bg-white p-8 rounded-xl shadow shadow-slate-300">
+        <h1 className="text-3xl font-medium">Reset Password</h1>
+        {/* <p className="text-slate-500">Please Enter Your New Password.</p> */}
+        <form className="my-5">
+          <div className="flex flex-col space-y-1 h-48">
+            <div className="flex flex-col space-y-5">
               <label htmlFor="password">
-                <p class="font-medium text-slate-700 pb-1">New Password</p>
+                <p className="font-medium text-slate-700 pb-1">New Password</p>
                 <input
                   type="password"
                   name="password"
@@ -85,7 +85,7 @@ const ResetPassword = () => {
                 />
               </label>
               <label htmlFor="password">
-                <p class="font-medium text-slate-700 pb-1">
+                <p className="font-medium text-slate-700 pb-1">
                   Confirm New Password
                 </p>
                 <input
@@ -106,7 +106,7 @@ const ResetPassword = () => {
           </div>
           <button
             onClick={handleResetPassword}
-            class="w-full mt-4 py-3 font-medium text-white bg-orange hover:bg-orangeDark rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+            className="w-full mt-4 py-3 font-medium text-white bg-orange hover:bg-orangeDark rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +114,7 @@ const ResetPassword = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              class="w-6 h-6"
+              className="w-6 h-6"
             >
               <path
                 strokeLinecap="round"

@@ -32,7 +32,7 @@ import ResetPassword from "./pages/user/forgot-password/ResetPassword";
 import ServiceDetails from "./pages/services/ServiceDetails";
 
 function App() {
-  const { isAuthenticated, setIsAuthenticated, user, setUser } =
+  const { isAuthenticated, setIsAuthenticated, user, setUser, isOtpConfirmed } =
     useContext(AuthContext);
 
   useEffect(() => {
@@ -130,14 +130,20 @@ function App() {
             </Layout>
           }
         />
-        <Route
-          path="/confirm-otp"
-          element={
-            <Layout>
-              <ConfirmOtp />
-            </Layout>
-          }
-        />
+        
+          <Route
+            path="/confirm-otp"
+            element={
+              !isOtpConfirmed ? (
+                <Navigate to="/find-your-account" />
+              ) : (
+                <Layout>
+                  <ConfirmOtp />
+                </Layout>
+              )
+            }
+          />
+        
         <Route
           path="/reset-password"
           element={
