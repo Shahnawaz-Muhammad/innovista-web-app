@@ -105,6 +105,24 @@ router.get("/getAllCVs", async (req, res) => {
   }
 });
 
+router.get('/getAllByJobId', async (req, res) => {
+  try {
+    const { companyEmail,job_id } = req.query;
+
+    // Define a filter object based on the presence of companyEmail
+    const filter = companyEmail ? { CompanyEmail: companyEmail,Job_id:job_id } : {};
+
+    // Retrieve CVs based on the filter
+    const allCvs = await CV.find(filter);
+
+    // Return the list of CVs in the response
+    res.json({ allCvs });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 router.delete("/deleteCV/:cvId", async (req, res) => {
   try {
     const { cvId } = req.params;

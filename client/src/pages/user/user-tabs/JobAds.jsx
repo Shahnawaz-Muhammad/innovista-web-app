@@ -261,8 +261,8 @@ const JobAds = () => {
                           </div>
                         </div>
                         <div className="w-full flex flex-col ">
-                          <h3 className=" text-gray-600 text-md lg:text-lg">
-                            {post.salary} per Month
+                          <h3 className=" text-gray-600 text-md">
+                          {post.salaryFrom} - {post.salaryTo} Rs. per Month
                           </h3>
                           <h3 className=" text-gray-600 text-sm lg:text-md">
                             {post.job_type}
@@ -307,7 +307,7 @@ const JobAds = () => {
                       </div>
                       <div className="w-full">
                         <h2 className="text-gray-500">
-                          {jobDetail.salary} per month
+                        {jobDetail.salaryFrom} - {jobDetail.salaryTo} Rs. per Month
                         </h2>
                         <p className="text-gray-500">{jobDetail.job_type} </p>
                       </div>

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 // import { VscBellDot } from "react-icons/vsc";
 import { FaAngleDown } from "react-icons/fa6";
-import profileImage from "../../../assets/images/profile-image.jpg";
 // import { AiOutlineLogout } from "react-icons/ai";
 import logo from "../../../assets/D-labs-logo.png";
 import { IoMdClose } from "react-icons/io";
@@ -9,9 +8,12 @@ import { IoMdClose } from "react-icons/io";
 import { AuthContext } from "../../../context/AuthContext";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { ProfileContext } from "../../../context/ProfileContext";
+import { apiUrl } from "../../../config";
 
 const UserHeader = ({ user }) => {
   const { logout, isAuthenticated } = useContext(AuthContext);
+  const { selectedFile,setSelectedFile } = useContext(ProfileContext);
 
   const location = useLocation();
 
@@ -85,11 +87,6 @@ const UserHeader = ({ user }) => {
       title: "Post a Job",
       url: "post-job",
     },
-    {
-      id: 5,
-      title: "Applications",
-      url: "candidates",
-    },
   ];
 
   let userData;
@@ -111,6 +108,27 @@ const UserHeader = ({ user }) => {
     navigate(`/dashboard/${url}`);
     setShowTabs(false);
   };
+
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      try {
+        const response = await fetch(
+          `${apiUrl}/getProfilePicture?userEmail=${user?.email}`
+        );
+        if (!response.ok) {
+          throw new Error("Error fetching data");
+        }
+        const data = await response.json();
+        if (JSON.stringify(data) !== JSON.stringify(selectedFile)) {
+          setSelectedFile(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProfilePicture();
+  }, [user.email, selectedFile, setSelectedFile]);
 
   const handleLogout = () => {
     // Perform logout logic (e.g., clear local storage, call API)
@@ -178,7 +196,7 @@ const UserHeader = ({ user }) => {
             >
               <div className="w-10 h-10 rounded-full shadow-md">
                 <img
-                  src={profileImage}
+                  src={`${apiUrl}${selectedFile?.imageURL}`}
                   alt=""
                   className="rounded-full w-full h-full object-cover"
                 />

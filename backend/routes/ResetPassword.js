@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 
 const router = express.Router();
 
-var otp ;
+var otp;
 
 // Function to generate OTP (you can replace it with your implementation)
 function generateOTP() {
@@ -32,6 +32,9 @@ router.post("/checkEmail", async (req, res) => {
         message: "OTP send successfully to your Email",
         UserEmail: email,
       });
+      setTimeout(() => {
+        otp = generateOTP();
+      }, 60000);
     } else {
       res.json({ emailExists: false, message: "You are Not registered" });
     }
@@ -43,9 +46,6 @@ router.post("/checkEmail", async (req, res) => {
 
 // Function to send OTP email using nodemailer with SMTP
 async function sendOTPEmail(email, otp) {
-  console.log("email-------", email);
-  console.log("otp-------", otp);
-
   // Create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",

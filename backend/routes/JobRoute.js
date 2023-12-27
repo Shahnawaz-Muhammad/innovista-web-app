@@ -18,7 +18,8 @@ router.post("/PostJob", async (req, res) => {
 
     const newJobPost = new Job({
       job_title: req.body.job_title,
-      salary: req.body.salary,
+      salaryTo: req.body.salaryTo,
+      salaryFrom: req.body.salaryFrom,
       company: req.body.company,
       description: req.body.description,
       job_category: req.body.job_category,
@@ -66,7 +67,8 @@ router.put("/UpdateJobPost/:JobPostId", async (req, res) => {
       {
         $set: {
           job_title: req.body.job_title,
-          salary: req.body.salary,
+          salaryTo: req.body.salaryTo,
+          salaryFrom: req.body.salaryFrom,
           company: req.body.company,
           description: req.body.description,
           job_category: req.body.job_category,
@@ -113,24 +115,23 @@ router.delete("/deleteJobPost/:JobPostId", async (req, res) => {
 });
 
 router.get("/ShowJobByStatus/:status", async (req, res) => {
-    try {
-      const { status } = req.params;
-  
-      const query = { status: status };
-  
-      // Find jobs based on the query
-      const jobs = await Job.find(query);
-  
-  
-      if (!jobs) {
-        return res.status(404).json({ error: "Jobs not found" });
-      }
-  
-      res.status(200).json(jobs);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
+  try {
+    const { status } = req.params;
+
+    const query = { status: status };
+
+    // Find jobs based on the query
+    const jobs = await Job.find(query);
+
+    if (!jobs) {
+      return res.status(404).json({ error: "Jobs not found" });
     }
-  });
+
+    res.status(200).json(jobs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 export default router;

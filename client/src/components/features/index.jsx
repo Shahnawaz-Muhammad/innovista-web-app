@@ -3,15 +3,12 @@ import conferenceRoomImg from "../../assets/images/conference-room.jpeg";
 import privateOfficeImg from "../../assets/images/private-office.jpeg";
 import dedicatedDeskImg from "../../assets/images/dedicated-desk.jpeg";
 import hotDeskImg from "../../assets/images/hot-desk.jpeg";
+import { Link } from "react-router-dom";
 
 const Features = () => {
   return (
     <div className="w-full flex justify-center bg-[#f2f3f7] pb-10">
       <div className="max-w-screen-xl w-full pt-10 px-8 xl:px-0">
-        {/* <div className="flex justify-between">
-        <h1>02 WHY CHOOSE US</h1>
-        <button>FOLLOW US</button>
-      </div> */}
         <div className="flex flex-col items-center  pt-10 lg:pt-20 gap-8">
           <h2 className="text-orange font-bold uppercase text-lg">
             LEARN AND GROW
@@ -34,7 +31,10 @@ const Features = () => {
 
         <div className="w-full flex justify-center p-10 sm:p-0 pt-20">
           <div className="max-w-screen-lg w-full grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-0">
-            <div className="w-full sm:w-[90%] md:w-[80%] flex flex-col gap-4 ">
+            <Link
+              to="/services/conference-room"
+              className="w-full sm:w-[90%] md:w-[80%] flex flex-col gap-4 "
+            >
               <img src={conferenceRoomImg} alt="" className="w-full bg-cover" />
               <div className="w-full flex flex-col md:flex-row items-center justify-between">
                 <h1 className="text-xl sm:text-lg md:text-2xl font-bold text-darkGray">
@@ -51,8 +51,8 @@ const Features = () => {
                 All conference rooms are modern, well equipped and perfectly
                 illuminated
               </p>
-            </div>
-            <div className="w-full sm:w-[90%] md:w-[80%] sm:mt-20 flex flex-col gap-4 justify-self-end">
+            </Link>
+            <Link to="/services/private-office" className="w-full sm:w-[90%] md:w-[80%] sm:mt-20 flex flex-col gap-4 justify-self-end">
               <img src={privateOfficeImg} alt="" />
               <div className="w-full flex flex-col md:flex-row items-center justify-between">
                 <h1 className="text-xl sm:text-lg md:text-2xl font-bold text-darkGray">
@@ -69,8 +69,8 @@ const Features = () => {
                 All conference rooms are modern, well equipped and perfectly
                 illuminated
               </p>
-            </div>
-            <div className="w-full sm:w-[90%] md:w-[80%]  flex flex-col gap-4">
+            </Link>
+            <Link to="/services/dedicated-desk" className="w-full sm:w-[90%] md:w-[80%]  flex flex-col gap-4">
               <img src={dedicatedDeskImg} alt="" className="w-full bg-cover" />
               <div className="w-full flex flex-col md:flex-row items-center justify-between">
                 <h1 className="text-xl sm:text-lg md:text-2xl font-bold text-darkGray">
@@ -87,8 +87,8 @@ const Features = () => {
                 All conference rooms are modern, well equipped and perfectly
                 illuminated
               </p>
-            </div>
-            <div className="w-full sm:w-[90%] md:w-[80%] sm:mt-20 flex flex-col gap-4 justify-self-end">
+            </Link>
+            <Link to="/services/hot-desk" className="w-full sm:w-[90%] md:w-[80%] sm:mt-20 flex flex-col gap-4 justify-self-end">
               <img src={hotDeskImg} alt="" />
               <div className="w-full flex flex-col md:flex-row items-center justify-between">
                 <h1 className="text-xl sm:text-lg md:text-2xl font-bold text-darkGray">
@@ -105,7 +105,7 @@ const Features = () => {
                 All conference rooms are modern, well equipped and perfectly
                 illuminated
               </p>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

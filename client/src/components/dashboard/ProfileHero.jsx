@@ -5,22 +5,26 @@ import { AuthContext } from "../../context/AuthContext";
 import { apiUrl } from "../../config";
 import Modal from "react-modal"; // Import the modal library
 import "react-toastify/dist/ReactToastify.css";
-
+import { RxCross2 } from "react-icons/rx";
+import { ProfileContext } from "../../context/ProfileContext";
 
 const modalStyles = {
   content: {
-    height:"150px",
+    height: "150px",
     width: "400px", // Adjust the width as needed
     margin: "auto", // Center the modal horizontally
-    top: "50%", // Center the modal vertically
-    transform: "translateY(-50%)",
+    top: "0", // Center the modal vertically
+    transform: "translateY(-20%)",
+    zIndex: 1000, // Ensure the modal is on top
+    position: 'absolute'
   },
 };
 
-const ProfileHero = ({ onProfilePictureChange, profilePictureChange }) => {
+const ProfileHero = () => {
   const { user } = useContext(AuthContext);
+  const { handleProfilePictureChange, selectedFile, setSelectedFile } = useContext(ProfileContext);
+
   const [userInfo, setUserInfo] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isSizeExceededModalOpen, setIsSizeExceededModalOpen] = useState(false);
   const handleFileChange = async (e) => {
@@ -34,7 +38,6 @@ const ProfileHero = ({ onProfilePictureChange, profilePictureChange }) => {
         setIsSizeExceededModalOpen(true);
         return;
       }
-
 
       const formData = new FormData();
       formData.append("profilePicture", file);
@@ -51,8 +54,7 @@ const ProfileHero = ({ onProfilePictureChange, profilePictureChange }) => {
         if (response.ok) {
           console.log("Image uploaded successfully");
           setIsSizeExceededModalOpen(false);
-          onProfilePictureChange();
-         
+          handleProfilePictureChange();
         } else {
           console.error("Failed to upload image");
         }
@@ -63,11 +65,9 @@ const ProfileHero = ({ onProfilePictureChange, profilePictureChange }) => {
   };
 
   useEffect(() => {
-    const fetchData = async () => { 
+    const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${apiUrl}/bio?email=${user.email}`
-        );
+        const response = await fetch(`${apiUrl}/bio?email=${user.email}`);
         if (!response.ok) {
           throw new Error("Error fetching data");
         }
@@ -102,13 +102,13 @@ const ProfileHero = ({ onProfilePictureChange, profilePictureChange }) => {
     };
 
     fetchProfilePicture();
-  }, [user.email, selectedFile,onProfilePictureChange, profilePictureChange]);
+  }, [user.email, selectedFile, handleProfilePictureChange, setSelectedFile]);
   return (
     <>
       <div className="w-full bg-coverImage h-60 object-cover bg-center relative flex justify-center mx-auto px-5 lg:px-10 xl:px-0 transition-all duration-500">
         <div className=" max-w-7xl w-full ">
           <div
-            className={`absolute z-50 left-10 -bottom-16 md:-bottom-20 flex flex-col items-center w-32 h-32 md:w-40 md:h-40 rounded-full p-1 bg-white shadow-lg overflow-hidden transition-transform `}
+            className={`absolute  left-10 -bottom-16 md:-bottom-20 flex flex-col items-center w-32 h-32 md:w-40 md:h-40 rounded-full p-1 bg-white shadow-lg overflow-hidden transition-transform `}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -144,19 +144,19 @@ const ProfileHero = ({ onProfilePictureChange, profilePictureChange }) => {
             {userInfo?.firstName} {userInfo?.lastName}
           </h2>
         </div>
-          
-          <div className="flex flex-col md:flex-row px-3 gap-2 md:gap-10  text-textGray ">
-            <div className="flex items-center gap-1 ">
-              <IoLocationOutline className="text-2xl" />
-              <h2 className="text-lg">
-                {userInfo?.city}, {userInfo?.country}
-              </h2>
-            </div>
-            <div className="flex items-center gap-1">
-              <BsEnvelope className="text-2xl" />
-              <h2 className="text-lg">{userInfo?.emailAddress}</h2>
-            </div>
+
+        <div className="flex flex-col md:flex-row px-3 gap-2 md:gap-10  text-textGray ">
+          <div className="flex items-center gap-1 ">
+            <IoLocationOutline className="text-2xl" />
+            <h2 className="text-lg">
+              {userInfo?.city}, {userInfo?.country}
+            </h2>
           </div>
+          <div className="flex items-center gap-1">
+            <BsEnvelope className="text-2xl" />
+            <h2 className="text-lg">{userInfo?.emailAddress}</h2>
+          </div>
+        </div>
       </div>
       <Modal
         isOpen={isSizeExceededModalOpen}
@@ -164,8 +164,10 @@ const ProfileHero = ({ onProfilePictureChange, profilePictureChange }) => {
         contentLabel="Size Exceeded Modal"
         style={modalStyles}
       >
-        <div>
-          <p>Image size exceeds 5 MB limit.</p>
+        <div className="flex flex-col gap-3 w-full ">
+          <RxCross2 className="absolute right-3 top-3 text-lg hover:scale-110 cursor-pointer" onClick={() => setIsSizeExceededModalOpen(false)}/>
+
+          <p className="text-red-500">Image size exceeds 5 MB limit.</p>
           <p>Please select a new image.</p>
           <input
             type="file"
@@ -174,7 +176,6 @@ const ProfileHero = ({ onProfilePictureChange, profilePictureChange }) => {
           />
         </div>
       </Modal>
-     
     </>
   );
 };

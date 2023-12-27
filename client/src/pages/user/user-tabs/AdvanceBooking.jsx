@@ -4,8 +4,12 @@ import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
 import { toast } from "react-toastify";
 import Spinner from "../../../Loader/Spinner";
+import { useNavigate } from "react-router-dom";
+
 export default function AdvanceBooking() {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [BookingData, setBookingData] = useState({
     // Name: userData?.firstName,
     // ContactNo: userData?.mobileNo,
@@ -190,27 +194,28 @@ export default function AdvanceBooking() {
   return (
     <div
       className=" flex flex-col absolute left-0 top-0 w-full "
-      style={{ position: "relative" }}
-    >
-      <div
-        className="w-full"
-        style={{
-          backgroundImage: `url(${bgMain})`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          position: "absolute",
-          top: "0",
-          left: "0",
-          zIndex: "-1",
-          filter: "blur(1px)",
-          height: "100%",
-        }}
-      ></div>
+      // style={{ position: "relative" }}
 
-      <div className="flex flex-col  justify-center items-center ">
+      // {/* <div */}
+      // className="w-full"
+      style={{
+        backgroundImage: `url(${bgMain})`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        position: "absolute",
+        top: "0",
+        left: "0",
+        // zIndex: "-1",
+        // filter: "blur(1px)",
+        // height: "100%",
+      }}
+    >
+      {/* // ></div> */}
+
+      <div className="flex flex-col py-12  justify-center items-center ">
         <h1
-          className="font-extrabold text-orange text-3xl md:text-5xl p-5 "
+          className="font-extrabold text-white text-3xl md:text-5xl p-5 "
           // style={{
           //   backdropFilter: "blur(1x)",
           //   background: "rgba(255, 255, 255, 0.3)",
@@ -222,13 +227,13 @@ export default function AdvanceBooking() {
           className="mb-10 w-full md:w-4/5 lg:w-2/3 p-5 rounded-lg "
           style={{
             backdropFilter: "blur(1x)",
-            background: "rgba(255, 255, 255, 0.4)",
+            background: "rgba(255, 255, 255, 0.8)",
           }}
           onSubmit={SubmitBookingData}
         >
           <div className="flex  flex-wrap ">
             <div className="w-full px-3 md:w-1/2">
-              <div className="mb-2 h-24">
+              <div className="mb-2 h-[5.5rem]">
                 <label
                   htmlFor="Name"
                   className="pl-5 block text-base font-bold"
@@ -240,14 +245,14 @@ export default function AdvanceBooking() {
                   name="name"
                   id="name"
                   readOnly
-                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-gray-300 py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-gray-300 py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                   value={userData?.firstName || ""}
                   onChange={handleChange}
                 />
               </div>
             </div>
             <div className="w-full px-3 md:w-1/2">
-              <div className="mb-2 h-24">
+              <div className="mb-2 h-[5.5rem]">
                 <label
                   htmlFor="mobileNo"
                   className="pl-5 block text-base font-bold"
@@ -259,7 +264,7 @@ export default function AdvanceBooking() {
                   name="mobileNo"
                   id="mobileNo"
                   readOnly
-                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-gray-300 py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-gray-300 py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                   value={userData?.mobileNo || ""}
                   onChange={handleChange}
                 />
@@ -268,7 +273,7 @@ export default function AdvanceBooking() {
           </div>
           <div className=" flex flex-wrap">
             <div className="w-full px-3 md:w-1/2">
-              <div className="mb-2 h-24 ">
+              <div className="mb-2 h-[5.5rem] ">
                 <label
                   htmlFor="members"
                   className="pl-5 block text-base font-bold "
@@ -284,17 +289,15 @@ export default function AdvanceBooking() {
                   onChange={handleChange}
                   onFocus={() => setErrors({ ...errors, Member: "" })}
                   min="0"
-                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.Member && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
-                    {errors.Member}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.Member}</p>
                 )}
               </div>
             </div>
             <div className="w-full px-3 md:w-1/2">
-              <div className="mb-2 h-24">
+              <div className="mb-2 h-[5.5rem]">
                 <label
                   htmlFor="station"
                   className="pl-5 block text-base font-bold "
@@ -307,7 +310,7 @@ export default function AdvanceBooking() {
                   value={BookingData.Station}
                   onChange={handleChange}
                   onFocus={() => setErrors({ ...errors, Station: "" })}
-                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 >
                   <option value="">Select Your Station</option>
                   {stations.map((station, index) => (
@@ -317,9 +320,7 @@ export default function AdvanceBooking() {
                   ))}
                 </select>
                 {errors.Station && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
-                    {errors.Station}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.Station}</p>
                 )}
               </div>
             </div>
@@ -327,7 +328,7 @@ export default function AdvanceBooking() {
 
           <div className=" flex flex-wrap">
             <div className="w-full px-3 md:w-1/2">
-              <div className="mb-2 h-24 ">
+              <div className="mb-2 h-[5.5rem] ">
                 <label
                   htmlFor="dateFrom"
                   className="pl-5 block text-base font-bold "
@@ -342,17 +343,15 @@ export default function AdvanceBooking() {
                   onFocus={() => setErrors({ ...errors, BookingDate: "" })}
                   id="dateFrom"
                   min={currentDate}
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.BookingDate && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
-                    {errors.BookingDate}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.BookingDate}</p>
                 )}
               </div>
             </div>
             <div className="w-full px-3 md:w-1/2">
-              <div className="mb-2 h-24">
+              <div className="mb-2 h-[5.5rem]">
                 <label
                   htmlFor="dateTo"
                   className="pl-5 block text-base font-bold "
@@ -368,12 +367,10 @@ export default function AdvanceBooking() {
                   onChange={handleChange}
                   disabled={!BookingData.BookingDate}
                   onFocus={() => setErrors({ ...errors, ExpiryDate: "" })}
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.ExpiryDate && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
-                    {errors.ExpiryDate}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.ExpiryDate}</p>
                 )}
               </div>
             </div>
@@ -381,7 +378,7 @@ export default function AdvanceBooking() {
 
           <div className=" flex flex-wrap">
             <div className="w-full px-3 md:w-1/2">
-              <div className="mb-2 h-24">
+              <div className="mb-2 h-[5.5rem]">
                 <label
                   htmlFor="timeFrom"
                   className="pl-5 block text-base font-bold "
@@ -395,17 +392,15 @@ export default function AdvanceBooking() {
                   value={BookingData.BookingTime}
                   onChange={handleChange}
                   onFocus={() => setErrors({ ...errors, BookingTime: "" })}
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.BookingTime && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
-                    {errors.BookingTime}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.BookingTime}</p>
                 )}
               </div>
             </div>
             <div className="w-full px-3 md:w-1/2">
-              <div className="mb-2 h-24">
+              <div className="mb-2 h-[5.5rem]">
                 <label
                   htmlFor="timeTo"
                   className="pl-5 block text-base font-bold"
@@ -420,12 +415,10 @@ export default function AdvanceBooking() {
                   onChange={handleChange}
                   disabled={!BookingData.BookingTime}
                   onFocus={() => setErrors({ ...errors, ExpiryTime: "" })}
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-lg shadow-sm shadow-orange"
                 />
                 {errors.ExpiryTime && (
-                  <p className="text-[#fa0505] font-semibold text-sm pl-6">
-                    {errors.ExpiryTime}
-                  </p>
+                  <p className="text-[#fa0505]  pl-2">{errors.ExpiryTime}</p>
                 )}
               </div>
             </div>

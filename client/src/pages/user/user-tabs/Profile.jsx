@@ -6,13 +6,13 @@ import Education from "./Education";
 import Experience from "./Experience";
 import Employees from "./Employees";
 import { AuthContext } from "../../../context/AuthContext";
+
 const Profile = () => {
   const [isBioOpen, setIsBioOpen] = useState(true);
   const [isEducationOpen, setIsEducationOpen] = useState(false);
   const [isExperienceOpen, setIsExperienceOpen] = useState(false);
   const [isEmployeesOpen, setIsEmployeesOpen] = useState(false);
-  const [profilePictureChange, setProfilePictureChange] = useState(false);
-  
+
   const { user } = useContext(AuthContext);
 
   const toggleBio = () => {
@@ -28,38 +28,31 @@ const Profile = () => {
     setIsEmployeesOpen(!isEmployeesOpen);
   };
 
-
-  const handleProfilePictureChange = () => {
-    setProfilePictureChange(!profilePictureChange);
-  };
   return (
     <div className="pb-20">
-       <ProfileHero
-        onProfilePictureChange={handleProfilePictureChange}
-        profilePictureChange={profilePictureChange}
-      />
+      <ProfileHero />
 
       <div className=" bg-white mt-6 border-t border-[#dbdbdb]">
-        <Bio isBioOpen={isBioOpen} toggleBio={toggleBio} user={user}/>
+        <Bio isBioOpen={isBioOpen} toggleBio={toggleBio} user={user} />
 
-        {user.category === "Freelancer" ? 
-        <>
-        <Education
-          isEducationOpen={isEducationOpen}
-          toggleEducation={toggleEducation}
-        />
+        {user.category === "Freelancer" ? (
+          <>
+            <Education
+              isEducationOpen={isEducationOpen}
+              toggleEducation={toggleEducation}
+            />
 
-        <Experience
-          isExperienceOpen={isExperienceOpen}
-          toggleExperience={toggleExperience}
-        />
-        </> :
-        <Employees
-          isEmployeeOpen={isEmployeesOpen}
-          toggleEmp={toggleEmployee}
-        />
-        }
-
+            <Experience
+              isExperienceOpen={isExperienceOpen}
+              toggleExperience={toggleExperience}
+            />
+          </>
+        ) : (
+          <Employees
+            isEmployeeOpen={isEmployeesOpen}
+            toggleEmp={toggleEmployee}
+          />
+        )}
       </div>
     </div>
   );

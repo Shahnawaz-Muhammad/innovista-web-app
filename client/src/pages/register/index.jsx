@@ -111,7 +111,7 @@ const Register = () => {
     //   }
     // }
     else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3 )) {
-      if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
+      if (userServiceConfiguration.selectedPlan.name === "Individual") {
         if (
           !userServiceConfiguration.freelanceInfo.dob ||
           !userServiceConfiguration.freelanceInfo.gender ||
@@ -170,7 +170,7 @@ const Register = () => {
       let selectedPlanData = null;
       if (userServiceConfiguration.selectedPlan?.name === null) {
         setShowRequiredFields(true);
-      } else if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
+      } else if (userServiceConfiguration.selectedPlan.name === "Individual") {
         selectedPlanData = {
           firstName: userServiceConfiguration.userInfo.firstName,
           lastName: userServiceConfiguration.userInfo.lastName,

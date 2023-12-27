@@ -29,9 +29,10 @@ import Profile from "./pages/user/user-tabs/Profile";
 import ConfirmEmail from "./pages/user/forgot-password/ConfirmEmail";
 import ConfirmOtp from "./pages/user/forgot-password/ConfirmOtp";
 import ResetPassword from "./pages/user/forgot-password/ResetPassword";
+import ServiceDetails from "./pages/services/ServiceDetails";
 
 function App() {
-  const { isAuthenticated, setIsAuthenticated, user, setUser } =
+  const { isAuthenticated, setIsAuthenticated, user, setUser, isOtpConfirmed } =
     useContext(AuthContext);
 
   useEffect(() => {
@@ -81,6 +82,15 @@ function App() {
           }
         />
         <Route
+          path="/services/:slug"
+          element={
+            <Layout>
+              <ServiceDetails />
+            </Layout>
+          }
+        />
+
+        <Route
           path="/contact"
           element={
             <Layout>
@@ -120,14 +130,20 @@ function App() {
             </Layout>
           }
         />
-        <Route
-          path="/confirm-otp"
-          element={
-            <Layout>
-              <ConfirmOtp />
-            </Layout>
-          }
-        />
+        
+          <Route
+            path="/confirm-otp"
+            element={
+              !isOtpConfirmed ? (
+                <Navigate to="/find-your-account" />
+              ) : (
+                <Layout>
+                  <ConfirmOtp />
+                </Layout>
+              )
+            }
+          />
+        
         <Route
           path="/reset-password"
           element={
@@ -180,7 +196,7 @@ function App() {
           <Route path="job-advertisements" element={<JobAds />} />
           <Route path="post-job" element={<PostJob />} />
           <Route path="projects" element={<Projects />} />
-          <Route path="candidates" element={<Application />} />
+          <Route path="applicants" element={<Application />} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>

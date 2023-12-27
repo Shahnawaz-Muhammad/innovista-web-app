@@ -5,6 +5,7 @@ import { IoClose } from "react-icons/io5";
 const QrCode = ({ booking, setShowQr }) => {
 
   const bookingDataString = JSON.stringify(booking);
+  console.log(bookingDataString)
 
   return (
     <>

@@ -8,10 +8,13 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [unAuthorizedUser, setUnAuthorizedUser] = useState(false)
+  const [isOtpConfirmed, setIsOtpConfirmed] = useState(false);
+
+
+  const [unAuthorizedUser, setUnAuthorizedUser] = useState(false);
   const [user, setUser] = useState({});
   const [pdfUrl, setPdfUrl] = useState(null);
-  const [emailAddress, setEmailAddress] = useState(""); 
+  const [emailAddress, setEmailAddress] = useState("");
 
   const [loading, setLoading] = useState(false); // Include loading state
 
@@ -109,11 +112,13 @@ const AuthProvider = ({ children }) => {
         logout,
         pdfUrl,
         setPdfUrlContext,
-        emailAddress, 
+        emailAddress,
         setEmailAddress,
         unAuthorizedUser,
         loading, 
-        setLoading
+        setLoading,
+        isOtpConfirmed,
+        setIsOtpConfirmed,
       }}
     >
       {children}
