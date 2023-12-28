@@ -169,6 +169,7 @@ export default function PostJob() {
           top: "0",
           left: "0",
           zIndex: "-1",
+          
         }}
       >
         <div className="flex flex-col gap-3 py-12 justify-center items-center">
@@ -315,10 +316,10 @@ export default function PostJob() {
                   htmlFor="jobSalary"
                   className="pl-3  text-base font-semibold"
                 >
-                  Job Salary
+                  Salary Range
                 </label>
-                <div className="flex gap-5">
-                  <div className="flex flex-col">
+                <div className="flex gap-5 w-full">
+                  <div className="flex flex-col w-full">
                     <input
                       type="number"
                       id="jobSalary"
@@ -336,7 +337,7 @@ export default function PostJob() {
                       </p>
                     )}
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col w-full">
                     <input
                       type="number"
                       id="jobSalary"

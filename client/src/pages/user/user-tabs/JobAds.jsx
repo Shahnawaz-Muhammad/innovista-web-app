@@ -12,7 +12,7 @@ const JobAds = () => {
   const [isJobDetailMobileOpen, setIsJobDetailMobileOpen] = useState(false);
   const [jobDetail, setJobDetail] = useState(null);
   const [applied, Setapplied] = useState([]);
-  const [Iserror,setIsError]=useState()
+  const [Iserror,setIsError]=useState("")
 
   const handleShowJobDetail = (post) => {
     // If the same item is clicked again, toggle its visibility
@@ -51,7 +51,7 @@ const JobAds = () => {
         setIsError();
         setPdfData(selectedFile);
       } else {
-       setIsError("File Should not be greater then 30 MB");
+       setIsError("File Should not be greater then 30 MB.");
       }
     }
   };
@@ -59,6 +59,8 @@ const JobAds = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
     setPdfData(null);
+    setIsError("");
+    
   };
 
   const HandlePdfFile = async (event) => {

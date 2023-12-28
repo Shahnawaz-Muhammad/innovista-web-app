@@ -229,7 +229,6 @@ const Register = () => {
         })
           .then((data) => {
             // Handle the API response data here
-            console.log("API Response:", data);
             setLoading(false);
             setStep(5);
           })
@@ -268,7 +267,7 @@ const Register = () => {
             />
           )}
           {step === 3 &&
-            (userServiceConfiguration.selectedPlan.name === "Freelancer" ? (
+            (userServiceConfiguration.selectedPlan.name === "Individual" ? (
               <Freelance
                 freelanceInfo={userServiceConfiguration.freelanceInfo}
                 updateFreelanceInfo={updateFreelanceInfo}

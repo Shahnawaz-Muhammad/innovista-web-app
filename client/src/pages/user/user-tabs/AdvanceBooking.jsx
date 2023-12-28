@@ -8,8 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AdvanceBooking() {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-
+const navigate = useNavigate()
   const [BookingData, setBookingData] = useState({
     // Name: userData?.firstName,
     // ContactNo: userData?.mobileNo,
@@ -178,6 +177,7 @@ export default function AdvanceBooking() {
           ExpiryTime: "",
           Station: "",
         });
+        navigate('/dashboard/booking-history')
       }} catch (error) {
         toast.error(error, {
           position: "top-center",
@@ -194,10 +194,6 @@ export default function AdvanceBooking() {
   return (
     <div
       className=" flex flex-col absolute left-0 top-0 w-full "
-      // style={{ position: "relative" }}
-
-      // {/* <div */}
-      // className="w-full"
       style={{
         backgroundImage: `url(${bgMain})`,
         backgroundPosition: "center",
@@ -208,12 +204,11 @@ export default function AdvanceBooking() {
         left: "0",
         // zIndex: "-1",
         // filter: "blur(1px)",
-        // height: "100%",
+        // height: "100vh",
       }}
     >
-      {/* // ></div> */}
 
-      <div className="flex flex-col py-12  justify-center items-center ">
+      <div className="flex flex-col py-20  justify-center items-center ">
         <h1
           className="font-extrabold text-white text-3xl md:text-5xl p-5 "
           // style={{

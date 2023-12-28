@@ -86,7 +86,7 @@ const ServiceDetails = () => {
 
       <div className="w-full flex justify-center bg-[#f2f3f7] pb-10">
         <div className="max-w-screen-xl w-full pt-10 px-8 xl:px-0">
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-5">
             <h1 className="text-4xl font-bold text-gray-600">
               Conference Room
             </h1>
