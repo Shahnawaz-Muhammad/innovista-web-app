@@ -92,12 +92,12 @@ const Header = () => {
             </div>
 
             <div className="md:flex items-center hidden">
-              <button
+              <Link
                 onClick={handleLogin}
                 className="bg-orange hover:bg-orangeDark text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Login
-              </button>
+              </Link>
             </div>
 
             <button
@@ -128,12 +128,12 @@ const Header = () => {
                   </button>
                 );
               })}
-              <button
+              <Link
                 onClick={handleLogin}
                 className="bg-orange hover:bg-orangeDark  text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Login
-              </button>
+              </Link>
             </div>
           </div>
         </div>

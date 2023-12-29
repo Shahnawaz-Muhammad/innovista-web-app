@@ -177,7 +177,7 @@ export default function PostJob() {
             className="font-extrabold text-white text-3xl md:text-5xl  "
             // style={{ backdropFilter: 'blur(1x)', background: 'rgba(255, 255, 255, 0.8)' }}
           >
-            Job Details
+            Post A Job
           </h1>
           <form
           className="mb-5 w-full md:w-4/5 lg:w-2/3 p-5 rounded-lg "
