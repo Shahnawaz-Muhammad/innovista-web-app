@@ -3,7 +3,7 @@ import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { apiUrl } from "../../../config";
 import { AuthContext } from "../../../context/AuthContext";
 import AddEmployeeModal from "../../../components/dashboard/AddEmployeeModal";
-import ProfileImg from "../../../assets/images/img_bnfts.jpg";
+import ProfileImg from "../../../assets/images/avatar-profile.jpeg";
 import { MdAddBox, MdDeleteForever } from "react-icons/md";
 import UpdateEmpModal from "../../../components/dashboard/UpdateEmpModal";
 import DeleteEducationModal from "../../../components/dashboard/DeleteEduModal";
