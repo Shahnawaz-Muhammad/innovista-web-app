@@ -36,7 +36,8 @@ const Header = () => {
   };
 
   const handleLogin = () => {
-    navigate("/login");
+    // navigate("/login");
+    console.log('login clicked')
     setActiveNavItem("");
     setNavMobile(false)
   };
@@ -93,6 +94,7 @@ const Header = () => {
 
             <div className="md:flex items-center hidden">
               <Link
+              to="/login"
                 onClick={handleLogin}
                 className="bg-orange hover:bg-orangeDark text-white uppercase text-lg font-semibold py-2 px-4 "
               >
@@ -128,8 +130,9 @@ const Header = () => {
                   </button>
                 );
               })}
-              <Link
-                onClick={handleLogin}
+               <Link
+              to="/login"
+              onClick={handleLogin}
                 className="bg-orange hover:bg-orangeDark  text-white uppercase text-lg font-semibold py-2 px-4 "
               >
                 Login
