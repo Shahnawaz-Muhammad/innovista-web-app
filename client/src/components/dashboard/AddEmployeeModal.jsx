@@ -161,9 +161,9 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
       ></div>
       <div className="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div className="relative p-4 w-full max-w-xl max-h-full">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="relative bg-white rounded-lg shadow ">
+            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+              <h3 className="text-lg font-semibold text-gray-900 ">
                 Add Employee
               </h3>
               <button
@@ -194,7 +194,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                 <div className="col-span-2">
                   <label
                     htmlFor="name"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Name
                   </label>
@@ -217,7 +217,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                 <div className="col-span-2">
                   <label
                     htmlFor="empId"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Employee ID
                   </label>
@@ -239,7 +239,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                 <div className="col-span-2">
                   <label
                     htmlFor="empDesignation"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Designation
                   </label>
@@ -263,7 +263,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                 <div className="col-span-1">
                   <label
                     htmlFor="empEmail"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Email
                   </label>
@@ -286,7 +286,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                 <div className="col-span-1">
                   <label
                     htmlFor="empPhone"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Contact No
                   </label>
