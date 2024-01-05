@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { RxCross1 } from "react-icons/rx";
 import { GiHamburgerMenu } from "react-icons/gi";
-import logo from "../../assets/D-labs-logo-white.png";
+import logo from "../../assets/innovista-logo-white.png";
 const Header = () => {
   const [scroll, setScroll] = useState(false);
   const [navMobile, setNavMobile] = useState(false);

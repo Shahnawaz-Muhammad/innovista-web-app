@@ -20,7 +20,7 @@ const EducationModal = ({
     subject: "",
     year: "",
   });
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
 
   // Validation function
   const validateInput = (fieldName, value) => {
@@ -103,8 +103,7 @@ const EducationModal = ({
       }
       fetchEducation(userEmail, educationData);
 
-      toast.success("Education added Successfully!",
-      {
+      toast.success("Education added Successfully!", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
@@ -252,8 +251,7 @@ const EducationModal = ({
                   type="submit"
                   className="text-white inline-flex items-center bg-orange hover:bg-orangeDark focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                {loading ? <Spinner size={30}/> : "Submit"}
-                  
+                  {loading ? <Spinner size={30} /> : "Submit"}
                 </button>
               </div>
             </form>
