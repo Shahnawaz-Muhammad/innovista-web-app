@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AdvanceBooking() {
   const { user } = useContext(AuthContext);
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const [BookingData, setBookingData] = useState({
     // Name: userData?.firstName,
     // ContactNo: userData?.mobileNo,
@@ -39,7 +39,7 @@ const navigate = useNavigate()
     ExpiryTime: "",
     Station: "",
   });
-  const [loading,setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
 
   // const nameRegex = /^[a-zA-Z\s]+$/;
   // const contactNoRegex = /^03\d{2}-\d{7}$/;
@@ -158,27 +158,28 @@ const navigate = useNavigate()
           }
         );
         if (response.ok) {
-        toast.success("Slot Booked Successfully!", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          theme: "light",
-        });
-        setLoading(false);
+          toast.success("Slot Booked Successfully!", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            theme: "light",
+          });
+          setLoading(false);
 
-        setBookingData({
-          // Name: "",
-          // ContactNo: "",
-          Member: "",
-          BookingDate: "",
-          ExpiryDate: "",
-          BookingTime: "",
-          ExpiryTime: "",
-          Station: "",
-        });
-        navigate('/dashboard/booking-history')
-      }} catch (error) {
+          setBookingData({
+            // Name: "",
+            // ContactNo: "",
+            Member: "",
+            BookingDate: "",
+            ExpiryDate: "",
+            BookingTime: "",
+            ExpiryTime: "",
+            Station: "",
+          });
+          navigate("/dashboard/booking-history");
+        }
+      } catch (error) {
         toast.error(error, {
           position: "top-center",
           autoClose: 3000,
@@ -207,7 +208,6 @@ const navigate = useNavigate()
         // height: "100vh",
       }}
     >
-
       <div className="flex flex-col py-20  justify-center items-center ">
         <h1
           className="font-extrabold text-white text-3xl md:text-5xl p-5 "
@@ -430,8 +430,7 @@ const navigate = useNavigate()
               className="rounded-lg bg-orange hover:bg-orangeDark hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none focus:shadow-lg shadow-sm shadow-orange"
               type="submit"
             >
-              {loading ? <Spinner size={30}/> : "Submit"}
-               
+              {loading ? <Spinner size={30} /> : "Submit"}
             </button>
           </div>
         </form>

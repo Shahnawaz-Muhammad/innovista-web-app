@@ -9,7 +9,7 @@ const UserDashboard = ({ user }) => {
       <div>
         <UserHeader user={user} />
 
-        <div className="w-full flex justify-center transition-all duration-500 relative">
+        <div className="w-full flex justify-center transition-all duration-500 relative bg-gray-50">
           <div className=" max-w-7xl w-full flex flex-col gap-2 mb-20">
             <div className="flex  flex-row md:flex-col gap-1 ">
               <div className="w-full">

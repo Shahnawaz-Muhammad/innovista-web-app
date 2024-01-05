@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 // import { VscBellDot } from "react-icons/vsc";
 import { FaAngleDown } from "react-icons/fa6";
 // import { AiOutlineLogout } from "react-icons/ai";
-import logo from "../../../assets/D-labs-logo.png";
+import logo from "../../../assets/innovista-logo-dark.png";
 import { IoMdClose } from "react-icons/io";
 
 import { AuthContext } from "../../../context/AuthContext";
@@ -34,11 +34,6 @@ const UserHeader = ({ user }) => {
     },
 
     {
-      id: 2,
-      title: "Advance Booking",
-      url: "advance-booking",
-    },
-    {
       id: 3,
       title: "Jobs",
       url: "job-advertisements",
@@ -52,11 +47,6 @@ const UserHeader = ({ user }) => {
       url: "booking-history",
     },
 
-    {
-      id: 2,
-      title: "Advance Booking",
-      url: "advance-booking",
-    },
     
     {
       id: 3,
@@ -73,19 +63,9 @@ const UserHeader = ({ user }) => {
     },
 
     {
-      id: 2,
-      title: "Advance Booking",
-      url: "advance-booking",
-    },
-    {
       id: 3,
       title: "Hirings",
       url: "hirings",
-    },
-    {
-      id: 4,
-      title: "Post a Job",
-      url: "post-job",
     },
   ];
 
@@ -139,7 +119,7 @@ const UserHeader = ({ user }) => {
     <div>
       <div className="w-full py-3 px-10 bg-gray-100 mx-auto shadow-md">
         <div className="max-w-screen-2xl flex justify-between items-center">
-          <img src={logo} alt="" className="w-20 hidden lg:flex" />
+          <img src={logo} alt="" className="w-28 hidden lg:flex" />
           <div className="block lg:hidden">
             <RxHamburgerMenu
               className="text-2xl"

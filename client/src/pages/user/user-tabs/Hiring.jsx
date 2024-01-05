@@ -4,20 +4,27 @@ import { IoTrashOutline } from "react-icons/io5";
 import { AuthContext } from "../../../context/AuthContext";
 import UpdateJobPostModal from "../../../components/dashboard/UpdateJobPostModal";
 import DeleteJobModal from "../../../components/dashboard/DeleteJobModal";
-import bgMain from "../../../assets/images/bg-main.png";
 import { apiUrl } from "../../../config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { GoPlus } from "react-icons/go";
+import PostJobModal from "../../../components/dashboard/PostJobModal";
 
 const Hirings = () => {
   const [hiringData, setHiringData] = useState(null);
+  const [postJobModalOpen, setPostJobModalOpen] = useState(false);
+
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedItemData, setSelectedItemData] = useState(null);
   const [selectedItemId, setSelectedItemId] = useState(null);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+
+  const toggleNewBookingModal = () => {
+    setPostJobModalOpen(!postJobModalOpen);
+  };
 
   const toggleEditModal = (item) => {
     setEditModalOpen(!isEditModalOpen);
@@ -97,95 +104,136 @@ const Hirings = () => {
   };
 
   const handleShowApplicants = (id) => {
-    navigate(`/dashboard/applicants`, {state:{id}})
-  }
-
+    navigate(`/dashboard/applicants`, { state: { id } });
+  };
 
   return (
-    <div className="w-full">
-      <div className="w-full flex flex-col gap-3">
-        <div
-          className=" h-40  md:h-60 flex justify-center items-center"
-          style={{
-            backgroundImage: `url(${bgMain})`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-          }}
-        >
-          <h1
-            className="text-orange text-3xl md:text-5xl font-bold p-5"
-            style={{
-              backdropFilter: "blur(1x)",
-              background: "rgba(255, 255, 255, 0.6)",
-            }}
-          >
-            Hirings
-          </h1>
-        </div>
-        {hiringData?.length > 0 ? (
-          hiringData?.slice()
-          .reverse().map((post) => (
-            <div key={post._id} className="w-full flex gap-5 items-center">
-              <div className="w-full flex flex-col md:flex-row gap-3 md:gap-2 items-center shadow-[2px_1px_10px_5px_rgba(0,0,0,0.1)] rounded-xl p-5">
-                <div className="w-full md:w-[25%] flex flex-col items-center gap-2">
-                  <h1 className="font-semibold  text-gray-700 text-xl p-2 text-center">
-                    {post.company}
-                  </h1>
+    <div className="w-full mt-5">
+      <div class="bg-white relative shadow-md sm:rounded-lg overflow-hidden py-10 px-3">
+        <div className="w-full flex flex-col gap-3 ">
+          <div className="">
+            <h1 className="text-orange text-3xl font-bold p-5">Hirings</h1>
+          </div>
+          <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div class="w-full md:w-1/2">
+              <form class="flex items-center">
+                <label for="simple-search" class="sr-only">
+                  Search
+                </label>
+                <div class="relative w-full">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg
+                      aria-hidden="true"
+                      class="w-5 h-5 text-gray-500 "
+                      fill="currentColor"
+                      viewbox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    id="simple-search"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2  "
+                    placeholder="Search"
+                    // value={searchQuery}
+                    // onChange={(e) => setSearchQuery(e.target.value)}
+                    required=""
+                  />
                 </div>
-                <div className="w-full flex flex-col items-center gap-2 text-center">
-                  <h2 className="underline">{post.job_title}</h2>
-                  <h2 className="text-gray-600 text-sm text-justify max-w-[80%]">
-                    {post.description.length > 120
-                      ? `${post.description.substring(0, 120)} . . .`
-                      : post.description}
-                  </h2>
-                </div>
-                <div className="w-[35%] flex flex-col items-center">
-                  <h3 className=" text-gray-600 ">
-                    {post.salaryFrom} - {post.salaryTo}
-                  </h3>
-                  <h3 className=" text-gray-600 ">Rs. per Month </h3>
-                </div>
-                <div className="w-[35%] flex flex-col items-center">
-                  <h3 className=" text-gray-600 font-bold">
-                    {post.job_vacancy}{" "}
-                  </h3>
-                  <h3 className=" text-gray-600 font-semibold">
-                    {post.job_type}{" "}
-                  </h3>
-                </div>
-                <div className="w-[20%] flex flex-col items-center">
-                  {/* <h3 className=" text-gray-600 font-bold text-xl p-1">
+              </form>
+            </div>
+            <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+              <button
+                onClick={() => setPostJobModalOpen(!postJobModalOpen)}
+                type="button"
+                class="flex items-center justify-center gap-2 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2  focus:outline-none"
+              >
+                <GoPlus className="text-xl" />
+                Post a Job
+              </button>
+            </div>
+          </div>
+          {hiringData?.length > 0 ? (
+            hiringData
+              ?.slice()
+              .reverse()
+              .map((post) => (
+                <div key={post._id} className="w-full flex gap-5 items-center ">
+                  <div className="w-full flex flex-col md:flex-row gap-1 items-center  shadow-md rounded-md p-5  border">
+                    <div className="w-full md:w-[25%] flex flex-col items-center gap-1">
+                      <h1 className="font-semibold  text-gray-700 text-xl p-2 text-center">
+                        {post.company}
+                      </h1>
+                    </div>
+                    <div className="w-full flex flex-col items-center gap-2 text-center">
+                      <h2 className="underline">{post.job_title}</h2>
+                      <h2 className="text-gray-600 text-sm text-justify max-w-[80%]">
+                        {post.description.length > 120
+                          ? `${post.description.substring(0, 120)} . . .`
+                          : post.description}
+                      </h2>
+                    </div>
+                    <div className="w-[35%] flex flex-col items-center">
+                      <h3 className=" text-gray-600 ">
+                        {post.salaryFrom} - {post.salaryTo}
+                      </h3>
+                      <h3 className=" text-gray-600 ">Rs. per Month </h3>
+                    </div>
+                    <div className="w-[35%] flex flex-col items-center">
+                      <h3 className=" text-gray-600 font-bold">
+                        {post.job_vacancy}{" "}
+                      </h3>
+                      <h3 className=" text-gray-600 font-semibold">
+                        {post.job_type}{" "}
+                      </h3>
+                    </div>
+                    <div className="w-[20%] flex flex-col items-center">
+                      {/* <h3 className=" text-gray-600 font-bold text-xl p-1">
                     {post.status === 0 ? "In Active" : "Active"}{" "}
                   </h3> */}
-                  <button onClick={() => handleShowApplicants(post._id)} className="px-3 py-1 rounded-lg underline">
-                    Applicants
-                  </button>
+                      <button
+                        onClick={() => handleShowApplicants(post._id)}
+                        className="px-3 py-1 rounded-lg underline"
+                      >
+                        Applicants
+                      </button>
+                    </div>
+                    <div className="lg:w-[15%] flex gap-2 justify-center">
+                      <button className="bg-orange p-1 text-white">
+                        <CiEdit
+                          className="text-lg"
+                          onClick={() => toggleEditModal(post)}
+                        />
+                      </button>
+                      <button className="bg-red-700 p-1 text-white">
+                        <IoTrashOutline
+                          className="text-lg"
+                          onClick={() => toggleDeleteModal(post._id)}
+                        />
+                      </button>
+                    </div>{" "}
+                  </div>
                 </div>
-                <div className="lg:w-[15%] flex gap-2 justify-center">
-                  <button className="bg-orange p-1 text-white">
-                    <CiEdit
-                      className="text-lg"
-                      onClick={() => toggleEditModal(post)}
-                    />
-                  </button>
-                  <button className="bg-red-700 p-1 text-white">
-                    <IoTrashOutline
-                      className="text-lg"
-                      onClick={() => toggleDeleteModal(post._id)}
-                    />
-                  </button>
-                </div>{" "}
-              </div>
+              ))
+          ) : (
+            <div className="text-black w-full">
+              <h2 className="font-semibold text-xl">No hirings currently</h2>
             </div>
-          ))
-        ) : (
-          <div className="text-black w-full">
-            <h2 className="font-semibold text-xl">No hirings currently</h2>
-          </div>
-        )}
+          )}
+        </div>
       </div>
+      {postJobModalOpen && (
+        <PostJobModal
+          toggleModal={toggleNewBookingModal}
+          setPostJobModalOpen={setPostJobModalOpen}
+        />
+      )}
       {isEditModalOpen && (
         <UpdateJobPostModal
           userEmail={user.email}

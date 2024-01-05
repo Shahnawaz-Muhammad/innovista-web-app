@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import logo from "../../assets/D-labs-logo-white.png";
+import logo from "../../assets/innovista-logo-white.png";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
-import loginBg from "../../assets/images/bg-main.png";
 import Spinner from "../../Loader/Spinner";
 const Login = () => {
   const {
@@ -77,23 +76,20 @@ const Login = () => {
   return (
     <div
       className="w-full flex justify-center py-10 mt-20 px-2"
-      style={{
-        backgroundImage: `url(${loginBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
+      // style={{
+      //   backgroundImage: `url(${loginBg})`,
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center",
+      //   backgroundRepeat: "no-repeat",
+      // }}
     >
       <div
-        className="w-full  rounded-lg shadow shadow-slate-400 md:mt-0 sm:max-w-md xl:p-0 "
-        style={{
-          backdropFilter: "blur(10x)",
-          background: "rgba(255, 255, 255, 0.8)",
-        }}
+        className="w-full  rounded-lg  shadow-slate-400 md:mt-0 sm:max-w-md xl:p-0 "
+        style={{boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)"}}
       >
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <div className="bg-black rounded-full p-3 flex justify-center ">
-            <img src={logo} alt="" className="h-16" />
+          <div className="bg-black rounded-full h-20 flex justify-center items-center object-cover p-2">
+            <img src={logo} alt="" className="w-30 h-16 object-cover" />
           </div>
 
           <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-700 md:text-2xl ">
