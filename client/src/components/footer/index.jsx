@@ -42,7 +42,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3 text-lightGray">
                 <TfiEmail />
-                <p>support@dlabs.com</p>
+                <p>support@inovista.com</p>
               </div>
               <div className="flex items-center gap-3 text-lightGray">
                 <BiMobile />

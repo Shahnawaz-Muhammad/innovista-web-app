@@ -21,7 +21,7 @@ const UserDashboard = ({ user }) => {
         
         {/* footer */}
         <div className="w-full py-3 bg-lightGray flex justify-center fixed bottom-0">
-          <div>&copy; 2023 D-Labs. All rights reserved.</div>
+          <div>&copy; 2023 Inovista. All rights reserved.</div>
         </div>
       </div>
     </div>

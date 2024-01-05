@@ -193,7 +193,7 @@ const JobAds = () => {
   return (
     <>
       <div className=" flex flex-col h-full ">
-        <div
+        {/* <div
           className=" h-40 md:h-60 flex justify-center items-center"
           style={{
             backgroundImage: `url(${bgMain})`,
@@ -202,19 +202,18 @@ const JobAds = () => {
             backgroundSize: "cover",
           }}
         >
+        </div> */}
           <h1
             className="text-orange text-5xl font-bold p-5"
-            style={{
-              backdropFilter: "blur(1x)",
-              background: "rgba(255, 255, 255, 0.6)",
-            }}
           >
             Jobs
           </h1>
-        </div>
+          <div>
+            
+          </div>
         {jobAds?.length > 0 ? (
-          <div className="w-full flex gap-5 md:mt-5">
-            <div className="w-full md:w-1/2 lg:w-[55%] flex flex-col gap-2 md:gap-0">
+          <div className="w-full flex gap-5 h-[520px]">
+            <div className="w-full md:w-1/2 lg:w-[55%] flex flex-col gap-2 md:gap-0  border border-gray-200 shadow-lg rounded-xl overflow-y-auto ">
               {jobAds
                 ?.slice()
                 .reverse()
@@ -263,9 +262,12 @@ const JobAds = () => {
                           </div>
                         </div>
                         <div className="w-full flex flex-col ">
-                          <h3 className=" text-gray-600 text-md">
-                          {post.salaryFrom} - {post.salaryTo} Rs. per Month
-                          </h3>
+                          <h2 className=" text-gray-600 text-md">
+                          Rs. {post.salaryFrom} - {post.salaryTo}
+                          </h2>
+                          <h2 className=" text-gray-600 text-md">
+                            per Month
+                          </h2>
                           <h3 className=" text-gray-600 text-sm lg:text-md">
                             {post.job_type}
                           </h3>
@@ -290,7 +292,7 @@ const JobAds = () => {
             <div
               className={`hidden md:block md:w-1/2 lg:w-[45%] ${
                 isJobDetailOpen ? "block" : "hidden"
-              } border h-full p-5 shadow-lg rounded-xl`}
+              } border h-full p-5 shadow-lg rounded-xl overflow-y-auto`}
             >
               {jobDetail && (
                 <div className="flex flex-col gap-3">
@@ -309,12 +311,15 @@ const JobAds = () => {
                       </div>
                       <div className="w-full">
                         <h2 className="text-gray-500">
-                        {jobDetail.salaryFrom} - {jobDetail.salaryTo} Rs. per Month
+                        Rs. {jobDetail.salaryFrom} - {jobDetail.salaryTo}
+                        </h2>
+                        <h2 className="text-gray-500">
+                        per Month
                         </h2>
                         <p className="text-gray-500">{jobDetail.job_type} </p>
                       </div>
                     </div>
-                    <div className="lg:w-[35%]">
+                    <div className="lg:w-[35%] flex items-center justify-center">
                       <button
                         disabled={
                           applied.some(

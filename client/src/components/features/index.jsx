@@ -41,9 +41,9 @@ const Features = () => {
                   Conference Room
                 </h1>
                 <h2 className="text-xl sm:text-xl md:text-3xl font-bold text-orange">
-                  $40
+                  Rs 5000
                   <span className="text-lg font-normal text-textGray">
-                    /hour
+                    /day
                   </span>
                 </h2>
               </div>
@@ -59,7 +59,7 @@ const Features = () => {
                   Private Office
                 </h1>
                 <h2 className="text-xl sm:text-xl md:text-3xl font-bold text-orange">
-                  $399
+                  Rs 100000
                   <span className="text-lg font-normal text-textGray">
                     /month
                   </span>
@@ -77,7 +77,7 @@ const Features = () => {
                   Dedicated Desk
                 </h1>
                 <h2 className="text-xl sm:text-xl md:text-3xl font-bold text-orange">
-                  $299
+                  Rs 20000
                   <span className="text-lg font-normal text-textGray">
                     /month
                   </span>
@@ -95,7 +95,7 @@ const Features = () => {
                   Hot Desk
                 </h1>
                 <h2 className="text-xl sm:text-xl md:text-3xl font-bold text-orange">
-                  $30
+                  Rs 3000
                   <span className="text-lg font-normal text-textGray">
                     /day
                   </span>
