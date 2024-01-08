@@ -13,7 +13,8 @@ const UpdateJobPostModal = ({
 }) => {
   const [formData, setFormData] = useState({
     job_title: selectedItemData.job_title,
-    salary: selectedItemData.salary,
+    salaryFrom: selectedItemData.salaryFrom,
+    salaryTo: selectedItemData.salaryTo,
     company: selectedItemData.company,
     description: selectedItemData.description,
     job_type: selectedItemData.job_type,
@@ -61,8 +62,13 @@ const UpdateJobPostModal = ({
       hasErrors = true;
     }
 
-    if (!formData.salary) {
-      newErrors.salary = "This Field is Required ";
+    if (!formData.salaryFrom) {
+      newErrors.salaryFrom = "This Field is Required ";
+      hasErrors = true;
+    }
+
+    if (!formData.salaryTo) {
+      newErrors.salaryTo = "This Field is Required ";
       hasErrors = true;
     }
 
@@ -179,7 +185,7 @@ const UpdateJobPostModal = ({
             </div>
             <form onSubmit={handleFormSubmit} className=" w-full  h-full py-5">
               <div className="grid gap-x-4 mb-4 grid-cols-2 ">
-                <div className="col-span-1 h-24">
+                <div className="col-span-full h-[5.2rem]">
                   <label
                     htmlFor="title"
                     className="mb-1 text-base font-semibold"
@@ -192,7 +198,7 @@ const UpdateJobPostModal = ({
                     name="job_title"
                     value={formData.job_title}
                     onChange={handleChange}
-                    className="w-full py-2 px-3 border border-indigo-600 rounded"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2 "
                     placeholder="Enter title of job"
                     onFocus={() => setErrors({ ...errors, job_title: "" })}
                   />
@@ -202,32 +208,57 @@ const UpdateJobPostModal = ({
                     </span>
                   )}
                 </div>
-                <div className="col-span-1 h-24">
+                <div className="col-span-full md:col-span-1 h-[5.2rem]">
                   <label
-                    htmlFor="salary"
+                    htmlFor="salaryFrom"
                     className="mb-1 text-base font-semibold"
                   >
-                    Salary
+                    Salary From (pkr)
                   </label>
                   <input
                     type="number"
-                    id="salary"
-                    name="salary"
-                    value={formData.salary}
+                    id="salaryFrom"
+                    name="salaryFrom"
+                    value={formData.salaryFrom}
                     onChange={handleChange}
-                    className="w-full py-2 px-3  border border-indigo-600 rounded"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2 "
                     placeholder="Enter Salary for this job"
-                    onFocus={() => setErrors({ ...errors, salary: "" })}
+                    onFocus={() => setErrors({ ...errors, salaryFrom: "" })}
                     min={1}
                   />
-                  {errors.salary && (
+                  {errors.salaryFrom && (
                     <span className="text-red-500 text-sm ">
-                      {errors.salary}
+                      {errors.salaryFrom}
                     </span>
                   )}
                 </div>
 
-                <div className="col-span-1 h-24">
+                <div className="col-span-full md:col-span-1 h-[5.2rem]">
+                  <label
+                    htmlFor="salaryTo"
+                    className="mb-1 text-base font-semibold"
+                  >
+                    Salary To (pkr)
+                  </label>
+                  <input
+                    type="number"
+                    id="salaryTo"
+                    name="salaryTo"
+                    value={formData.salaryTo}
+                    onChange={handleChange}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2 "
+                    placeholder="Enter Salary for this job"
+                    onFocus={() => setErrors({ ...errors, salaryTo: "" })}
+                    min={1}
+                  />
+                  {errors.salaryTo && (
+                    <span className="text-red-500 text-sm ">
+                      {errors.salaryTo}
+                    </span>
+                  )}
+                </div>
+
+                <div className="col-span-full md:col-span-1 h-[5.2rem]">
                   <label
                     htmlFor="company"
                     className="mb-1 text-base font-semibold"
@@ -240,7 +271,7 @@ const UpdateJobPostModal = ({
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full py-2 px-3  border border-indigo-600 rounded"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2 "
                     placeholder="Enter Company of job"
                     onFocus={() => setErrors({ ...errors, company: "" })}
                   />
@@ -251,7 +282,7 @@ const UpdateJobPostModal = ({
                   )}
                 </div>
 
-                <div className="col-span-1 h-24">
+                <div className="col-span-full md:col-span-1 h-[5.2rem]">
                   <label
                     htmlFor="jobType"
                     className="mb-1 text-base font-semibold"
@@ -263,7 +294,7 @@ const UpdateJobPostModal = ({
                     onChange={handleChange}
                     value={formData.job_type}
                     onFocus={() => setErrors({ ...errors, job_type: "" })}
-                    className="w-full py-2.5 px-3 border border-indigo-600 rounded"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5 "
                   >
                     <option value="">Please Select Job type</option>{" "}
                     {/* Placeholder */}
@@ -282,7 +313,7 @@ const UpdateJobPostModal = ({
                   )}
                 </div>
 
-                <div className="col-span-1 h-24">
+                <div className="col-span-full md:col-span-1 h-[5.2rem]">
                   <label
                     htmlFor="jobExperience"
                     className="mb-1 text-base font-semibold"
@@ -295,7 +326,7 @@ const UpdateJobPostModal = ({
                     name="job_experience"
                     value={formData.job_experience}
                     onChange={handleChange}
-                    className="w-full py-2 px-3  border border-indigo-600 rounded"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2 "
                     placeholder="Enter Experience Required for this job"
                     onFocus={() => setErrors({ ...errors, job_experience: "" })}
                     min={0}
@@ -306,7 +337,7 @@ const UpdateJobPostModal = ({
                     </span>
                   )}
                 </div>
-                <div className="col-span-1 h-24">
+                <div className="col-span-full md:col-span-1 h-[5.2rem]">
                   <label
                     htmlFor="jobvacancy"
                     className="mb-1 text-base font-semibold"
@@ -319,7 +350,7 @@ const UpdateJobPostModal = ({
                     name="job_vacancy"
                     value={formData.job_vacancy}
                     onChange={handleChange}
-                    className="w-full py-2 px-3  border border-indigo-600 rounded"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2 "
                     placeholder="Enter Number  of Vacancies"
                     onFocus={() => setErrors({ ...errors, job_vacancy: "" })}
                     min={1}
@@ -330,7 +361,7 @@ const UpdateJobPostModal = ({
                     </span>
                   )}
                 </div>
-                <div className="col-span-1 h-24">
+                <div className="col-span-full md:col-span-1 h-[5.2rem]">
                   <label
                     htmlFor="job_deadline"
                     className="mb-1 text-base font-semibold"
@@ -343,7 +374,7 @@ const UpdateJobPostModal = ({
                     name="job_deadline"
                     value={formData.job_deadline}
                     onChange={handleChange}
-                    className="w-full py-2 px-3  border border-indigo-600 rounded"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2 "
                     placeholder="Enter Deadline of job"
                     onFocus={() => setErrors({ ...errors, job_deadline: "" })}
                     min={currentDate}
@@ -355,7 +386,7 @@ const UpdateJobPostModal = ({
                   )}
                 </div>
 
-                <div className="col-span-1 h-24">
+                <div className="col-span-full md:col-span-1 h-[5.2rem]">
                   <label
                     htmlFor="jobCategory"
                     className="mb-1 text-base font-semibold"
@@ -368,7 +399,7 @@ const UpdateJobPostModal = ({
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, status: "" })}
                     value={formData.status}
-                    className="w-full py-2.5 px-3 border border-indigo-600 rounded"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5 "
                   >
                     <option value="">Select an option</option>
                     <option value={1}>Active</option>
@@ -394,8 +425,8 @@ const UpdateJobPostModal = ({
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
-                    rows={3}
-                    className="w-full py-2 px-3 border border-indigo-600 rounded"
+                    rows={4}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5 "
                     placeholder="Enter description of job"
                     onFocus={() => setErrors({ ...errors, description: "" })}
                   />
@@ -408,7 +439,7 @@ const UpdateJobPostModal = ({
               </div>
               <button
                 type="submit"
-                className="w-full py-2 rounded bg-indigo-600 text-white font-semibold tracking-widest"
+                className="w-full mt-3 py-2 rounded bg-indigo-600 text-white font-semibold tracking-widest"
               >
                 Submit
               </button>

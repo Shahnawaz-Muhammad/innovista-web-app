@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import { GoDotFill } from "react-icons/go";
-import NewBooking from "./NewBooking";
-import { GoPlus } from "react-icons/go";
+import { apiUrl } from "../../config";
+import { VscFilePdf } from "react-icons/vsc";
 
-const Bookinglist = ({ BookingData }) => {
+const ApplicantList = ({ candidateList }) => {
   const [showFilter, setShowFilter] = useState(false);
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [newBookingModalOpen, setNewBookingModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const toggleNewBookingModal = () => {
-    setNewBookingModalOpen(!newBookingModalOpen);
-  };
+  console.log(candidateList?.allCvs);
 
   const itemsPerPage = 10;
 
@@ -22,19 +18,17 @@ const Bookinglist = ({ BookingData }) => {
     );
   };
 
-  const filteredData = BookingData.filter((booking) =>
+  const filteredData = candidateList?.allCvs?.filter((booking) =>
     Object.values(booking).some((field) =>
       String(field).toLowerCase().includes(searchQuery.toLowerCase())
     )
   );
   return (
     <section className="  p-3 sm:p-5">
-      <div className="mx-auto max-w-screen-xl px-4">
+      <div className="mx-auto max-w-screen-xl  px-4">
         <div className="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
           <div className="">
-            <h1 className="text-orange text-3xl  font-bold p-5">
-              Booking History
-            </h1>
+            <h1 className="text-orange text-3xl  font-bold p-5">Applicants</h1>
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
             <div className="w-full md:w-1/2">
@@ -71,14 +65,6 @@ const Bookinglist = ({ BookingData }) => {
               </form>
             </div>
             <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-              <button
-                onClick={() => setNewBookingModalOpen(!newBookingModalOpen)}
-                type="button"
-                className="flex items-center justify-center gap-2 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2  focus:outline-none"
-              >
-                <GoPlus className="text-xl" />
-                New Booking
-              </button>
               <div className="flex items-center space-x-3 w-full md:w-auto relative">
                 <button
                   className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700  "
@@ -198,27 +184,24 @@ const Bookinglist = ({ BookingData }) => {
               </div>
             </div>
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto h-96 max-h-full">
             <table className="w-full text-sm text-left text-gray-500 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                 <tr>
                   <th scope="col" className="px-4 py-3">
-                    Chapter
+                    Job Title
                   </th>
                   <th scope="col" className="px-4 py-3">
-                    Booking Date
+                    Applicant Name
                   </th>
                   <th scope="col" className="px-4 py-3">
-                    Expiry Date
+                    Applicant's Email
                   </th>
                   <th scope="col" className="px-4 py-3">
-                    Booking Time
+                    Applicant's CV
                   </th>
                   <th scope="col" className="px-4 py-3">
-                    Expiry Time
-                  </th>
-                  <th scope="col" className="px-4 py-3">
-                    Payment Status
+                    Status
                   </th>
                   <th scope="col" className="px-4 py-3">
                     <span className="sr-only">Actions</span>
@@ -226,68 +209,40 @@ const Bookinglist = ({ BookingData }) => {
                 </tr>
               </thead>
               <tbody>
-                {filteredData.length > 0 &&
+                {filteredData?.length > 0 &&
                   filteredData
                     .slice(
                       (currentPage - 1) * itemsPerPage,
                       currentPage * itemsPerPage
                     )
-                    ?.map((booking, index) => {
+                    ?.map((candidate, index) => {
                       return (
                         <tr key={index} className="border-b ">
                           <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap "
                           >
-                            {booking?.BookingStation}
+                            {candidate?.JobTitle}
                           </th>
+                          <td className="px-4 py-3">{/* {candidate?.} */}</td>
+                          <td className="px-4 py-3">{candidate?.Email}</td>
                           <td className="px-4 py-3">
-                            {booking?.BookingDate &&
-                              new Date(booking.BookingDate).toLocaleDateString(
-                                "en-GB",
-                                {
-                                  day: "2-digit",
-                                  month: "2-digit",
-                                  year: "numeric",
-                                }
-                              )}
-                          </td>
-                          <td className="px-4 py-3">
-                            {booking?.ExpiryDate &&
-                              new Date(booking.ExpiryDate).toLocaleDateString(
-                                "en-GB",
-                                {
-                                  day: "2-digit",
-                                  month: "2-digit",
-                                  year: "numeric",
-                                }
-                              )}
-                          </td>
-                          <td className="px-4 py-3">
-                            {booking?.BookingTime &&
-                              new Date(
-                                `2023-12-21T${booking.BookingTime}:00.000+05:00`
-                              ).toLocaleTimeString("en-PK", {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                hour12: true,
-                              })}
-                          </td>
-                          <td className="px-4 py-3">
-                            {" "}
-                            {booking?.ExpiryTime &&
-                              new Date(
-                                `2023-12-21T${booking.ExpiryTime}:00.000+05:00`
-                              ).toLocaleTimeString("en-PK", {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                hour12: true,
-                              })}
+                            <a
+                              href={`${apiUrl}/${candidate.cvFile}`}
+                              rel="noreferrer"
+                              target="_blank"
+                              className="text-green-400 flex gap-2  items-center"
+                            >
+                              <h1 className="text-gray-600 text-md font-bold underline">
+                                View CV
+                              </h1>
+                              <VscFilePdf className="text-2xl text-center" />
+                            </a>
                           </td>
                           <td className=" px-4 py-3">
                             <div className="flex items-center gap-3 ">
                               <GoDotFill className="text-green-500" />
-                              Paid
+                              Forwarded
                             </div>
                           </td>
                           <td className="px-4 py-3 flex items-center justify-end">
@@ -345,7 +300,7 @@ const Bookinglist = ({ BookingData }) => {
               <span className="font-semibold text-gray-900 ">1-10</span>
               of
               <span className="font-semibold text-gray-900 ">
-                {BookingData?.length}
+                {filteredData?.length}
               </span>
             </span>
             <ul className="inline-flex items-stretch -space-x-px">
@@ -361,19 +316,24 @@ const Bookinglist = ({ BookingData }) => {
                 </button>
               </li>
               <li>
-                {[...Array(Math.ceil(BookingData.length / itemsPerPage))].map(
-                  (_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrentPage(i + 1)}
-                      className={`mx-2 px-3 py-1 text-gray-500 hover:text-gray-700 ${
-                        currentPage === i + 1 ? "font-bold" : ""
-                      }`}
-                    >
-                      {i + 1}
-                    </button>
-                  )
-                )}
+                {[
+                  ...Array(
+                    Math.ceil(
+                      filteredData?.length > 0 &&
+                        filteredData?.length / itemsPerPage
+                    )
+                  ),
+                ].map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentPage(i + 1)}
+                    className={`mx-2 px-3 py-1 text-gray-500 hover:text-gray-700 ${
+                      currentPage === i + 1 ? "font-bold" : ""
+                    }`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
               </li>
 
               <li>
@@ -382,13 +342,13 @@ const Bookinglist = ({ BookingData }) => {
                     setCurrentPage((prevPage) =>
                       Math.min(
                         prevPage + 1,
-                        Math.ceil(BookingData.length / itemsPerPage)
+                        Math.ceil(filteredData?.length > 0 && filteredData?.length / itemsPerPage)
                       )
                     )
                   }
-                  disabled={
-                    currentPage === Math.ceil(BookingData.length / itemsPerPage)
-                  }
+                  // disabled={
+                  // currentPage === Math.ceil(candidateList.length / itemsPerPage)
+                  // }
                   className="px-3 py-1 text-gray-500 hover:text-gray-700"
                 >
                   Next
@@ -398,14 +358,14 @@ const Bookinglist = ({ BookingData }) => {
           </nav>
         </div>
       </div>
-      {newBookingModalOpen && (
+      {/* {newBookingModalOpen && (
         <NewBooking
           toggleModal={toggleNewBookingModal}
           setNewBookingModalOpen={setNewBookingModalOpen}
         />
-      )}
+      )} */}
     </section>
   );
 };
 
-export default Bookinglist;
+export default ApplicantList;
