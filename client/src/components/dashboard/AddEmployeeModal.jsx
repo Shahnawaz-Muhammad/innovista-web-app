@@ -164,7 +164,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
           <div className="relative bg-white rounded-lg shadow ">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
               <h3 className="text-lg font-semibold text-gray-900 ">
-                Add Employee
+                Add {user.category === "Group" ? "Member" : "Employee"}
               </h3>
               <button
                 type="button"
@@ -203,7 +203,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                     name="empName"
                     id="name"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your Name"
+                    placeholder="Enter Name"
                     value={employeeData.empName}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, empName: "" })}
@@ -219,14 +219,14 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                     htmlFor="empId"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Employee ID
+                    {user.category === "Group" ? "Member" : "Employee"} ID
                   </label>
                   <input
                     type="number"
                     name="empId"
                     id="empId"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your subject"
+                    placeholder="Enter ID"
                     value={employeeData.empId}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, empId: "" })}
@@ -248,7 +248,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                     name="empDesignation"
                     id="empDesignation"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your subject"
+                    placeholder="Enter Designation"
                     value={employeeData.empDesignation}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, empDesignation: "" })}
@@ -272,7 +272,7 @@ const AddEmployeeModal = ({ toggleModal, setModalOpen,fetchEmployees, userEmail 
                     name="empEmail"
                     id="empEmail"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your subject"
+                    placeholder="Enter Email"
                     value={employeeData.empEmail}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, empEmail: "" })}

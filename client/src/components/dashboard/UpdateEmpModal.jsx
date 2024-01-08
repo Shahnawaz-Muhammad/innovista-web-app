@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { apiUrl } from "../../config";
 import { toast } from "react-toastify";
 import Spinner from "../../Loader/Spinner";
@@ -25,6 +26,9 @@ const UpdateEmpModal = ({
     email: "",
   });
   const [loading,setLoading]=useState(false);
+
+  
+  const { user } = useContext(AuthContext);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for basic email validation
   const contactNoRegex = /^03\d{2}-\d{7}$/;
@@ -173,7 +177,7 @@ const UpdateEmpModal = ({
           <div className="relative bg-white rounded-lg shadow ">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
               <h3 className="text-lg font-semibold text-gray-900 ">
-                Update Employee
+                Update {user.category === "Group" ? "Member" : "Employee"}
               </h3>
               <button
                 type="button"
@@ -212,7 +216,7 @@ const UpdateEmpModal = ({
                     name="name"
                     id="name"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your Name"
+                    placeholder="Enter Name"
                     value={employeeData.name}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, name: "" })}
@@ -226,14 +230,14 @@ const UpdateEmpModal = ({
                     htmlFor="empID"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Employee ID
+                    {user.category === "Group" ? "Member" : "Employee"} ID
                   </label>
                   <input
                     type="number"
                     name="empID"
                     id="empID"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter Employee ID"
+                    placeholder="Enter ID"
                     value={employeeData.empID}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, empID: "" })}
@@ -254,7 +258,7 @@ const UpdateEmpModal = ({
                     name="designation"
                     id="designation"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your Designation"
+                    placeholder="Enter Designation"
                     value={employeeData.designation}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, designation: "" })}
@@ -296,14 +300,14 @@ const UpdateEmpModal = ({
                     htmlFor="email"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Email Address
+                    Email 
                   </label>
                   <input
                     type="text"
                     name="email"
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter Email Address"
+                    placeholder="Enter Email "
                     value={employeeData.email}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, email: "" })}

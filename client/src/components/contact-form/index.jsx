@@ -6,6 +6,7 @@ const ContactForm = () => {
     register,
     formState: { errors },
     handleSubmit,
+    reset, // Destructure the reset method
   } = useForm({ mode: "all" });
 
   const contactForm = useRef();
@@ -30,6 +31,10 @@ const ContactForm = () => {
       );
   
       console.log("Email sent successfully!");
+      reset();
+      
+
+
     } catch (error) {
       console.error("Error sending email:", error);
     } finally {
@@ -45,7 +50,7 @@ const ContactForm = () => {
           <h2 className="text-orange font-bold uppercase text-lg">
             Be In Touch
           </h2>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">Ask A Question</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">Ask Question</h1>
 
           <div className="flex gap-3 items-center">
             <div className="w-2 h-2 bg-orange rounded-full"></div>
@@ -54,9 +59,7 @@ const ContactForm = () => {
           </div>
 
           <p className="text-textGray text-center">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis
-            error deleniti explicabo animi, debitis ab non expedita temporibus
-            commodi perspiciatis.
+          Curious about something? Let us know! We're just a text away.
           </p>
 
           <div className="w-full">
@@ -77,8 +80,7 @@ const ContactForm = () => {
                       required: "This Field is Required",
                       minLength: 3,
                       pattern: {
-                        value: /^[A-Za-z]+$/i,
-                        message: "Name cannot be a number",
+                        value: /^[A-Za-z]+(?:\s[A-Za-z]+)*$/i,
                       },
                     })}
                   />

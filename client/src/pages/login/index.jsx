@@ -152,12 +152,12 @@ const Login = () => {
               )}
               {unAuthorizedUser && (
                 <p className="text-red-500 text-sm pl-2">
-                  Email or Password is wrong!
+                  Invalid Email or Password 
                 </p>
               )}
             </div>
 
-            <div className="px-3 flex flex-col md:flex-row md:items-center md:justify-between">
+            <div className="px-3 flex flex-row items-center justify-between">
               <div className="flex items-start">
                 <div className="flex items-center h-5">
                   <input

@@ -205,7 +205,7 @@ const PostJobModal = ({ toggleModal, setPostJobModalOpen }) => {
                     value={formData.job_title}
                     onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2 "
-                    placeholder="Enter title of job"
+                    placeholder="Enter Title of Job"
                     onFocus={() => setErrors({ ...errors, job_title: "" })}
                   />
                   {errors.job_title && (
@@ -305,7 +305,7 @@ const PostJobModal = ({ toggleModal, setPostJobModalOpen }) => {
                     value={formData.job_experience}
                     onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2 "
-                    placeholder="Enter Experience Required for this job"
+                    placeholder="Enter Experience Required for this Job"
                     onFocus={() => setErrors({ ...errors, job_experience: "" })}
                     min={0}
                   />
@@ -445,12 +445,15 @@ const PostJobModal = ({ toggleModal, setPostJobModalOpen }) => {
                   )}
                 </div>
               </div>
+              <div className="flex justify-center">
+
               <button
                 type="submit"
-                className="mt-5 px-5 py-2 rounded bg-orange text-white font-semibold "
+                className="mt-7 px-5 py-2 rounded bg-orange text-white font-semibold "
               >
                 {loading ? <Spinner size={30} /> : "Submit"}
               </button>
+              </div>
             </form>
           </div>
         </div>

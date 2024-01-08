@@ -139,7 +139,7 @@ const Hirings = () => {
                   <input
                     type="text"
                     id="simple-search"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2  "
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange focus:border-orange block w-full pl-10 p-2  "
                     placeholder="Search"
                     // value={searchQuery}
                     // onChange={(e) => setSearchQuery(e.target.value)}
@@ -152,7 +152,7 @@ const Hirings = () => {
               <button
                 onClick={() => setPostJobModalOpen(!postJobModalOpen)}
                 type="button"
-                class="flex items-center justify-center gap-2 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2  focus:outline-none"
+                class="flex items-center justify-center gap-2 text-white bg-orange hover:bg-orangeDark focus:ring-1 focus:ring-orange font-medium rounded-lg text-sm px-4 py-2  focus:outline-none"
               >
                 <GoPlus className="text-xl" />
                 Post a Job

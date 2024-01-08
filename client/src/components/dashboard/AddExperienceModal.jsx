@@ -169,7 +169,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen,fetchExperience, userEmail 
                     name="companyName"
                     id="companyName"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter the company name"
+                    placeholder="Enter Company Name"
                     value={experienceData.companyName}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, companyName: "" })}
@@ -190,7 +190,7 @@ const ExperienceModal = ({ toggleModal, setModalOpen,fetchExperience, userEmail 
                     name="designation"
                     id="designation"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="Enter your designation"
+                    placeholder="Enter your Ddesignation"
                     value={experienceData.designation}
                     onChange={handleChange}
                     onFocus={() => setErrors({ ...errors, designation: "" })}

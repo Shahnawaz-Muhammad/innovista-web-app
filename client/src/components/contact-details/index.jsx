@@ -13,22 +13,21 @@ const ContactDetail = () => {
           <div className="w-full h-full flex justify-center items-center border-b md:border-b-0 md:border-x flex-col text-white py-14 gap-3">
             <div className="flex justify-center items-center flex-col">
               <GiSmartphone className="text-5xl" />
-              <h2 className="text-xl">+3 800123 45</h2>
+              <h2 className="text-xl">+92 123 12 34 567</h2>
             </div>
           </div>
           <div className="w-full h-full flex justify-center items-center border-b md:border-b-0 text-white py-14 gap-3">
             <div className="flex justify-center items-center flex-col">
               <BiBuildingHouse className="text-5xl" />
               <h2 className="text-xl">
-                +123, New Lenox <br />
-                Chicago, IL 60606
+              Pakistan
               </h2>
             </div>
           </div>
           <div className="w-full h-full flex justify-center items-center md:border-x  text-white py-14 gap-3">
             <div className="flex justify-center items-center flex-col">
               <BsEnvelopeAt className="text-5xl" />
-              <h2 className="text-xl">support@example.com</h2>
+              <h2 className="text-xl">inovista@support.com</h2>
             </div>
           </div>
         </div>

@@ -165,6 +165,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
             theme: "light",
           });
           setLoading(false);
+          setNewBookingModalOpen(false);
 
           setBookingData({
             // Name: "",
@@ -291,7 +292,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
                     htmlFor="station"
                     className="block  text-sm font-medium text-gray-900 "
                   >
-                    Station
+                    Chapter
                   </label>
                   <select
                     name="Station"
@@ -301,7 +302,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
                     onFocus={() => setErrors({ ...errors, Station: "" })}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5 "
                   >
-                    <option value="">Select Your Station</option>
+                    <option value="">Select Your Chapter</option>
                     {stations.map((station, index) => (
                       <option key={index} value={station}>
                         {station}

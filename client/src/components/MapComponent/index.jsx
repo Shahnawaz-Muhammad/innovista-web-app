@@ -13,11 +13,11 @@ import pointer from '../../assets/Pointer.png';
 
 
 // Set the initial map center
-const center = [30.3753, 69.3451];
+const center = [33.6844, 73.0479];
 const cities = [
   { name: 'Islamabad Chapter', coords: [33.6844, 73.0479] },
-  { name: 'Lahore Chapter', coords: [31.5497, 74.3436] },
-  { name: 'Peshawar Chapter', coords: [33.6844, 71.0479] },
+  { name: 'Lahore Chapter', coords: [31.5497, 74.305] },
+  { name: 'Peshawar Chapter', coords: [34.0, 71.58] },
 ];
 
 // Create a custom icon using the specified image
@@ -38,7 +38,8 @@ const MapComponent = () => {
         {/* Add markers dynamically using the map method */}
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution=''
         />
         {cities.map((city, index) => (
           <CityMarker key={index} city={city} />
