@@ -27,7 +27,7 @@ const ContactDetail = () => {
           <div className="w-full h-full flex justify-center items-center md:border-x  text-white py-14 gap-3">
             <div className="flex justify-center items-center flex-col">
               <BsEnvelopeAt className="text-5xl" />
-              <h2 className="text-xl">inovista@support.com</h2>
+              <h2 className="text-xl">innovista@support.com</h2>
             </div>
           </div>
         </div>

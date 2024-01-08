@@ -157,20 +157,20 @@ const Login = () => {
               )}
             </div>
 
-            <div className="px-3 flex flex-row items-center justify-between">
+            <div className="md:px-3 flex flex-row  justify-between sm:font-normal md:font-medium">
               <div className="flex items-start">
-                <div className="flex items-center h-5">
+                <div className="">
                   <input
                     id="remember"
                     aria-describedby="remember"
                     type="checkbox"
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
+                    className="w-3 h-3 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
                   />
                 </div>
-                <div className="ml-3 ">
+                <div className="ml-1 ">
                   <label
                     htmlFor="remember"
-                    className="font-medium "
+                    className=" "
                   >
                     Remember me
                   </label>
@@ -178,9 +178,9 @@ const Login = () => {
               </div>
               <Link
                 to="/find-your-account"
-                className=" font-medium  hover:underline "
+                className=" ml-3  hover:underline "
               >
-                Forgot password ?
+                Forgot password?
               </Link>
             </div>
             <button
