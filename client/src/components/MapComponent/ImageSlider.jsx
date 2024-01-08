@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Islamabad from '../../assets/GalleryPics/islamabad1.jpg';
-import Lahore2 from '../../assets/GalleryPics/lahore-3.jpg';
+import Lahore from '../../assets/GalleryPics/lahore.jpg';
 import Peshawar from '../../assets/GalleryPics/peshawar-2.jpg';
 
 function ImageSlider() {
@@ -11,7 +11,7 @@ function ImageSlider() {
 
   const images = [
     { url: Islamabad, name: "Islamabad Chapter" },
-    { url: Lahore2, name: "Lahore Chapter" },
+    { url: Lahore, name: "Lahore Chapter" },
     { url: Peshawar, name: "Peshawar Chapter" }
     
   ];
