@@ -1,19 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import bgMain from "../../../assets/images/bg-main.png";
 
 import { apiUrl } from "../../../config";
-import QrCode from "../../../components/dashboard/QrCode";
 import Bookinglist from "../../../components/dashboard/Bookinglist";
 
 const BookingHistory = () => {
   const [BookingData, setBookingData] = useState([]);
-  const [expandedIndex, setExpandedIndex] = useState(null);
-  const [showQr, setShowQr] = useState(false);
+  // const [expandedIndex, setExpandedIndex] = useState(null);
+  // const [showQr, setShowQr] = useState(false);
 
-  const handleToggleDetails = (index) => {
-    setExpandedIndex((prevIndex) => (prevIndex === index ? -1 : index));
-  };
+  // const handleToggleDetails = (index) => {
+  //   setExpandedIndex((prevIndex) => (prevIndex === index ? -1 : index));
+  // };
 
   const { user } = useContext(AuthContext);
   useEffect(() => {

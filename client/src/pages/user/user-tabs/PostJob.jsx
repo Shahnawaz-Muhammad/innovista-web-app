@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function PostJob() {
   const currentDate = new Date().toISOString().split("T")[0];
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     job_title: "",
     salaryFrom: "",
@@ -21,7 +21,7 @@ export default function PostJob() {
     job_deadline: "",
     status: "",
   });
-  const [loading,setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({
     job_title: "",
     salaryFrom: "",
@@ -102,8 +102,9 @@ export default function PostJob() {
       );
 
       if (!response.ok) {
-       // throw new Error("Failed to post a job");
+        // throw new Error("Failed to post a job");
         const errorData = await response.json();
+        console.log(errorData);
         toast.error("Failed to post a job", {
           position: "top-center",
           autoClose: 3000,
@@ -122,7 +123,7 @@ export default function PostJob() {
         theme: "light",
       });
       setLoading(false);
-      navigate("/dashboard/hirings")
+      navigate("/dashboard/hirings");
 
       setFormData({
         job_title: "",
@@ -169,7 +170,6 @@ export default function PostJob() {
           top: "0",
           left: "0",
           zIndex: "-1",
-          
         }}
       >
         <div className="flex flex-col gap-3 py-12 justify-center items-center">
@@ -180,8 +180,8 @@ export default function PostJob() {
             Post A Job
           </h1>
           <form
-          className="mb-5 w-full md:w-4/5 lg:w-2/3 p-5 rounded-lg "
-          style={{
+            className="mb-5 w-full md:w-4/5 lg:w-2/3 p-5 rounded-lg "
+            style={{
               backdropFilter: "blur(5x)",
               background: "rgba(255, 255, 255, 0.8)",
             }}
@@ -436,7 +436,7 @@ export default function PostJob() {
                 type="submit"
                 className="mt-5 px-5 py-2 rounded bg-orange text-white font-semibold "
               >
-                {loading ? <Spinner size={30}/> : "Submit"}
+                {loading ? <Spinner size={30} /> : "Submit"}
               </button>
             </div>
           </form>
