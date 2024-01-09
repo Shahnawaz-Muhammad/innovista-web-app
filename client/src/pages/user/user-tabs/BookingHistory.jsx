@@ -14,25 +14,25 @@ const BookingHistory = () => {
   // };
 
   const { user } = useContext(AuthContext);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${apiUrl}/BookingHistory?userEmail=${user.email}`
-        );
-        if (!response.ok) {
-          throw new Error("Error fetching data");
-        }
-        const data = await response.json();
-        if (JSON.stringify(data) !== JSON.stringify(BookingData)) {
-          setBookingData(data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    fetchData();
+  const fetchData = async (userEmail, bookingData) => {
+    try {
+      const response = await fetch(
+        `${apiUrl}/BookingHistory?userEmail=${userEmail}`
+      );
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      const data = await response.json();
+      if (JSON.stringify(data) !== JSON.stringify(bookingData)) {
+        setBookingData(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchData(user.email, BookingData);
   }, [user.email, BookingData]);
 
   return (
@@ -40,7 +40,7 @@ const BookingHistory = () => {
       <div className=" flex flex-col h-full  ">
         <div className="w-full flex justify-center items-center gap-3">
           <div className="mt-5  w-full flex flex-col  max-h-full ">
-            <Bookinglist BookingData={BookingData} />
+            <Bookinglist BookingData={BookingData} fetchData={fetchData}/>
           </div>
         </div>
       </div>

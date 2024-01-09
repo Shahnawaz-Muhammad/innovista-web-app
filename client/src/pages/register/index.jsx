@@ -307,7 +307,7 @@ const Register = () => {
                 onClick={handleFormSubmit}
               >
                
-                {step !== 4 ? "Next Step" :loading ? <Spinner size={30}/> : "Confirm" }
+                {step !== 4 ? "Next Step" :loading ? <Spinner size={30}/> : "Submit" }
               </Button>
             </li>
           </menu>
