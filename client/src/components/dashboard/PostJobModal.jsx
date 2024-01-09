@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Spinner from "../../Loader/Spinner";
 import { useNavigate } from "react-router-dom";
 
-const PostJobModal = ({ toggleModal, setPostJobModalOpen }) => {
+const PostJobModal = ({ toggleModal, setPostJobModalOpen,fetchHiring }) => {
   const currentDate = new Date().toISOString().split("T")[0];
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -155,6 +155,7 @@ const PostJobModal = ({ toggleModal, setPostJobModalOpen }) => {
         job_deadline: "",
         status: "",
       });
+      fetchHiring()
     } catch (error) {
       console.error("Login error:", error);
       toast.error(error, {

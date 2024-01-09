@@ -7,6 +7,7 @@ import Modal from "react-modal"; // Import the modal library
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
 import { ProfileContext } from "../../context/ProfileContext";
+import profileImg from "../../assets/images/avatar-profile.jpeg"
 
 const modalStyles = {
   content: {
@@ -16,13 +17,14 @@ const modalStyles = {
     top: "0", // Center the modal vertically
     transform: "translateY(-20%)",
     zIndex: 1000, // Ensure the modal is on top
-    position: 'absolute'
+    position: "absolute",
   },
 };
 
 const ProfileHero = () => {
   const { user } = useContext(AuthContext);
-  const { handleProfilePictureChange, selectedFile, setSelectedFile } = useContext(ProfileContext);
+  const { handleProfilePictureChange, selectedFile, setSelectedFile } =
+    useContext(ProfileContext);
 
   const [userInfo, setUserInfo] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -102,7 +104,7 @@ const ProfileHero = () => {
     };
 
     fetchProfilePicture();
-  }, [user.email, selectedFile, handleProfilePictureChange, setSelectedFile]);
+  }, [user.email, selectedFile, setSelectedFile]);
   return (
     <>
       <div className="w-full bg-coverImage h-60 object-cover bg-center relative flex justify-center mx-auto px-5 lg:px-10 xl:px-0 transition-all duration-500">
@@ -112,13 +114,26 @@ const ProfileHero = () => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
+            {selectedFile?.imageURL ? (
+              <img
+                src={`${apiUrl}${selectedFile?.imageURL}`}
+                alt=""
+                className={`w-full h-full rounded-full object-cover ${
+                  isHovered
+                    ? "scale-105 duration-300"
+                    : "scale-100 duration-300"
+                }`}
+              />
+            ): 
             <img
-              src={`${apiUrl}${selectedFile?.imageURL}`}
-              alt=""
-              className={`w-full h-full rounded-full object-cover ${
-                isHovered ? "scale-105 duration-300" : "scale-100 duration-300"
-              }`}
-            />
+            src={`${apiUrl}${selectedFile?.imageURL}`}
+            alt=""
+            className={`w-full h-full rounded-full object-cover ${
+              isHovered
+                ? "scale-105 duration-300"
+                : "scale-100 duration-300"
+            }`}
+          />}
             {isHovered && (
               <div className="absolute inset-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 rounded-full">
                 <label
@@ -165,7 +180,10 @@ const ProfileHero = () => {
         style={modalStyles}
       >
         <div className="flex flex-col gap-3 w-full ">
-          <RxCross2 className="absolute right-3 top-3 text-lg hover:scale-110 cursor-pointer" onClick={() => setIsSizeExceededModalOpen(false)}/>
+          <RxCross2
+            className="absolute right-3 top-3 text-lg hover:scale-110 cursor-pointer"
+            onClick={() => setIsSizeExceededModalOpen(false)}
+          />
 
           <p className="text-red-500">Image size exceeds 5 MB limit.</p>
           <p>Please select a new image.</p>

@@ -3,7 +3,12 @@ import Islamabad from "../../assets/GalleryPics/islamabad1.jpg";
 import Lahore from "../../assets/GalleryPics/lahore.jpg";
 import Peshawar from "../../assets/GalleryPics/peshawar-2.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination } from "swiper/modules";
+import {
+  EffectCoverflow,
+  Navigation,
+  Pagination,
+  Scrollbar,
+} from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -18,6 +23,8 @@ function ImageSlider() {
     { url: Lahore, name: "Lahore Chapter" },
     { url: Peshawar, name: "Peshawar Chapter" },
     { url: Islamabad, name: "Islamabad Chapter" },
+    { url: Lahore, name: "Lahore Chapter" },
+    { url: Peshawar, name: "Peshawar Chapter" },
   ];
 
   return (
@@ -34,12 +41,12 @@ function ImageSlider() {
       <div className="flex">
         <div className="w-full"></div>
       </div>
-      <div className="w-4/5 mx-auto h-full">
+      <div className="w-4/5 mx-auto h-full pb-20 relative">
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={"auto"}
+          // centeredSlides={true}
+          slidesPerView={3}
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
@@ -47,9 +54,12 @@ function ImageSlider() {
             modifier: 1,
             slideShadows: true,
           }}
-          pagination={true}
+          loop={true}
+          pagination={{
+            clickable: true, // Enable clickable pagination
+          }}
           modules={[EffectCoverflow, Pagination]}
-          className="mySwiper"
+          className="mySwiper pb-20"
         >
           {" "}
           {images.map((image, index) => (

@@ -35,7 +35,7 @@ const Profile = () => {
       <div className=" bg-white mt-6 border-t border-[#dbdbdb]">
         <Bio isBioOpen={isBioOpen} toggleBio={toggleBio} user={user} />
 
-        {user.category === "Freelancer" ? (
+        {user.category === "Individual" ? (
           <>
             <Education
               isEducationOpen={isEducationOpen}

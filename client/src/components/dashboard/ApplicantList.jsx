@@ -191,9 +191,7 @@ const ApplicantList = ({ candidateList }) => {
                   <th scope="col" className="px-4 py-3">
                     Job Title
                   </th>
-                  <th scope="col" className="px-4 py-3">
-                    Applicant Name
-                  </th>
+                 
                   <th scope="col" className="px-4 py-3">
                     Applicant's Email
                   </th>
@@ -209,8 +207,10 @@ const ApplicantList = ({ candidateList }) => {
                 </tr>
               </thead>
               <tbody>
-                {filteredData?.length > 0 &&
+                {filteredData?.length > 0 ? (
                   filteredData
+                    .slice()
+                    .reverse()
                     .slice(
                       (currentPage - 1) * itemsPerPage,
                       currentPage * itemsPerPage
@@ -224,7 +224,7 @@ const ApplicantList = ({ candidateList }) => {
                           >
                             {candidate?.JobTitle}
                           </th>
-                          <td className="px-4 py-3">{/* {candidate?.} */}</td>
+                         
                           <td className="px-4 py-3">{candidate?.Email}</td>
                           <td className="px-4 py-3">
                             <a
@@ -287,7 +287,14 @@ const ApplicantList = ({ candidateList }) => {
                           </td>
                         </tr>
                       );
-                    })}
+                    })
+                ) : (
+                  <tr className="border-b ">
+                    <td colSpan={5} className="px-4 py-3 text-lg font-semibold text-center">
+                      No Applicants Found
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
@@ -342,7 +349,10 @@ const ApplicantList = ({ candidateList }) => {
                     setCurrentPage((prevPage) =>
                       Math.min(
                         prevPage + 1,
-                        Math.ceil(filteredData?.length > 0 && filteredData?.length / itemsPerPage)
+                        Math.ceil(
+                          filteredData?.length > 0 &&
+                            filteredData?.length / itemsPerPage
+                        )
                       )
                     )
                   }

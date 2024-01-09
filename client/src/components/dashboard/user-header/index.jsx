@@ -10,10 +10,12 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { ProfileContext } from "../../../context/ProfileContext";
 import { apiUrl } from "../../../config";
+import { FaUserCircle } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 
 const UserHeader = ({ user }) => {
   const { logout, isAuthenticated } = useContext(AuthContext);
-  const { selectedFile,setSelectedFile } = useContext(ProfileContext);
+  const { selectedFile, setSelectedFile } = useContext(ProfileContext);
 
   const location = useLocation();
 
@@ -47,7 +49,6 @@ const UserHeader = ({ user }) => {
       url: "booking-history",
     },
 
-    
     {
       id: 3,
       title: "Jobs",
@@ -71,7 +72,7 @@ const UserHeader = ({ user }) => {
 
   let userData;
 
-  if (isAuthenticated && user.category === "Freelancer") {
+  if (isAuthenticated && user.category === "Individual") {
     userData = freelancerData;
   } else if (isAuthenticated && user.category === "Group") {
     userData = groupData;
@@ -129,7 +130,7 @@ const UserHeader = ({ user }) => {
           <div>
             {showTabs ? (
               <div className="absolute lg:hidden top-0 left-0  w-full  border-b z-50 bg-gray-300 py-3 px-6">
-                <div >
+                <div>
                   <IoMdClose
                     className="text-3xl"
                     onClick={() => setShowTabs(false)}
@@ -185,9 +186,21 @@ const UserHeader = ({ user }) => {
               <FaAngleDown />
 
               {showDropDown && (
-                <div className="absolute top-10 right-0 w-40 z-30 bg-gray-200 shadow-sm p-3 rounded-md flex flex-col gap-2">
-                  <Link to="profile">Profile</Link>
-                  <h2 onClick={handleLogout}>Logout</h2>
+                <div className="absolute top-10 right-0 w-40 z-30  shadow-lg shadow-gray-600 bg-gray-200 rounded-lg flex flex-col ">
+                  <Link
+                    to="profile"
+                    className="bg-gray-200 hover:bg-gray-100 px-3 py-2 rounded-lg flex justify-between items-center"
+                  >
+                    Profile
+                    <FaUserCircle size={20} className="text-gray-500" />
+                  </Link>
+                  <div
+                    className="w-full flex justify-between items-center px-3 py-2 rounded-lg bg-gray-200 hover:bg-gray-100 "
+                    onClick={handleLogout}
+                  >
+                    <h2>Logout</h2>
+                    <MdLogout size={20} className="text-gray-500" />
+                  </div>
                 </div>
               )}
             </div>
