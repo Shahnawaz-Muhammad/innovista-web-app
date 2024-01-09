@@ -248,8 +248,8 @@ const Hirings = () => {
                   </div>
                 ))
             ) : (
-              <div className="text-black w-full">
-                <h2 className="font-semibold text-xl">No hirings currently</h2>
+              <div className="text-black w-full flex justify-center">
+                <h2  className="font-semibold text-xl">No hirings currently</h2>
               </div>
             )}
           </div>
@@ -265,6 +265,7 @@ const Hirings = () => {
       )}
       {postJobModalOpen && (
         <PostJobModal
+        fetchHiring={fetchHiring}
           toggleModal={toggleNewBookingModal}
           setPostJobModalOpen={setPostJobModalOpen}
         />

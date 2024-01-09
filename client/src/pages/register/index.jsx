@@ -16,7 +16,7 @@ const Register = () => {
   const [showRequired, setShowRequiredFields] = useState(false);
   const [loading,setLoading]=useState(false);
 
-  const ntnRegex = /^\d{8}$/;
+  const ntnRegex = /^\d{7}-\d{1}$/;
 
   const [userServiceConfiguration, setUserServiceConfiguration] = useState({
     userInfo: {
