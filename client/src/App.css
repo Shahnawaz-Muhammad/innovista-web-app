@@ -41,3 +41,8 @@ body {
   bottom: 8px;
   z-index: 999999;
 }
+
+
+.leaflet-control-attribution {
+  display: none;
+}

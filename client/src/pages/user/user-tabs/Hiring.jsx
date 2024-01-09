@@ -191,7 +191,7 @@ const Hirings = () => {
                           {post.company}
                         </h1>
                       </div>
-                      <div className="w-full md:w-[30%] flex flex-col items-center gap-2 text-center">
+                      <div className="w-full md:w-[30%] flex flex-col items-center md:items-start gap-2 ">
                         <h2 className="underline">{post.job_title}</h2>
                         <h2 className="text-gray-600 text-sm text-justify ">
                           {post.description.length > 120
@@ -199,21 +199,21 @@ const Hirings = () => {
                             : post.description}
                         </h2>
                       </div>
-                      <div className="w-full md:w-[20%] flex flex-col items-center">
+                      <div className="w-full md:w-[20%] flex md:flex-col md:items-center justify-center">
                         <h3 className=" text-gray-600 ">
                           {post.salaryFrom} - {post.salaryTo}
                         </h3>
                         <h3 className=" text-gray-600 ">Rs. per Month </h3>
                       </div>
-                      <div className="w-full md:w-[20%] flex flex-col items-center">
-                        <h3 className=" text-gray-600 font-bold">
-                          {post.job_vacancy}{" "}
+                      <div className="w-full md:w-[15%] flex flex-col items-center">
+                        <h3 className=" text-gray-600 font-semibold">
+                          Positions: {post.job_vacancy}{" "}
                         </h3>
                         <h3 className=" text-gray-600 font-semibold">
                           {post.job_type}{" "}
                         </h3>
                       </div>
-                      <div className="w-full md:w-[20%] flex flex-col items-center">
+                      <div className="w-full md:w-[15%] flex flex-col items-center">
                         {/* <h3 className=" text-gray-600 font-bold text-xl p-1">
                     {post.status === 0 ? "In Active" : "Active"}{" "}
                   </h3> */}
@@ -249,7 +249,7 @@ const Hirings = () => {
                 ))
             ) : (
               <div className="text-black w-full flex justify-center">
-                <h2  className="font-semibold text-xl">No hirings currently</h2>
+                <h2 className="font-semibold text-xl">No hirings currently</h2>
               </div>
             )}
           </div>
@@ -265,7 +265,7 @@ const Hirings = () => {
       )}
       {postJobModalOpen && (
         <PostJobModal
-        fetchHiring={fetchHiring}
+          fetchHiring={fetchHiring}
           toggleModal={toggleNewBookingModal}
           setPostJobModalOpen={setPostJobModalOpen}
         />

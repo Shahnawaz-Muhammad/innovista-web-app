@@ -44,24 +44,31 @@ const ViewJobHiringModal = ({ toggleModal, jobDetail }) => {
                 <div className="border-b pb-4">
                   <div className="flex flex-col md:flex-row justify-between">
                     <h2>
-                      <span className="font-semibold">Salary:</span> PKR {jobDetail.salaryFrom} - PKR
-                      {jobDetail.salaryTo}
+                      <span className="font-semibold">Salary:</span>{" "}
+                      <span className="font-roboto">
+                        PKR &nbsp;{jobDetail.salaryFrom} - PKR &nbsp;
+                        {jobDetail.salaryTo}
+                      </span>
                     </h2>
                     <h2>
-                      <span className="font-semibold">Job Type:</span> {jobDetail.job_experience}
+                      <span className="font-semibold">Job Type:</span>{" "}
+                      {jobDetail.job_experience}
                     </h2>
                   </div>
 
                   <div className="flex flex-col md:flex-row justify-between">
                     <h2>
-                      <span className="font-semibold">Job Type:</span> {jobDetail.job_type}
+                      <span className="font-semibold">Job Type:</span>{" "}
+                      {jobDetail.job_type}
                     </h2>
 
                     <h2>
-                      <span className="font-semibold">Vacancy:</span> {jobDetail.job_vacancy}
+                      <span className="font-semibold">Vacancy:</span>{" "}
+                      {jobDetail.job_vacancy}
                     </h2>
                     <h2>
-                      <span className="font-semibold">Deadline:</span> {jobDetail.job_deadline}
+                      <span className="font-semibold">Deadline:</span>{" "}
+                      {jobDetail.job_deadline}
                     </h2>
                   </div>
                 </div>
