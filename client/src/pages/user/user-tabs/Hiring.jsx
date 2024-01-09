@@ -155,7 +155,7 @@ const Hirings = () => {
                   <input
                     type="text"
                     id="simple-search"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2  "
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange focus:border-orange block w-full pl-10 p-2  "
                     placeholder="Search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -168,9 +168,9 @@ const Hirings = () => {
               <button
                 onClick={() => setPostJobModalOpen(!postJobModalOpen)}
                 type="button"
-                className="flex items-center justify-center gap-2 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2  focus:outline-none"
+                className="font-medium flex items-center justify-center gap-2 text-white bg-orange hover:bg-orangeDark focus:ring-1 focus:ring-orange  rounded-lg text-sm px-4 py-2  focus:outline-none"
               >
-                <GoPlus className="text-xl" />
+                <GoPlus className="text-xl " />
                 Post a Job
               </button>
             </div>
@@ -186,26 +186,26 @@ const Hirings = () => {
                     className="w-full flex gap-5 items-center"
                   >
                     <div className="w-full flex flex-col md:flex-row gap-1 items-center  shadow-md rounded-md p-5  border">
-                      <div className="w-full md:w-[25%] flex flex-col items-center gap-1">
+                      <div className="w-full md:w-[20%] flex flex-col items-center gap-1">
                         <h1 className="font-semibold  text-gray-700 text-xl p-2 text-center">
                           {post.company}
                         </h1>
                       </div>
-                      <div className="w-full flex flex-col items-center gap-2 text-center">
+                      <div className="w-full md:w-[30%] flex flex-col items-center gap-2 text-center">
                         <h2 className="underline">{post.job_title}</h2>
-                        <h2 className="text-gray-600 text-sm text-justify max-w-[80%]">
+                        <h2 className="text-gray-600 text-sm text-justify ">
                           {post.description.length > 120
                             ? `${post.description.substring(0, 50)} . . .`
                             : post.description}
                         </h2>
                       </div>
-                      <div className="w-[35%] flex flex-col items-center">
+                      <div className="w-full md:w-[20%] flex flex-col items-center">
                         <h3 className=" text-gray-600 ">
                           {post.salaryFrom} - {post.salaryTo}
                         </h3>
                         <h3 className=" text-gray-600 ">Rs. per Month </h3>
                       </div>
-                      <div className="w-[35%] flex flex-col items-center">
+                      <div className="w-full md:w-[20%] flex flex-col items-center">
                         <h3 className=" text-gray-600 font-bold">
                           {post.job_vacancy}{" "}
                         </h3>
@@ -213,7 +213,7 @@ const Hirings = () => {
                           {post.job_type}{" "}
                         </h3>
                       </div>
-                      <div className="w-[20%] flex flex-col items-center">
+                      <div className="w-full md:w-[20%] flex flex-col items-center">
                         {/* <h3 className=" text-gray-600 font-bold text-xl p-1">
                     {post.status === 0 ? "In Active" : "Active"}{" "}
                   </h3> */}
@@ -224,7 +224,7 @@ const Hirings = () => {
                           Applicants
                         </button>
                       </div>
-                      <div className="lg:w-[15%] flex gap-2 justify-center">
+                      <div className="w-full md:w-[20%] flex gap-2 justify-center">
                         <button
                           className="border border-green-500  rounded-lg  text-green-500"
                           onClick={() => toggleViewHiringModal(post)}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { apiUrl } from "../../config";
 import { toast } from "react-toastify";
@@ -42,6 +42,23 @@ const PostJobModal = ({ toggleModal, setPostJobModalOpen }) => {
     });
   }
 
+  // function handleChange(evt) {
+  //   const { name, value } = evt.target;
+  
+  //   // Update form data with the new value
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [name]: value,
+  //   }));
+  
+  //   // Clear the associated error message when the value changes
+  //   setErrors((prevErrors) => ({
+  //     ...prevErrors,
+  //     [name]: '', // Clear the error for the current field
+  //   }));
+  // }
+
+
   const { user } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
@@ -64,18 +81,20 @@ const PostJobModal = ({ toggleModal, setPostJobModalOpen }) => {
         "status",
       ];
 
-      if (requiredFields.some((field) => !formData[field])) {
-        requiredFields.forEach((field) => {
-          newErrors[field] = "This field is required";
-        });
-        hasErrors = true;
-      }
-
+      requiredFields.forEach((field) => {
+        if (!formData[field]) {
+          newErrors[field] = "This Field is Required";
+          hasErrors = true;
+        }
+      });
+  
       if (hasErrors) {
         setErrors(newErrors);
-        console.log("Form has errors:", errors);
+        console.log("Form has errors:", newErrors);
         return;
       }
+
+
       // Make an API call to authenticate the user and fetch user data
       setLoading(true);
       const response = await fetch(
@@ -122,7 +141,7 @@ const PostJobModal = ({ toggleModal, setPostJobModalOpen }) => {
         theme: "light",
       });
       setLoading(false);
-      navigate("/dashboard/hirings");
+      setPostJobModalOpen(false);
 
       setFormData({
         job_title: "",
@@ -162,7 +181,7 @@ const PostJobModal = ({ toggleModal, setPostJobModalOpen }) => {
         onClick={() => setPostJobModalOpen(false)}
       ></div>
       <div className="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div className="relative p-4 w-full max-w-2xl max-h-full">
+        <div className="relative p-4 w-full max-w-3xl max-h-full">
           <div className="relative bg-white rounded-lg shadow ">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
               <h3 className="text-lg font-semibold text-gray-900 ">Post Job</h3>
