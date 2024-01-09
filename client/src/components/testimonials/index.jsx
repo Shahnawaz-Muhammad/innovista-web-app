@@ -15,21 +15,21 @@ const TestimonialsData = [
   {
     id: 1,
     description:
-      "Working at D-Labs has been a game-changer for me, making my life both easier and more thrilling. The chance to connect with this incredible group of individuals has allowed me to grow professionally and personally.",
+      "Working at Innovista IT-Parks has been a game-changer for me, making my life both easier and more thrilling. The chance to connect with this incredible group of individuals has allowed me to grow professionally and personally.",
     name: "Hammad Azhar",
     designation: "Freelancer",
   },
   {
     id: 2,
     description:
-      "My time at D-Labs has been nothing short of transformational. It has brought ease and excitement to my life. Being a part of this outstanding community has enabled me to nurture both my career and social abilities.",
+      "My time at Innovista IT-Parks has been nothing short of transformational. It has brought ease and excitement to my life. Being a part of this outstanding community has enabled me to nurture both my career and social abilities.",
     name: "Maimoon Khan",
     designation: "Freelancer",
   },
   {
     id: 3,
     description:
-      "Life at D-Labs is a true blessing, simplifying my daily routine and infusing excitement into it. I'm grateful for the chance to work alongside these remarkable people, which has been instrumental in boosting my professional growth and social aptitude.",
+      "Life at Innovista IT-Parks is a true blessing, simplifying my daily routine and infusing excitement into it. I'm grateful for the chance to work alongside these remarkable people, which has been instrumental in boosting my professional growth and social aptitude.",
     name: "Adnan Malik",
     designation: "Freelancer",
   },

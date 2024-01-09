@@ -1,8 +1,8 @@
 import { Card } from "./card";
 import clsx from "clsx";
-import freelancer from "../../assets/images/conference-room.jpeg";
-import group from "../../assets/images/conference-room.jpeg";
-import company from "../../assets/images/conference-room.jpeg";
+import freelancer from "../../assets/images/freelancer.jpeg";
+import group from "../../assets/images/group.jpg";
+import company from "../../assets/images/company.jpg";
 import { useState } from "react";
 
 const activeClasses = "border border-orange bg-neutral-magnolia falopa ";

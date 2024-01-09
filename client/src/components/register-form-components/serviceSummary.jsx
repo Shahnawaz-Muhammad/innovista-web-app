@@ -24,8 +24,7 @@ export const ServiceSummary = ({ userServiceConfiguration }) => {
         <li className="inline-flex flex-col justify-between">
           <p>
             You are registering as{" "}
-            <span className="font-semibold">{userInfo.firstName} {userInfo.lastName}</span>, and the
-            entered details are as follows:
+            <span className="font-semibold">{userInfo.firstName} {userInfo.lastName}</span>, and your credentials are:
           </p>
           <ul className="list-disc ml-6">
             <li>
@@ -43,8 +42,7 @@ export const ServiceSummary = ({ userServiceConfiguration }) => {
             {/* Include other user details as needed */}
           </ul>
           <p>
-            Please review the information above and confirm your registration by
-            submitting the form.
+            Please review your credentials and submit the form.
           </p>
         </li>
       </ul>

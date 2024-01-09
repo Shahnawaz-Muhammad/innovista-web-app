@@ -22,7 +22,7 @@ const TermsConditions = ({ title }) => {
             </p>
             <p className="text-gray-600 mb-4">
               Please carefully review the following Terms & Conditions ("Terms")
-              governing your use of D-Labs's co-working space services. By
+              governing your use of Innovista's co-working space services. By
               accessing or using our website and services, you agree to be bound
               by these Terms. If you do not agree with these Terms, please
               refrain from using our website or services.
@@ -33,13 +33,13 @@ const TermsConditions = ({ title }) => {
             <p className="text-gray-600 mb-4">
               By using our website and services, you acknowledge that you have
               read and agree to comply with these Terms. You also agree to abide
-              by any additional terms and policies provided by D-Labs.
+              by any additional terms and policies provided by Innovista.
             </p>
             <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               2. Use of Services
             </h2>
             <p className="text-gray-600 mb-4">
-              D-Labs provides co-working space services for freelancers,
+              Innovista provides co-working space services for freelancers,
               investors, startups, businesses, and agencies. Your use of our
               services is subject to these Terms and any additional terms and
               policies established by us.
@@ -57,7 +57,7 @@ const TermsConditions = ({ title }) => {
               4. Membership and Access
             </h2>
             <p className="text-gray-600 mb-4">
-              4.1. D-Labs offers membership plans and access to co-working
+              4.1. Innovista offers membership plans and access to co-working
               spaces. These plans may have associated fees, terms, and
               conditions. By purchasing a membership, you agree to the specific
               terms of the selected plan.
@@ -90,7 +90,7 @@ const TermsConditions = ({ title }) => {
             </p>
             <p className="text-gray-600 mb-4">
               6.2. Members and users must comply with all house rules and
-              guidelines provided by D-Labs while using co-working spaces.
+              guidelines provided by Innovista while using co-working spaces.
             </p>
             <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
               7. Termination
@@ -104,7 +104,7 @@ const TermsConditions = ({ title }) => {
               8. Limitation of Liability
             </h2>
             <p className="text-gray-600 mb-4">
-              D-Labs is not liable for any direct or indirect damages or losses
+              Innovista is not liable for any direct or indirect damages or losses
               resulting from the use of our services.
             </p>
             <h2 className="text-xl font-semibold mt-4 mb-2 text-orange">
@@ -135,7 +135,7 @@ const TermsConditions = ({ title }) => {
               .
             </p>
             <p className="text-gray-600 mb-4">
-              These Terms & Conditions constitute the agreement between D-Labs
+              These Terms & Conditions constitute the agreement between Innovista
               and its users. Please carefully read and understand your rights
               and responsibilities as you use our co-working space services.
             </p>

@@ -71,6 +71,8 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
         return timeRegex.test(value);
       case "Station":
         return stationRegex.test(value.trim());
+      case "ReservationType":
+        return stationRegex.test(value.trim());
       default:
         return true;
     }

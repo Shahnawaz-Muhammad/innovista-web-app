@@ -93,7 +93,7 @@ const Login = () => {
           </div>
 
           <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-700 md:text-2xl ">
-            Welcome to D-Labs
+            Welcome to Innovista
           </h1>
           <form
             className="space-y-4 md:space-y-6"
@@ -111,7 +111,7 @@ const Login = () => {
                 type="email"
                 name="email"
                 id="email"
-                placeholder="d-labs@gmail.com"
+                placeholder="Innovista@gmail.com"
                 className="bg-gray-50 border border-gray-300  sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
