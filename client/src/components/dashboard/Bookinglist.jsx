@@ -3,7 +3,7 @@ import { GoDotFill } from "react-icons/go";
 import NewBooking from "./NewBooking";
 import { GoPlus } from "react-icons/go";
 
-const Bookinglist = ({ BookingData }) => {
+const Bookinglist = ({ BookingData, fetchData }) => {
   const [showFilter, setShowFilter] = useState(false);
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +36,7 @@ const Bookinglist = ({ BookingData }) => {
               Booking History
             </h1>
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+          <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4 ">
             <div className="w-full md:w-1/2">
               <form className="flex items-center">
                 <label htmlFor="simple-search" className="sr-only">
@@ -150,60 +150,21 @@ const Bookinglist = ({ BookingData }) => {
                           Microsoft (16)
                         </label>
                       </li>
-                      <li className="flex items-center">
-                        <input
-                          id="razor"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 "
-                        />
-                        <label
-                          htmlFor="razor"
-                          className="ml-2 text-sm font-medium text-gray-900 "
-                        >
-                          Razor (49)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="nikon"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 "
-                        />
-                        <label
-                          htmlFor="nikon"
-                          className="ml-2 text-sm font-medium text-gray-900 "
-                        >
-                          Nikon (12)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="benq"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 "
-                        />
-                        <label
-                          htmlFor="benq"
-                          className="ml-2 text-sm font-medium text-gray-900 "
-                        >
-                          BenQ (74)
-                        </label>
-                      </li>
                     </ul>
                   </div>
                 )}
               </div>
             </div>
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto  h-[calc(100vh-400px)]">
             <table className="w-full text-sm text-left text-gray-500 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                 <tr>
                   <th scope="col" className="px-4 py-3">
                     Chapter
+                  </th>
+                  <th scope="col" className="px-4 py-3">
+                    Reservation Type
                   </th>
                   <th scope="col" className="px-4 py-3">
                     Booking Date
@@ -226,7 +187,7 @@ const Bookinglist = ({ BookingData }) => {
                 </tr>
               </thead>
               <tbody>
-                {filteredData.length > 0 &&
+                {filteredData.length > 0 ? (
                   filteredData
                     .slice(
                       (currentPage - 1) * itemsPerPage,
@@ -241,6 +202,11 @@ const Bookinglist = ({ BookingData }) => {
                           >
                             {booking?.BookingStation}
                           </th>
+
+                          <td className="px-4 py-3">
+                            {booking?.ReservationType}
+                          </td>
+
                           <td className="px-4 py-3">
                             {booking?.BookingDate &&
                               new Date(booking.BookingDate).toLocaleDateString(
@@ -291,10 +257,10 @@ const Bookinglist = ({ BookingData }) => {
                             </div>
                           </td>
                           <td className="px-4 py-3 flex items-center justify-end">
-                            <div className="w-full relative">
+                            {/* <div className="relative"> */}
                               <button
                                 onClick={() => handleOptionsToggle(index)}
-                                className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none  dark:hover:text-gray-100"
+                                className="relative inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none  dark:hover:text-gray-100"
                                 type="button"
                               >
                                 <svg
@@ -306,10 +272,9 @@ const Bookinglist = ({ BookingData }) => {
                                 >
                                   <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                 </svg>
-                              </button>
                               {showMoreOptions === index && (
                                 <div
-                                  className={` absolute top-5 right-3 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow  dark:divide-gray-600`}
+                                  className={`absolute top-5 right-3 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow  dark:divide-gray-600`}
                                 >
                                   <ul
                                     className="py-1 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 cursor-pointer   "
@@ -328,11 +293,19 @@ const Bookinglist = ({ BookingData }) => {
                                   </div>
                                 </div>
                               )}
-                            </div>
+                              </button>
+                            {/* </div> */}
                           </td>
                         </tr>
                       );
-                    })}
+                    })
+                ) : (
+                  <div className="border-b ">
+                    <h2 className="px-4 py-3 text-lg font-semibold">
+                      No Bookings found
+                    </h2>
+                  </div>
+                )}
               </tbody>
             </table>
           </div>
@@ -400,6 +373,7 @@ const Bookinglist = ({ BookingData }) => {
       </div>
       {newBookingModalOpen && (
         <NewBooking
+          fetchData={fetchData}
           toggleModal={toggleNewBookingModal}
           setNewBookingModalOpen={setNewBookingModalOpen}
         />

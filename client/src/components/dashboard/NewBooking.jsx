@@ -5,13 +5,13 @@ import { toast } from "react-toastify";
 import Spinner from "../../Loader/Spinner";
 import { useNavigate } from "react-router-dom";
 
-const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
+const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [BookingData, setBookingData] = useState({
     // Name: userData?.firstName,
     // ContactNo: userData?.mobileNo,
-    Member: "",
+    ReservationType: "",
     BookingDate: "",
     ExpiryDate: "",
     BookingTime: "",
@@ -28,10 +28,19 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
     "Islamabad",
     "Faisalabad",
   ];
+
+  const workspaces = [
+    "Conference Room",
+    "Dedicated Desk",
+    "Hot Desk",
+    "Meeting Room",
+    "Private Office",
+  ];
+
   const [errors, setErrors] = useState({
     // Name: "",
     // ContactNo: "",
-    Member: "",
+    ReservationType: "",
     BookingDate: "",
     ExpiryDate: "",
     BookingTime: "",
@@ -54,8 +63,6 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
       //   return nameRegex.test(value.trim());
       // case "ContactNo":
       //   return contactNoRegex.test(value);
-      case "Member":
-        return numberRegex.test(value);
       case "BookingDate":
       case "ExpiryDate":
         return dateRegex.test(value);
@@ -147,7 +154,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
             body: JSON.stringify({
               // Name: BookingData.Name,
               // ContactNo: BookingData.ContactNo,
-              Member: BookingData.Member,
+              ReservationType: BookingData.ReservationType,
               BookingDate: BookingData.BookingDate,
               ExpiryDate: BookingData.ExpiryDate,
               BookingTime: BookingData.BookingTime,
@@ -156,6 +163,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
             }),
           }
         );
+        fetchData()
         if (response.ok) {
           toast.success("Slot Booked Successfully!", {
             position: "top-center",
@@ -170,7 +178,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
           setBookingData({
             // Name: "",
             // ContactNo: "",
-            Member: "",
+            ReservationType: "",
             BookingDate: "",
             ExpiryDate: "",
             BookingTime: "",
@@ -266,24 +274,32 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
 
                 <div className="col-span-2 md:col-span-1  h-[5.5rem] flex flex-col">
                   <label
-                    htmlFor="members"
+                    htmlFor="reservationType"
                     className="block  text-sm font-medium text-gray-900 "
                   >
-                    Guests/Members
+                    Reservation Type
                   </label>
-                  <input
-                    type="number"
-                    name="Member"
-                    id="members"
-                    placeholder="5"
-                    value={BookingData.Member}
+                  <select
+                    name="ReservationType"
+                    id="reservationType"
+                    value={BookingData.ReservationType}
                     onChange={handleChange}
-                    onFocus={() => setErrors({ ...errors, Member: "" })}
-                    min="0"
+                    onFocus={() =>
+                      setErrors({ ...errors, ReservationType: "" })
+                    }
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5 "
-                  />
-                  {errors.Member && (
-                    <p className="text-[#fa0505] text-sm pl-2">{errors.Member}</p>
+                  >
+                    <option value="">Select Your Reservation Type</option>
+                    {workspaces.map((space, index) => (
+                      <option key={index} value={space}>
+                        {space}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.ReservationType && (
+                    <p className="text-[#fa0505] text-sm pl-2">
+                      {errors.ReservationType}
+                    </p>
                   )}
                 </div>
 
@@ -310,7 +326,9 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
                     ))}
                   </select>
                   {errors.Station && (
-                    <p className="text-[#fa0505] text-sm pl-2">{errors.Station}</p>
+                    <p className="text-[#fa0505] text-sm pl-2">
+                      {errors.Station}
+                    </p>
                   )}
                 </div>
 
@@ -332,7 +350,9 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5 "
                   />
                   {errors.BookingDate && (
-                    <p className="text-[#fa0505] text-sm pl-2">{errors.BookingDate}</p>
+                    <p className="text-[#fa0505] text-sm pl-2">
+                      {errors.BookingDate}
+                    </p>
                   )}
                 </div>
 
@@ -355,7 +375,9 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5 "
                   />
                   {errors.ExpiryDate && (
-                    <p className="text-[#fa0505] text-sm pl-2">{errors.ExpiryDate}</p>
+                    <p className="text-[#fa0505] text-sm pl-2">
+                      {errors.ExpiryDate}
+                    </p>
                   )}
                 </div>
 
@@ -376,7 +398,9 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2 "
                   />
                   {errors.BookingTime && (
-                    <p className="text-[#fa0505] text-sm pl-2">{errors.BookingTime}</p>
+                    <p className="text-[#fa0505] text-sm pl-2">
+                      {errors.BookingTime}
+                    </p>
                   )}
                 </div>
 
@@ -400,7 +424,9 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen }) => {
                     />
                   </div>
                   {errors.ExpiryTime && (
-                    <p className="text-[#fa0505] text-sm pl-2">{errors.ExpiryTime}</p>
+                    <p className="text-[#fa0505] text-sm pl-2">
+                      {errors.ExpiryTime}
+                    </p>
                   )}
                 </div>
               </div>

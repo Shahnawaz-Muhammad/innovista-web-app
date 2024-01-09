@@ -2,15 +2,7 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet'; // Import Leaflet library
-import ImageSlider from './ImageSlider';
 import pointer from '../../assets/Pointer.png';
-
-
-
-
-
-
-
 
 // Set the initial map center
 const center = [33.6844, 73.0479];

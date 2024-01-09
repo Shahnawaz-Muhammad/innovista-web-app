@@ -17,7 +17,7 @@ router.post("/bookings", async (req, res) => {
     const newBooking = new Booking({
       FullName: req.body.FullName,
       ContactNo: req.body.ContactNo,
-      Member: req.body.Member,
+      ReservationType: req.body.ReservationType,
       BookingStation: req.body.BookingStation,
       BookingDate: req.body.BookingDate,
       ExpiryDate: req.body.ExpiryDate,
