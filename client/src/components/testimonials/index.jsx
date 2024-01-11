@@ -4,7 +4,7 @@ import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import {
   BiSolidChevronLeft,
   BiSolidChevronRight,
-  BiSolidQuoteRight  // BiSupport,
+  BiSolidQuoteRight, // BiSupport,
 } from "react-icons/bi";
 
 import "swiper/css";
@@ -61,23 +61,15 @@ const Testimonials = () => {
           {TestimonialsData.map((item) => {
             return (
               <SwiperSlide key={item.id}>
-                <div className="flex justify-center items-center flex-col py-40">
-                  <div className="w-full max-h-screen relative">
-                    <div className=" z-50 flex items-center justify-center w-full h-full ">
-                      <div className="w-full  ">
-                        <div className="w-full  flex flex-col items-center gap-6 mx-auto px-10 md:px-20 xl:px-4 ">
-                          <div className="text-xl md:text-2xl font-normal  text-white flex flex-col gap-4  text-center px-5 md:px-0 max-w-screen-md">
-                            <h2 className="text-center">{item.description}</h2>
-                          <p className="text-3xl text-white font-semibold uppercase">
-                            {item.name}
-                          </p>
-                          <p className=" text-lg font-semibold uppercase text-gray-300">
-                            {item.designation}
-                          </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <div className="flex justify-center items-center flex-col py-40 w-full max-h-screen h-full">
+                  <div className="text-xl md:text-2xl font-normal  text-white flex flex-col gap-4  text-center px-5 md:px-0 max-w-screen-md">
+                    <h2 className="text-center">{item.description}</h2>
+                    <p className="text-3xl text-white font-semibold uppercase">
+                      {item.name}
+                    </p>
+                    <p className=" text-lg font-semibold uppercase text-gray-300">
+                      {item.designation}
+                    </p>
                   </div>
                 </div>
               </SwiperSlide>
@@ -95,7 +87,7 @@ const Testimonials = () => {
           </button>
         </div>
         <div className="w-full h-full absolute top-0 left-0 p-40 md:p-28">
-            <BiSolidQuoteRight className="w-full h-full text-orange"/>
+          <BiSolidQuoteRight className="w-full h-full text-orange" />
         </div>
       </div>
     </div>

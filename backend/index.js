@@ -34,6 +34,7 @@ app.use(express.json());
 app.use(cors());
 
 // Use the signup router
+// app.use('/', "Server working ");
 
 app.use('/api', signupRouter);
 app.use('/api', ExperienceRoutes);
