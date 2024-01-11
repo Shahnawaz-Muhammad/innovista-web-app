@@ -123,14 +123,12 @@ const UserHeader = ({ user }) => {
           <Link to="/">
             <img src={logo} alt="" className="h-16 w-28 hidden lg:flex" />
           </Link>
-          <div className="block lg:hidden">
+          <div className="w-full block lg:hidden">
             <RxHamburgerMenu
               className="text-2xl"
               onClick={() => setShowTabs(!showTabs)}
             />
-          </div>
-          <div>
-            {showTabs ? (
+            {showTabs && (
               <div className="absolute lg:hidden top-0 left-0  w-full  border-b z-50 bg-gray-300 py-3 px-6">
                 <div>
                   <IoMdClose
@@ -154,23 +152,24 @@ const UserHeader = ({ user }) => {
                   ))}
                 </div>
               </div>
-            ) : (
-              <div className="hidden  lg:flex  w-full  flex-col md:flex-row ">
-                {userData?.map((item) => (
-                  <NavLink
-                    key={item.id}
-                    className={`px-2 md:px-0 lg:px-6 py-1  hover:bg-gray-200 transition-all duration-300 relative group cursor-pointer ${
-                      activeTab === `/dashboard/${item.url}`
-                        ? "border-b-2 border-orange"
-                        : ""
-                    } `}
-                    to={`/dashboard/${item.url}`}
-                  >
-                    {item.title}
-                  </NavLink>
-                ))}
-              </div>
             )}
+          </div>
+          <div>
+            <div className="hidden  lg:flex  w-full  flex-col md:flex-row ">
+              {userData?.map((item) => (
+                <NavLink
+                  key={item.id}
+                  className={`px-2 md:px-0 lg:px-6 py-1  hover:bg-gray-200 transition-all duration-300 relative group cursor-pointer ${
+                    activeTab === `/dashboard/${item.url}`
+                      ? "border-b-2 border-orange"
+                      : ""
+                  } `}
+                  to={`/dashboard/${item.url}`}
+                >
+                  {item.title}
+                </NavLink>
+              ))}
+            </div>
           </div>
           <div className="flex gap-3 items-center">
             <div

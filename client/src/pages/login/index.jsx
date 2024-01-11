@@ -5,19 +5,13 @@ import logo from "../../assets/innovista-logo-white.png";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import Spinner from "../../Loader/Spinner";
 const Login = () => {
-  const {
-    login,
-    unAuthorizedUser,
-    loading, 
-    setLoading
-  } = useContext(AuthContext);  
+  const { login, unAuthorizedUser, loading, setLoading } =
+    useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-
 
   const validateEmail = (inputEmail) => {
     // Basic email validation using a regular expression
@@ -35,16 +29,16 @@ const Login = () => {
   const handleLogin = async (event) => {
     try {
       event.preventDefault();
-  
+
       // Set loading to true before making the API call
       setLoading(true);
-  
+
       if (!email) {
         setEmailError("Email is Required!");
         setLoading(false); // Set loading back to false
         return;
       }
-  
+
       if (!validateEmail(email)) {
         setEmailError("Please enter a valid email address");
         setLoading(false); // Set loading back to false
@@ -52,7 +46,7 @@ const Login = () => {
       } else {
         setEmailError("");
       }
-  
+
       // Validate password
       if (!validatePassword(password)) {
         setPasswordError(
@@ -63,7 +57,7 @@ const Login = () => {
       } else {
         setPasswordError("");
       }
-  
+
       // Call the login function from AuthContext
       await login({ email, password }, event);
     } finally {
@@ -71,11 +65,10 @@ const Login = () => {
       setLoading(false);
     }
   };
-  
 
   return (
     <div
-      className="w-full flex justify-center py-10 mt-20 px-2"
+      className="w-full flex justify-center py-16 mt-20 px-2"
       // style={{
       //   backgroundImage: `url(${loginBg})`,
       //   backgroundSize: "cover",
@@ -85,7 +78,7 @@ const Login = () => {
     >
       <div
         className="w-full  rounded-lg  shadow-slate-400 md:mt-0 sm:max-w-md xl:p-0 "
-        style={{boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)"}}
+        style={{ boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)" }}
       >
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
           <div className="bg-black rounded-full h-20 flex justify-center items-center object-cover p-2">
@@ -101,10 +94,7 @@ const Login = () => {
             noValidate
           >
             <div>
-              <label
-                htmlFor="email"
-                className="block pl-3 text-sm font-bold  "
-              >
+              <label htmlFor="email" className="block pl-3 text-sm font-bold  ">
                 Email
               </label>
               <input
@@ -152,7 +142,7 @@ const Login = () => {
               )}
               {unAuthorizedUser && (
                 <p className="text-red-500 text-sm pl-2">
-                  Invalid Email or Password 
+                  Invalid Email or Password
                 </p>
               )}
             </div>
@@ -168,18 +158,12 @@ const Login = () => {
                   />
                 </div>
                 <div className="ml-1 ">
-                  <label
-                    htmlFor="remember"
-                    className=" "
-                  >
+                  <label htmlFor="remember" className=" ">
                     Remember me
                   </label>
                 </div>
               </div>
-              <Link
-                to="/find-your-account"
-                className=" ml-3  hover:underline "
-              >
+              <Link to="/find-your-account" className=" ml-3  hover:underline ">
                 Forgot password?
               </Link>
             </div>
@@ -187,7 +171,7 @@ const Login = () => {
               type="submit"
               className="w-full text-white bg-orange hover:bg-orangeDark focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
             >
-              {loading ? <Spinner size={30}/> : "Sign in"}
+              {loading ? <Spinner size={30} /> : "Sign in"}
             </button>
             <p className="text-md font-medium  ">
               Don’t have an account yet?{" "}
