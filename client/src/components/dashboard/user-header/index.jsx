@@ -120,7 +120,9 @@ const UserHeader = ({ user }) => {
     <div>
       <div className="w-full py-3 px-10 bg-gray-100 mx-auto shadow-md">
         <div className="max-w-screen-2xl flex justify-between items-center">
-          <img src={logo} alt="" className="w-28 hidden lg:flex" />
+          <Link to="/">
+            <img src={logo} alt="" className="h-16 w-28 hidden lg:flex" />
+          </Link>
           <div className="block lg:hidden">
             <RxHamburgerMenu
               className="text-2xl"

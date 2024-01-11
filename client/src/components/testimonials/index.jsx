@@ -37,8 +37,8 @@ const TestimonialsData = [
 
 const Testimonials = () => {
   return (
-    <div className="bg-bgGray max-w-full  bg-transparent  px-0 py-10 flex justify-center ">
-      <div className="relative w-full h-full flex justify-center bg-orange max-w-screen-xl ">
+    <div className=" max-w-full  bg-transparent  px-0 py-10 flex justify-center ">
+      <div className=" relative w-full h-full flex justify-center bg-orange max-w-screen-xl ">
         <Swiper
           slidesPerView={1}
           slidesPerGroup={1}
@@ -54,20 +54,18 @@ const Testimonials = () => {
             delay: 3000,
           }}
           loop={true}
-          speed={1000}
+          speed={1800}
+          color="black"
           modules={[Pagination, Autoplay, Navigation]}
           className="mySwiper"
         >
           {TestimonialsData.map((item) => {
             return (
               <SwiperSlide key={item.id}>
-                <div className="flex justify-center items-center flex-col py-40">
-                  <div className="w-full max-h-screen relative">
-                    <div className=" z-50 flex items-center justify-center w-full h-full ">
-                      <div className="w-full  ">
-                        <div className="w-full  flex flex-col items-center gap-6 mx-auto px-10 md:px-20 xl:px-4 ">
-                          <div className="text-xl md:text-2xl font-normal  text-white flex flex-col gap-4  text-center px-5 md:px-0 max-w-screen-md">
-                            <h2 className="text-center">{item.description}</h2>
+                <div className="flex  items-center flex-col py-40 ">
+                     
+                          <div className=" text-xl md:text-2xl font-normal  text-white flex flex-col gap-4  text-center px-5 md:px-0 max-w-screen-md">
+                            <h2 className="text-center -">{item.description}</h2>
                           <p className="text-3xl text-white font-semibold uppercase">
                             {item.name}
                           </p>
@@ -75,27 +73,23 @@ const Testimonials = () => {
                             {item.designation}
                           </p>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </SwiperSlide>
             );
           })}
         </Swiper>
         <div className="max-w-full flex justify-between absolute top-1/2 -translate-y-1/2 left-4 md:left-10 lg:left-20 custom-prev-button bg-secondary opacity-40 hover:opacity-100 transition-all duration-300 rounded-full z-10">
-          <button className="custom-button-style text-gray-200 transition-all duration-500 hover:bg-orangeDarkbg-orange rounded-full">
+          <button className="custom-button-style text-gray-500 transition-all duration-500 hover:bg-orangeDarkbg-orange rounded-full">
             <BiSolidChevronLeft className="text-4xl" />
           </button>
         </div>
         <div className="max-w-full flex justify-between absolute top-1/2 -translate-y-1/2 right-4 md:right-10 lg:right-20 custom-next-button bg-secondary opacity-40 hover:opacity-100 transition-all duration-300 rounded-full z-10">
-          <button className="custom-button-style text-gray-200 transition-all duration-500 hover:bg-orangeDarkbg-orange rounded-full">
+          <button className="custom-button-style text-gray-500 transition-all duration-500 hover:bg-orangeDarkbg-orange rounded-full">
             <BiSolidChevronRight className="text-4xl" />
           </button>
         </div>
         <div className="w-full h-full absolute top-0 left-0 p-40 md:p-28">
-            <BiSolidQuoteRight className="w-full h-full text-orange"/>
+            <BiSolidQuoteRight className="w-full h-full text-orangeDark"/>
         </div>
       </div>
     </div>

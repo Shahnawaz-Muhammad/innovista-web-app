@@ -35,7 +35,7 @@ const FrequentlyAskedQuestions = () => {
       id: 5,
       title: "What about your other locations?",
       description:
-        "Currently, we are placed at one spot only.",
+        `We had 8 Chapters as mentioned above in "Our Chapters" and location also mentioned in map as well`,
     },
     {
       id: 6,

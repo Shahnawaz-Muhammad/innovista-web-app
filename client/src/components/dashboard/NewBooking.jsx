@@ -22,11 +22,14 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
   const currentDate = new Date().toISOString().split("T")[0];
 
   const stations = [
-    "Rawalpindi",
-    "Lahore",
-    "Karachi",
     "Islamabad",
-    "Faisalabad",
+    "Peshawar",
+    "Gujranwala",
+    "Lahore",
+    "Multan",
+    "Bahawalpur",
+    "Quetta",
+    "Karachi",
   ];
 
   const workspaces = [
