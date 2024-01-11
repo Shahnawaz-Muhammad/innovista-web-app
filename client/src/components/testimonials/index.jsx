@@ -4,7 +4,7 @@ import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import {
   BiSolidChevronLeft,
   BiSolidChevronRight,
-  BiSolidQuoteRight  // BiSupport,
+  BiSolidQuoteRight, // BiSupport,
 } from "react-icons/bi";
 
 import "swiper/css";

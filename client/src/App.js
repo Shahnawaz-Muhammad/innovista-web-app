@@ -16,7 +16,6 @@ import Layout from "./components/layout";
 import UserDashboard from "./pages/user/UserDashboard";
 import Register from "./pages/register";
 import Login from "./pages/login";
-import AdvanceBooking from "./pages/user/user-tabs/AdvanceBooking";
 import BookingHistory from "./pages/user/user-tabs/BookingHistory";
 import Employees from "./pages/user/user-tabs/Employees";
 import Hiring from "./pages/user/user-tabs/Hiring";
@@ -189,7 +188,6 @@ function App() {
         >
           <Route index element={<BookingHistory />} />
           <Route path="booking-history" element={<BookingHistory />} />
-          <Route path="advance-booking" element={<AdvanceBooking />} />
           <Route path="employees" element={<Employees />} />
           <Route path="hirings" element={<Hiring />} />
           <Route path="members" element={<Members />} />
