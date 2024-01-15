@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import emailjs from "emailjs-com";
+import { toast } from "react-toastify";
 const ContactForm = () => {
   const {
     register,
@@ -16,7 +17,7 @@ const ContactForm = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-  
+
     try {
       // Use your Email.js service ID and template ID
       await emailjs.send(
@@ -29,13 +30,31 @@ const ContactForm = () => {
         },
         "iXLqSwaAmmr_ku5qW"
       );
-  
+
+      toast.success("Your Query has been submitted", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       console.log("Email sent successfully!");
+
       reset();
-      
-
-
     } catch (error) {
+      toast.error("Error sending email", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       console.error("Error sending email:", error);
     } finally {
       setLoading(false);
@@ -50,7 +69,9 @@ const ContactForm = () => {
           <h2 className="text-orange font-bold uppercase text-lg">
             Be In Touch
           </h2>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">Ask Question</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
+            Ask Question
+          </h1>
 
           <div className="flex gap-3 items-center">
             <div className="w-2 h-2 bg-orange rounded-full"></div>
@@ -59,7 +80,7 @@ const ContactForm = () => {
           </div>
 
           <p className="text-textGray text-center">
-          Curious about something? Let us know! We're just a text away.
+            Curious about something? Let us know! We're just a text away.
           </p>
 
           <div className="w-full">
@@ -152,8 +173,7 @@ const ContactForm = () => {
                     <input
                       type="checkbox"
                       {...register("termsConditions", {
-                        required:
-                          "Check Field is Required",
+                        required: "Check Field is Required",
                       })}
                       className="w-4 h-4"
                     />

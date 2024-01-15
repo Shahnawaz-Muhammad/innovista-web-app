@@ -1,14 +1,17 @@
 // Bio.js
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { FiEdit } from "react-icons/fi";
 import { apiUrl } from "../../../config";
 import UpdateBioModal from "../../../components/dashboard/UpdateBioModal";
+import { ProfileContext } from "../../../context/ProfileContext";
 const Bio = ({ isBioOpen, toggleBio, user }) => {
   const [userData, setUserData] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [selectedItemData, setSelectedItemData] = useState(null);
+
+  const {userName, setUserName} = useContext(ProfileContext)
 
   const toggleEditModal = (item) => {
     setEditModalOpen(!isEditModalOpen);
@@ -24,12 +27,15 @@ const Bio = ({ isBioOpen, toggleBio, user }) => {
       }
       const data = await response.json();
       if (JSON.stringify(data) !== JSON.stringify(userData)) {
+
         setUserData(data);
+        setUserName(data.firstName)
       }
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   useEffect(() => {
     fetchBio(user.email, userData);

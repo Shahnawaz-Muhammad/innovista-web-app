@@ -44,12 +44,29 @@ function ImageSlider() {
         <div className="w-2 h-2 bg-orange rounded-full"></div>
         <div className="w-2 h-2 bg-orange rounded-full"></div>
       </div>
-      <div className="w-full md:w-4/5 mx-auto h-full relative my-5 ">
+      <div className="w-full xl:w-4/5 px-10 md:px-0 mx-auto h-full relative my-5 ">
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
           slidesPerView={3}
+          breakpoints={{
+            320: {
+              slidesPerView: 1,
+            },
+            640: {
+              slidesPerView: 1,
+              spaceBetween: 5,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 5,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 5,
+            },
+          }}
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
@@ -68,15 +85,14 @@ function ImageSlider() {
           {images.map((image, index) => (
             <SwiperSlide>
               <div className="bg-transparent h-[350px] flex flex-col  justify-end">
-
-              <img
-                src={image.url}
-                alt={`Slide ${index}`}
-                className="w-full h-80 object-cover"
-              />
-              <div className="absolute  font-bold bottom-4 left-4 right-4 bg-black text-white p-1 md:p-4 opacity-75 text-center">
-                {image.name}
-              </div>
+                <img
+                  src={image.url}
+                  alt={`Slide ${index}`}
+                  className="w-full h-80 object-cover"
+                />
+                <div className="absolute  font-bold bottom-4 left-4 right-4 bg-black text-white p-1 md:p-4 opacity-75 text-center">
+                  {image.name}
+                </div>
               </div>
             </SwiperSlide>
           ))}

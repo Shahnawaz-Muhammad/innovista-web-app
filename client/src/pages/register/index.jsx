@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/register-form-components/button";
 import { Sidebar } from "../../components/register-form-components/sidebar";
 import { PersonalInfo } from "../../components/register-form-components/personalInfo";
@@ -11,10 +11,12 @@ import { ThankYou } from "../../components/register-form-components/thankYou";
 import { apiUrl } from "../../config";
 import Spinner from "../../Loader/Spinner";
 const Register = () => {
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [step, setStep] = useState(1);
   const [showRequired, setShowRequiredFields] = useState(false);
-  const [loading,setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
 
   const ntnRegex = /^\d{7}-\d{1}$/;
 
@@ -83,7 +85,6 @@ const Register = () => {
   };
 
   const nextStep = (onGoingStep) => {
-
     setShowRequiredFields(false);
 
     if (step === 5) return;
@@ -110,7 +111,7 @@ const Register = () => {
     //     setShowRequiredFields(false);
     //   }
     // }
-    else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3 )) {
+    else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3)) {
       if (userServiceConfiguration.selectedPlan.name === "Individual") {
         if (
           !userServiceConfiguration.freelanceInfo.dob ||
@@ -163,7 +164,6 @@ const Register = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-   
 
     if (step === 4) {
       setLoading(true);
@@ -247,7 +247,7 @@ const Register = () => {
   };
 
   return (
-    <main className=" flex flex-col text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-28 lg:mb-20 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow-[10px_10px_40px_10px_rgba(0,0,0,0.2)] ">
+    <main className=" flex flex-col mt-24 text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-36 lg:mb-16 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow-[10px_10px_40px_10px_rgba(0,0,0,0.2)] ">
       <Sidebar currentStep={step} handleNextStep={nextStep} />
       <div className="px-4 relative bg-neutral-magnolia  lg:bg-transparent lg:flex lg:flex-col lg:w-full ">
         <form className="bg-neutral-alabaster px-6 py-9 rounded-[0.625rem]  -translate-y-[4.5rem] flex w-full grow [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-primary-marine-blue [&_h3]:font-medium [&_h3]:text-primary-marine-blue lg:bg-transparent lg:translate-y-0 ">
@@ -306,8 +306,13 @@ const Register = () => {
                 type={step !== 4 ? "primary" : "submit"}
                 onClick={handleFormSubmit}
               >
-               
-                {step !== 4 ? "Next Step" :loading ? <Spinner size={30}/> : "Submit" }
+                {step !== 4 ? (
+                  "Next Step"
+                ) : loading ? (
+                  <Spinner size={30} />
+                ) : (
+                  "Submit"
+                )}
               </Button>
             </li>
           </menu>
