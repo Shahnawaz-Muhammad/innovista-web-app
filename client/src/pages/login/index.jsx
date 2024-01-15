@@ -1,10 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import logo from "../../assets/innovista-logo-white.png";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import Spinner from "../../Loader/Spinner";
 const Login = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { login, unAuthorizedUser, loading, setLoading } =
     useContext(AuthContext);
   const [email, setEmail] = useState("");

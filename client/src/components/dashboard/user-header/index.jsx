@@ -15,10 +15,9 @@ import { MdLogout } from "react-icons/md";
 
 const UserHeader = ({ user }) => {
   const { logout, isAuthenticated } = useContext(AuthContext);
-  const { selectedFile, setSelectedFile } = useContext(ProfileContext);
+  const { userName,selectedFile, setSelectedFile } = useContext(ProfileContext);
 
   const location = useLocation();
-
   const [activeTab, setActiveTab] = useState(location.pathname);
   const [showTabs, setShowTabs] = useState(false);
 
@@ -118,8 +117,8 @@ const UserHeader = ({ user }) => {
   };
   return (
     <div>
-      <div className="w-full py-3 px-10 bg-gray-100 mx-auto shadow-md">
-        <div className="max-w-screen-2xl flex justify-between items-center">
+      <div className="w-full py-3 px-10 bg-gray-100 mx-auto shadow-md flex justify-center">
+        <div className="max-w-screen-3xl flex justify-between items-center w-full">
           <Link to="/">
             <img src={logo} alt="" className="h-16 w-28 hidden lg:flex" />
           </Link>
@@ -183,7 +182,7 @@ const UserHeader = ({ user }) => {
                   className="rounded-full w-full h-full object-cover"
                 />
               </div>
-              <h2>Charles</h2>
+              <h2 className="capitalize">{userName}</h2>
               <FaAngleDown />
 
               {showDropDown && (

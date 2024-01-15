@@ -4,10 +4,14 @@ import { apiUrl } from "../../config";
 import { toast } from "react-toastify";
 import Spinner from "../../Loader/Spinner";
 import { useNavigate } from "react-router-dom";
+import CheckoutModal from "./CheckoutModal";
 
-const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
+const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [showReceipt, setShowReceipt] = useState(false);
+  const [stations, setStations] = useState([])
   const [BookingData, setBookingData] = useState({
     // Name: userData?.firstName,
     // ContactNo: userData?.mobileNo,
@@ -21,16 +25,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
 
   const currentDate = new Date().toISOString().split("T")[0];
 
-  const stations = [
-    "Islamabad",
-    "Peshawar",
-    "Gujranwala",
-    "Lahore",
-    "Multan",
-    "Bahawalpur",
-    "Quetta",
-    "Karachi",
-  ];
+ 
 
   const workspaces = [
     "Conference Room",
@@ -54,7 +49,6 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
 
   // const nameRegex = /^[a-zA-Z\s]+$/;
   // const contactNoRegex = /^03\d{2}-\d{7}$/;
-  const numberRegex = /^\d+$/;
   const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
   const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
   const stationRegex = /^[a-zA-Z\s]+$/;
@@ -120,24 +114,44 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
 
   const [userData, setUserData] = useState();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/bio?email=${user.email}`);
-        if (!response.ok) {
-          throw new Error("Error fetching data");
-        }
-        const data = await response.json();
-        if (JSON.stringify(data) !== JSON.stringify(userData)) {
-          setUserData(data);
-        }
-      } catch (error) {
-        console.error(error);
+  const fetchBioData = async (userEmail, bioData) => {
+    try {
+      const response = await fetch(`${apiUrl}/bio?email=${userEmail}`);
+      if (!response.ok) {
+        throw new Error("Error fetching data");
       }
-    };
+      const data = await response.json();
+      if (JSON.stringify(data) !== JSON.stringify(bioData)) {
+        setUserData(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const fetchStation = async ( bioData) => {
+    try {
+      const response = await fetch(`${apiUrl}/GetStations`);
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      const data = await response.json();
+      if (JSON.stringify(data) !== JSON.stringify(bioData)) {
+        setStations(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    fetchData();
+
+  useEffect(() => {
+    fetchBioData(user.email, userData);
+    fetchStation()
   }, [user.email, userData]);
+
+  const handleCheckoutModal = () => {
+    setShowReceipt(!showReceipt);
+  };
 
   const SubmitBookingData = async (e) => {
     e.preventDefault();
@@ -168,7 +182,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
             }),
           }
         );
-        fetchData()
+        fetchData();
         if (response.ok) {
           toast.success("Slot Booked Successfully!", {
             position: "top-center",
@@ -324,9 +338,9 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5 "
                   >
                     <option value="">Select Your Chapter</option>
-                    {stations.map((station, index) => (
-                      <option key={index} value={station}>
-                        {station}
+                    {stations?.map((station, index) => (
+                      <option key={index} value={station.Chapter}>
+                        {station.Chapter}
                       </option>
                     ))}
                   </select>
@@ -439,6 +453,8 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
                 <button
                   className="rounded-lg bg-green-500 hover:bg-green-700 hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none focus:shadow-lg shadow-sm shadow-orange"
                   type="button"
+                  disabled={Object.values(BookingData).some((value) => !value)}
+                  onClick={() => setShowReceipt(!showReceipt)}
                 >
                   Payment
                 </button>
@@ -449,6 +465,13 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
                   {loading ? <Spinner size={30} /> : "Submit"}
                 </button>
               </div>
+              {showReceipt && (
+                <CheckoutModal
+                  toggleModal={handleCheckoutModal}
+                  setShowReceipt={setShowReceipt}
+                  BookingData={BookingData}
+                />
+              )}
             </form>
           </div>
         </div>

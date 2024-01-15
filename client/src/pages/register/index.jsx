@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/register-form-components/button";
 import { Sidebar } from "../../components/register-form-components/sidebar";
 import { PersonalInfo } from "../../components/register-form-components/personalInfo";
@@ -11,10 +11,12 @@ import { ThankYou } from "../../components/register-form-components/thankYou";
 import { apiUrl } from "../../config";
 import Spinner from "../../Loader/Spinner";
 const Register = () => {
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [step, setStep] = useState(1);
   const [showRequired, setShowRequiredFields] = useState(false);
-  const [loading,setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
 
   const ntnRegex = /^\d{7}-\d{1}$/;
 
@@ -83,7 +85,6 @@ const Register = () => {
   };
 
   const nextStep = (onGoingStep) => {
-
     setShowRequiredFields(false);
 
     if (step === 5) return;
@@ -110,7 +111,7 @@ const Register = () => {
     //     setShowRequiredFields(false);
     //   }
     // }
-    else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3 )) {
+    else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3)) {
       if (userServiceConfiguration.selectedPlan.name === "Individual") {
         if (
           !userServiceConfiguration.freelanceInfo.dob ||
@@ -163,7 +164,6 @@ const Register = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-   
 
     if (step === 4) {
       setLoading(true);
@@ -306,8 +306,13 @@ const Register = () => {
                 type={step !== 4 ? "primary" : "submit"}
                 onClick={handleFormSubmit}
               >
-               
-                {step !== 4 ? "Next Step" :loading ? <Spinner size={30}/> : "Submit" }
+                {step !== 4 ? (
+                  "Next Step"
+                ) : loading ? (
+                  <Spinner size={30} />
+                ) : (
+                  "Submit"
+                )}
               </Button>
             </li>
           </menu>

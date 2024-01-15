@@ -132,8 +132,6 @@ function Employees({ isEmployeeOpen, toggleEmp }) {
     )
   );
 
-  console.log(employeeData);
-
   return (
     <>
       <div className="flex flex-col justify-between shadow-lg border border-gray-300 mt-5">
