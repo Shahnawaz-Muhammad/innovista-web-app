@@ -92,18 +92,22 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen,fetchData }) => {
       } else {
         newErrors[field] = "";
       }
-
+    
       // Custom validation logic for ExpiryTime based on BookingDate and ExpiryDate
-      if (
-        field === "ExpiryTime" &&
-        BookingData.BookingDate === BookingData.ExpiryDate
-      ) {
-        if (BookingData.ExpiryTime <= BookingData.BookingTime) {
-          newErrors[field] = "Expiry time must be greater than Booking time";
+      if (field === "ExpiryTime" && BookingData.BookingDate === BookingData.ExpiryDate) {
+        const bookingTimeParts = BookingData.BookingTime.split(":");
+        const expiryTimeParts = BookingData.ExpiryTime.split(":");
+        
+        const bookingTime = parseInt(bookingTimeParts[0]) * 60 + parseInt(bookingTimeParts[1]);
+        const expiryTime = parseInt(expiryTimeParts[0]) * 60 + parseInt(expiryTimeParts[1]);
+    
+        if (expiryTime <= bookingTime + 59) {
+          newErrors[field] = "Minimun Booking is 1 Hour";
           isValid = false;
         }
       }
     }
+    
 
     setErrors(newErrors);
     return isValid;

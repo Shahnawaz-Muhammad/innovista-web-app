@@ -157,7 +157,7 @@ const Bookinglist = ({ BookingData, fetchData }) => {
             </div>
           </div>
           <div className="overflow-x-auto pb-20">
-            <table className="w-full text-sm text-left text-gray-500 ">
+            <table className="w-full text-sm text-center text-gray-500 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                 <tr>
                   <th scope="col" className="px-4 py-3">
@@ -252,12 +252,12 @@ const Bookinglist = ({ BookingData, fetchData }) => {
                               })}
                           </td>
                           <td className=" px-4 py-3">
-                            <div className="flex items-center gap-3 ">
+                            <div className="flex items-center justify-center gap-3 ">
                               <GoDotFill className="text-green-500" />
                               Paid
                             </div>
                           </td>
-                          <td className="px-4 py-3 flex items-center justify-end">
+                          <td className="px-4 py-3 flex items-center justify-center">
                             {/* <div className="relative"> */}
                             <button
                               onClick={() => handleOptionsToggle(index)}
