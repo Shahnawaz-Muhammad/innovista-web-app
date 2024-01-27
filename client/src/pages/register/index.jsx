@@ -71,12 +71,14 @@ console.log(stationsData);
       address: "",
       city: "",
       country: "",
+      bookingStation: "",
     },
     groupInfo: {
       people: "",
       address: "",
       city: "",
       country: "",
+      bookingStation: "",
     },
     companyInfo: {
       ntn: "",
@@ -84,6 +86,7 @@ console.log(stationsData);
       address: "",
       city: "",
       country: "",
+      bookingStation: "",
     },
   });
 
@@ -220,6 +223,7 @@ console.log(stationsData);
           address: userServiceConfiguration.freelanceInfo.address,
           city: userServiceConfiguration.freelanceInfo.city,
           country: userServiceConfiguration.freelanceInfo.country,
+          bookingStation: userServiceConfiguration.freelanceInfo.bookingStation,
         };
       } else if (userServiceConfiguration.selectedPlan.name === "Group") {
         selectedPlanData = {
@@ -234,6 +238,7 @@ console.log(stationsData);
           address: userServiceConfiguration.groupInfo.address,
           city: userServiceConfiguration.groupInfo.city,
           country: userServiceConfiguration.groupInfo.country,
+          bookingStation: userServiceConfiguration.groupInfo.bookingStation,
         };
       } else if (userServiceConfiguration.selectedPlan.name === "Company") {
         selectedPlanData = {
@@ -249,6 +254,7 @@ console.log(stationsData);
           address: userServiceConfiguration.companyInfo.address,
           city: userServiceConfiguration.companyInfo.city,
           country: userServiceConfiguration.companyInfo.country,
+          bookingStation: userServiceConfiguration.companyInfo.bookingStation,
         };
       }
 
@@ -279,6 +285,7 @@ console.log(stationsData);
       nextStep();
     }
   };
+  console.log(userServiceConfiguration)
 
   return (
     <main className=" flex flex-col mt-24 text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-36 lg:mb-16 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow-[10px_10px_40px_10px_rgba(0,0,0,0.2)] ">
