@@ -22,6 +22,7 @@ router.post("/signup", async (req, res) => {
       "address",
       "city",
       "country",
+      "bookingStation",
     ];
 
     const userCategory = req.body.category;

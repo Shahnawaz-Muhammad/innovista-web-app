@@ -7,6 +7,7 @@ export const Company = ({
   updateCompanyInfo,
   showRequired = false,
   required = true,
+  stationsData,
 }) => {
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
@@ -136,7 +137,7 @@ export const Company = ({
             )}
         </div>
 
-        <div className="col-span-full h-[4.3rem] w-full flex flex-col gap-1">
+        <div className="col-span-1 relative h-[4.3rem] w-full flex flex-col gap-1">
           <Input
             label="Address"
             type="text"
@@ -151,6 +152,49 @@ export const Company = ({
                 This Field is Required
               </p>
             )}
+        </div>
+
+        <div className="col-span-1 relative  h-[4.3rem] flex flex-col gap-1">
+          <div className="absolute top-0 left-0 w-full">
+            {/* <div className="w-full inline-flex justify-between"> */}
+            <div className="mb-1">
+              <label
+                htmlFor="bookingStation"
+                className="block text-sm font-medium text-gray-900 "
+              >
+                Nearest Booking Station
+              </label>
+
+              <select
+                id="bookingStation"
+                value={companyInfo.bookingStation}
+                className={clsx(
+                  "border text-gray-900 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary-purplish-blue block w-full p-2.5",
+                  showRequired &&
+                    required &&
+                    !companyInfo.bookingStation &&
+                    "ring-1 ring-primary-starberry-red"
+                )}
+                onChange={(e) => handleCompanyInfo(e, "bookingStation")}
+              >
+                <option value="" selected>
+                  Select Your Nearest Booking Station
+                </option>
+                {stationsData &&
+                  stationsData.map((chapter) => (
+                    <option key={chapter.chapter} value={chapter.chapter}>
+                      {chapter.chapter}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            {showRequired &&
+              !companyInfo.bookingStation && ( // Display error message condition
+                <p className="text-primary-starberry-red leading-3 text-sm font-medium">
+                  This Field is Required
+                </p>
+              )}
+          </div>
         </div>
 
         <div className="col-span-1 relative  h-[4.3rem] flex flex-col gap-1">

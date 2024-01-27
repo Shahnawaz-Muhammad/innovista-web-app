@@ -20,6 +20,38 @@ const Register = () => {
 
   const ntnRegex = /^\d{7}-\d{1}$/;
 
+  const [stationsData, setStationsData] = useState(null);
+
+useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${apiUrl}/GetStations`);
+            const result = await response.json();
+            
+            // Extract and set stationsData from the API response
+            const extractedStationsData = result.map(chapter => ({
+                chapter: chapter.Chapter,
+                stations: chapter.reservationTypes.map(station => ({
+                    id: station._id,
+                    name: station.type
+                }))
+            }));
+
+            setStationsData(extractedStationsData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchData();
+}, []);
+
+console.log(stationsData);
+
+
+
   const [userServiceConfiguration, setUserServiceConfiguration] = useState({
     userInfo: {
       firstName: "",
@@ -119,6 +151,7 @@ const Register = () => {
           !userServiceConfiguration.freelanceInfo.qualification ||
           !userServiceConfiguration.freelanceInfo.designation ||
           !userServiceConfiguration.freelanceInfo.address ||
+          !userServiceConfiguration.freelanceInfo.bookingStation ||
           !userServiceConfiguration.freelanceInfo.city ||
           !userServiceConfiguration.freelanceInfo.country
         ) {
@@ -132,7 +165,7 @@ const Register = () => {
           !userServiceConfiguration.groupInfo.address ||
           !userServiceConfiguration.groupInfo.city ||
           !userServiceConfiguration.groupInfo.country ||
-          !userServiceConfiguration.groupInfo.address
+          !userServiceConfiguration.groupInfo.bookingStation
         ) {
           setShowRequiredFields(true);
           return;
@@ -144,6 +177,7 @@ const Register = () => {
           !userServiceConfiguration.companyInfo.people ||
           !userServiceConfiguration.companyInfo.address ||
           !userServiceConfiguration.companyInfo.city ||
+          !userServiceConfiguration.companyInfo.bookingStation ||
           !userServiceConfiguration.companyInfo.country
         ) {
           setShowRequiredFields(true);
@@ -272,18 +306,21 @@ const Register = () => {
                 freelanceInfo={userServiceConfiguration.freelanceInfo}
                 updateFreelanceInfo={updateFreelanceInfo}
                 showRequired={showRequired}
+                stationsData={stationsData}
               />
             ) : userServiceConfiguration.selectedPlan.name === "Group" ? (
               <Group
                 groupInfo={userServiceConfiguration.groupInfo}
                 updateGroupInfo={updateGroupInfo}
                 showRequired={showRequired}
+                stationsData={stationsData}
               />
             ) : (
               <Company
                 companyInfo={userServiceConfiguration.companyInfo}
                 updateCompanyInfo={updateCompanyInfo}
                 showRequired={showRequired}
+                stationsData={stationsData}
               />
             ))}
           {step === 4 && (

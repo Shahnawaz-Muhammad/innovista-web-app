@@ -15,7 +15,7 @@ export const ThankYou = () => {
 				<p>Thanks for joining INNOVISTA Family</p>
 				<p>
 					We wish you best of luck at our platform. 
-					In case of any queries, we are just a text away.
+					In case of queries, we are just a text away.
 				</p>
 			</span>
 

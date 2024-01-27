@@ -67,6 +67,10 @@ const signupSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  bookingStation: {
+    type: String,
+    required: true,
+  },
   people: {
     type:String,
     required: function () {
