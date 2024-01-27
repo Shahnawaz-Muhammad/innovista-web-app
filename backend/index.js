@@ -18,7 +18,7 @@ import ResetPassword from './routes/ResetPassword.js'
 import Chapters from './routes/Chapters.js'
 import QualificationDetails from './routes/QualificationDetails.js'
 import { PORT, mongoDBURL } from './config.js';
-
+import RegionalAdmin from './routes/RegionalAdmin.js';
 // import { fileURLToPath } from 'url';
 // import { dirname } from 'path';
 // import path from 'path';
@@ -55,7 +55,7 @@ app.use('/api', ProfilePic);
 app.use('/api', ResetPassword);
 app.use('/api', QualificationDetails);
 app.use('/api', Chapters);
-
+app.use('/api', RegionalAdmin);
 app.use('/api/profile', express.static('profile'));
 app.use('/api/cv', express.static('cv'));
 

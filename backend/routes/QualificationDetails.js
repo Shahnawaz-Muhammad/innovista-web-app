@@ -5,24 +5,24 @@ const router = express.Router();
 
 const currentDate = new Date();
 currentDate.setUTCHours(0, 0, 0, 0); 
-router.get('/BarChart', async (req, res) => {
+router.get('/qualification-count', async (req, res) => {
   try {
    
-    const metricCount = await User.countDocuments({ qualification: 'matric' });
-    const fscCount = await User.countDocuments({ qualification: 'intermediate' });
-    const BsCount = await User.countDocuments({ qualification: 'bachelors' });
-    const MsCount = await User.countDocuments({ qualification: 'masters' });
-    const PhdCount = await User.countDocuments({ qualification: 'phd' });
+    const Matric = await User.countDocuments({ qualification: 'matric' });
+    const FSc = await User.countDocuments({ qualification: 'intermediate' });
+    const BS = await User.countDocuments({ qualification: 'bachelors' });
+    const MS = await User.countDocuments({ qualification: 'masters' });
+    const Phd = await User.countDocuments({ qualification: 'phd' });
    
     const totalQualify= await User.countDocuments({ category: 'Freelancer' });
 
     res.status(200).json({
-        totalQualify,
-        metricCount,
-        fscCount, 
-        BsCount,
-        MsCount,
-        PhdCount
+       // totalQualify,
+        Matric,
+        FSc, 
+        BS,
+        MS,
+        Phd
 
 
     });
