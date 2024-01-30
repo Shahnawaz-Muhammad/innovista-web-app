@@ -72,10 +72,11 @@ router.post("/signup", async (req, res) => {
 
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-
+    const RegistrationDate = new Date().toISOString().split('T')[0];
     const newUser = new User({
       ...req.body,
       password: hashedPassword,
+      registrationDate: RegistrationDate, // Include the current date property in your User model
     });
 
     const savedUser = await newUser.save();
@@ -133,6 +134,7 @@ router.post("/login", async (req, res) => {
         id: user._id,
         email: user.emailAddress,
         category: user.category,
+        station: user.bookingStation
       },
     });
   } catch (error) {
@@ -168,6 +170,7 @@ router.get("/bio", async (req, res) => {
       mobileNo: user.mobileNo,
       dob: user.dob,
       address: user.address,
+      RegistrationDate:user.registrationDate
     };
 
     res.status(200).json(sanitizedUser);
@@ -200,6 +203,7 @@ router.put("/UpdateBio", async (req, res) => {
     user.mobileNo = req.body.mobileNo || user.mobileNo;
     user.dob = req.body.dob || user.dob;
     user.address = req.body.address || user.address;
+    user.registrationDate=req.body.registrationDate||user.registrationDate;
 
     const updatedUser = await user.save();
 
@@ -210,6 +214,7 @@ router.put("/UpdateBio", async (req, res) => {
       mobileNo: updatedUser.mobileNo,
       dob: updatedUser.dob,
       address: updatedUser.address,
+      RegistrationDate:updatedUser.registrationDate
     };
 
     res.status(200).json(sanitizedUser);

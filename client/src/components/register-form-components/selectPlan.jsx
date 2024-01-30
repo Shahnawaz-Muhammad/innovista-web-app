@@ -9,7 +9,7 @@ const activeClasses = "border border-orange bg-neutral-magnolia falopa ";
 
 const plans = [
   {
-    name: "Individual",
+    name: "Freelancer",
     icon: freelancer,
   },
   {
@@ -30,11 +30,11 @@ export const SelectPlan = ({
   const [, setCategorySelected] = useState(false);
 
   const categoryData = {
-    Individual: {
+    Freelancer: {
       description: "Access to job postings and projects matching skills.",
       additionalInfo: "Direct client communication channels.",
       additionalInfo1: "Early access to new project listings.",
-      quantity: "Individual Only",
+      quantity: "Freelancer Only",
       additionalInfo2: "",
     },
     Group: {

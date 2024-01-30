@@ -31,6 +31,10 @@ const BookingSchema = new mongoose.Schema({
     required: true,
     //unique: true,
   },
+  registrationDate:{
+    type:Date,
+    
+  },
   category: {
     type: String,
     required: true,

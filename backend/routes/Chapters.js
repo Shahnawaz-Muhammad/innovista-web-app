@@ -47,13 +47,22 @@ router.get("/GetStations", async (req, res) => {
   }
 });
 
-router.get("/GetReservations", async (req, res) => {
+router.get('/stations/:id/reservation-types', async (req, res) => {
+  const stationId = req.params.id;
+
   try {
-    const stations = await Station.find();
-    res.status(200).json(stations);
+    // Find the station by ID
+    const station = await Station.findById(stationId);
+
+    if (!station) {
+      return res.status(404).json({ error: 'Station not found' });
+    }
+
+    // Return the reservation types
+    res.status(200).json({ reservationTypes: station.reservationTypes });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

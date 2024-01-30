@@ -14,6 +14,7 @@ router.post("/bookings", async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+    const RegistrationDate = new Date().toISOString().split('T')[0];
     const newBooking = new Booking({
       FullName: req.body.FullName,
       ContactNo: req.body.ContactNo,
@@ -25,6 +26,8 @@ router.post("/bookings", async (req, res) => {
       ExpiryTime: req.body.ExpiryTime,
       Email: user.emailAddress,
       category: user.category,
+      registrationDate: RegistrationDate,
+
     });
 
     // Save the booking to the database

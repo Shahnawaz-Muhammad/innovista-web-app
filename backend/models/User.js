@@ -26,6 +26,10 @@ const signupSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  registrationDate:{
+    type:Date,
+    
+  },
 
   category: {
     type: String,

@@ -71,7 +71,7 @@ const UserHeader = ({ user }) => {
 
   let userData;
 
-  if (isAuthenticated && user.category === "Individual") {
+  if (isAuthenticated && user.category === "Freelancer") {
     userData = freelancerData;
   } else if (isAuthenticated && user.category === "Group") {
     userData = groupData;

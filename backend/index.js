@@ -16,6 +16,7 @@ import RegisterRecords from './routes/RegisterationRecords.js'
 import ProfilePic from './routes/ProfilePic.js'
 import ResetPassword from './routes/ResetPassword.js'
 import Chapters from './routes/Chapters.js'
+import GenerateReport from './routes/GenerateReport.js'
 import QualificationDetails from './routes/QualificationDetails.js'
 import { PORT, mongoDBURL } from './config.js';
 import RegionalAdmin from './routes/RegionalAdmin.js';
@@ -58,6 +59,8 @@ app.use('/api', Chapters);
 app.use('/api', RegionalAdmin);
 app.use('/api/profile', express.static('profile'));
 app.use('/api/cv', express.static('cv'));
+app.use('/api', GenerateReport);
+
 
 
 // MongoDB connection

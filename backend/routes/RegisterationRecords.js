@@ -12,13 +12,13 @@ router.get('/RegisterRecords', async (req, res) => {
       }
   });
 
-  router.get('/RegisterRecordsByCity/:city', async (req, res) => {
+  router.get('/RegisterRecordsByCity/:bookingStation', async (req, res) => {
     try {
       // Extract the city parameter from the request URL
-      const { city } = req.params;
+      const { bookingStation } = req.params;
   
-      // Use the find method to get users with the specified city
-      const users = await User.find({ city: city }).sort({ _id: -1 });
+      // Use the find method to get users with the specified bookingStation
+      const users = await User.find({ bookingStation: bookingStation }).sort({ _id: -1 });
   
       // Respond with the retrieved users
       res.json(users);

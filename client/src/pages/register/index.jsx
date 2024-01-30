@@ -147,7 +147,7 @@ console.log(stationsData);
     //   }
     // }
     else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3)) {
-      if (userServiceConfiguration.selectedPlan.name === "Individual") {
+      if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
         if (
           !userServiceConfiguration.freelanceInfo.dob ||
           !userServiceConfiguration.freelanceInfo.gender ||
@@ -207,7 +207,7 @@ console.log(stationsData);
       let selectedPlanData = null;
       if (userServiceConfiguration.selectedPlan?.name === null) {
         setShowRequiredFields(true);
-      } else if (userServiceConfiguration.selectedPlan.name === "Individual") {
+      } else if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
         selectedPlanData = {
           firstName: userServiceConfiguration.userInfo.firstName,
           lastName: userServiceConfiguration.userInfo.lastName,
@@ -308,7 +308,7 @@ console.log(stationsData);
             />
           )}
           {step === 3 &&
-            (userServiceConfiguration.selectedPlan.name === "Individual" ? (
+            (userServiceConfiguration.selectedPlan.name === "Freelancer" ? (
               <Freelance
                 freelanceInfo={userServiceConfiguration.freelanceInfo}
                 updateFreelanceInfo={updateFreelanceInfo}
