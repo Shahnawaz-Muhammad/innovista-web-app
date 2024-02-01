@@ -12,6 +12,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
 
   const [showReceipt, setShowReceipt] = useState(false);
   const [stations, setStations] = useState([])
+  const [workspace, setWorkspace] = useState([])
   const [BookingData, setBookingData] = useState({
     // Name: userData?.firstName,
     // ContactNo: userData?.mobileNo,
@@ -74,6 +75,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
         return true;
     }
   };
+  
 
   const handleValidation = () => {
     let isValid = true;
@@ -109,7 +111,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
 
   function handleChange(evt) {
     const { name, value } = evt.target;
-
+    fetchWorkspace(value);
     setBookingData({
       ...BookingData,
       [name]: value,
@@ -141,24 +143,49 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
       const data = await response.json();
       if (JSON.stringify(data) !== JSON.stringify(bioData)) {
         setStations(data);
+        
+        console.log("station", data)
       }
     } catch (error) {
       console.error(error);
     }
   };
+  const fetchWorkspace = async (station) => {
+    try {
+      const response = await fetch(`${apiUrl}/stations/${station}/reservation-types`);
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      const data = await response.json();
+      console.log(data.reservationTypes)
+       setWorkspace(data.reservationTypes);
 
+       //console.log("data-----", data)
+
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //console.log("workspace",workspace)
+  
 
   useEffect(() => {
     fetchBioData(user.email, userData);
     fetchStation()
+    // fetchWorkspace()
   }, [user.email, userData]);
 
   const handleCheckoutModal = () => {
     setShowReceipt(!showReceipt);
   };
 
+
+
   const SubmitBookingData = async (e) => {
     e.preventDefault();
+
 
     const isFormValid = handleValidation();
 
@@ -222,6 +249,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
       }
     }
   };
+  
   return (
     <>
       <div
@@ -295,36 +323,6 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
                   />
                 </div>
 
-                <div className="col-span-2 md:col-span-1  h-[5.5rem] flex flex-col">
-                  <label
-                    htmlFor="reservationType"
-                    className="block  text-sm font-medium text-gray-900 "
-                  >
-                    Reservation Type
-                  </label>
-                  <select
-                    name="ReservationType"
-                    id="reservationType"
-                    value={BookingData.ReservationType}
-                    onChange={handleChange}
-                    onFocus={() =>
-                      setErrors({ ...errors, ReservationType: "" })
-                    }
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5 "
-                  >
-                    <option value="">Select Your Reservation Type</option>
-                    {workspaces.map((space, index) => (
-                      <option key={index} value={space}>
-                        {space}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.ReservationType && (
-                    <p className="text-[#fa0505] text-sm pl-2">
-                      {errors.ReservationType}
-                    </p>
-                  )}
-                </div>
 
                 <div className="col-span-2 md:col-span-1  h-[5.5rem] flex flex-col">
                   <label
@@ -343,7 +341,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
                   >
                     <option value="">Select Your Chapter</option>
                     {stations?.map((station, index) => (
-                      <option key={index} value={station.Chapter}>
+                      <option key={index} value={station.chapter}>
                         {station.Chapter}
                       </option>
                     ))}
@@ -354,6 +352,46 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
                     </p>
                   )}
                 </div>
+                
+                <div className="col-span-2 md:col-span-1 h-[5.5rem] flex flex-col">
+  <label
+    htmlFor="reservationType"
+    className="block text-sm font-medium text-gray-900"
+  >
+    Reservation Type
+  </label>
+
+  {workspace && workspace.length > 0 ? (
+    <select
+      name="ReservationType"
+      id="reservationType"
+      value={BookingData.ReservationType}
+      onChange={handleChange}
+      onFocus={() => setErrors({ ...errors, ReservationType: "" })}
+      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5"
+    >
+      <option value="">Select Your Reservation Type</option>
+      {workspace.map((station, index) => (
+        <option key={index} value={station.type}>
+          {station.type}
+        </option>
+      ))}
+    </select>
+  ) : (
+    <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5" disabled>
+      <option value="" disabled>
+        Station Have No Reservation
+      </option>
+    </div>
+  )}
+
+  {errors.ReservationType && (
+    <p className="text-[#fa0505] text-sm pl-2">
+      {errors.ReservationType}
+    </p>
+  )}
+</div>
+
 
                 <div className="col-span-2 md:col-span-1  h-[5.5rem] flex flex-col">
                   <label

@@ -24,12 +24,10 @@ router.post("/stations", async (req, res) => {
   } catch (error) {
     // Handle MongoDB duplicate key error
     if (error.code === 11000) {
-      return res
-        .status(400)
-        .json({
-          error:
-            "Duplicate Chapter. Station with the same Chapter already exists.",
-        });
+      return res.status(400).json({
+        error:
+          "Duplicate Chapter. Station with the same Chapter already exists.",
+      });
     }
 
     console.error(error);
@@ -47,12 +45,12 @@ router.get("/GetStations", async (req, res) => {
   }
 });
 
-router.get('/stations/:id/reservation-types', async (req, res) => {
-  const stationId = req.params.id;
+router.get('/stations/:chapter/reservation-types', async (req, res) => {
+  const chapter = req.params.chapter;
 
   try {
-    // Find the station by ID
-    const station = await Station.findById(stationId);
+    // Find the station by chapter name
+    const station = await Station.findOne({ Chapter: chapter });
 
     if (!station) {
       return res.status(404).json({ error: 'Station not found' });
