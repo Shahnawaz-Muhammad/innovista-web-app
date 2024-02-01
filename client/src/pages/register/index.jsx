@@ -285,7 +285,6 @@ console.log(stationsData);
       nextStep();
     }
   };
-  console.log(userServiceConfiguration)
 
   return (
     <main className=" flex flex-col mt-24 text-neutral-cool-gray w-full lg:mx-auto lg:max-w-[58.75rem] lg:mt-36 lg:mb-16 lg:flex-row grow lg:p-4 lg:rounded-lg lg:bg-white lg:h-[33.75rem] lg:shadow-[10px_10px_40px_10px_rgba(0,0,0,0.2)] ">

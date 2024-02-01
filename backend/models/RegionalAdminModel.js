@@ -21,7 +21,7 @@ const RegionalAdminSchema = new mongoose.Schema({
   },
   role: { type: String }, // or 'superadmin'
   status: {
-    type: String,
+    type: Boolean,
   },
 });
 

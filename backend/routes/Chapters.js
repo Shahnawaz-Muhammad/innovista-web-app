@@ -142,6 +142,38 @@ router.post("/stations/:chapter/reservation-types", async (req, res) => {
   }
 });
 
+router.put('/stations/:chapter/reservation-types/:id', async (req, res) => {
+  const { chapter, id } = req.params;
+
+  try {
+    // Find the station by Chapter
+    const station = await Station.findOne({ Chapter: chapter });
+
+    if (!station) {
+      return res.status(404).json({ error: 'Station not found' });
+    }
+
+    // Find the index of the reservation type to be updated
+    const indexToUpdate = station.reservationTypes.findIndex(type => type._id.toString() === id);
+
+    // Check if the reservation type exists
+    if (indexToUpdate === -1) {
+      return res.status(404).json({ error: 'Reservation type not found' });
+    }
+
+    // Update the reservation type in the array
+    station.reservationTypes[indexToUpdate] = req.body; // Assuming req.body contains the updated reservation type
+
+    // Save the updated station
+    const updatedStation = await station.save();
+
+    res.status(200).json(updatedStation);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 router.delete("/stations/:chapter/reservation-types/:id", async (req, res) => {
   const { chapter, id } = req.params;
 

@@ -32,4 +32,32 @@ router.get('/qualification-count', async (req, res) => {
   }
 });
 
+router.get('/qualification-count-ByStation/:station', async (req, res) => {
+  const {station} = req.params;
+  try {
+   
+    const Matric = await User.countDocuments({ bookingStation:station,qualification: 'matric' });
+    const FSc = await User.countDocuments({ bookingStation:station,qualification: 'intermediate' });
+    const BS = await User.countDocuments({ bookingStation:station,qualification: 'bachelors' });
+    const MS = await User.countDocuments({ bookingStation:station,qualification: 'masters' });
+    const Phd = await User.countDocuments({bookingStation:station,qualification: 'phd' });
+   
+    const totalQualify= await User.countDocuments({ category: 'Freelancer' });
+
+    res.status(200).json({
+       // totalQualify,
+        Matric,
+        FSc, 
+        BS,
+        MS,
+        Phd
+
+
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 export default router;

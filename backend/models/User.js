@@ -28,7 +28,6 @@ const signupSchema = new mongoose.Schema({
   },
   registrationDate:{
     type:Date,
-    
   },
 
   category: {
