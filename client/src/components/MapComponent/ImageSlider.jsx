@@ -83,7 +83,7 @@ function ImageSlider() {
         >
           {" "}
           {images.map((image, index) => (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <div className="bg-transparent h-[350px] flex flex-col  justify-end">
                 <img
                   src={image.url}

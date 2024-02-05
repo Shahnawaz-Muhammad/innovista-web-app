@@ -105,6 +105,7 @@ const ProfileHero = () => {
 
     fetchProfilePicture();
   }, [user.email, selectedFile, setSelectedFile]);
+  
   return (
     <>
       <div className="w-full bg-coverImage h-60 object-cover bg-center relative flex justify-center mx-auto px-5 lg:px-10 xl:px-0 transition-all duration-500">

@@ -37,7 +37,6 @@ const Header = () => {
 
   const handleLogin = () => {
     // navigate("/login");
-    console.log('login clicked')
     setActiveNavItem("");
     setNavMobile(false)
   };

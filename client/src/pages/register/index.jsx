@@ -22,35 +22,31 @@ const Register = () => {
 
   const [stationsData, setStationsData] = useState(null);
 
-useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await fetch(`${apiUrl}/GetStations`);
-            const result = await response.json();
-            
-            // Extract and set stationsData from the API response
-            const extractedStationsData = result.map(chapter => ({
-                chapter: chapter.Chapter,
-                stations: chapter.reservationTypes.map(station => ({
-                    id: station._id,
-                    name: station.type
-                }))
-            }));
+      try {
+        const response = await fetch(`${apiUrl}/GetStations`);
+        const result = await response.json();
 
-            setStationsData(extractedStationsData);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        } finally {
-            setLoading(false);
-        }
+        // Extract and set stationsData from the API response
+        const extractedStationsData = result.map((chapter) => ({
+          chapter: chapter.Chapter,
+          stations: chapter.reservationTypes.map((station) => ({
+            id: station._id,
+            name: station.type,
+          })),
+        }));
+
+        setStationsData(extractedStationsData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
-}, []);
-
-console.log(stationsData);
-
-
+  }, []);
 
   const [userServiceConfiguration, setUserServiceConfiguration] = useState({
     userInfo: {
