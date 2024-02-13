@@ -7,7 +7,7 @@ import Modal from "react-modal"; // Import the modal library
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
 import { ProfileContext } from "../../context/ProfileContext";
-import profileImg from "../../assets/images/avatar-profile.jpeg"
+import profileImg from "../../assets/images/avatar-profile.jpeg";
 
 const modalStyles = {
   content: {
@@ -105,7 +105,7 @@ const ProfileHero = () => {
 
     fetchProfilePicture();
   }, [user.email, selectedFile, setSelectedFile]);
-  
+
   return (
     <>
       <div className="w-full bg-coverImage h-60 object-cover bg-center relative flex justify-center mx-auto px-5 lg:px-10 xl:px-0 transition-all duration-500">
@@ -125,16 +125,13 @@ const ProfileHero = () => {
                     : "scale-100 duration-300"
                 }`}
               />
-            ): 
-            <img
-            src={`${apiUrl}${selectedFile?.imageURL}`}
-            alt=""
-            className={`w-full h-full rounded-full object-cover ${
-              isHovered
-                ? "scale-105 duration-300"
-                : "scale-100 duration-300"
-            }`}
-          />}
+            ) : (
+              <img
+                src={profileImg} // Provide the path to your avatar image
+                alt="Avatar"
+                className="w-full h-full rounded-full object-cover"
+              />
+            )}
             {isHovered && (
               <div className="absolute inset-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 rounded-full">
                 <label

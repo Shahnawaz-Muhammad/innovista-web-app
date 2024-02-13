@@ -132,7 +132,7 @@ const JobAds = () => {
   const CheckEmailIfExist = async (jobid) => {
     try {
       const response = await fetch(
-        "http://192.168.150.134:8080/api/checkEmailAndJobId",
+        `${apiUrl}/checkEmailAndJobId`,
         {
           method: "POST",
           headers: {

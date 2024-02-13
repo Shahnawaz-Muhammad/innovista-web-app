@@ -1,15 +1,16 @@
 import React from "react";
 
-const CheckoutModal = ({ toggleModal, setShowReceipt, BookingData }) => {
+const CheckoutModal = ({ open, onClose, BookingData }) => {
   //   const { user } = useContext(AuthContext);
   //   const navigate = useNavigate();
 
+  const handleCheckout = () => {
+    onClose();
+  };
+
   return (
     <>
-      <div
-        className="w-full z-50 h-screen fixed top-0 left-0 bg-gray-600 backdrop-blur-sm bg-opacity-50"
-        onClick={() => setShowReceipt(false)}
-      ></div>
+      <div className="w-full z-50 h-screen fixed top-0 left-0 bg-gray-600 backdrop-blur-sm bg-opacity-50"></div>
       <div className="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div className="relative p-4 w-full max-w-2xl max-h-full">
           <div className="relative bg-white rounded-lg shadow ">
@@ -18,7 +19,7 @@ const CheckoutModal = ({ toggleModal, setShowReceipt, BookingData }) => {
               <button
                 type="button"
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
-                onClick={toggleModal}
+                onClick={onClose}
               >
                 <svg
                   className="w-3 h-3"
@@ -109,11 +110,16 @@ const CheckoutModal = ({ toggleModal, setShowReceipt, BookingData }) => {
                 </div>
 
                 <div className="w-full flex justify-between mt-3">
-                  <button className="bg-gray-700 px-6 text-white py-2 rounded-lg"
-                  onClick={toggleModal}>
+                  <button
+                    className="bg-gray-700 px-6 text-white py-2 rounded-lg"
+                    onClick={onClose}
+                  >
                     Cancel
                   </button>
-                  <button className="bg-orange px-6 text-white py-2 rounded-lg">
+                  <button
+                    onClick={handleCheckout}
+                    className="bg-orange px-6 text-white py-2 rounded-lg"
+                  >
                     Checkout
                   </button>
                 </div>

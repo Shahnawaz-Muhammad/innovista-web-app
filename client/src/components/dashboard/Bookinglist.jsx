@@ -156,7 +156,7 @@ const Bookinglist = ({ BookingData, fetchData }) => {
               </div>
             </div>
           </div>
-          <div className="overflow-x-auto pb-20">
+          <div className="overflow-x-auto pb-20  min-h-[calc(100vh-500px)]">
             <table className="w-full text-sm text-center text-gray-500 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                 <tr>

@@ -11,8 +11,8 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
   const navigate = useNavigate();
 
   const [showReceipt, setShowReceipt] = useState(false);
-  const [stations, setStations] = useState([])
-  const [workspace, setWorkspace] = useState([])
+  const [stations, setStations] = useState([]);
+  const [workspace, setWorkspace] = useState([]);
   const [BookingData, setBookingData] = useState({
     // Name: userData?.firstName,
     // ContactNo: userData?.mobileNo,
@@ -25,8 +25,6 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
   });
 
   const currentDate = new Date().toISOString().split("T")[0];
-
- 
 
   const workspaces = [
     "Conference Room",
@@ -75,7 +73,6 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
         return true;
     }
   };
-  
 
   const handleValidation = () => {
     let isValid = true;
@@ -88,22 +85,26 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
       } else {
         newErrors[field] = "";
       }
-    
+
       // Custom validation logic for ExpiryTime based on BookingDate and ExpiryDate
-      if (field === "ExpiryTime" && BookingData.BookingDate === BookingData.ExpiryDate) {
+      if (
+        field === "ExpiryTime" &&
+        BookingData.BookingDate === BookingData.ExpiryDate
+      ) {
         const bookingTimeParts = BookingData.BookingTime.split(":");
         const expiryTimeParts = BookingData.ExpiryTime.split(":");
-        
-        const bookingTime = parseInt(bookingTimeParts[0]) * 60 + parseInt(bookingTimeParts[1]);
-        const expiryTime = parseInt(expiryTimeParts[0]) * 60 + parseInt(expiryTimeParts[1]);
-    
+
+        const bookingTime =
+          parseInt(bookingTimeParts[0]) * 60 + parseInt(bookingTimeParts[1]);
+        const expiryTime =
+          parseInt(expiryTimeParts[0]) * 60 + parseInt(expiryTimeParts[1]);
+
         if (expiryTime <= bookingTime + 59) {
           newErrors[field] = "Minimun Booking is 1 Hour";
           isValid = false;
         }
       }
     }
-    
 
     setErrors(newErrors);
     return isValid;
@@ -134,7 +135,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
       console.error(error);
     }
   };
-  const fetchStation = async ( bioData) => {
+  const fetchStation = async (bioData) => {
     try {
       const response = await fetch(`${apiUrl}/GetStations`);
       if (!response.ok) {
@@ -143,8 +144,8 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
       const data = await response.json();
       if (JSON.stringify(data) !== JSON.stringify(bioData)) {
         setStations(data);
-        
-        console.log("station", data)
+
+        console.log("station", data);
       }
     } catch (error) {
       console.error(error);
@@ -152,40 +153,44 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
   };
   const fetchWorkspace = async (station) => {
     try {
-      const response = await fetch(`${apiUrl}/stations/${station}/reservation-types`);
+      const response = await fetch(
+        `${apiUrl}/stations/${station}/reservation-types`
+      );
       if (!response.ok) {
         throw new Error("Error fetching data");
       }
       const data = await response.json();
-      console.log(data.reservationTypes)
-       setWorkspace(data.reservationTypes);
+      console.log(data.reservationTypes);
+      setWorkspace(data.reservationTypes);
 
-       //console.log("data-----", data)
-
-      
+      //console.log("data-----", data)
     } catch (error) {
       console.error(error);
     }
   };
 
   //console.log("workspace",workspace)
-  
 
   useEffect(() => {
     fetchBioData(user.email, userData);
-    fetchStation()
+    fetchStation();
     // fetchWorkspace()
   }, [user.email, userData]);
 
   const handleCheckoutModal = () => {
-    setShowReceipt(!showReceipt);
+    const isFormValid = handleValidation();
+
+    if (isFormValid) {
+      setShowReceipt(true);
+    }
   };
 
-
+  const closeCheckoutModal = () => {
+    setShowReceipt(false);
+  };
 
   const SubmitBookingData = async (e) => {
     e.preventDefault();
-
 
     const isFormValid = handleValidation();
 
@@ -249,7 +254,7 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
       }
     }
   };
-  
+
   return (
     <>
       <div
@@ -323,7 +328,6 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
                   />
                 </div>
 
-
                 <div className="col-span-2 md:col-span-1  h-[5.5rem] flex flex-col">
                   <label
                     htmlFor="station"
@@ -352,46 +356,50 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
                     </p>
                   )}
                 </div>
-                
+
                 <div className="col-span-2 md:col-span-1 h-[5.5rem] flex flex-col">
-  <label
-    htmlFor="reservationType"
-    className="block text-sm font-medium text-gray-900"
-  >
-    Reservation Type
-  </label>
+                  <label
+                    htmlFor="reservationType"
+                    className="block text-sm font-medium text-gray-900"
+                  >
+                    Reservation Type
+                  </label>
 
-  {workspace && workspace.length > 0 ? (
-    <select
-      name="ReservationType"
-      id="reservationType"
-      value={BookingData.ReservationType}
-      onChange={handleChange}
-      onFocus={() => setErrors({ ...errors, ReservationType: "" })}
-      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5"
-    >
-      <option value="">Select Your Reservation Type</option>
-      {workspace.map((station, index) => (
-        <option key={index} value={station.type}>
-          {station.type}
-        </option>
-      ))}
-    </select>
-  ) : (
-    <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5" disabled>
-      <option value="" disabled>
-        Station Have No Reservation
-      </option>
-    </div>
-  )}
+                  {workspace && workspace.length > 0 ? (
+                    <select
+                      name="ReservationType"
+                      id="reservationType"
+                      value={BookingData.ReservationType}
+                      onChange={handleChange}
+                      onFocus={() =>
+                        setErrors({ ...errors, ReservationType: "" })
+                      }
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5"
+                    >
+                      <option value="">Select Your Reservation Type</option>
+                      {workspace.map((station, index) => (
+                        <option key={index} value={station.type}>
+                          {station.type}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <div
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5"
+                      disabled
+                    >
+                      <option value="" disabled>
+                        Station Have No Reservation
+                      </option>
+                    </div>
+                  )}
 
-  {errors.ReservationType && (
-    <p className="text-[#fa0505] text-sm pl-2">
-      {errors.ReservationType}
-    </p>
-  )}
-</div>
-
+                  {errors.ReservationType && (
+                    <p className="text-[#fa0505] text-sm pl-2">
+                      {errors.ReservationType}
+                    </p>
+                  )}
+                </div>
 
                 <div className="col-span-2 md:col-span-1  h-[5.5rem] flex flex-col">
                   <label
@@ -493,24 +501,29 @@ const NewBooking = ({ toggleModal, setNewBookingModalOpen, fetchData }) => {
               </div>
               <div className="w-full flex justify-between">
                 <button
-                  className="rounded-lg bg-green-500 hover:bg-green-700 hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none focus:shadow-lg shadow-sm shadow-orange"
+                  className="rounded-lg bg-green-500 hover:bg-green-700 hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none focus:shadow-lg shadow-sm "
                   type="button"
-                  disabled={Object.values(BookingData).some((value) => !value)}
-                  onClick={() => setShowReceipt(!showReceipt)}
+                  // disabled={Object.values(BookingData).some((value) => !value)}
+                  onClick={handleCheckoutModal}
                 >
                   Payment
                 </button>
                 <button
-                  className="rounded-lg bg-orange hover:bg-orangeDark hover:underline py-3 px-8 text-center text-base font-bold text-white outline-none focus:shadow-lg shadow-sm shadow-orange"
+                  className={`rounded-lg ${
+                    Object.values(BookingData).some((value) => !value)
+                      ? "bg-gray-300"
+                      : "bg-orange hover:bg-orangeDark"
+                  }  py-3 px-8 text-center text-base font-bold text-white outline-none focus:shadow-lg shadow-sm `}
                   type="submit"
+                  disabled={Object.values(BookingData).some((value) => !value)}
                 >
                   {loading ? <Spinner size={30} /> : "Submit"}
                 </button>
               </div>
               {showReceipt && (
                 <CheckoutModal
-                  toggleModal={handleCheckoutModal}
-                  setShowReceipt={setShowReceipt}
+                  open={handleCheckoutModal}
+                  onClose={closeCheckoutModal}
                   BookingData={BookingData}
                 />
               )}

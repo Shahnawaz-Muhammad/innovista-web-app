@@ -12,6 +12,7 @@ import { ProfileContext } from "../../../context/ProfileContext";
 import { apiUrl } from "../../../config";
 import { FaUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
+import ConfirmLogoutModal from "../ConfirmLogoutModal";
 
 const UserHeader = ({ user }) => {
   const { logout, isAuthenticated } = useContext(AuthContext);
@@ -20,6 +21,7 @@ const UserHeader = ({ user }) => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(location.pathname);
   const [showTabs, setShowTabs] = useState(false);
+  const [showConfirmLogout, setShowConfirmLogout] = useState(false);
 
   const [showDropDown, setShowDropDown] = useState(false);
 
@@ -111,9 +113,7 @@ const UserHeader = ({ user }) => {
   }, [user.email, selectedFile, setSelectedFile]);
 
   const handleLogout = () => {
-    // Perform logout logic (e.g., clear local storage, call API)
-    // If successful, call the logout function from the context
-    logout();
+    setShowConfirmLogout(true)
   };
   return (
     <div>
@@ -206,6 +206,7 @@ const UserHeader = ({ user }) => {
             </div>
           </div>
         </div>
+        {showConfirmLogout && <ConfirmLogoutModal setShowConfirmLogout={setShowConfirmLogout} logout={logout}/>}
       </div>
     </div>
   );
