@@ -133,16 +133,14 @@ const Register = () => {
         setShowRequiredFields(true);
         return;
       }
-    }
-    // else if (step === 2 || (onGoingStep && onGoingStep === 2 && step === 2)) {
-    //   if (userServiceConfiguration.selectedPlan === null) {
-    //     setShowRequiredFields(true);
-    //     return;
-    //   } else {
-    //     setShowRequiredFields(false);
-    //   }
-    // }
-    else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3)) {
+    } else if (step === 2 || (onGoingStep && onGoingStep === 2 && step === 2)) {
+      if (userServiceConfiguration.selectedPlan === null) {
+        setShowRequiredFields(true);
+        return;
+      } else {
+        setShowRequiredFields(false);
+      }
+    } else if (step === 3 || (onGoingStep && onGoingStep !== 3 && step === 3)) {
       if (userServiceConfiguration.selectedPlan.name === "Freelancer") {
         if (
           !userServiceConfiguration.freelanceInfo.dob ||
@@ -256,26 +254,27 @@ const Register = () => {
 
       // Check if selectedPlanData exists before attempting to send it
       if (selectedPlanData) {
-        await fetch(`${apiUrl}/signup`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(selectedPlanData),
-        })
-          .then((data) => {
-            // Handle the API response data here
-            setLoading(false);
-            setStep(5);
-          })
-          .catch((error) => {
-            // Handle errors here
-            console.error(
-              "There was a problem with the fetch operation:",
-              error
-            );
-            setLoading(false);
+        try {
+          const response = await fetch(`${apiUrl}/signup`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(selectedPlanData),
           });
+          console.log(selectedPlanData)
+          if (response.ok) {
+            setLoading(false);
+            setStep(5); // Move to the next step upon successful signup
+          } else {
+            // Handle error response from the API
+            throw new Error("Failed to sign up. Please try again later.");
+          }
+        } catch (error) {
+          console.error("Signup failed:", error);
+          setLoading(false);
+          // Display error message to the user
+        }
       }
     } else {
       nextStep();
