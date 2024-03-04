@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import conferenceRoomImg from "../../assets/images/conference-room.jpeg";
 import privateOfficeImg from "../../assets/images/private-office.jpeg";
 import dedicatedDeskImg from "../../assets/images/dedicated-desk.jpeg";
@@ -58,7 +58,7 @@ const ServiceDetails = () => {
           <div className="flex justify-center items-center flex-col ">
             <div className="w-full max-h-screen relative">
               <img
-                className="w-full h-[25rem] object-cover z-30 "
+                className="w-full h-[35rem] bg-cover z-30 "
                 src={serviceDetails.img}
                 alt=""
               />
@@ -68,7 +68,7 @@ const ServiceDetails = () => {
                 <div className="w-full max-w-screen-xl">
                   <div className="w-full  flex flex-col  gap-2 lg:gap-3 mx-auto px-4 md:px-8 xl:px-4 ">
                     <div className="text-4xl md:text-5xl  font-bold capitalize text-white flex flex-col gap-4  text-center md:text-start px-5 md:px-0 max-w-lg lg:max-w-2xl">
-                      <h2>{serviceDetails.title}</h2>
+                      <h2></h2>
                     </div>
                     <p className="text-orange uppercase">
                       Services /{" "}
@@ -87,9 +87,12 @@ const ServiceDetails = () => {
       <div className="w-full flex justify-center bg-[#f2f3f7] pb-10">
         <div className="max-w-screen-xl w-full pt-10 px-8 xl:px-0">
           <div className="flex flex-col gap-5">
-            <h1 className="text-4xl font-bold text-gray-600">
-              Conference Room
+          <div className="flex flex-col md:flex-row items-center md:justify-between">
+            <h1 className="text-4xl text-center font-bold text-gray-600">
+            {serviceDetails.title}
             </h1>
+            <Link to="/login" className="w-40 px-4 py-2 rounded-2xl text-center text-white bg-orange hover:bg-orangeDark font-bold text-2xl">Book Now</Link>
+            </div>
 
             <p className="text-textGray text-lg">
               {serviceDetails.description}
